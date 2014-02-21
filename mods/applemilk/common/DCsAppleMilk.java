@@ -256,6 +256,7 @@ public class DCsAppleMilk{
 	public static int modelMelonBomb;
 	public static int modelChocoPan;
 	public static int modelMakerNext;
+	public static int modelAutoMaker;
 	
 	//コンフィグファイル内で使う改行の記号
 	private final String BR = System.getProperty("line.separator");
@@ -836,6 +837,7 @@ public class DCsAppleMilk{
 		this.modelMelonBomb = proxy.getRenderID();
 		this.modelChocoPan = proxy.getRenderID();
 		this.modelMakerNext = proxy.getRenderID();
+		this.modelAutoMaker = proxy.getRenderID();
 		proxy.registerRenderers();
 	      
 	    //Registering OreDictionary  

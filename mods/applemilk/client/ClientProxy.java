@@ -44,7 +44,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.registerTileEntity(TilePanHandle.class, "TilePanHandle", new TileEntityPanHandleRenderer());
 		ClientRegistry.registerTileEntity(TileChocoPan.class, "TileChocoPan", new TileEntityChocoPanRenderer());
 		ClientRegistry.registerTileEntity(TileMakerNext.class, "TilemakerNext", new TileEntityMakerNextRenderer());
-		GameRegistry.registerTileEntity(TileAutoMaker.class, "TileAutoMaker");
+		ClientRegistry.registerTileEntity(TileAutoMaker.class, "TileAutoMaker", new TileEntityAutoMakerRenderer());
 	}
 
 	@Override
@@ -74,6 +74,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderKinoko());
 		RenderingRegistry.registerBlockHandler(new RenderChocoPan());
 		RenderingRegistry.registerBlockHandler(new RenderTeaMakerNext());
+		RenderingRegistry.registerBlockHandler(new RenderAutoMaker());
 		RenderingRegistry.registerEntityRenderingHandler(EntityMelonBomb.class, new RenderMelonBomb());
 	}
 	

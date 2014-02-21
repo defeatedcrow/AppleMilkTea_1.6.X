@@ -146,17 +146,17 @@ public class ContainerAutoMaker extends Container
 	}
 
 
-	public void writePacketData(DataOutputStream dos)
-	{
-		byte Mode = this.Mode;
-		
-		try
-		{
-            dos.writeByte(Mode);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+//	public void writePacketData(DataOutputStream dos)
+//	{
+//		byte sentMode = this.Mode;
+//		
+//		try
+//		{
+//            dos.writeByte(this.Mode);
+//		}
+//		catch (Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+//	}
 }

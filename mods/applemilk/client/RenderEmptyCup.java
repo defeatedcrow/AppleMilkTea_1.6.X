@@ -18,8 +18,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class RenderEmptyCup implements ISimpleBlockRenderingHandler{
 	
 	private Icon boxIcon;
-	
-	public static int modelCup = -1;
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID,

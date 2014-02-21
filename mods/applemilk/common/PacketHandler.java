@@ -398,7 +398,7 @@ public class PacketHandler implements IPacketHandler
     		ByteArrayOutputStream bos = new ByteArrayOutputStream();
             DataOutputStream dos = new DataOutputStream(bos);
 
-            byte Mode = (byte) container.getMode();
+            byte Mode = container.getMode();
 
             try
             {

@@ -5,6 +5,7 @@ import mods.applemilk.common.PacketHandler;
 import mods.applemilk.common.block.BlockAutoMaker;
 import mods.applemilk.handler.Util;
 import mods.applemilk.handler.recipe.TeaRecipe;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -20,7 +21,7 @@ public class TileAutoMaker extends TileEntity implements IInventory
     
     //モード切り替え
     private final String[] modeName = new String[] {"None", "AutoMode", "RSMode"};
-    private byte mode = 1;
+    private byte mode = 0;
     
     //下にあるTileMakerNext
     private TileMakerNext tileNext;
@@ -130,39 +131,20 @@ public class TileAutoMaker extends TileEntity implements IInventory
     		{
     			int id = this.isTeaMaterial(this.getItemstack());
     			
-    			if (this.mode == 1 && id > 1)
+    			if (this.mode != 0 && id > 1)
     			{
-    				this.tileNext.setID((byte)id);
-    				this.tileNext.setRemainByte((byte)3);
-    				boolean flag = this.reduceItemStack();
+    				
+    				this.worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.pop", 0.4F, 1.8F);
+        			this.updateBlock();
+        			
+        			boolean flag = this.reduceItemStack();
+        			this.onInventoryChanged();
+    				this.tileNext.onInventoryChanged();
     				
     				if(flag)
     				{
     					this.setCoolTime(8);
     				}
-    				
-    				this.onInventoryChanged();
-    				this.tileNext.onInventoryChanged();
-    				this.worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.pop", 0.4F, 1.8F);
-        			this.updateBlock();
-    				
-    				return flag;
-    			}
-    			else if (this.mode == 2 && BlockAutoMaker.getIsBlockNotPoweredFromMetadata(this.blockMetadata))
-    			{
-    				this.tileNext.setID((byte)id);
-    				this.tileNext.setRemainByte((byte)3);
-    				boolean flag = this.reduceItemStack();
-
-    				if(flag)
-    				{
-    					this.setCoolTime(8);
-    				}
-    				this.onInventoryChanged();
-    				this.tileNext.onInventoryChanged();
-    				this.tileNext.updateEntity();
-    				this.worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.pop", 0.4F, 1.8F);
-        			this.updateBlock();
     				
     				return flag;
     			}
@@ -184,14 +166,10 @@ public class TileAutoMaker extends TileEntity implements IInventory
     
     private void updateBlock() {
 		
-    	int meta = this.worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord);
-    	this.worldObj.markBlockForRenderUpdate(xCoord, yCoord - 1, zCoord);
-    	
-    	if (!this.worldObj.isRemote)
-    	{
-    		this.worldObj.setBlockMetadataWithNotify(xCoord, yCoord - 1, zCoord, meta, 3);
-    	}
-		
+    	int under = this.worldObj.getBlockId(xCoord, yCoord -1, zCoord);
+    	this.worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
+    	this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID);
+    	this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, under);
 	}
 
 	private boolean reduceItemStack()

@@ -97,7 +97,7 @@ public class BlockEggBasket extends BlockContainer{
 		if (!par1World.isRemote && par1World.rand.nextInt(2) == 0)
 		{
 			int meta = par1World.getBlockMetadata(par2, par3, par4);
-			if (meta == 2)
+			if ((meta & 1) == 0)
 			{
 				this.setEggsBoiled(par1World, par2, par3, par4, meta);
 			}
