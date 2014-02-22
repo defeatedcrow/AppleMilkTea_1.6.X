@@ -308,7 +308,7 @@ public class DCsRecipeRegister {
 		 
 		 GameRegistry.addRecipe(
 				 new ShapedOreRecipe(
-	    		  new ItemStack(DCsAppleMilk.teaMakerNext, 1, 0),
+	    		  new ItemStack(DCsAppleMilk.autoMaker, 1),
 	    		  new Object[]{
 						 "ZYZ",
 						 "ZXZ",
@@ -318,7 +318,7 @@ public class DCsRecipeRegister {
 		 
 		 GameRegistry.addRecipe(
 				 new ShapedOreRecipe(
-	    		  new ItemStack(DCsAppleMilk.teaMakerNext, 1, 0),
+	    		  new ItemStack(DCsAppleMilk.autoMaker, 1),
 	    		  new Object[]{
 						 "XYX",
 						 "ZYZ",
