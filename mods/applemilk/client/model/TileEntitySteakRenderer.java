@@ -23,7 +23,7 @@ public class TileEntitySteakRenderer extends TileEntitySpecialRenderer
 
     public void renderTileEntitySteakAt(TileSteak par1TileSteak, double par2, double par4, double par6, float par8)
     {
-        this.setRotation(par1TileSteak, (float)par2, (float)par4, (float)par6, par1TileSteak.getDirectionByte(), (byte)par1TileSteak.blockMetadata);
+        this.setRotation(par1TileSteak, (float)par2, (float)par4, (float)par6, par1TileSteak.getDirectionByte());
     }
 
     /**
@@ -35,10 +35,10 @@ public class TileEntitySteakRenderer extends TileEntitySpecialRenderer
         steakRenderer = this;
     }
 
-    public void setRotation(TileSteak par0Tile, float par1, float par2, float par3, byte par4, byte par5)
+    public void setRotation(TileSteak par0Tile, float par1, float par2, float par3, byte par4)
     {
         ModelSteak model = this.steakModel;
-        byte l = par5;
+        byte l = (byte)par0Tile.getBlockMetadata();
         byte k = par4;
         float j = 0;
         if (k == 0) j = 180.0F;
