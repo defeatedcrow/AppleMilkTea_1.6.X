@@ -86,7 +86,7 @@ public class TileAutoMaker extends TileEntity implements IInventory
     
     public boolean isAutoMode()
     {
-    	return (this.mode == 1);
+    	return this.mode == 1 ? true : false;
     }
     
 
@@ -109,7 +109,7 @@ public class TileAutoMaker extends TileEntity implements IInventory
     //update tileentity
     public void updateEntity()
     {
-    	if (this.worldObj != null && !this.worldObj.isRemote)
+    	if (this.worldObj != null)
         {
             --this.coolTime;
 
@@ -127,24 +127,22 @@ public class TileAutoMaker extends TileEntity implements IInventory
     {
     	if (this.worldObj != null && !this.worldObj.isRemote)
         {
-    		if (this.holdItemStacks[0] != null && !this.isCoolTime() && this.mode != 0 && this.isMakerEmpty())
+    		if (this.holdItemStacks[0] != null && !this.isCoolTime() && this.mode > 0 && this.isMakerEmpty())
     		{
     			int id = this.isTeaMaterial(this.getItemstack());
     			
-    			if (this.mode != 0 && id > 1)
+    			if (this.isAutoMode() && id > 1)
     			{
+    				boolean flag = false;
     				
-    				this.worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.pop", 0.4F, 1.8F);
-        			this.updateBlock();
         			
-        			boolean flag = this.reduceItemStack();
-        			this.onInventoryChanged();
-    				this.tileNext.onInventoryChanged();
-    				
-    				if(flag)
-    				{
-    					this.setCoolTime(8);
-    				}
+        			if (this.updateBlock() && this.reduceItemStack())
+        			{
+        				flag = true;
+            			this.onInventoryChanged();
+        				this.tileNext.onInventoryChanged();
+        				this.setCoolTime(8);
+        			}
     				
     				return flag;
     			}
@@ -164,31 +162,47 @@ public class TileAutoMaker extends TileEntity implements IInventory
     	}
 	}
     
-    private void updateBlock() {
-		
-    	int under = this.worldObj.getBlockId(xCoord, yCoord -1, zCoord);
-    	this.worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
-    	this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID);
-    	this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, under);
+    private boolean updateBlock() {
+    	
+		boolean flag = false;
+		int under = this.worldObj.getBlockId(xCoord, yCoord -1, zCoord);
+    	if (this.worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3))
+    	{
+    		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID);
+        	this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, under);
+        	flag = true;
+    	}
+    	
+    	return flag;
+    	
 	}
 
-	private boolean reduceItemStack()
+	public boolean reduceItemStack()
     {
     	boolean flag = false;
-    	int stackSize = this.getItemstack().stackSize;
-    	if (stackSize > 1)
+    	int stackSize = 0;
+    	if (this.getItemstack() == null)
     	{
-    		ItemStack copy = this.getItemstack().copy();
-    		stackSize--;
-    		copy.stackSize -= 1;
-    		this.setInventorySlotContents(0, copy);
-    		flag = true;
+    		flag = false;
     	}
     	else
     	{
-    		this.setInventorySlotContents(0,(ItemStack)null);
-    		flag =  true;
+    		stackSize = this.getItemstack().stackSize;
+        	if (stackSize > 1)
+        	{
+        		ItemStack copy = this.getItemstack().copy();
+        		stackSize--;
+        		copy.stackSize -= 1;
+        		this.setInventorySlotContents(0, copy);
+        		flag = true;
+        	}
+        	else
+        	{
+        		this.setInventorySlotContents(0,(ItemStack)null);
+        		flag =  true;
+        	}
     	}
+    	
     	return flag;
     }
     

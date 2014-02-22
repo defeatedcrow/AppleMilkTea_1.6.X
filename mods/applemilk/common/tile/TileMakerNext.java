@@ -60,9 +60,24 @@ public class TileMakerNext extends TileEntity
         return this.contentsID;
     }
     
+//    public boolean receiveClientEvent(int par1, int par2)
+//    {
+//        if (par1 == 1)
+//        {
+//            this.contentsID = (byte)par2;
+//            return true;
+//        }
+//        else
+//        {
+//            return super.receiveClientEvent(par1, par2);
+//        }
+//    }
+    
     public void setID(byte par1)
     {
     	this.contentsID = par1;
+//    	this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, 1, par1);
+//        this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID);
     }
     
     public boolean getMilked()

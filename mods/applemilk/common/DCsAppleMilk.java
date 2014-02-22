@@ -161,10 +161,10 @@ public class DCsAppleMilk{
 	public int blockIdChocoPan = 586;
 	public int blockIdChocoDC = 585;
 	public int blockIdWipeBox = 584;
-	public int blockIdMakerNext = 583;
-	public int blockIdAutoMaker = 582;
-	public int blockIdTeppanNext = 581;
-	public int blockIdIceMaker = 580;
+	public int blockIdMakerNext = 580;
+	public int blockIdAutoMaker = 581;
+	public int blockIdTeppanNext = 582;
+	public int blockIdIceMaker = 583;
 	
 	public int itemIdBapple = 6000;
 	public int itemIdAppleTart = 6001;
@@ -212,6 +212,7 @@ public class DCsAppleMilk{
 	public static boolean useOldItems = false;
 	public static boolean melonBreakBlock = false;
 	public static boolean safetyChocolate = false;
+	public static boolean allowInfinityWipes = true;
 	
 	public static boolean useIC2Items = true;
 	public static boolean SuccessLoadIC2 = false;
@@ -374,6 +375,8 @@ public class DCsAppleMilk{
 					"Disable destruction by explosion of melon.");
 			Property safetyChoco = cfg.get("setting", "Safety Chocolate Gift", safetyChocolate,
 					"Disable explosion of the heartfelt chocolate gift.");
+			Property infinityWipes = cfg.get("setting", "Allow Infinity Wipes", allowInfinityWipes,
+					"Allow the WipeBox generate a paper infinitely.");
 			
 			Property IC2ver = cfg.get("plugin setting", "Use version of IC2", IC2exp,
 					"Please tell me version of IC2 you use. If you use IC2_exp, set true. If you use IC2_lf, set false.");
@@ -538,6 +541,10 @@ public class DCsAppleMilk{
 		melonBomb = (new BlockMelonBomb(blockIdMelonBomb)).
 				setUnlocalizedName("defeatedcrow.compressedMelon").
 				setCreativeTab(applemilk);
+		
+//		wipeBox = (new BlockWipeBox(blockIdWipeBox)).
+//				setUnlocalizedName("defeatedcrow.wopeBox").
+//				setCreativeTab(applemilk);
 		
 		//tea
 		teaMaker = (new BlockTeaMaker(blockIdMaker)).

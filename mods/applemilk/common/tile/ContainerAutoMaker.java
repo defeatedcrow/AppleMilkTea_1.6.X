@@ -5,9 +5,12 @@ import java.io.DataOutputStream;
 import com.google.common.io.ByteArrayDataInput;
 
 import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.common.PacketHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.Container;
@@ -18,14 +21,13 @@ import net.minecraft.world.World;
 
 public class ContainerAutoMaker extends Container
 {
-    private final IInventory inventory;
+    private final TileAutoMaker inventory;
 	private World world;
 	private int xCoord;
 	private int yCoord;
 	private int zCoord;
 	private byte Mode = 0;
 	private EntityPlayer player;
-	public TileAutoMaker target;
 
     public ContainerAutoMaker(InventoryPlayer par1InventoryPlayer, TileAutoMaker tile)
     {
@@ -37,7 +39,6 @@ public class ContainerAutoMaker extends Container
         this.yCoord = tile.yCoord;
         this.zCoord = tile.zCoord;
         this.Mode = tile.getMode();
-        this.target = tile;
         
         byte b0 = 84;
         int i;
@@ -60,15 +61,44 @@ public class ContainerAutoMaker extends Container
             addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 58 + b0));
         }
     }
+    
+    public void addCraftingToCrafters(ICrafting par1ICrafting)
+	{
+		super.addCraftingToCrafters(par1ICrafting);
+		par1ICrafting.sendProgressBarUpdate(this, 0, this.inventory.getMode());
+	}
+ 
+	// 更新を送る
+	public void detectAndSendChanges()
+	{
+		super.detectAndSendChanges();
+ 
+		for (int i = 0; i < this.crafters.size(); ++i)
+		{
+			ICrafting icrafting = (ICrafting)this.crafters.get(i);
+ 
+			if (this.Mode != this.inventory.getMode())
+			{
+				icrafting.sendProgressBarUpdate(this, 0, this.inventory.getMode());
+			}
+		}
+ 
+		this.Mode = this.inventory.getMode();
+	}
+ 
+	// 更新する
+	@SideOnly(Side.CLIENT)
+	public void updateProgressBar(int par1, int par2)
+	{
+		if (par1 == 0)
+		{
+			this.inventory.setMode((byte)par2);
+		}
+	}
 
 	public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {
         return this.inventory.isUseableByPlayer(par1EntityPlayer);
-    }
-	
-	public void detectAndSendChanges()
-    {
-        super.detectAndSendChanges();
     }
 
     /**
@@ -118,45 +148,4 @@ public class ContainerAutoMaker extends Container
         this.inventory.closeChest();
     }
     
-	public void onButtonPushed(int buttonId)
-	{
-		this.Mode = (byte)buttonId;
-		this.target.setMode((byte)this.Mode);
-		this.player.addChatMessage("[AppleMilk] Now Mode is " + this.target.getMode());
-		PacketDispatcher.sendPacketToServer(PacketHandler.getModePacket(this));
-	}
-
-	// custom packet
-	public void readPacketData(ByteArrayDataInput data)
-	{
-		try
-		{
-			this.Mode = data.readByte();
-			this.target.setMode(this.Mode);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	public byte getMode()
-	{
-		return this.Mode;
-	}
-
-
-//	public void writePacketData(DataOutputStream dos)
-//	{
-//		byte sentMode = this.Mode;
-//		
-//		try
-//		{
-//            dos.writeByte(this.Mode);
-//		}
-//		catch (Exception e)
-//		{
-//			e.printStackTrace();
-//		}
-//	}
 }

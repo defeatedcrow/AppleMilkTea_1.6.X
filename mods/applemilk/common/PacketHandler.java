@@ -193,23 +193,6 @@ public class PacketHandler implements IPacketHandler
     				
     			}
             }
-            else if (packet.channel.equals("DCsAutoMode"))
-            {
-            	ByteArrayDataInput bis = ByteStreams.newDataInput(packet.data);
-            	
-    			try
-    			{
-    				Container container = ((EntityPlayerMP)player).openContainer;
-    				if(container != null && container instanceof ContainerAutoMaker)
-    				{
-    					((ContainerAutoMaker)container).readPacketData(bis);
-    				}
-    			}
-    			catch (Exception e)
-    			{
-    				
-    			}
-            }
         }
 
         public static Packet getPacket(TileTeppann tileTeppann)
@@ -392,30 +375,5 @@ public class PacketHandler implements IPacketHandler
 
                 return packet;
         }
-        
-    	public static Packet getModePacket(ContainerAutoMaker container)
-    	{
-    		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            DataOutputStream dos = new DataOutputStream(bos);
-
-            byte Mode = container.getMode();
-
-            try
-            {
-                    dos.writeByte(Mode);
-            }
-            catch(Exception e)
-            {
-                    e.printStackTrace();
-            }
-
-    		Packet250CustomPayload packet = new Packet250CustomPayload();
-    		packet.channel = "DCsAutoMode";
-    		packet.data = bos.toByteArray();
-    		packet.length = bos.size();
-    		packet.isChunkDataPacket = true;
-
-    		return packet;
-    	}
         
 }

@@ -28,8 +28,10 @@ import mods.applemilk.handler.recipe.TeaRecipe;
 public class BlockAutoMaker extends BlockContainer{
 	
 	private final Random rand = new Random();
+	private static final String[] modeString = new String[] {"Disabled Automated TeaMaker.", "Enabled Auto mode.", "Enabled Manual mode.", "Enabled RS mode."};
 	
 	public static boolean RSactive = false;
+	
 	
 	public BlockAutoMaker (int blockid)
 	{
@@ -37,7 +39,6 @@ public class BlockAutoMaker extends BlockContainer{
 		this.setStepSound(Block.soundWoodFootstep);
 		this.setHardness(2.0F);
 		this.setResistance(5.0F);
-		this.setBlockBounds(0.3F, 0.3F, 0.0F, 0.7F, 0.5F, 0.7F);
 		this.setTickRandomly(true);
 	}
 	
@@ -46,16 +47,6 @@ public class BlockAutoMaker extends BlockContainer{
 	{
 		return 0;
 	}
-	
-	public int getMobilityFlag()
-    {
-        return 1;
-    }
-	
-	public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
-    {
-        return super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, 1 - par5);
-    }
 	
 	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
     {
@@ -72,11 +63,16 @@ public class BlockAutoMaker extends BlockContainer{
 	public void onBlockAdded(World par1World, int par2, int par3, int par4)
     {
         super.onBlockAdded(par1World, par2, par3, par4);
-        this.updateMetadata(par1World, par2, par3, par4);
+        TileAutoMaker tile = this.getAutoMaker(par1World, par2, par3, par4);
+        if (tile != null)
+        {
+        	tile.setMode((byte)0);
+        }
     }
 	
 	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
     {
+		super.onNeighborBlockChange(par1World, par2, par3, par4, par5);
 		this.updateMetadata(par1World, par2, par3, par4);
     }
 	
@@ -85,7 +81,7 @@ public class BlockAutoMaker extends BlockContainer{
         int l = par1World.getBlockMetadata(par2, par3, par4);
 		this.RSactive = par1World.isBlockIndirectlyGettingPowered(par2, par3, par4);
 		
-		if (l > 0)
+		if (l > 0 || this.RSactive)
 		{
 			TileAutoMaker tile = this.getAutoMaker(par1World, par2, par3, par4);
 			TileMakerNext target = (TileMakerNext) par1World.getBlockTileEntity(par2, par3 - 1, par4);
@@ -95,6 +91,10 @@ public class BlockAutoMaker extends BlockContainer{
 				ItemStack items = tile.getItemstack();
 				int mode = tile.getMode();
 				int makerID = target.getID();
+				int underMeta = par1World.getBlockMetadata(par2, par3 - 1, par4);
+				int nextMeta = 0;
+				if (underMeta == 0) nextMeta = 2;
+				
 				if (items != null)
 				{
 					int itemID = TeaRecipe.getID(items);
@@ -105,19 +105,24 @@ public class BlockAutoMaker extends BlockContainer{
 							target.setID((byte)(itemID));
 							target.setRemainByte((byte)(3 + par1World.rand.nextInt(3)));
 							par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
-							par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, target.blockMetadata, 3);
+							par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, nextMeta, 3);
+							par1World.playSoundEffect(par2, par3, par4, "random.pop", 0.4F, 1.8F);
 						}
-						else if (mode == 2 && this.RSactive)
+						else if (mode == 3 && this.RSactive)
 						{
 							target.setID((byte)(itemID));
 							target.setRemainByte((byte)(3 + par1World.rand.nextInt(3)));
 							par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
-							par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, target.blockMetadata, 3);
+							par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, nextMeta, 3);
+							par1World.playSoundEffect(par2, par3, par4, "random.pop", 0.4F, 1.8F);
 						}
 						else
 						{
 							
 						}
+						
+						par1World.notifyBlocksOfNeighborChange(par2, par3, par4, this.blockID);
+						par1World.notifyBlocksOfNeighborChange(par2, par3 -1, par4, target.getBlockType().blockID);
 					}
 					
 				}
@@ -140,10 +145,74 @@ public class BlockAutoMaker extends BlockContainer{
         else
         {
             TileAutoMaker tile = getAutoMaker(par1World, par2, par3, par4);
+            ItemStack item = par5EntityPlayer.inventory.getCurrentItem();
 
             if (tile != null)
             {
-            	par5EntityPlayer.openGui(DCsAppleMilk.instance, DCsAppleMilk.instance.guiIdAutoMaker, par1World, par2, par3, par4);
+            	if (item == null)
+            	{
+            		if (par5EntityPlayer.isSneaking())
+            		{
+            			byte i = tile.getMode();
+            			
+            			
+            			if (i < 2)
+            			{
+            				++i;
+            				tile.setMode(i);
+            				String s = "[AppleMilk] " + this.modeString[i];
+            				par5EntityPlayer.addChatMessage(s);
+            			}
+            			else
+            			{
+            				tile.setMode((byte)0);
+            				String s = "[AppleMilk] " + this.modeString[0];
+            				par5EntityPlayer.addChatMessage(s);
+            			}
+            		}
+            		else
+            		{
+            			par5EntityPlayer.openGui(DCsAppleMilk.instance, DCsAppleMilk.instance.guiIdAutoMaker, par1World, par2, par3, par4);
+            		}
+            		
+            	}
+            	else
+            	{
+            		if (tile.getMode() == 2)
+            		{
+            			TileMakerNext target = (TileMakerNext) par1World.getBlockTileEntity(par2, par3 - 1, par4);
+            			
+            			if (target != null)
+            			{
+            				ItemStack items = tile.getItemstack();
+            				int makerID = target.getID();
+            				int underMeta = par1World.getBlockMetadata(par2, par3 - 1, par4);
+            				int nextMeta = 0;
+            				if (underMeta == 0) nextMeta = 2;
+            				
+            				if (items != null)
+            				{
+            					int itemID = TeaRecipe.getID(items);
+            					tile.reduceItemStack();
+            					tile.onInventoryChanged();
+            					
+            					if (itemID > 0)
+            					{
+            						target.setID((byte)(itemID));
+        							target.setRemainByte((byte)(3 + par1World.rand.nextInt(3)));
+        							par1World.setBlockMetadataWithNotify(par2, par3, par4, nextMeta, 3);
+        							par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, 0, 3);
+        							
+        							par1World.playSoundEffect(par2, par3, par4, "random.pop", 0.4F, 1.8F);
+        							par1World.notifyBlocksOfNeighborChange(par2, par3, par4, this.blockID);
+        							par1World.notifyBlocksOfNeighborChange(par2, par3 -1, par4, target.getBlockType().blockID);
+            					}
+            					
+            				}
+            			}
+            		}
+            		
+            	}
             }
 
             return true;
@@ -208,26 +277,6 @@ public class BlockAutoMaker extends BlockContainer{
         super.breakBlock(par1World, par2, par3, par4, par5, par6);
     }
 	
-	//RS
-	private void setNextMaker(World par1World, int par2, int par3, int par4, int ID)
-    {
-		TileAutoMaker tile = this.getAutoMaker(par1World, par2, par3, par4);
-        TileMakerNext target = (TileMakerNext) par1World.getBlockTileEntity(par2, par3 - 1, par4);
-        
-		if (tile != null && target != null)
-        {
-        	boolean flag = false;
-        	int setID = ID;
-			int targetID = target.getID();
-			
-			if (targetID == 0 && setID > 0)
-			{
-				target.setID((byte)setID);
-				target.setRemainByte((byte)(2 + par1World.rand.nextInt(3)));
-			}
-        }
-    }
-	
 	public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
         if (!par1World.isRemote)
@@ -277,7 +326,7 @@ public class BlockAutoMaker extends BlockContainer{
         double d3 = 0.0199999988079071D;
         double d4 = 0.07000001072883606D;
 
-        if (this.RSactive) par1World.spawnParticle("flame", d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        if (l > 0) par1World.spawnParticle("flame", d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 	
 	@Override
