@@ -1,8 +1,10 @@
 package mods.applemilk.common;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.applemilk.*;
+import mods.applemilk.common.tile.TileAutoMaker;
 
 public class DCsLangRegister {
 	
@@ -132,6 +134,17 @@ public class DCsLangRegister {
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.chopsticksBox,1,4), "Chopsticks Holder");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.chopsticksBox,1,4), "ja_JP", "箸立て");
 		
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wipeBox,1,0), "Wipe Box");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wipeBox,1,0), "ja_JP", "ティッシュ箱");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wipeBox,1,1), "KixWipe");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wipeBox,1,1), "ja_JP", "キムワイプ");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wipeBox,1,2), "Opened Wipe Box");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wipeBox,1,2), "ja_JP", "開封済みティッシュ箱");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wipeBox,1,3), "Opened KixWipe");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wipeBox,1,3), "ja_JP", "開封済みキムワイプ");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wipeBox,1,4), "Infinity KixWipe");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wipeBox,1,4), "ja_JP", "無限キムワイプ");
+		
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.chopsticks,1,0), "Chopsticks");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.chopsticks,1,0), "ja_JP", "箸");
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.chopsticks,1,1), "Wood Spoon");
@@ -216,6 +229,9 @@ public class DCsLangRegister {
 		
 		LanguageRegistry.addName(DCsAppleMilk.teaMakerNext, "Tea Maker");
 		LanguageRegistry.instance().addNameForObject(DCsAppleMilk.teaMakerNext, "ja_JP", "ティーメーカー");
+		
+		LanguageRegistry.addName(DCsAppleMilk.autoMaker, "Auto Tea Attachmant");
+		LanguageRegistry.instance().addNameForObject(DCsAppleMilk.autoMaker, "ja_JP", "ティーメーカー・アタッチメント");
 		
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.mincedFoods, 1, 0), "Minced Mushrooms");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.mincedFoods, 1, 0), "ja_JP", "キノコシチューの材料");

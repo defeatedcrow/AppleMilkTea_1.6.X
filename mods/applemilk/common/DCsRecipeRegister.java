@@ -259,6 +259,28 @@ public class DCsRecipeRegister {
 	    			  Character.valueOf('Y'), new ItemStack(Item.diamond, 1),
 	    			  Character.valueOf('X'), "foodFruitsChocolate"}));
 		 
+		 GameRegistry.addRecipe(
+				 new ItemStack(DCsAppleMilk.wipeBox,1,0),
+				 new Object[]{
+					 "UUU",
+					 "UUU",
+					 "UUU",
+					 Character.valueOf('U'), Item.paper
+				 });
+		 
+		 GameRegistry.addShapelessRecipe(
+				 new ItemStack(Item.paper, 9),
+				 new ItemStack(DCsAppleMilk.wipeBox, 1, 0));
+		 
+		 GameRegistry.addRecipe(
+				 new ItemStack(DCsAppleMilk.wipeBox,1,1),
+				 new Object[]{
+					 "UUU",
+					 "UUU",
+					 "UUU",
+					 Character.valueOf('U'), new ItemStack(DCsAppleMilk.wipeBox, 1, 0)
+				 });
+		 
 		 //blocks
 		 GameRegistry.addRecipe(
 				 new ShapedOreRecipe(
@@ -288,6 +310,16 @@ public class DCsRecipeRegister {
 				 new ShapedOreRecipe(
 	    		  new ItemStack(DCsAppleMilk.teaMakerNext, 1, 0),
 	    		  new Object[]{
+						 "ZYZ",
+						 "ZXZ",
+						 Character.valueOf('Z'), new ItemStack(Block.stainedClay, 1, 0),
+						 Character.valueOf('Y'), new ItemStack(Item.redstoneRepeater, 1),
+						 Character.valueOf('Z'), new ItemStack(Block.dispenser, 1)}));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapedOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.teaMakerNext, 1, 0),
+	    		  new Object[]{
 						 "XYX",
 						 "ZYZ",
 						 "XWX",
@@ -295,6 +327,16 @@ public class DCsRecipeRegister {
 						 Character.valueOf('Y'), new ItemStack(Item.bucketWater, 1),
 						 Character.valueOf('Z'), new ItemStack(Block.glass, 1),
 						 Character.valueOf('W'), new ItemStack(Item.blazeRod, 1)}));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapedOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.teaMakerNext, 1, 0),
+	    		  new Object[]{
+						 "ZYZ",
+						 "ZXZ",
+						 Character.valueOf('Z'), "ingotSilver",
+						 Character.valueOf('Y'), new ItemStack(Item.redstoneRepeater, 1),
+						 Character.valueOf('Z'), new ItemStack(Block.dispenser, 1)}));
 		 
 		 GameRegistry.addRecipe(
 				 new ItemStack(DCsAppleMilk.emptyPan, 1),

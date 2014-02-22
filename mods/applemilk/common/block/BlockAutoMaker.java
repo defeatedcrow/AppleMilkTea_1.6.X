@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.src.*;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -48,16 +49,28 @@ public class BlockAutoMaker extends BlockContainer{
 		return 0;
 	}
 	
-	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
     {
-        this.LampBoundingBox(par1IBlockAccess.getBlockMetadata(par2, par3, par4));
+		this.setBlockBoundsBasedOnState(par1World, par2, par3, par4);
+        return super.getCollisionBoundingBoxFromPool(par1World, par2, par3, par4);
     }
 	
-	public void LampBoundingBox (int par1)
+	@SideOnly(Side.CLIENT)
+	public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
+    {
+		this.setBlockBoundsBasedOnState(par1World, par2, par3, par4);
+        return super.getSelectedBoundingBoxFromPool(par1World, par2, par3, par4);
+    }
+	
+	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
+    {
+        this.thisBoundingBox(par1IBlockAccess.getBlockMetadata(par2, par3, par4));
+    }
+	
+	public void thisBoundingBox (int par1)
 	{
 		float f = 0.25F;
-		this.setBlockBounds(0.0F + f, 0.0F, 0.0F + f, 1.0F - f, 0.5F, 1.0F - f);
-		
+		this.setBlockBounds(0.0F + f, 0.0F, 0.0F + f, 1.0F - f, 0.3F, 1.0F - f);
 	}
 	
 	public void onBlockAdded(World par1World, int par2, int par3, int par4)
@@ -277,12 +290,18 @@ public class BlockAutoMaker extends BlockContainer{
         super.breakBlock(par1World, par2, par3, par4, par5, par6);
     }
 	
+	//for RS
 	public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
         if (!par1World.isRemote)
         {
             this.updateMetadata(par1World, par2, par3, par4);
         }
+    }
+	
+	public boolean canProvidePower()
+    {
+        return false;
     }
 	
 	public boolean hasComparatorInputOverride()

@@ -258,6 +258,7 @@ public class DCsAppleMilk{
 	public static int modelChocoPan;
 	public static int modelMakerNext;
 	public static int modelAutoMaker;
+	public static int modelWipe;
 	
 	//コンフィグファイル内で使う改行の記号
 	private final String BR = System.getProperty("line.separator");
@@ -542,9 +543,9 @@ public class DCsAppleMilk{
 				setUnlocalizedName("defeatedcrow.compressedMelon").
 				setCreativeTab(applemilk);
 		
-//		wipeBox = (new BlockWipeBox(blockIdWipeBox)).
-//				setUnlocalizedName("defeatedcrow.wopeBox").
-//				setCreativeTab(applemilk);
+		wipeBox = (new BlockWipeBox(blockIdWipeBox)).
+				setUnlocalizedName("defeatedcrow.wipeBox").
+				setCreativeTab(applemilk);
 		
 		//tea
 		teaMaker = (new BlockTeaMaker(blockIdMaker)).
@@ -765,6 +766,7 @@ public class DCsAppleMilk{
 		GameRegistry.registerBlock(chocoBlock, ItemChocoGift.class,  "defeatedcrow.chocolateGift");
 		GameRegistry.registerBlock(teaMakerNext, "defeatedcrow.teaMakerNext");
 		GameRegistry.registerBlock(autoMaker, "defeatedcrow.autoMaker");
+		GameRegistry.registerBlock(wipeBox, ItemWipeBox.class, "defeatedcrow.wipeBox");
 		
 		//クラフトで耐久が減るアイテムの登録
 		GameRegistry.registerCraftingHandler(DCgrater);
@@ -845,6 +847,7 @@ public class DCsAppleMilk{
 		this.modelChocoPan = proxy.getRenderID();
 		this.modelMakerNext = proxy.getRenderID();
 		this.modelAutoMaker = proxy.getRenderID();
+		this.modelWipe = proxy.getRenderID();
 		proxy.registerRenderers();
 	      
 	    //Registering OreDictionary  
