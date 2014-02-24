@@ -3,7 +3,7 @@ package mods.applemilk.client.model;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.common.tile.TileMakerNext;
-import mods.applemilk.handler.recipe.TeaRecipe;
+import mods.applemilk.api.TeaRecipe;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

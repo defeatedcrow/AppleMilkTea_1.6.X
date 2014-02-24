@@ -12,10 +12,10 @@ import mods.applemilk.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCondensedMilk extends ItemFood {
+public class ItemIcyCrystal extends Item {
 	
-	public ItemCondensedMilk (int itemId,int reco, boolean flag){
-		super (itemId, reco, flag);
+	public ItemIcyCrystal (int itemId){
+		super (itemId);
 		this.setMaxStackSize(64);
 	}
 	
@@ -23,7 +23,7 @@ public class ItemCondensedMilk extends ItemFood {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister){
-	this.itemIcon = par1IconRegister.registerIcon("applemilk:condensedmilk");
+	this.itemIcon = par1IconRegister.registerIcon("applemilk:icycrystal");
 	}
 
 }

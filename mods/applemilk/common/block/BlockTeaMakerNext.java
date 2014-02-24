@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileMakerNext;
 import mods.applemilk.handler.LoadIC2Handler;
-import mods.applemilk.handler.recipe.TeaRecipe;
+import mods.applemilk.api.TeaRecipe;
 
 public class BlockTeaMakerNext extends BlockContainer{
 	

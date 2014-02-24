@@ -6,6 +6,7 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,15 +16,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.src.*;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import mods.applemilk.common.*;
+import mods.applemilk.common.tile.TileIceCream;
 
-public class BlockBowl extends Block{
+public class BlockIceCream extends BlockContainer{
 	
-	private static final String[] contents = new String[] {"_milk", "_tea_milk", "_soup", "_zousui", "_kayaku", "_soi", "_juice", "_BLTsoup"};
+	private static final String[] contents = new String[] {"_milk", "_tea_milk", "_greentea_milk", "_cocoa", "_cocoa_milk", "_juice", "_lemon"};
 	
 	@SideOnly(Side.CLIENT)
     private Icon boxTex;
@@ -31,10 +34,10 @@ public class BlockBowl extends Block{
     private Icon[] contentsTex;
 	
 	
-	public BlockBowl (int blockid)
+	public BlockIceCream (int blockid)
 	{
-		super(blockid, Material.circuits);
-		this.setStepSound(Block.soundStoneFootstep);
+		super(blockid, Material.glass);
+		this.setStepSound(Block.soundGlassFootstep);
 		this.setHardness(0.2F);
 		this.setResistance(1.0F);
 		this.setTickRandomly(true);
@@ -48,9 +51,9 @@ public class BlockBowl extends Block{
         
         if (itemstack == null)
         {
-        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.bowlBlock,1,currentMeta)))
+        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(this,1,currentMeta)))
         	{
-        		par5EntityPlayer.entityDropItem(new ItemStack(DCsAppleMilk.bowlBlock,1,currentMeta), 1);
+        		par5EntityPlayer.entityDropItem(new ItemStack(this,1,currentMeta), 1);
         	}
     		
     		par1World.setBlockToAir(par2, par3, par4);
@@ -59,13 +62,10 @@ public class BlockBowl extends Block{
         }
         else if (itemstack.itemID == DCsAppleMilk.chopsticks.itemID)
         {
-        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.bowlEmpty,1)))
-        	{
-        		par5EntityPlayer.entityDropItem(new ItemStack(Item.bowlEmpty,1), 1);
-        	}
         	if (!par1World.isRemote)
     		{
-    			par5EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 2, 2));
+        		par5EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 1, 2));
+    			par5EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 600, 0));
     		}
         	
         	par1World.setBlockToAir(par2, par3, par4);
@@ -74,9 +74,9 @@ public class BlockBowl extends Block{
         }
         else if (itemstack.itemID == this.blockID)
         {
-        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.bowlBlock,1,currentMeta)))
+        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(this,1,currentMeta)))
         	{
-        		par5EntityPlayer.entityDropItem(new ItemStack(DCsAppleMilk.bowlBlock,1,currentMeta), 1);
+        		par5EntityPlayer.entityDropItem(new ItemStack(this,1,currentMeta), 1);
         	}
     		
     		par1World.setBlockToAir(par2, par3, par4);
@@ -107,7 +107,7 @@ public class BlockBowl extends Block{
 	@Override
 	public int getRenderType()
 	{
-		return DCsAppleMilk.modelBowl;
+		return DCsAppleMilk.modelIceCream;
 	}
 	
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
@@ -130,29 +130,28 @@ public class BlockBowl extends Block{
 	
 	public void thisBoundingBox (int par1)
 	{
-		float f = 0.125F;
-		this.setBlockBounds(0.0F + f, 0.0F, 0.0F + f, 1.0F - f, 0.3F, 1.0F - f);
+		float f = 0.25F;
+		this.setBlockBounds(0.0F + f, 0.0F, 0.0F + f, 1.0F - f, 0.5F, 1.0F - f);
 	}
 	
 	@SideOnly(Side.CLIENT)
     public Icon getIcon(int par1, int par2)
     { 
-		int i = par2;
-		if (i > 7) i = 7;
 		if (par1 == 1)
-        {
-        	return this.boxTex;
-        }
-        else
-        {
-        	return this.contentsTex[i];
-        }
+		{
+			return this.contentsTex[par2];
+		}
+		else
+		{
+			return this.boxTex;
+		}
+		
     }
 	
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
-		for(int i = 0; i < 8; ++i)
+		for(int i = 0; i < 7; ++i)
 		{
 			par3List.add(new ItemStack(this, 1, i));
 		}
@@ -168,26 +167,17 @@ public class BlockBowl extends Block{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.contentsTex = new Icon[8];
-		this.boxTex = par1IconRegister.registerIcon("applemilk:porcelain");
-		
-        for (int i = 0; i < 8; ++i)
+		this.boxTex = par1IconRegister.registerIcon("applemilk:blueglass");
+		this.contentsTex = new Icon[7];
+        for (int i = 0; i < 7; ++i)
         {
         	this.contentsTex[i] = par1IconRegister.registerIcon("applemilk:contents" + contents[i]);
         }
 	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world) {
+		return new TileIceCream();
+	}
 	
-	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
-    {
-        int l = par1World.getBlockMetadata(par2, par3, par4);
-        int i = par1World.getBlockId(par2, par3 - 1, par2);
-        double d0 = (double)((float)par2 + 0.5F);
-        double d1 = (double)((float)par3 + 0.5F);
-        double d2 = (double)((float)par4 + 0.5F);
-        double d3 = 0.2199999988079071D;
-        double d4 = 0.27000001072883606D;
-
-        if (!DCsAppleMilk.noRenderFoodsSteam) par1World.spawnParticle("cloud", d0, d1, d2, 0.0D, 0.0D, 0.0D);
-    }
-
 }

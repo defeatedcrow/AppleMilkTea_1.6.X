@@ -46,13 +46,13 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.8a_dev",
+		version = "1.6.2_1.8a",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry"
 		)
 @NetworkMod(
 		clientSideRequired = true,
 		serverSideRequired = false,
-		channels = {"DCsTeppan","DCsDirection","DCsRemaining","DCsTeaMaker","DCsIceMaker","DCsAutoMaker","DCsAutoMode"}, packetHandler = PacketHandler.class
+		channels = {"DCsTeppan","DCsDirection","DCsRemaining","DCsTeaMaker","DCsIceMaker","DCsAutoMaker"}, packetHandler = PacketHandler.class
 		)
 
 public class DCsAppleMilk{
@@ -103,6 +103,7 @@ public class DCsAppleMilk{
 	public static Block  autoMaker;
 	public static Block  iceMaker;
 	public static Block  wipeBox;
+	public static Block  blockIcecream;
 	
 	//アイテムのインスタンス
 	public static Item  bakedApple;
@@ -125,6 +126,7 @@ public class DCsAppleMilk{
 	public static Item  chopsticks;
 	public static Item  chalcedonyHammer;
 	public static Item  chocolateFruits;
+	public static Item  icyCrystal;
 	
 	//ポーションのインスタンス
 	public static Potion Immunization;
@@ -165,6 +167,7 @@ public class DCsAppleMilk{
 	public int blockIdAutoMaker = 581;
 	public int blockIdTeppanNext = 582;
 	public int blockIdIceMaker = 583;
+	public int blockIdIceBlock = 615;
 	
 	public int itemIdBapple = 6000;
 	public int itemIdAppleTart = 6001;
@@ -186,10 +189,12 @@ public class DCsAppleMilk{
 	public int itemIdChopsticks = 5997;
 	public int itemIdCHammer = 5998;
 	public int itemIdChoco = 5999;
+	public int itemIdIcyCrystal = 6010;
 	
 	public static int pothinIDImmunity = 25;
 	public int entityIdMelon = 0;
 	public int guiIdAutoMaker = 1;
+	public int guiIceMaker = 2;
 	
 	//コンフィグ項目の初期設定
 	public static int teaTreeGenValue = 5;
@@ -259,6 +264,8 @@ public class DCsAppleMilk{
 	public static int modelMakerNext;
 	public static int modelAutoMaker;
 	public static int modelWipe;
+	public static int modelIceMaker;
+	public static int modelIceCream;
 	
 	//コンフィグファイル内で使う改行の記号
 	private final String BR = System.getProperty("line.separator");
@@ -307,6 +314,7 @@ public class DCsAppleMilk{
 			Property blockAutoTea = cfg.getBlock("AutoTeaMaker", blockIdAutoMaker);
 			Property blockIceMaker = cfg.getBlock("IceMaker", blockIdIceMaker);
 			Property blockWipeBox = cfg.getBlock("WipesBox", blockIdWipeBox);
+			Property blockIce = cfg.getBlock("IceCreamBlock", blockIdIceBlock);
 			
 			Property itemBapple = cfg.getItem("BakedApple", itemIdBapple);
 			Property itemAppleT = cfg.getItem("AppleTart", itemIdAppleTart);
@@ -328,6 +336,7 @@ public class DCsAppleMilk{
 			Property itemChopstick = cfg.getItem("Chopsticks", itemIdChopsticks);
 			Property itemCHammer = cfg.getItem("ChalcedonyStoneCutter", itemIdCHammer);
 			Property itemChoco = cfg.getItem("ChocolateFruits", itemIdChoco);
+			Property itemIcyC = cfg.getItem("IcyCrystal", itemIdIcyCrystal);
 			
 			Property DCpotionID = cfg.get("potionID", "Immunization", pothinIDImmunity,
 					"Set new potion ID for this mod. If you set 0, disable new potion effect.");
@@ -439,6 +448,7 @@ public class DCsAppleMilk{
 			itemIdChopsticks = itemChopstick.getInt();
 			itemIdCHammer = itemCHammer.getInt();
 			itemIdChoco = itemChoco.getInt();
+			itemIdIcyCrystal = itemIcyC.getInt();
 			
 			pothinIDImmunity = DCpotionID.getInt();
 			teaTreeGenValue = TeaTreeValue.getInt();
@@ -483,6 +493,7 @@ public class DCsAppleMilk{
 		//Material
 		//ツール属性の内容を登録する
 		enumToolMaterialChalcedony = EnumHelper.addToolMaterial("CHALCEDONY", 2, 128, 5.0F, 2.0F, 18);
+		enumToolMaterialChalcedony.customCraftingMaterial = Item.flint;
 		
 		//ブロックやアイテムの読み込みと登録
 		//foods
@@ -639,6 +650,19 @@ public class DCsAppleMilk{
 				setUnlocalizedName("defeatedcrow.cookingIronPlate").
 				setCreativeTab(applemilk);
 		
+		//IceMaker
+		iceMaker = (new BlockIceMaker(blockIdIceMaker)).
+				setUnlocalizedName("defeatedcrow.iceMaker").
+				setCreativeTab(applemilk);
+		
+		blockIcecream = (new BlockIceCream(blockIdIceBlock)).
+				setUnlocalizedName("defeatedcrow.iceCreamBlock").
+				setCreativeTab(applemilk);
+		
+		icyCrystal = (new ItemIcyCrystal(itemIdIcyCrystal)).
+				setUnlocalizedName("defeatedcrow.icyCrystal").
+				setCreativeTab(applemilk);
+		
 		//tree
 		saplingTea = (new BlockSaplingTea(blockIdSapT)).
 				setUnlocalizedName("defeatedcrow.saplingTea").
@@ -732,6 +756,7 @@ public class DCsAppleMilk{
 		GameRegistry.registerItem(chopsticks,"defeatedcrow.chopsticks");
 		GameRegistry.registerItem(chalcedonyHammer,"defeatedcrow.chalcedonyStoneCutter");
 		GameRegistry.registerItem(chocolateFruits,"defeatedcrow.chocolateFruits");
+		GameRegistry.registerItem(icyCrystal,"defeatedcrow.icyCrystal");
 		
 		GameRegistry.registerBlock(woodBox, ItemWoodBox.class, "defeatedcrow.WoodBox");
 		GameRegistry.registerBlock(appleBox, "defeatedcrow.AppleBox");
@@ -767,6 +792,8 @@ public class DCsAppleMilk{
 		GameRegistry.registerBlock(teaMakerNext, "defeatedcrow.teaMakerNext");
 		GameRegistry.registerBlock(autoMaker, "defeatedcrow.autoMaker");
 		GameRegistry.registerBlock(wipeBox, ItemWipeBox.class, "defeatedcrow.wipeBox");
+		GameRegistry.registerBlock(iceMaker, "defeatedcrow.iceMaker");
+		GameRegistry.registerBlock(blockIcecream, ItemIceBlock.class, "defeatedcrow.iceCreamBlock");
 		
 		//クラフトで耐久が減るアイテムの登録
 		GameRegistry.registerCraftingHandler(DCgrater);
@@ -848,6 +875,8 @@ public class DCsAppleMilk{
 		this.modelMakerNext = proxy.getRenderID();
 		this.modelAutoMaker = proxy.getRenderID();
 		this.modelWipe = proxy.getRenderID();
+		this.modelIceMaker = proxy.getRenderID();
+		this.modelIceCream = proxy.getRenderID();
 		proxy.registerRenderers();
 	      
 	    //Registering OreDictionary  
@@ -877,6 +906,7 @@ public class DCsAppleMilk{
 	    OreDictionary.registerOre("blockTeaMaker", new ItemStack(this.teaMakerNext));
 	    OreDictionary.registerOre("blockEmptyCup", new ItemStack(this.emptyCup));
 	    OreDictionary.registerOre("blockEmptyPan", new ItemStack(this.emptyPan));
+	    OreDictionary.registerOre("gearIron", new ItemStack(this.EXItems,1,6));
 	    
 	    if (this.allowSlimeBallDic)
 	    {
@@ -892,6 +922,10 @@ public class DCsAppleMilk{
 	    //ティーメーカーのレシピ数の無限化のため、専用のレシピ登録クラスを用意した
 	    System.out.println("[AppleMilk]Registering new tea maker recipe.");
 	    (new RegisterMakerRecipe()).registerTea();
+	    
+	    //アイスメーカーのレシピ登録
+	    System.out.println("[AppleMilk]Registering new ice maker recipe.");
+	    (new RegisterMakerRecipe()).registerIce();
 	    
 	}
 	

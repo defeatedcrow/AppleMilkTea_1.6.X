@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileAutoMaker;
 import mods.applemilk.common.tile.TileMakerNext;
-import mods.applemilk.handler.recipe.TeaRecipe;
+import mods.applemilk.api.TeaRecipe;
 
 public class BlockAutoMaker extends BlockContainer{
 	
@@ -46,7 +46,7 @@ public class BlockAutoMaker extends BlockContainer{
 	@Override
 	public int idDropped(int metadata, Random rand, int fortune)
 	{
-		return 0;
+		return this.blockID;
 	}
 	
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
@@ -105,8 +105,8 @@ public class BlockAutoMaker extends BlockContainer{
 				int mode = tile.getMode();
 				int makerID = target.getID();
 				int underMeta = par1World.getBlockMetadata(par2, par3 - 1, par4);
-				int nextMeta = 0;
-				if (underMeta == 0) nextMeta = 2;
+				int nextMeta = underMeta + 1;
+				if (underMeta > 3) nextMeta = 0;
 				
 				if (items != null)
 				{
@@ -200,8 +200,8 @@ public class BlockAutoMaker extends BlockContainer{
             				ItemStack items = tile.getItemstack();
             				int makerID = target.getID();
             				int underMeta = par1World.getBlockMetadata(par2, par3 - 1, par4);
-            				int nextMeta = 0;
-            				if (underMeta == 0) nextMeta = 2;
+            				int nextMeta = underMeta + 1;
+            				if (underMeta > 3) nextMeta = 0;
             				
             				if (items != null)
             				{
@@ -301,7 +301,7 @@ public class BlockAutoMaker extends BlockContainer{
 	
 	public boolean canProvidePower()
     {
-        return false;
+        return true;
     }
 	
 	public boolean hasComparatorInputOverride()

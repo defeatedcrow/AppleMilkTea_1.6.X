@@ -127,13 +127,14 @@ public class BlockWipeBox extends BlockContainer{
 				r += 8;
 				if (r > 127)
 				{
-					tile.setRemainByte((byte)-1);
 					if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
 			        {
 						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
 			        }
 	    			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 1.0F, 1.8F);
-	    			par1World.setBlockMetadataWithNotify(par2, par3, par4, 4, 3);
+	    			par1World.setBlock(par2, par3, par4, this.blockID, 4, 3);
+	    			TileWipeBox tile2 = (TileWipeBox) par1World.getBlockTileEntity(par2, par3, par4);
+	    			tile2.setRemainByte((byte)-1);
 				}
 				else
 				{
@@ -249,6 +250,12 @@ public class BlockWipeBox extends BlockContainer{
 		
 		return new TileWipeBox();
 	}
+	
+	public int getLightValue(IBlockAccess world, int x, int y, int z)
+    {
+        int l = world.getBlockMetadata(x, y, z);
+        return l == 4 ? 15 : 0;
+    }
 	
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {

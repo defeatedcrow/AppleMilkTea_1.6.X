@@ -62,6 +62,17 @@ public class BlockBowlJP extends BlockContainer{
     		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
     		return true;
         }
+        else if (itemstack.itemID == this.blockID)
+        {
+        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.bowlJP,1,currentMeta)))
+        	{
+        		par5EntityPlayer.entityDropItem(new ItemStack(DCsAppleMilk.bowlJP,1,currentMeta), 1);
+        	}
+    		
+    		par1World.setBlockToAir(par2, par3, par4);
+    		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+    		return true;
+        }
         else if (itemstack.itemID == DCsAppleMilk.chopsticks.itemID)
         {
         	if (DCsAppleMilk.SuccessLoadBamboo)

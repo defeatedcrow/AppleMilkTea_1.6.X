@@ -17,6 +17,7 @@ import mods.applemilk.common.tile.TileAutoMaker;
 import mods.applemilk.common.tile.TileCupHandle;
 import mods.applemilk.common.tile.TileHasDirection;
 import mods.applemilk.common.tile.TileHasRemaining;
+import mods.applemilk.common.tile.TileIceMaker;
 import mods.applemilk.common.tile.TileMakerNext;
 import mods.applemilk.common.tile.TileTeppann;
 import net.minecraft.entity.player.EntityPlayer;
@@ -193,6 +194,37 @@ public class PacketHandler implements IPacketHandler
     				
     			}
             }
+            else if (packet.channel.equals("DCsIceMaker")) {
+    			ByteArrayDataInput data = ByteStreams.newDataInput(packet.data);
+    			
+    			try
+    			{
+    				int x = data.readInt();
+        			int y = data.readInt();
+        			int z = data.readInt();
+        			byte amount = data.readByte();
+         
+        			World world = DCsAppleMilk.proxy.getClientWorld();
+    				if (world == null)
+    				{
+    					world = ((EntityPlayer) player).worldObj;
+    				}
+    				TileEntity tileentity = world.getBlockTileEntity(x, y, z);
+         
+        			if (tileentity != null)
+        			{
+        				if (tileentity instanceof TileIceMaker)
+        				{
+        					((TileIceMaker) tileentity).setChargeAmount(amount);
+        					((TileIceMaker) tileentity).readToPacket(data);
+        				}
+        			}
+    			}
+    			catch (Exception e)
+    			{
+    				
+    			}
+    		}
         }
 
         public static Packet getPacket(TileTeppann tileTeppann)
@@ -376,4 +408,37 @@ public class PacketHandler implements IPacketHandler
                 return packet;
         }
         
+        public static Packet getIcePacket(TileIceMaker tileentity)
+    	{
+    		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    		DataOutputStream dos = new DataOutputStream(bos);
+     
+    		int x = tileentity.xCoord;
+    		int y = tileentity.yCoord;
+    		int z = tileentity.zCoord;
+    		byte amount = (byte)tileentity.getChargeAmount();
+     
+    		try
+    		{
+    			dos.writeInt(x);
+    			dos.writeInt(y);
+    			dos.writeInt(z);
+    			dos.writeByte(amount);
+     
+    			tileentity.writeToPacket(dos);
+    		}
+    		catch (Exception e)
+    		{
+    			e.printStackTrace();
+    		}
+     
+    		Packet250CustomPayload packet = new Packet250CustomPayload();
+     
+    		packet.channel = "DCsIceMaker";
+    		packet.data = bos.toByteArray();
+    		packet.length = bos.size();
+    		packet.isChunkDataPacket = true;
+     
+    		return packet;
+    	}
 }

@@ -35,7 +35,7 @@ public class ItemEXItem extends Item {
 	@SideOnly(Side.CLIENT)
 	public Icon getIconFromDamage(int par1)
     {
-        int j = MathHelper.clamp_int(par1, 0, 6);
+        int j = MathHelper.clamp_int(par1, 0, 7);
         return this.iconItemType[j];
     }
 
@@ -58,6 +58,7 @@ public class ItemEXItem extends Item {
 		par3List.add(new ItemStack(this, 1, 3));
 		par3List.add(new ItemStack(this, 1, 4));
 		par3List.add(new ItemStack(this, 1, 5));
+		par3List.add(new ItemStack(this, 1, 6));
 	}
 	
 	@Override
@@ -98,9 +99,9 @@ public class ItemEXItem extends Item {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.iconItemType = new Icon[6];
+		this.iconItemType = new Icon[7];
 
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < 7; ++i)
         {
             
         	if (i == 0)
@@ -115,9 +116,13 @@ public class ItemEXItem extends Item {
         	{
         		this.iconItemType[i] = par1IconRegister.registerIcon("applemilk:leaf" + leefType[i - 2]);
         	}
-        	else
+        	else if (i == 5)
         	{
         		this.iconItemType[i] = par1IconRegister.registerIcon("applemilk:mincedfoods_kayaku");
+        	}
+        	else
+        	{
+        		this.iconItemType[i] = par1IconRegister.registerIcon("applemilk:gear_chalcedony");
         	}
         	
         }

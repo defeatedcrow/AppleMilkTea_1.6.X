@@ -427,9 +427,10 @@ public class EntityMelonBomb extends Entity
             this.moveEntity(this.motionX, this.motionY, this.motionZ);
 
             //衝突時に壊れるか
-            if (this.isCollidedHorizontally && d3 > 0.2D)
+            if (this.isCollidedHorizontally && d3 > 0.3D)
             {
-                if (!this.worldObj.isRemote && !this.isDead)
+                //速度0.30D以上だと爆発
+            	if (!this.worldObj.isRemote && !this.isDead)
                 {
                     this.setDead();
                     this.dropItemWithOffset(DCsAppleMilk.melonBomb.blockID, 1, 0.0F);

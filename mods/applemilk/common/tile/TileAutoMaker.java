@@ -4,7 +4,7 @@ import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.PacketHandler;
 import mods.applemilk.common.block.BlockAutoMaker;
 import mods.applemilk.handler.Util;
-import mods.applemilk.handler.recipe.TeaRecipe;
+import mods.applemilk.api.TeaRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

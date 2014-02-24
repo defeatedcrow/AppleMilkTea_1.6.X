@@ -4,7 +4,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import mods.applemilk.client.*;
-import mods.applemilk.client.gui.GuiAutoMaker;
+import mods.applemilk.client.gui.*;
 import mods.applemilk.common.tile.*;
 import mods.applemilk.handler.NetworkUtil;
 import mods.applemilk.handler.Util;
@@ -37,6 +37,8 @@ public class CommonProxy implements IGuiHandler{
 		GameRegistry.registerTileEntity(TileMakerNext.class, "TileMakerNext");
 		GameRegistry.registerTileEntity(TileAutoMaker.class, "TileAutoMaker");
 		GameRegistry.registerTileEntity(TileWipeBox.class, "TileWipeBox");
+		GameRegistry.registerTileEntity(TileIceMaker.class, "TileIceMaker");
+		GameRegistry.registerTileEntity(TileIceCream.class, "TileIcecream");
 	}
 	
     //レンダーIDには-1を返す
@@ -67,6 +69,9 @@ public class CommonProxy implements IGuiHandler{
 		if (tileentity instanceof TileAutoMaker) {
 			return new ContainerAutoMaker(player.inventory, (TileAutoMaker) tileentity);
 		}
+		else if (tileentity instanceof TileIceMaker) {
+			return new ContainerIceMaker(player, (TileIceMaker)tileentity);
+		}
 		return null;
 	}
  
@@ -78,6 +83,9 @@ public class CommonProxy implements IGuiHandler{
 		TileEntity tileentity = world.getBlockTileEntity(x, y, z);
 		if (tileentity instanceof TileAutoMaker) {
 			return new GuiAutoMaker(player.inventory, (TileAutoMaker) tileentity);
+		}
+		else if (tileentity instanceof TileIceMaker) {
+			return new GuiIceMaker(player, (TileIceMaker)tileentity);
 		}
 		return null;
 	}
