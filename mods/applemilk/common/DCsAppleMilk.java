@@ -659,7 +659,7 @@ public class DCsAppleMilk{
 				setUnlocalizedName("defeatedcrow.iceCreamBlock").
 				setCreativeTab(applemilk);
 		
-		icyCrystal = (new ItemIcyCrystal(itemIdIcyCrystal)).
+		icyCrystal = (new ItemIcyCrystal(itemIdIcyCrystal - 256)).
 				setUnlocalizedName("defeatedcrow.icyCrystal").
 				setCreativeTab(applemilk);
 		
