@@ -84,17 +84,17 @@ public class BlockAutoMaker extends BlockContainer{
     }
 	
 	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
-    {
+	{
 		super.onNeighborBlockChange(par1World, par2, par3, par4, par5);
 		this.updateMetadata(par1World, par2, par3, par4);
-    }
+	}
 	
 	private void updateMetadata(World par1World, int par2, int par3, int par4)
     {
         int l = par1World.getBlockMetadata(par2, par3, par4);
 		this.RSactive = par1World.isBlockIndirectlyGettingPowered(par2, par3, par4);
 		
-		if (l > 0 || this.RSactive)
+		if (l > 0)
 		{
 			TileAutoMaker tile = this.getAutoMaker(par1World, par2, par3, par4);
 			TileMakerNext target = (TileMakerNext) par1World.getBlockTileEntity(par2, par3 - 1, par4);
@@ -108,20 +108,12 @@ public class BlockAutoMaker extends BlockContainer{
 				int nextMeta = underMeta + 1;
 				if (underMeta > 3) nextMeta = 0;
 				
-				if (items != null)
+				if (items != null && makerID == 0)
 				{
 					int itemID = TeaRecipe.getID(items);
 					if (itemID > 0)
 					{
 						if (mode == 1)
-						{
-							target.setID((byte)(itemID));
-							target.setRemainByte((byte)(3 + par1World.rand.nextInt(3)));
-							par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
-							par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, nextMeta, 3);
-							par1World.playSoundEffect(par2, par3, par4, "random.pop", 0.4F, 1.8F);
-						}
-						else if (mode == 3 && this.RSactive)
 						{
 							target.setID((byte)(itemID));
 							target.setRemainByte((byte)(3 + par1World.rand.nextInt(3)));
@@ -139,7 +131,15 @@ public class BlockAutoMaker extends BlockContainer{
 					}
 					
 				}
+				else
+				{
+					par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
+				}
 			}
+		}
+		else
+		{
+			par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
 		}
 		
     }
@@ -203,7 +203,7 @@ public class BlockAutoMaker extends BlockContainer{
             				int nextMeta = underMeta + 1;
             				if (underMeta > 3) nextMeta = 0;
             				
-            				if (items != null)
+            				if (items != null && makerID == 0)
             				{
             					int itemID = TeaRecipe.getID(items);
             					tile.reduceItemStack();
@@ -213,12 +213,10 @@ public class BlockAutoMaker extends BlockContainer{
             					{
             						target.setID((byte)(itemID));
         							target.setRemainByte((byte)(3 + par1World.rand.nextInt(3)));
-        							par1World.setBlockMetadataWithNotify(par2, par3, par4, nextMeta, 3);
-        							par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, 0, 3);
+        							par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, nextMeta, 3);
+        							par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
         							
         							par1World.playSoundEffect(par2, par3, par4, "random.pop", 0.4F, 1.8F);
-        							par1World.notifyBlocksOfNeighborChange(par2, par3, par4, this.blockID);
-        							par1World.notifyBlocksOfNeighborChange(par2, par3 -1, par4, target.getBlockType().blockID);
             					}
             					
             				}
@@ -290,15 +288,6 @@ public class BlockAutoMaker extends BlockContainer{
         super.breakBlock(par1World, par2, par3, par4, par5, par6);
     }
 	
-	//for RS
-	public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
-    {
-        if (!par1World.isRemote)
-        {
-            this.updateMetadata(par1World, par2, par3, par4);
-        }
-    }
-	
 	public boolean canProvidePower()
     {
         return true;
@@ -334,19 +323,6 @@ public class BlockAutoMaker extends BlockContainer{
 	{
 		return DCsAppleMilk.modelAutoMaker;
 	}
-	
-	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
-    {
-        int l = par1World.getBlockMetadata(par2, par3, par4);
-        int i = par1World.getBlockId(par2, par3 - 1, par2);
-        double d0 = (double)((float)par2 + 0.5F);
-        double d1 = (double)((float)par3 + 0.5F);
-        double d2 = (double)((float)par4 + 0.5F);
-        double d3 = 0.0199999988079071D;
-        double d4 = 0.07000001072883606D;
-
-        if (l > 0) par1World.spawnParticle("flame", d0, d1, d2, 0.0D, 0.0D, 0.0D);
-    }
 	
 	@Override
 	@SideOnly(Side.CLIENT)

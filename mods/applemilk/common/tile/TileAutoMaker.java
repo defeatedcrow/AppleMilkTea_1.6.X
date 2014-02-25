@@ -129,14 +129,12 @@ public class TileAutoMaker extends TileEntity implements IInventory
         {
     		if (this.holdItemStacks[0] != null && !this.isCoolTime() && this.mode > 0 && this.isMakerEmpty())
     		{
-    			int id = this.isTeaMaterial(this.getItemstack());
-    			
-    			if (this.isAutoMode() && id > 1)
+    			if (this.isAutoMode())
     			{
     				boolean flag = false;
-    				
+    				int id = this.isTeaMaterial(this.getItemstack());
         			
-        			if (this.updateBlock() && this.reduceItemStack())
+        			if (id > 1 && this.updateBlock() && this.reduceItemStack())
         			{
         				flag = true;
             			this.onInventoryChanged();
@@ -148,6 +146,7 @@ public class TileAutoMaker extends TileEntity implements IInventory
     			}
     			else
     			{
+    				this.setCoolTime(8);
     				return false;
     			}
     		}

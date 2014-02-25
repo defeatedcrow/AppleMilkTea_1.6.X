@@ -134,7 +134,12 @@ public class BlockWipeBox extends BlockContainer{
 	    			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 1.0F, 1.8F);
 	    			par1World.setBlock(par2, par3, par4, this.blockID, 4, 3);
 	    			TileWipeBox tile2 = (TileWipeBox) par1World.getBlockTileEntity(par2, par3, par4);
-	    			tile2.setRemainByte((byte)-1);
+	    			if (DCsAppleMilk.allowInfinityWipes) {
+	    				tile2.setRemainByte((byte)-1);
+	    			}
+	    			else {
+	    				tile2.setRemainByte((byte)127);
+	    			}
 				}
 				else
 				{

@@ -847,6 +847,10 @@ public class DCsRecipeRegister {
 		      }
 	      }
 	      
+	      GameRegistry.addShapelessRecipe(
+	    		  new ItemStack(DCsAppleMilk.teaMakerNext, 1, 0),
+	    			  new ItemStack(DCsAppleMilk.emptyTeaMaker, 1, 0));
+	      
 	    //for rubberwood
 	      
 	      ArrayList<ItemStack> woodRubber = OreDictionary.getOres("woodRubber");
