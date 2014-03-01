@@ -33,6 +33,8 @@ public class ClientProxy extends CommonProxy {
 		GameRegistry.registerTileEntity(TileTeppann.class, "TileTeppann");
 		GameRegistry.registerTileEntity(TileHasDirection.class, "TileHasDirection");
 		GameRegistry.registerTileEntity(TileHasRemaining.class, "TileHasRemaining");
+		GameRegistry.registerTileEntity(TileHasRemain2.class, "TileHasRemaining2");
+		
 		GameRegistry.registerTileEntity(TileDummy.class, "TileDummy");
 		ClientRegistry.registerTileEntity(TileCupHandle.class, "TileCupHandle", new TileEntityCupHandleRenderer());
 		ClientRegistry.registerTileEntity(TileBread.class, "TileBread", new TileEntityBreadRenderer());
@@ -48,6 +50,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.registerTileEntity(TileWipeBox.class, "TileWipeBox", new TileEntityWipeBoxRenderer());
 		ClientRegistry.registerTileEntity(TileIceMaker.class, "TileIceMaker", new TileEntityIceMakerRenderer());
 		ClientRegistry.registerTileEntity(TileIceCream.class, "TileIceCream", new TileEntityIceCreamRenderer());
+		ClientRegistry.registerTileEntity(TileWipeBox2.class, "TileWipeBox2", new TileEntityWipe2Renderer());
 	}
 
 	@Override

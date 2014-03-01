@@ -20,7 +20,8 @@ public class ItemGratedApple extends ItemFood {
 	@SideOnly(Side.CLIENT)
     private Icon iconType[];
 	
-	private static final String[] itemType = new String[] {"gratedapple", "gratedpeach", "honeylemon", "roastedcoffeepowder", "ganache"};
+	private static final String[] itemType = new String[] {"gratedapple", "gratedpeach", "honeylemon", "roastedcoffeepowder", "ganache",
+															"gratedlime", "gratedtomato", "gratedberry"};
 	
 	public ItemGratedApple (int itemId,int reco, boolean flag){
 		super (itemId, reco, flag);
@@ -33,7 +34,7 @@ public class ItemGratedApple extends ItemFood {
 	@SideOnly(Side.CLIENT)
 	public Icon getIconFromDamage(int par1)
     {
-        int j = MathHelper.clamp_int(par1, 0, 4);
+        int j = MathHelper.clamp_int(par1, 0, 7);
         return this.iconType[j];
     }
 	
@@ -55,14 +56,17 @@ public class ItemGratedApple extends ItemFood {
 		par3List.add(new ItemStack(this, 1, 2));
 		par3List.add(new ItemStack(this, 1, 3));
 		par3List.add(new ItemStack(this, 1, 4));
+		par3List.add(new ItemStack(this, 1, 5));
+		par3List.add(new ItemStack(this, 1, 6));
+		par3List.add(new ItemStack(this, 1, 7));
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister){
-		this.iconType = new Icon[5];
+		this.iconType = new Icon[8];
 
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < 8; ++i)
         {
             this.iconType[i] = par1IconRegister.registerIcon("applemilk:" + itemType[i]);
         }

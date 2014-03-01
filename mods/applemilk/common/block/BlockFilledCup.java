@@ -24,7 +24,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileCupHandle;
-import mods.applemilk.common.tile.TileDummy;
 
 public class BlockFilledCup extends BlockContainer{
 	

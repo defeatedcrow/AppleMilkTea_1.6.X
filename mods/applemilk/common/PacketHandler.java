@@ -16,6 +16,7 @@ import mods.applemilk.common.tile.ContainerAutoMaker;
 import mods.applemilk.common.tile.TileAutoMaker;
 import mods.applemilk.common.tile.TileCupHandle;
 import mods.applemilk.common.tile.TileHasDirection;
+import mods.applemilk.common.tile.TileHasRemain2;
 import mods.applemilk.common.tile.TileHasRemaining;
 import mods.applemilk.common.tile.TileIceMaker;
 import mods.applemilk.common.tile.TileMakerNext;
@@ -225,6 +226,35 @@ public class PacketHandler implements IPacketHandler
     				
     			}
     		}
+            else if (packet.channel.equals("DCsRemain2"))
+            {
+    			ByteArrayDataInput bis = ByteStreams.newDataInput(packet.data);
+    			
+    			try
+    			{
+    				int x = bis.readInt();
+    				int y = bis.readInt();
+    				int z = bis.readInt();
+    				short Remaining = bis.readShort();
+    				
+    				World world = DCsAppleMilk.proxy.getClientWorld();
+    				if (world == null)
+    				{
+    					world = ((EntityPlayer) player).worldObj;
+    				}
+    				TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+     
+    				if (tileEntity instanceof TileHasRemaining)
+    				{
+    					TileHasRemain2 tile = (TileHasRemain2)tileEntity;
+    					tile.setRemainShort(Remaining);
+    				}
+    			}
+    			catch (Exception e)
+    			{
+    				
+    			}	
+            }
         }
 
         public static Packet getPacket(TileTeppann tileTeppann)
@@ -441,4 +471,35 @@ public class PacketHandler implements IPacketHandler
      
     		return packet;
     	}
+        
+        public static Packet getRemainShortPacket(TileHasRemain2 tile)
+        {
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                DataOutputStream dos = new DataOutputStream(bos);
+
+                int x = tile.xCoord;
+                int y = tile.yCoord;
+                int z = tile.zCoord;
+                short Remaining = tile.getRemainShort();
+
+                try
+                {
+                        dos.writeInt(x);
+                        dos.writeInt(y);
+                        dos.writeInt(z);
+                        dos.writeShort(Remaining);
+                }
+                catch(Exception e)
+                {
+                        e.printStackTrace();
+                }
+
+                Packet250CustomPayload packet = new Packet250CustomPayload();
+                packet.channel = "DCsRemain2";
+                packet.data = bos.toByteArray();
+                packet.length = bos.size();
+                packet.isChunkDataPacket = true;
+
+                return packet;
+        }
 }

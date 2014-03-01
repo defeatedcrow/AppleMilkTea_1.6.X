@@ -68,13 +68,18 @@ public class LoadThaumcraftHandler {
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.teaMaker.blockID, -1, new AspectList().add(Aspect.WATER, 2).add(Aspect.HEAL, 1).add(Aspect.FIRE, 1));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.filledPan.blockID, -1, new AspectList().add(Aspect.CRAFT, 2).add(Aspect.HUNGER, 1).add(Aspect.FIRE, 1));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.filledPan2.blockID, -1, new AspectList().add(Aspect.CRAFT, 2).add(Aspect.HUNGER, 1).add(Aspect.FIRE, 1));
-		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.teppann.blockID, -1, new AspectList().add(Aspect.CRAFT, 2).add(Aspect.HUNGER, 1).add(Aspect.FIRE, 1));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.teppann.blockID, -1, new AspectList().add(Aspect.CRAFT, 2).add(Aspect.HUNGER, 1).add(Aspect.FIRE, 3));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.iceMaker.blockID, 0, new AspectList().add(Aspect.CRAFT, 2).add(Aspect.HUNGER, 1).add(Aspect.ICE, 3));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.autoMaker.blockID, 0, new AspectList().add(Aspect.CRAFT, 2).add(Aspect.HUNGER, 1).add(Aspect.EXCHANGE, 3));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.teaMakerNext.blockID, 0, new AspectList().add(Aspect.WATER, 2).add(Aspect.VOID, 1).add(Aspect.FIRE, 1));
 		    
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.emptyCup.blockID, 0, new AspectList().add(Aspect.WATER, 2).add(Aspect.VOID, 1));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.teacupBlock.blockID, -1, new AspectList().add(Aspect.WATER, 2).add(Aspect.HEAL, 1));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.teaCup2.blockID, -1, new AspectList().add(Aspect.WATER, 2).add(Aspect.HEAL, 1));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.bowlBlock.blockID, -1, new AspectList().add(Aspect.HUNGER, 2));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.bowlJP.blockID, -1, new AspectList().add(Aspect.HUNGER, 2));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.foodPlate.blockID, -1, new AspectList().add(Aspect.HUNGER, 2).add(Aspect.FLESH, 2));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.foodPlate.blockID, -1, new AspectList().add(Aspect.HUNGER, 2).add(Aspect.ICE, 2));
 		    
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.saplingTea.blockID, 0, new AspectList().add(Aspect.PLANT, 2).add(Aspect.SEED, 2));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.teaTree.blockID, -1, new AspectList().add(Aspect.PLANT, 2).add(Aspect.AIR, 2));
@@ -84,6 +89,10 @@ public class LoadThaumcraftHandler {
 		    
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.chocoBlock.blockID, 0, new AspectList().add(Aspect.HEAL, 3).add(Aspect.MIND, 3).add(Aspect.SENSES, 3));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.chocoBlock.blockID, 1, new AspectList().add(Aspect.HEAL, 3).add(Aspect.MIND, 3).add(Aspect.MAGIC, 3));
+		    
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.wipeBox.blockID, -1, new AspectList().add(Aspect.MIND, 3).add(Aspect.MAGIC, 3));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.wipeBox.blockID, -1, new AspectList().add(Aspect.MIND, 6).add(Aspect.MAGIC, 6));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.wipeBox2.blockID, -1, new AspectList().add(Aspect.MIND, 10).add(Aspect.MAGIC, 10).add(Aspect.VOID, 10));
 		    
 		    System.out.println("[AppleMilk]Succeeded to register aspects for Thaumcraft.");
 		}

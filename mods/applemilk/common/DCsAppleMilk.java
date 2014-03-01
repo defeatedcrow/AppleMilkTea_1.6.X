@@ -46,13 +46,13 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.8a",
+		version = "1.6.2_1.9a",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry"
 		)
 @NetworkMod(
 		clientSideRequired = true,
 		serverSideRequired = false,
-		channels = {"DCsTeppan","DCsDirection","DCsRemaining","DCsTeaMaker","DCsIceMaker","DCsAutoMaker"}, packetHandler = PacketHandler.class
+		channels = {"DCsTeppan","DCsDirection","DCsRemaining","DCsTeaMaker","DCsIceMaker","DCsAutoMaker","DCsRemain2"}, packetHandler = PacketHandler.class
 		)
 
 public class DCsAppleMilk{
@@ -103,7 +103,9 @@ public class DCsAppleMilk{
 	public static Block  autoMaker;
 	public static Block  iceMaker;
 	public static Block  wipeBox;
+	public static Block  wipeBox2;
 	public static Block  blockIcecream;
+	public static Block  teaCup2;
 	
 	//アイテムのインスタンス
 	public static Item  bakedApple;
@@ -168,6 +170,8 @@ public class DCsAppleMilk{
 	public int blockIdTeppanNext = 582;
 	public int blockIdIceMaker = 583;
 	public int blockIdIceBlock = 615;
+	public int blockIdWipe2 = 616;
+	public int blockIdTeaCup2 = 617;
 	
 	public int itemIdBapple = 6000;
 	public int itemIdAppleTart = 6001;
@@ -225,6 +229,7 @@ public class DCsAppleMilk{
 	public static boolean SuccessLoadBoP = false;
 	public static boolean SuccessLoadTofu = false;
 	public static boolean SuccessLoadThaumcraft = false;
+	public static boolean SuccessLoadEconomy = false;
 	
 	public static boolean IC2exp = true;
 	public static boolean TC4after405 = true;
@@ -315,6 +320,8 @@ public class DCsAppleMilk{
 			Property blockIceMaker = cfg.getBlock("IceMaker", blockIdIceMaker);
 			Property blockWipeBox = cfg.getBlock("WipesBox", blockIdWipeBox);
 			Property blockIce = cfg.getBlock("IceCreamBlock", blockIdIceBlock);
+			Property blockWipe2 = cfg.getBlock("PaperBox", blockIdWipe2);
+			Property blockCup2 = cfg.getBlock("FilledCup2", blockIdTeaCup2);
 			
 			Property itemBapple = cfg.getItem("BakedApple", itemIdBapple);
 			Property itemAppleT = cfg.getItem("AppleTart", itemIdAppleTart);
@@ -427,6 +434,9 @@ public class DCsAppleMilk{
 			blockIdAutoMaker = blockAutoTea.getInt();
 			blockIdIceMaker = blockIceMaker.getInt();
 			blockIdWipeBox = blockWipeBox.getInt();
+			blockIdWipe2 = blockWipe2.getInt();
+			blockIdIceBlock = blockIce.getInt();
+			blockIdTeaCup2 = blockCup2.getInt();
 			
 			itemIdBapple = itemBapple.getInt();
 			itemIdAppleTart = itemAppleT.getInt();
@@ -558,6 +568,9 @@ public class DCsAppleMilk{
 				setUnlocalizedName("defeatedcrow.wipeBox").
 				setCreativeTab(applemilk);
 		
+		wipeBox2 = (new BlockWipeBox2(blockIdWipe2)).
+				setUnlocalizedName("defeatedcrow.wipeBox2");
+		
 		//tea
 		teaMaker = (new BlockTeaMaker(blockIdMaker)).
 				setUnlocalizedName("defeatedcrow.teaMaker");
@@ -579,6 +592,9 @@ public class DCsAppleMilk{
 		
 		teacupBlock = (new BlockFilledCup(blockIdTeacupBlock)).
 				setUnlocalizedName("defeatedcrow.filledCup");
+		
+		teaCup2 = (new BlockFilledCup2(blockIdTeaCup2)).
+				setUnlocalizedName("defeatedcrow.filledCup2");
 		
 		//pan
 		filledPan = (new BlockFilledPan(blockIdFPan)).
@@ -792,8 +808,10 @@ public class DCsAppleMilk{
 		GameRegistry.registerBlock(teaMakerNext, "defeatedcrow.teaMakerNext");
 		GameRegistry.registerBlock(autoMaker, "defeatedcrow.autoMaker");
 		GameRegistry.registerBlock(wipeBox, ItemWipeBox.class, "defeatedcrow.wipeBox");
+		GameRegistry.registerBlock(wipeBox2, ItemWipeBox2.class, "defeatedcrow.wipeBox2");
 		GameRegistry.registerBlock(iceMaker, "defeatedcrow.iceMaker");
 		GameRegistry.registerBlock(blockIcecream, ItemIceBlock.class, "defeatedcrow.iceCreamBlock");
+		GameRegistry.registerBlock(teaCup2, ItemBlockTeaCup2.class, "defeatedcrow.filledCup2");
 		
 		//クラフトで耐久が減るアイテムの登録
 		GameRegistry.registerCraftingHandler(DCgrater);
@@ -881,42 +899,7 @@ public class DCsAppleMilk{
 	      
 	    //Registering OreDictionary  
 		//ForgeのOreDicyionaryの登録部分
-	    OreDictionary.registerOre("dyeBlack", new ItemStack(this.inkStick));
-	    OreDictionary.registerOre("dyeOrange", new ItemStack(this.EXItems,1,4));
-	    OreDictionary.registerOre("treeSapling", new ItemStack(this.saplingTea));
-	    OreDictionary.registerOre("saplingTea", new ItemStack(this.saplingTea));
-	    OreDictionary.registerOre("foodClam", new ItemStack(this.clam, 1, 0));
-	    OreDictionary.registerOre("cropTea", new ItemStack(this.leafTea));
-	    OreDictionary.registerOre("foodCondencedMilk", new ItemStack(this.condensedMIlk,1));
-	    OreDictionary.registerOre("foodGreenTea", new ItemStack(this.EXItems,1,2));
-	    OreDictionary.registerOre("foodTea", new ItemStack(this.EXItems,1,3));
-	    OreDictionary.registerOre("foodCoffee", new ItemStack(this.gratedApple,1,3));
-	    OreDictionary.registerOre("cropRice", new ItemStack(this.mincedFoods,1,3));
-	    
-	    OreDictionary.registerOre("foodToffyApple", new ItemStack(this.toffyApple));
-	    OreDictionary.registerOre("foodAppleTart", new ItemStack(this.appleTart));
-	    OreDictionary.registerOre("foodBakedApple", new ItemStack(this.bakedApple));
-	    OreDictionary.registerOre("foodAppleSandwich", new ItemStack(this.appleSandwich,1,0));
-	    OreDictionary.registerOre("foodEggSandwich", new ItemStack(this.appleSandwich,1,1));
-	    OreDictionary.registerOre("foodCookedClam", new ItemStack(this.clam, 1, 1));
-	    OreDictionary.registerOre("wheatRice", new ItemStack(this.bowlJP, 1, 0));
-	    
-	    OreDictionary.registerOre("blockChalcedony", new ItemStack(this.chalcedony, 1, 0));
-	    OreDictionary.registerOre("toolGrater", new ItemStack(this.DCgrater));
-	    OreDictionary.registerOre("blockTeaMaker", new ItemStack(this.teaMakerNext));
-	    OreDictionary.registerOre("blockEmptyCup", new ItemStack(this.emptyCup));
-	    OreDictionary.registerOre("blockEmptyPan", new ItemStack(this.emptyPan));
-	    OreDictionary.registerOre("gearIron", new ItemStack(this.EXItems,1,6));
-	    
-	    if (this.allowSlimeBallDic)
-	    {
-	    	OreDictionary.registerOre("dropSlime", new ItemStack(Item.slimeBall));
-		    OreDictionary.registerOre("dropSlime", new ItemStack(this.EXItems,1,1));
-	    }
-	    
-	    for(int i = 0; i < 13 ; i++){
-	    	OreDictionary.registerOre("foodFruitsChocolate", new ItemStack(this.chocolateFruits, 1, i));
-	    }
+		(new RegisterOreHandler()).register();
 	    
 	    //registering TeaMaker recipe, It's still in testing yet.
 	    //ティーメーカーのレシピ数の無限化のため、専用のレシピ登録クラスを用意した
@@ -987,6 +970,20 @@ public class DCsAppleMilk{
 	        }
 	        catch (Exception e) {
 	          System.out.println("[AppleMilk]Failed to check Thaumcraft");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
+	    if (Loader.isModLoaded("MCEconomy"))
+	    {
+	        try
+	        {
+	          this.SuccessLoadEconomy = true;
+	          (new MCEconomyHandler()).registerSellable();
+	          
+	        }
+	        catch (Exception e) {
+	          System.out.println("[AppleMilk]Failed to check MCEconomy");
 	          e.printStackTrace(System.err);
 	        }
 	    }

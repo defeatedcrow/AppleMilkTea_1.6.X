@@ -2,7 +2,6 @@ package mods.applemilk.client.model;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mods.applemilk.common.tile.TileCupHandle;
 import mods.applemilk.common.tile.TileWipeBox;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;

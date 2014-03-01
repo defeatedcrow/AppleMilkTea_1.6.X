@@ -37,43 +37,48 @@ public class ItemBlockTeaCup extends ItemBlock{
 		
 		if (!par2World.isRemote)
 		{
-			if(meta == 1)
-			{
-				par3EntityPlayer.clearActivePotions();
-			}
-			else if(meta == 4 || meta == 5)
-			{
-				par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 600, 0));
-			}
-			else if(meta == 6 || meta == 7)
-			{
-				par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.nightVision.id, 600, 0));
-			}
-			else if ((meta == 8 || meta == 9) && DCsAppleMilk.pothinIDImmunity != 0)
-			{
-				par3EntityPlayer.addPotionEffect(new PotionEffect(DCsAppleMilk.Immunization.id, 600, 0));
-			}
-			else if ((meta == 10 || meta == 11) && DCsAppleMilk.pothinIDImmunity != 0)
-			{
-				par3EntityPlayer.addPotionEffect(new PotionEffect(DCsAppleMilk.Immunization.id, 600, 1));
-			}
-			else if (meta == 12 || meta == 13)
-			{
-				par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.nightVision.id, 600, 0));
-			}
-			else
-			{
-				par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.heal.id, 1, 0));
-			}
-			
-			if ((meta & 1) == 1)
-			{
-				par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.regeneration.id, 200, 0));
-			}
+			this.setPotionWithTea(par3EntityPlayer, meta);
 		}
 
         return par1ItemStack.stackSize <= 0 ? new ItemStack(DCsAppleMilk.emptyCup) : par1ItemStack;
     }
+	
+	protected void setPotionWithTea (EntityPlayer par1EntityPlayer, int meta)
+	{
+		if(meta == 1)
+		{
+			par1EntityPlayer.clearActivePotions();
+		}
+		else if(meta == 4 || meta == 5)
+		{
+			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 600, 0));
+		}
+		else if(meta == 6 || meta == 7)
+		{
+			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.nightVision.id, 600, 0));
+		}
+		else if ((meta == 8 || meta == 9) && DCsAppleMilk.pothinIDImmunity != 0)
+		{
+			par1EntityPlayer.addPotionEffect(new PotionEffect(DCsAppleMilk.Immunization.id, 600, 0));
+		}
+		else if ((meta == 10 || meta == 11) && DCsAppleMilk.pothinIDImmunity != 0)
+		{
+			par1EntityPlayer.addPotionEffect(new PotionEffect(DCsAppleMilk.Immunization.id, 600, 1));
+		}
+		else if (meta == 12 || meta == 13)
+		{
+			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.nightVision.id, 600, 0));
+		}
+		else
+		{
+			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.heal.id, 1, 0));
+		}
+		
+		if ((meta & 1) == 1)
+		{
+			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.regeneration.id, 200, 0));
+		}
+	}
 	
 	public int getMaxItemUseDuration(ItemStack par1ItemStack)
     {

@@ -35,7 +35,7 @@ public class ItemEXItem extends Item {
 	@SideOnly(Side.CLIENT)
 	public Icon getIconFromDamage(int par1)
     {
-        int j = MathHelper.clamp_int(par1, 0, 7);
+        int j = MathHelper.clamp_int(par1, 0, 9);
         return this.iconItemType[j];
     }
 
@@ -59,6 +59,9 @@ public class ItemEXItem extends Item {
 		par3List.add(new ItemStack(this, 1, 4));
 		par3List.add(new ItemStack(this, 1, 5));
 		par3List.add(new ItemStack(this, 1, 6));
+		par3List.add(new ItemStack(this, 1, 7));
+		par3List.add(new ItemStack(this, 1, 8));
+		par3List.add(new ItemStack(this, 1, 9));
 	}
 	
 	@Override
@@ -99,9 +102,9 @@ public class ItemEXItem extends Item {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.iconItemType = new Icon[7];
+		this.iconItemType = new Icon[10];
 
-        for (int i = 0; i < 7; ++i)
+        for (int i = 0; i < 10; ++i)
         {
             
         	if (i == 0)
@@ -120,9 +123,21 @@ public class ItemEXItem extends Item {
         	{
         		this.iconItemType[i] = par1IconRegister.registerIcon("applemilk:mincedfoods_kayaku");
         	}
-        	else
+        	else if (i == 6)
         	{
         		this.iconItemType[i] = par1IconRegister.registerIcon("applemilk:gear_chalcedony");
+        	}
+        	else if (i == 7)
+        	{
+        		this.iconItemType[i] = par1IconRegister.registerIcon("applemilk:crushedice");
+        	}
+        	else if (i == 8)
+        	{
+        		this.iconItemType[i] = par1IconRegister.registerIcon("applemilk:leaf_earlgray");
+        	}
+        	else
+        	{
+        		this.iconItemType[i] = par1IconRegister.registerIcon("applemilk:leaf_appletea");
         	}
         	
         }

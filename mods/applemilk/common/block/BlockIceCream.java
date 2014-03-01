@@ -26,7 +26,7 @@ import mods.applemilk.common.tile.TileIceCream;
 
 public class BlockIceCream extends BlockContainer{
 	
-	private static final String[] contents = new String[] {"_milk", "_tea_milk", "_greentea_milk", "_cocoa", "_cocoa_milk", "_juice", "_lemon"};
+	private static final String[] contents = new String[] {"_milk", "_tea_milk", "_greentea_milk", "_cocoa", "_cocoa_milk", "_juice", "_lemon", "_lime", "_tomato", "_berry"};
 	
 	@SideOnly(Side.CLIENT)
     private Icon boxTex;
@@ -65,7 +65,7 @@ public class BlockIceCream extends BlockContainer{
         	if (!par1World.isRemote)
     		{
         		par5EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 1, 2));
-    			par5EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 600, 0));
+    			ItemIceBlock.setPotionWithIce(par5EntityPlayer, itemstack.getItemDamage());
     		}
         	
         	par1World.setBlockToAir(par2, par3, par4);
@@ -151,7 +151,7 @@ public class BlockIceCream extends BlockContainer{
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
-		for(int i = 0; i < 7; ++i)
+		for(int i = 0; i < 10; ++i)
 		{
 			par3List.add(new ItemStack(this, 1, i));
 		}
@@ -168,8 +168,8 @@ public class BlockIceCream extends BlockContainer{
 	public void registerIcons(IconRegister par1IconRegister)
 	{
 		this.boxTex = par1IconRegister.registerIcon("applemilk:blueglass");
-		this.contentsTex = new Icon[7];
-        for (int i = 0; i < 7; ++i)
+		this.contentsTex = new Icon[10];
+        for (int i = 0; i < 10; ++i)
         {
         	this.contentsTex[i] = par1IconRegister.registerIcon("applemilk:contents" + contents[i]);
         }

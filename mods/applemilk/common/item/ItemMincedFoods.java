@@ -26,7 +26,7 @@ public class ItemMincedFoods extends Item {
 	 @SideOnly(Side.CLIENT)
      private Icon iconType[];
 	 
-	 private final String foodsName[] = new String[] {"mincedfoods_mushroom", "mincedfoods_soup", "mincedfoods_zousui", "sanngoumai", "mincedfoods_gomoku", "mincedfoods_tofu", "mincedfoods_pumpkin", "mincedfoods_BLT", "roastedcoffeepowder"};
+	 private final String foodsName[] = new String[] {"mincedfoods_mushroom", "mincedfoods_soup", "mincedfoods_zousui", "sanngoumai", "mincedfoods_gomoku", "mincedfoods_tofu", "mincedfoods_pumpkin", "mincedfoods_BLT", "gratedchocolate"};
 	
 	
 	public ItemMincedFoods (int itemId){

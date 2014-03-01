@@ -21,6 +21,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileWipeBox;
+import mods.applemilk.common.tile.TileWipeBox2;
 
 public class BlockWipeBox extends BlockContainer{
 	
@@ -132,14 +133,9 @@ public class BlockWipeBox extends BlockContainer{
 						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
 			        }
 	    			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 1.0F, 1.8F);
-	    			par1World.setBlock(par2, par3, par4, this.blockID, 4, 3);
-	    			TileWipeBox tile2 = (TileWipeBox) par1World.getBlockTileEntity(par2, par3, par4);
-	    			if (DCsAppleMilk.allowInfinityWipes) {
-	    				tile2.setRemainByte((byte)-1);
-	    			}
-	    			else {
-	    				tile2.setRemainByte((byte)127);
-	    			}
+	    			par1World.setBlock(par2, par3, par4, DCsAppleMilk.wipeBox2.blockID, 0, 3);
+	    			TileWipeBox2 tile2 = (TileWipeBox2) par1World.getBlockTileEntity(par2, par3, par4);
+	    			tile2.setRemainShort((short)r);
 				}
 				else
 				{
@@ -255,23 +251,5 @@ public class BlockWipeBox extends BlockContainer{
 		
 		return new TileWipeBox();
 	}
-	
-	public int getLightValue(IBlockAccess world, int x, int y, int z)
-    {
-        int l = world.getBlockMetadata(x, y, z);
-        return l == 4 ? 15 : 0;
-    }
-	
-	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
-    {
-        int l = par1World.getBlockMetadata(par2, par3, par4);
-        int i = par1World.getBlockId(par2, par3 - 1, par2);
-        float r = par5Random.nextFloat();
-        double d0 = (double)((float)par2 + r);
-        double d1 = (double)((float)par3 + 0.5F + r);
-        double d2 = (double)((float)par4 + r);
-
-        if (!DCsAppleMilk.noRenderFoodsSteam && l == 4) par1World.spawnParticle("happyVillager", d0, d1, d2, 0.0D, 0.0D, 0.0D);
-    }
 
 }

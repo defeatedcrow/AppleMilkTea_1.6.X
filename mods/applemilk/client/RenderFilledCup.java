@@ -19,8 +19,7 @@ public class RenderFilledCup implements ISimpleBlockRenderingHandler{
 	
 	private Icon boxIcon;
 	private Icon contentsIcon;
-	
-	public static int modelFilledCup = -1;
+	private Icon contents2;
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID,
@@ -30,6 +29,7 @@ public class RenderFilledCup implements ISimpleBlockRenderingHandler{
 		if (meta > 13)meta = 13;
 		this.boxIcon = DCsAppleMilk.teacupBlock.getBlockTextureFromSide(2);
 		this.contentsIcon = DCsAppleMilk.teacupBlock.getIcon(0, meta);
+		this.contents2 = DCsAppleMilk.teaCup2.getIcon(0, meta);
 		
 		if (modelID == this.getRenderId())
 		{
@@ -45,7 +45,13 @@ public class RenderFilledCup implements ISimpleBlockRenderingHandler{
 			renderInvCuboid(renderer, block,  10.0F/16.0F, 2.0F/16.0F, 6.0F/16.0F, 11.0F/16.0F, 9.0F/16.0F, 10.0F/16.0F,  this.boxIcon);
 			
 			//contents
-			renderInvCuboid(renderer, block,  6.0F/16.0F, 2.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 7.0F/16.0F, 10.0F/16.0F,  this.contentsIcon);
+			if (block.blockID == DCsAppleMilk.teacupBlock.blockID) {
+				renderInvCuboid(renderer, block,  6.0F/16.0F, 2.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 7.0F/16.0F, 10.0F/16.0F,  this.contentsIcon);
+			}
+			else {
+				renderInvCuboid(renderer, block,  6.0F/16.0F, 2.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 7.0F/16.0F, 10.0F/16.0F,  this.contents2);
+			}
+			
 		}
 		
 	}
@@ -58,6 +64,7 @@ public class RenderFilledCup implements ISimpleBlockRenderingHandler{
 		if (meta > 13)meta = 13;
 		this.boxIcon = DCsAppleMilk.teacupBlock.getBlockTextureFromSide(2);
 		this.contentsIcon = DCsAppleMilk.teacupBlock.getIcon(0, meta);
+		this.contents2 = DCsAppleMilk.teaCup2.getIcon(0, meta);
 		
 		if (modelId == this.getRenderId())
 		{
@@ -104,10 +111,19 @@ public class RenderFilledCup implements ISimpleBlockRenderingHandler{
 			renderer.setRenderBoundsFromBlock(block);
 			renderer.renderStandardBlock(block, x, y, z);
 			
-			renderer.setOverrideBlockTexture(this.contentsIcon);
-			block.setBlockBounds(6.0F/16.0F, 2.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 7.0F/16.0F, 10.0F/16.0F);
-			renderer.setRenderBoundsFromBlock(block);
-			renderer.renderStandardBlock(block, x, y, z);
+			if (block.blockID == DCsAppleMilk.teacupBlock.blockID) {
+				renderer.setOverrideBlockTexture(this.contentsIcon);
+				block.setBlockBounds(6.0F/16.0F, 2.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 7.0F/16.0F, 10.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+			}
+			else {
+				renderer.setOverrideBlockTexture(this.contents2);
+				block.setBlockBounds(6.0F/16.0F, 2.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 7.0F/16.0F, 10.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+			}
+			
 			
 			
 			renderer.clearOverrideBlockTexture();

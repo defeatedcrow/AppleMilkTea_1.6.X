@@ -19,6 +19,7 @@ public class RenderWipeBox implements ISimpleBlockRenderingHandler{
 	
 	private Icon boxIcon;
 	private Icon[] wipeIcon = new Icon[5];
+	private Icon wipe2;
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID,
@@ -31,22 +32,30 @@ public class RenderWipeBox implements ISimpleBlockRenderingHandler{
 		this.wipeIcon[2] = DCsAppleMilk.wipeBox.getIcon(2, 1);
 		this.wipeIcon[3] = DCsAppleMilk.wipeBox.getIcon(3, 1);
 		this.wipeIcon[4] = DCsAppleMilk.wipeBox.getIcon(4, 1);
+		this.wipe2 = DCsAppleMilk.wipeBox2.getBlockTextureFromSide(0);
 		
 		if (modelID == this.getRenderId())
 		{
-			if ((meta & 1) == 0)
+			if (block.blockID == DCsAppleMilk.wipeBox.blockID)
 			{
-				//bottom
-				renderInvCuboid(renderer, block,  3.0F/16.0F, 0.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 8.0F/16.0F, 13.0F/16.0F,  this.boxIcon);
+				if ((meta & 1) == 0)
+				{
+					//bottom
+					renderInvCuboid(renderer, block,  3.0F/16.0F, 0.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 8.0F/16.0F, 13.0F/16.0F,  this.boxIcon);
+				}
+				else
+				{
+					renderInvCuboid(renderer, block,  3.0F/16.0F, 0.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 7.0F/16.0F, 4.0F/16.0F,  this.wipeIcon[2]);
+					renderInvCuboid(renderer, block,  3.0F/16.0F, 0.0F/16.0F, 12.0F/16.0F, 13.0F/16.0F, 7.0F/16.0F, 13.0F/16.0F,  this.wipeIcon[2]);
+					renderInvCuboid(renderer, block,  3.0F/16.0F, 0.0F/16.0F, 4.0F/16.0F, 4.0F/16.0F, 7.0F/16.0F, 12.0F/16.0F,  this.wipeIcon[3]);
+					renderInvCuboid(renderer, block,  12.0F/16.0F, 0.0F/16.0F, 4.0F/16.0F, 13.0F/16.0F, 7.0F/16.0F, 12.0F/16.0F,  this.wipeIcon[3]);
+					renderInvCuboid(renderer, block,  3.0F/16.0F, 7.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 8.0F/16.0F, 13.0F/16.0F,  this.wipeIcon[1]);
+					renderInvCuboid(renderer, block,  4.0F/16.0F, 0.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F, 1.0F/16.0F, 12.0F/16.0F,  this.wipeIcon[0]);
+				}
 			}
-			else
+			else if (block.blockID == DCsAppleMilk.wipeBox2.blockID)
 			{
-				renderInvCuboid(renderer, block,  3.0F/16.0F, 0.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 7.0F/16.0F, 4.0F/16.0F,  this.wipeIcon[2]);
-				renderInvCuboid(renderer, block,  3.0F/16.0F, 0.0F/16.0F, 12.0F/16.0F, 13.0F/16.0F, 7.0F/16.0F, 13.0F/16.0F,  this.wipeIcon[2]);
-				renderInvCuboid(renderer, block,  3.0F/16.0F, 0.0F/16.0F, 4.0F/16.0F, 4.0F/16.0F, 7.0F/16.0F, 12.0F/16.0F,  this.wipeIcon[3]);
-				renderInvCuboid(renderer, block,  12.0F/16.0F, 0.0F/16.0F, 4.0F/16.0F, 13.0F/16.0F, 7.0F/16.0F, 12.0F/16.0F,  this.wipeIcon[3]);
-				renderInvCuboid(renderer, block,  3.0F/16.0F, 7.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 8.0F/16.0F, 13.0F/16.0F,  this.wipeIcon[1]);
-				renderInvCuboid(renderer, block,  4.0F/16.0F, 0.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F, 1.0F/16.0F, 12.0F/16.0F,  this.wipeIcon[0]);
+				renderInvCuboid(renderer, block,  2.0F/16.0F, 0.0F/16.0F, 3.0F/16.0F, 14.0F/16.0F, 10.0F/16.0F, 13.0F/16.0F,  this.wipe2);
 			}
 		}
 	}
@@ -65,60 +74,62 @@ public class RenderWipeBox implements ISimpleBlockRenderingHandler{
 		
 		if (modelId == this.getRenderId())
 		{
-			if (((meta & 1) == 0) && meta < 3)
-			{
-				renderer.setOverrideBlockTexture(this.boxIcon);
-				block.setBlockBounds(3.0F/16.0F, 0.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 8.0F/16.0F, 13.0F/16.0F);
-				renderer.setRenderBoundsFromBlock(block);
-				renderer.renderStandardBlock(block, x, y, z);
-			}
-			else
-			{
-//				renderer.setOverrideBlockTexture(this.wipeIcon[2]);
-//				block.setBlockBounds(4.0F/16.0F, 0.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 7.0F/16.0F, 4.0F/16.0F);
-//				renderer.setRenderBoundsFromBlock(block);
-//				renderer.renderStandardBlock(block, x, y, z);
-//				
-//				renderer.setOverrideBlockTexture(this.wipeIcon[2]);
-//				block.setBlockBounds(4.0F/16.0F, 0.0F/16.0F, 12.0F/16.0F, 13.0F/16.0F, 7.0F/16.0F, 13.0F/16.0F);
-//				renderer.setRenderBoundsFromBlock(block);
-//				renderer.renderStandardBlock(block, x, y, z);
-//				
-//				renderer.setOverrideBlockTexture(this.wipeIcon[3]);
-//				block.setBlockBounds(3.0F/16.0F, 0.0F/16.0F, 3.0F/16.0F, 4.0F/16.0F, 7.0F/16.0F, 13.0F/16.0F);
-//				renderer.setRenderBoundsFromBlock(block);
-//				renderer.renderStandardBlock(block, x, y, z);
-//				
-//				renderer.setOverrideBlockTexture(this.wipeIcon[3]);
-//				block.setBlockBounds(12.0F/16.0F, 0.0F/16.0F, 4.0F/16.0F, 13.0F/16.0F, 7.0F/16.0F, 12.0F/16.0F);
-//				renderer.setRenderBoundsFromBlock(block);
-//				renderer.renderStandardBlock(block, x, y, z);
-//				
-//				renderer.setOverrideBlockTexture(this.wipeIcon[1]);
-//				block.setBlockBounds(3.0F/16.0F, 7.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 8.0F/16.0F, 13.0F/16.0F);
-//				renderer.setRenderBoundsFromBlock(block);
-//				renderer.renderStandardBlock(block, x, y, z);
-//				
-//				renderer.setOverrideBlockTexture(this.wipeIcon[0]);
-//				block.setBlockBounds(4.0F/16.0F, 0.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F, 1.0F/16.0F, 12.0F/16.0F);
-//				renderer.setRenderBoundsFromBlock(block);
-//				renderer.renderStandardBlock(block, x, y, z);
-			}
-			
-			if (meta > 1)
-			{
-				renderer.setOverrideBlockTexture(this.wipeIcon[4]);
-				block.setBlockBounds(0.0F/16.0F, 0.0F/16.0F, 0.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F);
-				renderer.setRenderBoundsFromBlock(block);
-				renderer.renderCrossedSquares(block, x, y, z);
-			}
-			
-			renderer.clearOverrideBlockTexture();
-			block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-			renderer.setRenderBoundsFromBlock(block);
-			return true;
+			 if (block.blockID == DCsAppleMilk.wipeBox.blockID)
+				{
+					if (((meta & 1) == 0) && meta < 3)
+					{
+						renderer.setOverrideBlockTexture(this.boxIcon);
+						block.setBlockBounds(3.0F/16.0F, 0.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 8.0F/16.0F, 13.0F/16.0F);
+						renderer.setRenderBoundsFromBlock(block);
+						renderer.renderStandardBlock(block, x, y, z);
+					}
+					else
+					{
+//						renderer.setOverrideBlockTexture(this.wipeIcon[2]);
+//						block.setBlockBounds(4.0F/16.0F, 0.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 7.0F/16.0F, 4.0F/16.0F);
+//						renderer.setRenderBoundsFromBlock(block);
+//						renderer.renderStandardBlock(block, x, y, z);
+//						
+//						renderer.setOverrideBlockTexture(this.wipeIcon[2]);
+//						block.setBlockBounds(4.0F/16.0F, 0.0F/16.0F, 12.0F/16.0F, 13.0F/16.0F, 7.0F/16.0F, 13.0F/16.0F);
+//						renderer.setRenderBoundsFromBlock(block);
+//						renderer.renderStandardBlock(block, x, y, z);
+//						
+//						renderer.setOverrideBlockTexture(this.wipeIcon[3]);
+//						block.setBlockBounds(3.0F/16.0F, 0.0F/16.0F, 3.0F/16.0F, 4.0F/16.0F, 7.0F/16.0F, 13.0F/16.0F);
+//						renderer.setRenderBoundsFromBlock(block);
+//						renderer.renderStandardBlock(block, x, y, z);
+//						
+//						renderer.setOverrideBlockTexture(this.wipeIcon[3]);
+//						block.setBlockBounds(12.0F/16.0F, 0.0F/16.0F, 4.0F/16.0F, 13.0F/16.0F, 7.0F/16.0F, 12.0F/16.0F);
+//						renderer.setRenderBoundsFromBlock(block);
+//						renderer.renderStandardBlock(block, x, y, z);
+//						
+//						renderer.setOverrideBlockTexture(this.wipeIcon[1]);
+//						block.setBlockBounds(3.0F/16.0F, 7.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 8.0F/16.0F, 13.0F/16.0F);
+//						renderer.setRenderBoundsFromBlock(block);
+//						renderer.renderStandardBlock(block, x, y, z);
+//						
+//						renderer.setOverrideBlockTexture(this.wipeIcon[0]);
+//						block.setBlockBounds(4.0F/16.0F, 0.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F, 1.0F/16.0F, 12.0F/16.0F);
+//						renderer.setRenderBoundsFromBlock(block);
+//						renderer.renderStandardBlock(block, x, y, z);
+					}
+					
+					if (meta > 1)
+					{
+						renderer.setOverrideBlockTexture(this.wipeIcon[4]);
+						block.setBlockBounds(0.0F/16.0F, 0.0F/16.0F, 0.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F);
+						renderer.setRenderBoundsFromBlock(block);
+						renderer.renderCrossedSquares(block, x, y, z);
+					}
+				}
+			 
+			 renderer.clearOverrideBlockTexture();
+			 block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+			 renderer.setRenderBoundsFromBlock(block);
+			 return true;
 		}
-			
 		return false;
 	}
 

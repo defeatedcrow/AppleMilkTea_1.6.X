@@ -453,6 +453,114 @@ public class DCsRecipeRegister {
 		    		  "cropCoffee",
 					 }));
 		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 5),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+		    		  "cropLime",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 5),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+		    		  "cropYuzu",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 5),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+		    		  "cropCitron",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 6),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+		    		  "cropTomato",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 7),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+		    		  "cropStrawberry",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 7),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+		    		  "cropBlueberry",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 7),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+		    		  "cropRaspberry",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 7),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+		    		  "cropBlackberry",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 7),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+		    		  "listAllberry",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.EXItems, 1, 8),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+	    			  new ItemStack(DCsAppleMilk.EXItems, 1, 3),
+		    		  "cropOrange",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.EXItems, 1, 8),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+	    			  new ItemStack(DCsAppleMilk.EXItems, 1, 3),
+		    		  "cropCitron",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.EXItems, 1, 9),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+	    			  new ItemStack(DCsAppleMilk.EXItems, 1, 3),
+	    			  new ItemStack(Item.appleRed, 1)
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.EXItems, 1, 9),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+	    			  new ItemStack(DCsAppleMilk.EXItems, 1, 3),
+	    			  "cropApple"
+					 }));
+		 
 		 //pan
 		 GameRegistry.addRecipe(
 				 new ShapelessOreRecipe(

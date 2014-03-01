@@ -21,8 +21,11 @@ public class CommonProxy implements IGuiHandler{
 	//こちらはサーバー用クラスなので、レンダー関係は一切登録しない
     public void registerTileEntity()
     {
-		GameRegistry.registerTileEntity(TileTeppann.class, "TileTeppann");
 		GameRegistry.registerTileEntity(TileHasDirection.class, "TileHasDirection");
+		GameRegistry.registerTileEntity(TileHasRemaining.class, "TileHasRemaining");
+		GameRegistry.registerTileEntity(TileHasRemain2.class, "TileHasRemaining2");
+		
+		GameRegistry.registerTileEntity(TileTeppann.class, "TileTeppann");
 		GameRegistry.registerTileEntity(TileCupHandle.class, "TileCupHandle");
 		GameRegistry.registerTileEntity(TileBread.class, "TileBread");
 		GameRegistry.registerTileEntity(TileDummy.class, "TileDummy");
@@ -32,13 +35,13 @@ public class CommonProxy implements IGuiHandler{
 		GameRegistry.registerTileEntity(TileSteak.class, "TileSteak");
 		GameRegistry.registerTileEntity(TileMakerHandle.class, "TileMakerHandle");
 		GameRegistry.registerTileEntity(TilePanHandle.class, "TilePanHandle");
-		GameRegistry.registerTileEntity(TileHasRemaining.class, "TileHasRemaining");
 		GameRegistry.registerTileEntity(TileChocoPan.class, "TileChocoPan");
 		GameRegistry.registerTileEntity(TileMakerNext.class, "TileMakerNext");
 		GameRegistry.registerTileEntity(TileAutoMaker.class, "TileAutoMaker");
 		GameRegistry.registerTileEntity(TileWipeBox.class, "TileWipeBox");
 		GameRegistry.registerTileEntity(TileIceMaker.class, "TileIceMaker");
 		GameRegistry.registerTileEntity(TileIceCream.class, "TileIcecream");
+		GameRegistry.registerTileEntity(TileWipeBox2.class, "TileWipeBox2");
 	}
 	
     //レンダーIDには-1を返す
