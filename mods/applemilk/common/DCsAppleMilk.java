@@ -11,6 +11,7 @@ import mods.applemilk.common.entity.EntityMelonBomb;
 import mods.applemilk.common.item.*;
 import mods.applemilk.common.tile.*;
 import mods.applemilk.handler.*;
+import mods.applemilk.handler.economy.*;
 import mods.applemilk.handler.recipe.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -95,6 +96,7 @@ public class DCsAppleMilk{
 	public static Block  wipeBox2;
 	public static Block  blockIcecream;
 	public static Block  teaCup2;
+	public static Block  rotaryDial;
 	
 	//アイテムのインスタンス
 	public static Item  bakedApple;
@@ -161,6 +163,7 @@ public class DCsAppleMilk{
 	public int blockIdIceBlock = 615;
 	public int blockIdWipe2 = 616;
 	public int blockIdTeaCup2 = 617;
+	public int blockIdDial = 618;
 	
 	public int itemIdBapple = 6000;
 	public int itemIdAppleTart = 6001;
@@ -220,6 +223,8 @@ public class DCsAppleMilk{
 	public static boolean SuccessLoadTofu = false;
 	public static boolean SuccessLoadThaumcraft = false;
 	public static boolean SuccessLoadEconomy = false;
+	public static boolean SuccessLoadSSector = false;
+	public static boolean SuccessLoadGummi = false;
 	
 	public static boolean IC2exp = true;
 	public static boolean TC4after405 = true;
@@ -261,6 +266,8 @@ public class DCsAppleMilk{
 	public static int modelWipe;
 	public static int modelIceMaker;
 	public static int modelIceCream;
+	public static int modelDial;
+	public static int modelCocktail;
 	
 	//コンフィグファイル内で使う改行の記号
 	private final String BR = System.getProperty("line.separator");
@@ -312,6 +319,7 @@ public class DCsAppleMilk{
 			Property blockIce = cfg.getBlock("IceCreamBlock", blockIdIceBlock);
 			Property blockWipe2 = cfg.getBlock("PaperBox", blockIdWipe2);
 			Property blockCup2 = cfg.getBlock("FilledCup2", blockIdTeaCup2);
+			Property blockDial = cfg.getBlock("RoteryDial", blockIdDial);
 			
 			Property itemBapple = cfg.getItem("BakedApple", itemIdBapple);
 			Property itemAppleT = cfg.getItem("AppleTart", itemIdAppleTart);
@@ -429,6 +437,7 @@ public class DCsAppleMilk{
 			blockIdWipe2 = blockWipe2.getInt();
 			blockIdIceBlock = blockIce.getInt();
 			blockIdTeaCup2 = blockCup2.getInt();
+			blockIdDial = blockDial.getInt();
 			
 			itemIdBapple = itemBapple.getInt();
 			itemIdAppleTart = itemAppleT.getInt();
@@ -728,6 +737,10 @@ public class DCsAppleMilk{
 				setUnlocalizedName("defeatedcrow.inkStick").
 				setCreativeTab(applemilk);
 		
+		rotaryDial = (new BlockRotaryDial(blockIdDial)).
+				setUnlocalizedName("defeatedcrow.rotaryDial").
+				setCreativeTab(applemilk);
+		
 		//ポーション効果の追加
 		//コンフィグでIDに0を入れてある時は登録しない
 		if (this.pothinIDImmunity != 0){
@@ -806,6 +819,7 @@ public class DCsAppleMilk{
 		GameRegistry.registerBlock(iceMaker, "defeatedcrow.iceMaker");
 		GameRegistry.registerBlock(blockIcecream, ItemIceBlock.class, "defeatedcrow.iceCreamBlock");
 		GameRegistry.registerBlock(teaCup2, ItemBlockTeaCup2.class, "defeatedcrow.filledCup2");
+		GameRegistry.registerBlock(rotaryDial, "defeatedcrow.rotaryDial");
 		
 		//クラフトで耐久が減るアイテムの登録
 		GameRegistry.registerCraftingHandler(DCgrater);
@@ -892,6 +906,8 @@ public class DCsAppleMilk{
 		this.modelWipe = proxy.getRenderID();
 		this.modelIceMaker = proxy.getRenderID();
 		this.modelIceCream = proxy.getRenderID();
+		this.modelCocktail = proxy.getRenderID();
+		this.modelDial = proxy.getRenderID();
 		proxy.registerRenderers();
 	      
 	    //Registering OreDictionary  

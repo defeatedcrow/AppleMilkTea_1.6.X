@@ -37,9 +37,9 @@ public class ItemChalcedonyHammer extends ItemTool
     
     public boolean onBlockDestroyed(ItemStack par1ItemStack, World par2World, int par3, int par4, int par5, int par6, EntityLivingBase par7EntityLivingBase)
     {
-        if (par3 != Block.stone.blockID && par3 != Block.ice.blockID)
+        if (par3 != Block.ice.blockID)
         {
-            return super.onBlockDestroyed(par1ItemStack, par2World, par3, par4, par5, par6, par7EntityLivingBase);
+        	return super.onBlockDestroyed(par1ItemStack, par2World, par3, par4, par5, par6, par7EntityLivingBase);
         }
         else
         {

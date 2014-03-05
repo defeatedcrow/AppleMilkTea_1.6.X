@@ -53,7 +53,7 @@ public class ItemIceBlock extends ItemBlock{
     		else if (BiomeDictionary.isBiomeOfType(biome, Type.FROZEN)) {
     			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.hunger.id, 100, 0));
     		}
-    		else if (BiomeDictionary.isBiomeOfType(biome, Type.NETHER) || BiomeDictionary.isBiomeOfType(biome, Type.DESERT)) {
+    		else if (BiomeDictionary.isBiomeOfType(biome, Type.JUNGLE) || BiomeDictionary.isBiomeOfType(biome, Type.DESERT)) {
     			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 1, 2));
     		}
     		this.setPotionWithIce(par3EntityPlayer, par1ItemStack.getItemDamage());

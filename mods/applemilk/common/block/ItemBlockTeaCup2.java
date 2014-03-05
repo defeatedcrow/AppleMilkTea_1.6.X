@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public class ItemBlockTeaCup2 extends ItemBlock{
 	
-	private static final String[] teaType = new String[] {"_earlgray", "_earlgray_milk", "_appletea", "_appletea_milk", "_lime", "_tomato", "_berry", "_berry_milk"};
+	private static final String[] teaType = new String[] {"_earlgray", "_earlgray_milk", "_appletea", "_appletea_milk", "_lime", "_tomato", "_berry", "_berry_milk", "_grape"};
 	
 	private int healAmount = 0;
 	
@@ -82,9 +82,13 @@ public class ItemBlockTeaCup2 extends ItemBlock{
 		{
 			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 600, 0));
 		}
-		else if (meta == 6)
+		else if (meta == 6 || meta == 7)
 		{
 			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.resistance.id, 600, 1));
+		}
+		else if (meta == 8)
+		{
+			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 600, 1));
 		}
 		else
 		{
@@ -113,7 +117,7 @@ public class ItemBlockTeaCup2 extends ItemBlock{
 	public String getUnlocalizedName(ItemStack par1ItemStack)
 	{
 		int m = (par1ItemStack.getItemDamage());
-		if (m < 8) return super.getUnlocalizedName() + teaType[m];
+		if (m < 9) return super.getUnlocalizedName() + teaType[m];
 		else return super.getUnlocalizedName() + m;
 		
 	}

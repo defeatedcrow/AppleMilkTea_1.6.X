@@ -70,6 +70,9 @@ public class RegisterMakerRecipe {
 	    		new ItemStack(DCsAppleMilk.teaCup2, 1, 7),
 	    		new String("applemilk:textures/blocks/contents_berry.png"));
 	    
+	    TeaRecipe.register(new ItemStack(DCsAppleMilk.gratedApple, 1, 8), new ItemStack(DCsAppleMilk.teaCup2, 1, 8),
+	    		new String("applemilk:textures/blocks/contents_grape.png"));
+	    
 	    //デバッグモードがONの時に確認用メッセージを出す
 	    if (DCsAppleMilk.debugMode)
 	    {

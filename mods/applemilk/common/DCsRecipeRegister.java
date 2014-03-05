@@ -116,7 +116,7 @@ public class DCsRecipeRegister {
 	    		  new ItemStack(Item.coal,9,1),
 	    			  new ItemStack(DCsAppleMilk.charcoalBox,1));
 		 
-		 for(int i = 0; i < 9; i++)
+		 for(int i = 0; i < 10; i++)
 		 {
 			 ItemStack itemStack = new ItemStack(DCsAppleMilk.leafTea,9);
 			 if (i == 1) itemStack = new ItemStack(Item.potato,9);
@@ -127,6 +127,7 @@ public class DCsRecipeRegister {
 			 else if (i == 6) itemStack = new ItemStack(Block.cactus,9);
 			 else if (i == 7) itemStack = new ItemStack(Item.dyePowder,9,3);
 			 else if (i == 8) itemStack = new ItemStack(Item.netherStalkSeeds,9);
+			 else if (i == 9) itemStack = new ItemStack(Item.sugar,9);
 			 else itemStack = new ItemStack(DCsAppleMilk.leafTea,9);
 			 
 			 GameRegistry.addShapelessRecipe(

@@ -117,7 +117,7 @@ public class ItemAPI {
 	 * charcoal container			: charcoalContainer
 	 * another container			: gunpowderContainer & gunpowder:1, Kayaku:1, clay:2
 	 * vegetable bags				: vegiBag & tea leaves:0, potato:1, carrot:2, pumpkin:3, seed:4, reed:5,
-	 * 								:			cactus:6, cocoa:7, nether wart:8
+	 * 								:			cactus:6, cocoa:7, nether wart:8, sugar:9
 	 * mushroom block				: mushroomBox & red:0, brown:1
 	 * compressed melon				: melonBomb
 	 * wipe box						: wipeBox & wipe:0, kixWipe:1

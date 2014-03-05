@@ -17,8 +17,9 @@ import mods.applemilk.common.*;
 
 public class BlockVegiBag extends Block{
 	
-	private static final String[] bagVegi = new String[] {"_Leaves", "_Potato", "_Carrot", "_Pumpkin", "_Seed", "_Reed", "_Cactus", "_Cocoa", "_Wart"};
-	private static final String[] bagTexType = new String[] {"LeavesBag_T", "PotatoBag_T", "CarrotBag_T", "PumpkinBag_T", "SeedBag_T", "ReedBag_T", "CactusBag_T", "CocoaBag_T", "WartBag_T"};
+	private static final String[] bagVegi = new String[] {"_Leaves", "_Potato", "_Carrot", "_Pumpkin", "_Seed", "_Reed", "_Cactus", "_Cocoa", "_Wart", "Sugar"};
+	private static final String[] bagTexType = new String[] {"LeavesBag_T", "PotatoBag_T", "CarrotBag_T", "PumpkinBag_T", "SeedBag_T", "ReedBag_T",
+		"CactusBag_T", "CocoaBag_T", "WartBag_T", "SugarBag_T"};
 	
 	@SideOnly(Side.CLIENT)
     private Icon[] wheatBagTop;
@@ -36,7 +37,7 @@ public class BlockVegiBag extends Block{
     public Icon getIcon(int par1, int par2)
     {
         int i = par2;
-        if (i > 8) i = 8;
+        if (i > 9) i = 9;
         if (par1 == 0 || par1 == 1)
         {
         	return this.wheatBagTop[i];
@@ -65,6 +66,7 @@ public class BlockVegiBag extends Block{
         par3List.add(new ItemStack(par1, 1, 6));
         par3List.add(new ItemStack(par1, 1, 7));
         par3List.add(new ItemStack(par1, 1, 8));
+        par3List.add(new ItemStack(par1, 1, 9));
     }
 	
 	@Override
@@ -73,9 +75,9 @@ public class BlockVegiBag extends Block{
 	{
 		this.blockIcon = par1IconRegister.registerIcon("applemilk:WheatBag_S");
         this.wheatBagSide = par1IconRegister.registerIcon("applemilk:WheatBag_S");
-        this.wheatBagTop = new Icon[9];
+        this.wheatBagTop = new Icon[10];
         
-        for (int i = 0; i < 9; ++i)
+        for (int i = 0; i < 10; ++i)
         {
             this.wheatBagTop[i] = par1IconRegister.registerIcon("applemilk:" + bagTexType[i]);
         }

@@ -206,6 +206,8 @@ public class DCsLangRegister {
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.vegiBag, 1, 7), "ja_JP", "カカオ袋");
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.vegiBag, 1, 8), "NetherWart Bag");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.vegiBag, 1, 8), "ja_JP", "ネザーウォート袋");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.vegiBag, 1, 9), "Sugar Bag");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.vegiBag, 1, 9), "ja_JP", "砂糖袋");
 		
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.EXItems, 1, 0), "Milk Candy");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.EXItems, 1, 0), "ja_JP", "ミルク飴");
