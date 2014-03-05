@@ -1,6 +1,8 @@
 package mods.applemilk.common.block;
 
+import mods.applemilk.common.AchievementRegister;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.handler.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -43,7 +45,17 @@ public class ItemIceBlock extends ItemBlock{
 		
 		if (!par2World.isRemote)
 		{
-    		par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 1, 2));
+			BiomeGenBase biome = Util.checkCurrentBiome(par2World, par3EntityPlayer);
+			if (BiomeDictionary.isBiomeOfType(biome, Type.NETHER)) {
+    			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 600, 0));
+    			par3EntityPlayer.triggerAchievement(AchievementRegister.eatIcecream);
+    		}
+    		else if (BiomeDictionary.isBiomeOfType(biome, Type.FROZEN)) {
+    			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.hunger.id, 100, 0));
+    		}
+    		else if (BiomeDictionary.isBiomeOfType(biome, Type.NETHER) || BiomeDictionary.isBiomeOfType(biome, Type.DESERT)) {
+    			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 1, 2));
+    		}
     		this.setPotionWithIce(par3EntityPlayer, par1ItemStack.getItemDamage());
 		}
 		

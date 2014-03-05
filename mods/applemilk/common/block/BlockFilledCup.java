@@ -239,7 +239,8 @@ public class BlockFilledCup extends BlockContainer{
 		this.contentsIcon = new Icon[14];
 		for (int i = 0; i < 14; ++i)
         {
-			this.itemIcon = par1IconRegister.registerIcon("applemilk:cup" + contents[i]);
+			this.blockIcon = par1IconRegister.registerIcon("applemilk:contents" + contents[i]);
+			this.itemIcon = par1IconRegister.registerIcon("applemilk:contents" + contents[i]);
 			this.contentsIcon[i] = par1IconRegister.registerIcon("applemilk:contents" + contents[i]);
         }
 	}

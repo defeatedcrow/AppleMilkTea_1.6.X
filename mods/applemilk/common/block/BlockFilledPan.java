@@ -66,7 +66,7 @@ public class BlockFilledPan extends BlockContainer{
         {
         	this.getJPStew(par1World, par2, par3, par4, par5EntityPlayer, itemstack, currentMeta);
 			this.setPanEmpty(par1World, par2, par3, par4, currentMeta);
-			
+			par5EntityPlayer.triggerAchievement(AchievementRegister.getSoup);
     		return true;
         }
         else

@@ -113,4 +113,8 @@ public class CommonProxy implements IGuiHandler{
 		//(new NetworkUtil()).NetworkUtility();
 	}
 
+	public void init() {
+		
+	}
+
 }

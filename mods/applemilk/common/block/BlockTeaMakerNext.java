@@ -76,6 +76,14 @@ public class BlockTeaMakerNext extends BlockContainer{
                 			par5EntityPlayer.entityDropItem((new ItemStack(output.itemID, 1, output.getItemDamage())), 1.0F);
                 		}
             			
+            			//実績用処理
+            			if (output.itemID == DCsAppleMilk.teacupBlock.blockID && output.getItemDamage() == 4) {
+            				par5EntityPlayer.triggerAchievement(AchievementRegister.getTea);
+            			}
+            			else if (output.itemID == DCsAppleMilk.teaCup2.blockID && output.getItemDamage() == 3) {
+            				par5EntityPlayer.triggerAchievement(AchievementRegister.getAppleMilkTea);
+            			}
+            			
             			tile.setRemainByte((byte)(remain - 1));
             			if ((remain - 1) == 0){
             				tile.setID((byte)0);

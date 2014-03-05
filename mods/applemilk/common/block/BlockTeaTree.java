@@ -62,6 +62,9 @@ public class BlockTeaTree extends Block implements IPlantable{
         		{
         			par5EntityPlayer.entityDropItem(new ItemStack(DCsAppleMilk.leafTea,1), 1);
         		}
+        		
+        		par5EntityPlayer.triggerAchievement(AchievementRegister.getTeaLeaves);
+        		
         		par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
         		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
         		return true;
@@ -77,7 +80,6 @@ public class BlockTeaTree extends Block implements IPlantable{
         	{
         		par5EntityPlayer.entityDropItem(new ItemStack(DCsAppleMilk.leafTea,1), 1);
         	}
-    		
         	par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
     		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
     		return true;

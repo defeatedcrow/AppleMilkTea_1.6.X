@@ -170,6 +170,11 @@ public class BlockTeppann extends BlockContainer{
 				par5EntityPlayer.entityDropItem(getItem, 1.0F);
 			}
 			
+			//実績用処理
+			if (getItem.itemID == DCsAppleMilk.foodPlate.blockID && getItem.getItemDamage() == 3) {
+				par5EntityPlayer.triggerAchievement(AchievementRegister.getHamaguri);
+			}
+			
 			tile.getItemstack((ItemStack)null);
 			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
 		}

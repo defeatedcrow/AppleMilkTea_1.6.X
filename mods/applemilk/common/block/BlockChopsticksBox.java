@@ -156,4 +156,11 @@ public class BlockChopsticksBox extends BlockContainer{
 		return this.blockID;
 	}
 	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister par1IconRegister)
+	{
+		this.blockIcon = Block.planks.getIcon(1, 0);
+		
+	}
 }

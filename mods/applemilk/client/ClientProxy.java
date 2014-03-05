@@ -104,5 +104,9 @@ public class ClientProxy extends CommonProxy {
 	{
 		//(new NetworkUtil()).clientUtility();
 	}
+	
+	public void init() {
+		
+	}
 
 }

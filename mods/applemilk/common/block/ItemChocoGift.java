@@ -1,5 +1,6 @@
 package mods.applemilk.common.block;
 
+import mods.applemilk.common.AchievementRegister;
 import mods.applemilk.common.DCsAppleMilk;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -44,6 +45,7 @@ public class ItemChocoGift extends ItemBlock{
 			if (meta == 1 && !DCsAppleMilk.safetyChocolate)
 			{
 				this.explode(par2World, par3EntityPlayer);
+				par3EntityPlayer.triggerAchievement(AchievementRegister.eatChocoGift);
 			}
 			else
 			{

@@ -22,31 +22,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.src.*;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.EnumHelper;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.Property;
-import net.minecraftforge.oredict.OreDictionary;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.ICraftingHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
+import net.minecraft.stats.Achievement;
+import net.minecraftforge.common.*;
+import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.Mod.*;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.registry.*;
 
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.9a",
+		version = "1.6.2_1.10a",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry"
 		)
 @NetworkMod(
@@ -205,6 +194,7 @@ public class DCsAppleMilk{
 	public static int setCupTexture = 1;
 	public static int teppannReadyTime = 30;
 	public static int cupStackSize = 1;
+	public static int achievementShiftID = 600;
 	
 	public static boolean useEXRecipe = false;
 	public static boolean notGenTeaTree = false;
@@ -394,6 +384,8 @@ public class DCsAppleMilk{
 					"Disable explosion of the heartfelt chocolate gift.");
 			Property infinityWipes = cfg.get("setting", "Allow Infinity Wipes", allowInfinityWipes,
 					"Allow the WipeBox generate a paper infinitely.");
+			Property achievementID = cfg.get("setting", "Shift Achivement ID", achievementShiftID,
+					"Shift the ID of the achievement.");
 			
 			Property IC2ver = cfg.get("plugin setting", "Use version of IC2", IC2exp,
 					"Please tell me version of IC2 you use. If you use IC2_exp, set true. If you use IC2_lf, set false.");
@@ -465,6 +457,7 @@ public class DCsAppleMilk{
 			setCupTexture = cupTex.getInt();
 			teppannReadyTime = teppannTime.getInt();
 			cupStackSize = cupStackSizeInt.getInt();
+			achievementShiftID = achievementID.getInt();
 			
 			useEXRecipe = EXRecipe.getBoolean(false);
 			notGenTeaTree = noTeaTree.getBoolean(false);
@@ -773,6 +766,7 @@ public class DCsAppleMilk{
 		GameRegistry.registerItem(chalcedonyHammer,"defeatedcrow.chalcedonyStoneCutter");
 		GameRegistry.registerItem(chocolateFruits,"defeatedcrow.chocolateFruits");
 		GameRegistry.registerItem(icyCrystal,"defeatedcrow.icyCrystal");
+		GameRegistry.registerItem(DCgrater,"defeatedcrow.grater");
 		
 		GameRegistry.registerBlock(woodBox, ItemWoodBox.class, "defeatedcrow.WoodBox");
 		GameRegistry.registerBlock(appleBox, "defeatedcrow.AppleBox");
@@ -815,7 +809,10 @@ public class DCsAppleMilk{
 		
 		//クラフトで耐久が減るアイテムの登録
 		GameRegistry.registerCraftingHandler(DCgrater);
+		GameRegistry.registerCraftingHandler(new CraftingEvent());
 		
+		//実績の追加
+		(new AchievementRegister()).register();
 	}
 
 	
@@ -918,6 +915,7 @@ public class DCsAppleMilk{
 		//Checking another mods
 		//他のMODのブロック・アイテム登録クラスに先行しないよう、postInitメソッドでロードする
 		(new LoadOreDicHandler()).load();
+		(new LoadModHandler()).loadAppleMilk();
 		
 	    if (Loader.isModLoaded("IC2") && DCsAppleMilk.useIC2Items)
 	    {

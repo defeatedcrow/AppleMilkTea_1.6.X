@@ -138,4 +138,11 @@ public class BlockBowlRack extends Block{
 		return this.blockID;
 	}
 	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister par1IconRegister)
+	{
+		this.blockIcon = Block.planks.getIcon(1, 0);
+	}
+	
 }
