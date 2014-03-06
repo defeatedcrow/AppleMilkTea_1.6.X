@@ -83,6 +83,7 @@ public class BlockEmptyPan extends BlockContainer{
         	if ((setMeta > 0) && (bottomBlockID == Block.furnaceBurning.blockID || block instanceof BlockFurnace))
     		{
     			this.setPanMeta(par1World, par2, par3, par4, par5EntityPlayer, itemstack, setMeta);
+    			par5EntityPlayer.triggerAchievement(AchievementRegister.makeRice);
         		return true;
     		}
     		else

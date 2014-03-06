@@ -76,6 +76,7 @@ public class ItemAPI {
 	 * 
 	 * condensed milk				: condensedMilk
 	 * ganache						: gratedApple & 4
+	 * crashed ice					: EXItems & 7
 	 * 
 	 * grated fruits				: gratedApple & apple:0, fruit:1, lime:5, tomato:6, berry:7
 	 * honey lemon slices			: gratedApple & 2
@@ -132,6 +133,7 @@ public class ItemAPI {
 	 * pan							: emptyPan
 	 * cooking iron plate			: teppann
 	 * empty cup					: emptyCup
+	 * rotary dial					: rotaryDial
 	 * 
 	 * (basket and table wares)
 	 * 
@@ -144,12 +146,13 @@ public class ItemAPI {
 	 * tea cup(1)					: teacupBlock & milk:1, tea:2, milk tea:3, green tea:4, milk green tea:5, cocoa:6, milk cocoa:7,
 	 * 												juice:8, shakes:9, lemonade:10, milk lemonade:11, coffee:12, milk coffee:13
 	 * tea cup(2)					: teaCup2 & earl gray:0, milk earl gray:1, apple tea:2, milk apple tea:3,
-	 * 											lime:4, tomato:5, berry:6, berry shakes:7
+	 * 											lime:4, tomato:5, berry:6, berry shakes:7, grape:8
 	 * bowl of soups				: bowlBlock & rice:0, mushroom:1, salmon stew:2, zousui:3, kayaku:4, tofu:5, pumpkin:6, BLT:7
 	 * bowl of soups (JP render)	: bowlJP & (just same as bowlBlock metadata)
 	 * ice creams					: blockIcecream & milk:0, tea:1, greentea:2, cocoa:3, coffee:4, fruit:5, lemon:6,
 	 * 												  lime:7, tomato:8, berry:9
 	 * steak plates					: foodPlate & beef:0, pork:1, chicken:2, clam:3
+	 * cocktails					: cocktail & frozen daiquiri:0, frozen sake:1, sake-tini:2, gimlet:3, black rose:4, red eye:5
 	 * 
 	 * (generated on world)
 	 * sapling of tea				: saplingTea

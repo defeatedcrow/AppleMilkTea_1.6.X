@@ -15,6 +15,7 @@ public class LoadIC2Handler {
 	public static int IC2Mug = 0;
 	public static int IC2MugCoffee = 0;
 	public static int IC2dropRubber = 0;
+	public static int IC2Rum = 0;
 
 	public void load() {
 		

@@ -238,6 +238,9 @@ public class BlockTeppann extends BlockContainer{
 		if (this.getUnderMaterial(par1World, par2, par3, par4) && (par5Entity instanceof EntityLiving || par5Entity instanceof EntityPlayer))
         {
         	par5Entity.setFire(30);
+        	if (par5Entity instanceof EntityPlayer) {
+        		((EntityPlayer) par5Entity).triggerAchievement(AchievementRegister.burnOnTeppan);
+        	}
         }
     }
 	

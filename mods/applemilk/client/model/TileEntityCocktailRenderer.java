@@ -43,6 +43,7 @@ public class TileEntityCocktailRenderer extends TileEntitySpecialRenderer
         this.bindTexture(cocktailTex);
         GL11.glPushMatrix();
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+  
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
         GL11.glTranslatef((float)par1 + 0.5F, (float)par2 + 1.5F, (float)par3 + 0.5F);
         GL11.glScalef(1.0F, -1.0F, -1.0F);

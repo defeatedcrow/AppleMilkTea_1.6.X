@@ -11,7 +11,7 @@ import mods.applemilk.common.DCsAppleMilk;
 
 public class MCEconomyHandler extends ProductList{
 	
-	ArrayList<IProductItem> DCsProduct = new ArrayList<IProductItem>();
+	private static ArrayList<IProductItem> DCsProduct = new ArrayList<IProductItem>();
 	public static int DCshopId = -1;
 	
 	public void registerSellable()
@@ -120,11 +120,12 @@ public class MCEconomyHandler extends ProductList{
 		System.out.println("[AppleMilk]Succeeded to register the price for MCEconomy.");
 		
 		DCshopId = MCEconomyAPI.registerProductList(this);
+		this.registerProducts();
 		
 		System.out.println("[AppleMilk]Succeeded to register the shop ID. ID: " + DCshopId);
 	}
 	
-	public void registerProducts()
+	static void registerProducts()
 	{
 		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.saplingTea, 1, 0), 50));
 		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.EXItems, 1, 2), 15));
@@ -136,6 +137,7 @@ public class MCEconomyHandler extends ProductList{
 		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.gratedApple, 1, 5), 40));
 		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.gratedApple, 1, 6), 40));
 		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.gratedApple, 1, 7), 40));
+		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.gratedApple, 1, 8), 40));
 	}
 
 	@Override

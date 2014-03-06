@@ -17,6 +17,7 @@ public class AddChestGen {
 			ChestGenHooks dungeon = ChestGenHooks.getInfo(category);
 			//addItemメソッドで新しいアイテムを追加
 			dungeon.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.saplingTea),1,3,20));
+			dungeon.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.rotaryDial),1,1,20));
 		}
 	}
 	

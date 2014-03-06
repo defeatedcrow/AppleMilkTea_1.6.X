@@ -29,6 +29,7 @@ public class RegisterOreHandler {
 	    OreDictionary.registerOre("foodGratedLime", new ItemStack(DCsAppleMilk.gratedApple, 1, 5));
 	    OreDictionary.registerOre("foodGratedTomato", new ItemStack(DCsAppleMilk.gratedApple, 1, 6));
 	    OreDictionary.registerOre("foodGratedBerry", new ItemStack(DCsAppleMilk.gratedApple, 1, 7));
+	    OreDictionary.registerOre("foodGratedGrape", new ItemStack(DCsAppleMilk.gratedApple, 1, 8));
 	    OreDictionary.registerOre("foodGratedChocolate", new ItemStack(DCsAppleMilk.mincedFoods, 1, 8));
 	    
 	    OreDictionary.registerOre("foodBlockMilk", new ItemStack(DCsAppleMilk.teacupBlock, 1, 1));
@@ -51,6 +52,7 @@ public class RegisterOreHandler {
 	    OreDictionary.registerOre("foodBlockLimejuice", new ItemStack(DCsAppleMilk.teaCup2, 1, 4));
 	    OreDictionary.registerOre("foodBlockTomatojuice", new ItemStack(DCsAppleMilk.teaCup2, 1, 5));
 	    OreDictionary.registerOre("foodBlockMilkBerry", new ItemStack(DCsAppleMilk.teaCup2, 1, 7));
+	    OreDictionary.registerOre("foodBlockGrapejuice", new ItemStack(DCsAppleMilk.teaCup2, 1, 8));
 	    
 	    OreDictionary.registerOre("foodBlockRice", new ItemStack(DCsAppleMilk.bowlBlock, 1, 0));
 	    OreDictionary.registerOre("foodBlockMushroomstew", new ItemStack(DCsAppleMilk.bowlBlock, 1, 1));

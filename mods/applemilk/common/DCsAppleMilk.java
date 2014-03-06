@@ -97,6 +97,7 @@ public class DCsAppleMilk{
 	public static Block  blockIcecream;
 	public static Block  teaCup2;
 	public static Block  rotaryDial;
+	public static Block  cocktail;
 	
 	//アイテムのインスタンス
 	public static Item  bakedApple;
@@ -120,6 +121,8 @@ public class DCsAppleMilk{
 	public static Item  chalcedonyHammer;
 	public static Item  chocolateFruits;
 	public static Item  icyCrystal;
+	public static Item  wallMug;
+	public static Item  emptyWallMug;
 	
 	//ポーションのインスタンス
 	public static Potion Immunization;
@@ -163,7 +166,8 @@ public class DCsAppleMilk{
 	public int blockIdIceBlock = 615;
 	public int blockIdWipe2 = 616;
 	public int blockIdTeaCup2 = 617;
-	public int blockIdDial = 618;
+	public int blockIdDial = 619;
+	public int blockIdCocktail = 618;
 	
 	public int itemIdBapple = 6000;
 	public int itemIdAppleTart = 6001;
@@ -186,6 +190,8 @@ public class DCsAppleMilk{
 	public int itemIdCHammer = 5998;
 	public int itemIdChoco = 5999;
 	public int itemIdIcyCrystal = 6010;
+	public int itemIdEmptyMug = 6011;
+	public int itemIdWallMug = 6012;
 	
 	public static int pothinIDImmunity = 25;
 	public int entityIdMelon = 0;
@@ -320,6 +326,7 @@ public class DCsAppleMilk{
 			Property blockWipe2 = cfg.getBlock("PaperBox", blockIdWipe2);
 			Property blockCup2 = cfg.getBlock("FilledCup2", blockIdTeaCup2);
 			Property blockDial = cfg.getBlock("RoteryDial", blockIdDial);
+			Property blockC = cfg.getBlock("Cocktail", blockIdCocktail);
 			
 			Property itemBapple = cfg.getItem("BakedApple", itemIdBapple);
 			Property itemAppleT = cfg.getItem("AppleTart", itemIdAppleTart);
@@ -438,6 +445,7 @@ public class DCsAppleMilk{
 			blockIdIceBlock = blockIce.getInt();
 			blockIdTeaCup2 = blockCup2.getInt();
 			blockIdDial = blockDial.getInt();
+			blockIdCocktail = blockC.getInt();
 			
 			itemIdBapple = itemBapple.getInt();
 			itemIdAppleTart = itemAppleT.getInt();
@@ -681,6 +689,10 @@ public class DCsAppleMilk{
 				setUnlocalizedName("defeatedcrow.icyCrystal").
 				setCreativeTab(applemilk);
 		
+		cocktail = (new BlockCocktail(blockIdCocktail)).
+				setUnlocalizedName("defeatedcrow.cocktail").
+				setCreativeTab(applemilk);
+		
 		//tree
 		saplingTea = (new BlockSaplingTea(blockIdSapT)).
 				setUnlocalizedName("defeatedcrow.saplingTea").
@@ -820,6 +832,7 @@ public class DCsAppleMilk{
 		GameRegistry.registerBlock(blockIcecream, ItemIceBlock.class, "defeatedcrow.iceCreamBlock");
 		GameRegistry.registerBlock(teaCup2, ItemBlockTeaCup2.class, "defeatedcrow.filledCup2");
 		GameRegistry.registerBlock(rotaryDial, "defeatedcrow.rotaryDial");
+		GameRegistry.registerBlock(cocktail, ItemCocktail.class, "defeatedcrow.cocktail");
 		
 		//クラフトで耐久が減るアイテムの登録
 		GameRegistry.registerCraftingHandler(DCgrater);
@@ -931,7 +944,7 @@ public class DCsAppleMilk{
 		//Checking another mods
 		//他のMODのブロック・アイテム登録クラスに先行しないよう、postInitメソッドでロードする
 		(new LoadOreDicHandler()).load();
-		(new LoadModHandler()).loadAppleMilk();
+		//(new LoadModHandler()).loadAppleMilk();
 		
 	    if (Loader.isModLoaded("IC2") && DCsAppleMilk.useIC2Items)
 	    {
@@ -988,6 +1001,20 @@ public class DCsAppleMilk{
 	        }
 	    }
 	    
+	    if (Loader.isModLoaded("AndanteMod_Gummi"))
+	    {
+	        try
+	        {
+	          this.SuccessLoadGummi = true;
+	          (new LoadModHandler()).loadGummi();;
+	          
+	        }
+	        catch (Exception e) {
+	          System.out.println("[AppleMilk]Failed to check Gummi");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
 	    if (Loader.isModLoaded("MCEconomy"))
 	    {
 	        try
@@ -998,6 +1025,20 @@ public class DCsAppleMilk{
 	        }
 	        catch (Exception e) {
 	          System.out.println("[AppleMilk]Failed to check MCEconomy");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
+	    if (Loader.isModLoaded("SextiarySector"))
+	    {
+	        try
+	        {
+	          this.SuccessLoadSSector = true;
+	          (new LoadSSectorHandler()).load();
+	          
+	        }
+	        catch (Exception e) {
+	          System.out.println("[AppleMilk]Failed to check SextiarySector");
 	          e.printStackTrace(System.err);
 	        }
 	    }

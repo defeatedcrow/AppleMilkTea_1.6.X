@@ -72,6 +72,7 @@ public class LoadThaumcraftHandler {
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.iceMaker.blockID, 0, new AspectList().add(Aspect.CRAFT, 2).add(Aspect.HUNGER, 1).add(Aspect.ICE, 3));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.autoMaker.blockID, 0, new AspectList().add(Aspect.CRAFT, 2).add(Aspect.HUNGER, 1).add(Aspect.EXCHANGE, 3));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.teaMakerNext.blockID, 0, new AspectList().add(Aspect.WATER, 2).add(Aspect.VOID, 1).add(Aspect.FIRE, 1));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.rotaryDial.blockID, 0, new AspectList().add(Aspect.MECHANISM, 2).add(Aspect.EXCHANGE, 2).add(Aspect.TRAVEL, 1));
 		    
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.emptyCup.blockID, 0, new AspectList().add(Aspect.WATER, 2).add(Aspect.VOID, 1));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.teacupBlock.blockID, -1, new AspectList().add(Aspect.WATER, 2).add(Aspect.HEAL, 1));
@@ -79,7 +80,8 @@ public class LoadThaumcraftHandler {
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.bowlBlock.blockID, -1, new AspectList().add(Aspect.HUNGER, 2));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.bowlJP.blockID, -1, new AspectList().add(Aspect.HUNGER, 2));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.foodPlate.blockID, -1, new AspectList().add(Aspect.HUNGER, 2).add(Aspect.FLESH, 2));
-		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.foodPlate.blockID, -1, new AspectList().add(Aspect.HUNGER, 2).add(Aspect.ICE, 2));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.blockIcecream.blockID, -1, new AspectList().add(Aspect.HUNGER, 2).add(Aspect.ICE, 2));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.cocktail.blockID, -1, new AspectList().add(Aspect.WATER, 2).add(Aspect.MAGIC, 2).add(Aspect.SENSES, 2));
 		    
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.saplingTea.blockID, 0, new AspectList().add(Aspect.PLANT, 2).add(Aspect.SEED, 2));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.teaTree.blockID, -1, new AspectList().add(Aspect.PLANT, 2).add(Aspect.AIR, 2));

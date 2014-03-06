@@ -1,6 +1,7 @@
 package mods.applemilk.common;
 
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
@@ -31,6 +32,9 @@ public class AchievementRegister {
 	public static Achievement crashMelon;
 	public static Achievement craftCharcoalContainer;
 	public static Achievement craftVegiBag;
+	public static Achievement drinkCocktail;
+	public static Achievement burnOnTeppan;
+	public static Achievement makeRice;
 	
 	static Achievement[] DCachievementsList;
 	public static AchievementPage DCachievementPage;
@@ -90,7 +94,7 @@ public class AchievementRegister {
 		LanguageRegistry.instance().addStringLocalization(craftLogBox.statName + ".desc", "en_US", "Craft a log box of any type.");
 		LanguageRegistry.instance().addStringLocalization(craftLogBox.statName + ".desc", "ja_JP", "原木から原木箱を作る");
 		
-		craftGrater = (new Achievement((DCsAppleMilk.achievementShiftID + 7), "craftGrater", -4, -1, new ItemStack(DCsAppleMilk.DCgrater, 1, 0), craftPan))
+		craftGrater = (new Achievement((DCsAppleMilk.achievementShiftID + 7), "craftGrater", -3, -2, new ItemStack(DCsAppleMilk.DCgrater, 1, 0), craftPan))
 				.registerAchievement();
 		LanguageRegistry.instance().addStringLocalization(craftGrater.statName, "en_US", "Grate them all!");
 		LanguageRegistry.instance().addStringLocalization(craftGrater.statName + ".desc", "en_US", "Craft a grater.");
@@ -103,14 +107,21 @@ public class AchievementRegister {
 		LanguageRegistry.instance().addStringLocalization(makeTeaLeaves.statName + ".desc", "en_US", "Roast the tea leaves in furnace.");
 		LanguageRegistry.instance().addStringLocalization(makeTeaLeaves.statName + ".desc", "ja_JP", "茶の葉をかまどで焼く");
 		
-		getSoup = (new Achievement((DCsAppleMilk.achievementShiftID + 9), "getSoup", -6, -2, new ItemStack(DCsAppleMilk.bowlBlock, 1, 2), craftGrater))
+		makeRice = (new Achievement((DCsAppleMilk.achievementShiftID + 23), "makeRice", -5, 0, new ItemStack(DCsAppleMilk.filledPan, 1, 0), craftGrater))
+				.registerAchievement();
+		LanguageRegistry.instance().addStringLocalization(makeRice.statName, "en_US", "Hot meals");
+		LanguageRegistry.instance().addStringLocalization(makeRice.statName, "ja_JP", "温かい食卓");
+		LanguageRegistry.instance().addStringLocalization(makeRice.statName + ".desc", "en_US", "Place the pan on top of the furnace, use the minced foods.");
+		LanguageRegistry.instance().addStringLocalization(makeRice.statName + ".desc", "ja_JP", "鍋をかまどの上に置き、材料を持って右クリックする");
+		
+		getSoup = (new Achievement((DCsAppleMilk.achievementShiftID + 9), "getSoup", -7, -2, new ItemStack(DCsAppleMilk.bowlBlock, 1, 2), makeRice))
 				.registerAchievement();
 		LanguageRegistry.instance().addStringLocalization(getSoup.statName, "en_US", "Homemade taste");
 		LanguageRegistry.instance().addStringLocalization(getSoup.statName, "ja_JP", "温かいスープ");
 		LanguageRegistry.instance().addStringLocalization(getSoup.statName + ".desc", "en_US", "Right click the filled pan while hold a bowl.");
 		LanguageRegistry.instance().addStringLocalization(getSoup.statName + ".desc", "ja_JP", "ボウルを持って満たされた鍋を右クリック");
 		
-		eatChocoGift = (new Achievement((DCsAppleMilk.achievementShiftID + 10), "eatChocoGift", -7, 0, new ItemStack(DCsAppleMilk.chocoBlock, 1, 1), getSoup))
+		eatChocoGift = (new Achievement((DCsAppleMilk.achievementShiftID + 10), "eatChocoGift", -8, 1, new ItemStack(DCsAppleMilk.chocoBlock, 1, 1), makeRice))
 				.setSpecial().registerAchievement();
 		LanguageRegistry.instance().addStringLocalization(eatChocoGift.statName, "en_US", "Youthful indiscretion...");
 		LanguageRegistry.instance().addStringLocalization(eatChocoGift.statName, "ja_JP", "若気の至り");
@@ -187,10 +198,23 @@ public class AchievementRegister {
 		LanguageRegistry.instance().addStringLocalization(craftAutoMaker.statName + ".desc", "en_US", "Craft a tea　maker attachment.");
 		LanguageRegistry.instance().addStringLocalization(craftAutoMaker.statName + ".desc", "ja_JP", "ティーメーカー・アタッチメントを作る");
 		
+		drinkCocktail = (new Achievement((DCsAppleMilk.achievementShiftID + 21), "drinkCocktail", 3, -2, new ItemStack(DCsAppleMilk.cocktail, 1, 0), craftIceMaker))
+				.registerAchievement();
+		LanguageRegistry.instance().addStringLocalization(drinkCocktail.statName, "en_US", "Fryday night");
+		LanguageRegistry.instance().addStringLocalization(drinkCocktail.statName, "ja_JP", "花の金曜日");
+		LanguageRegistry.instance().addStringLocalization(drinkCocktail.statName + ".desc", "en_US", "Drink a glass of cocktail of any type.");
+		LanguageRegistry.instance().addStringLocalization(drinkCocktail.statName + ".desc", "ja_JP", "カクテルを一杯飲む");
+		
+		burnOnTeppan = (new Achievement((DCsAppleMilk.achievementShiftID + 22), "burnOnTeppan", -4, 2, new ItemStack(Block.fire, 1, 0), craftTeppan))
+				.registerAchievement();
+		LanguageRegistry.instance().addStringLocalization(burnOnTeppan.statName, "en_US", "Be carefull!");
+		LanguageRegistry.instance().addStringLocalization(burnOnTeppan.statName, "ja_JP", "やけどに注意！");
+		LanguageRegistry.instance().addStringLocalization(burnOnTeppan.statName + ".desc", "en_US", "Touch the cooking iron plate on fire.");
+		LanguageRegistry.instance().addStringLocalization(burnOnTeppan.statName + ".desc", "ja_JP", "かまどの上に置いた調理用鉄板に触れる");
 		
 		DCachievementsList = new Achievement[] { getTeaLeaves, craftTeaMaker, craftPan, craftTeppan, craftIceMaker, craftChalcedony, craftLogBox, craftGrater,
 				makeTeaLeaves, getSoup, eatChocoGift, getTea, getAppleMilkTea, getHamaguri, craftCharcoalContainer, craftVegiBag, crashMelon, eatIcecream,
-				craftChalKnife, craftGlassLamp, craftAutoMaker};
+				craftChalKnife, craftGlassLamp, craftAutoMaker, drinkCocktail, burnOnTeppan, makeRice};
 		DCachievementPage = new AchievementPage(newAchievement, DCachievementsList);
 		AchievementPage.registerAchievementPage(DCachievementPage);
 		

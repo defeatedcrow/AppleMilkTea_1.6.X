@@ -1,5 +1,6 @@
 package mods.applemilk.common;
 
+import mods.applemilk.handler.LoadSSectorHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -41,6 +42,25 @@ public class CraftingEvent implements ICraftingHandler {
 			}
 			else if (item.itemID == DCsAppleMilk.vegiBag.blockID) {
 				player.triggerAchievement(AchievementRegister.craftVegiBag);
+			}
+		}
+		
+		for (int i = 0; i < 9 ; i++)
+		{
+			ItemStack m = craftMatrix.getStackInSlot(i);
+			if (m != null && (m.itemID == DCsAppleMilk.teacupBlock.blockID || m.itemID == DCsAppleMilk.teaCup2.blockID)) {
+				if (!player.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.emptyCup,1,0)))
+	        	{
+	        		player.dropPlayerItem(new ItemStack(DCsAppleMilk.emptyCup,1,0));
+	        	}
+			}
+			if (m != null && DCsAppleMilk.SuccessLoadSSector && 
+					(m.itemID == LoadSSectorHandler.rumBottle.itemID || m.itemID == LoadSSectorHandler.ginBottle.itemID 
+					|| m.itemID == LoadSSectorHandler.beerBottle.itemID || m.itemID == LoadSSectorHandler.sakeBottle.itemID)) {
+				if (!player.inventory.addItemStackToInventory(LoadSSectorHandler.emptyBottle))
+	        	{
+	        		player.dropPlayerItem(LoadSSectorHandler.emptyBottle);
+	        	}
 			}
 		}
 		
