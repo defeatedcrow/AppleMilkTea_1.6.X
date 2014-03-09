@@ -17,7 +17,9 @@ import org.lwjgl.opengl.GL12;
 @SideOnly(Side.CLIENT)
 public class TileEntitySteakRenderer extends TileEntitySpecialRenderer
 {
-    private static final ResourceLocation steakHandleTex = new ResourceLocation("applemilk:textures/entity/steak.png");
+    private static final ResourceLocation steakTex = new ResourceLocation("applemilk:textures/entity/steak.png");
+    private static final ResourceLocation chickenTex = new ResourceLocation("applemilk:textures/entity/roastedchicken.png");
+    private static final ResourceLocation hamaguriTex = new ResourceLocation("applemilk:textures/entity/hamaguri.png");
     public static TileEntitySteakRenderer steakRenderer;
     private ModelSteak steakModel = new ModelSteak();
 
@@ -46,7 +48,16 @@ public class TileEntitySteakRenderer extends TileEntitySpecialRenderer
         if (k == 2) j = 0.0F;
         if (k == 4) j = 90.0F;
 
-        this.bindTexture(steakHandleTex);
+        if (l == 0 || l == 1) {
+        	this.bindTexture(steakTex);
+        }
+        else if (l == 2) {
+        	this.bindTexture(chickenTex);
+        }
+        else {
+        	this.bindTexture(hamaguriTex);
+        }
+        
         GL11.glPushMatrix();
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

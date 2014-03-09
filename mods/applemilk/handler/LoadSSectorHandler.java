@@ -45,7 +45,7 @@ public class LoadSSectorHandler {
 		}
 		
 		IceRecipe.registerCanLeave(new ItemStack(sakeBottle.itemID, 1, sakeBottle.getItemDamage()), new ItemStack(DCsAppleMilk.cocktail, 1, 3),
-				emptyBottle);
+				new ItemStack(emptyBottle.itemID, 1, 0));
 	}
 
 }

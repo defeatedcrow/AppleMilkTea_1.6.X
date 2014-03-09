@@ -38,7 +38,7 @@ public class TileEntityIceCreamRenderer extends TileEntitySpecialRenderer
     public void setRotation(TileIceCream par0Tile, float par1, float par2, float par3)
     {
         ModelIceCream model = this.iceModel;
-        byte l = (byte)par0Tile.blockMetadata;
+        byte l = (byte)par0Tile.getBlockMetadata();
 
         this.bindTexture(iceTex);
         GL11.glPushMatrix();

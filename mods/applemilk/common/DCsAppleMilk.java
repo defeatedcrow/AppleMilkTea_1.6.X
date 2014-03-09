@@ -36,7 +36,7 @@ import cpw.mods.fml.common.registry.*;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.10a",
+		version = "1.6.2_1.10b",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry"
 		)
 @NetworkMod(
@@ -98,6 +98,7 @@ public class DCsAppleMilk{
 	public static Block  teaCup2;
 	public static Block  rotaryDial;
 	public static Block  cocktail;
+	public static Block  largeBottle;
 	
 	//アイテムのインスタンス
 	public static Item  bakedApple;
@@ -123,6 +124,7 @@ public class DCsAppleMilk{
 	public static Item  icyCrystal;
 	public static Item  wallMug;
 	public static Item  emptyWallMug;
+	public static ItemLargeBottle  itemLargeBottle;
 	
 	//ポーションのインスタンス
 	public static Potion Immunization;
@@ -132,7 +134,7 @@ public class DCsAppleMilk{
 	public int blockIdAppleBox = 601;
 	public int blockIdVegiBag = 602;
 	public int blockIdCBox = 603;
-	public int blockIdMaker = 604;
+	public int blockIdMaker = 604;//ブロックID節約のためボツ化。
 	public int blockIdECup = 605;
 	public int blockIdSapT = 606;
 	public int blockIdTreeT = 607;
@@ -168,6 +170,7 @@ public class DCsAppleMilk{
 	public int blockIdTeaCup2 = 617;
 	public int blockIdDial = 619;
 	public int blockIdCocktail = 618;
+	public int blockIdLargeBottle = 620;
 	
 	public int itemIdBapple = 6000;
 	public int itemIdAppleTart = 6001;
@@ -192,6 +195,7 @@ public class DCsAppleMilk{
 	public int itemIdIcyCrystal = 6010;
 	public int itemIdEmptyMug = 6011;
 	public int itemIdWallMug = 6012;
+	public int itemIdBottle = 6013;
 	
 	public static int pothinIDImmunity = 25;
 	public int entityIdMelon = 0;
@@ -243,7 +247,7 @@ public class DCsAppleMilk{
 	public static boolean inClient = false;
 	public static boolean inServer = false;
 	public static boolean thirdParty = false;
-	public static boolean debugMode = false;
+	public static boolean debugMode = true;
 	
 	//新ツール属性の追加
 	public static EnumToolMaterial enumToolMaterialChalcedony;
@@ -274,6 +278,8 @@ public class DCsAppleMilk{
 	public static int modelIceCream;
 	public static int modelDial;
 	public static int modelCocktail;
+	public static int modelLargeBottle;
+	public static int modelCanister;
 	
 	//コンフィグファイル内で使う改行の記号
 	private final String BR = System.getProperty("line.separator");
@@ -327,6 +333,7 @@ public class DCsAppleMilk{
 			Property blockCup2 = cfg.getBlock("FilledCup2", blockIdTeaCup2);
 			Property blockDial = cfg.getBlock("RoteryDial", blockIdDial);
 			Property blockC = cfg.getBlock("Cocktail", blockIdCocktail);
+			Property blockBottle = cfg.getBlock("LargeBottle", blockIdLargeBottle);
 			
 			Property itemBapple = cfg.getItem("BakedApple", itemIdBapple);
 			Property itemAppleT = cfg.getItem("AppleTart", itemIdAppleTart);
@@ -349,6 +356,7 @@ public class DCsAppleMilk{
 			Property itemCHammer = cfg.getItem("ChalcedonyStoneCutter", itemIdCHammer);
 			Property itemChoco = cfg.getItem("ChocolateFruits", itemIdChoco);
 			Property itemIcyC = cfg.getItem("IcyCrystal", itemIdIcyCrystal);
+			Property itemBottle = cfg.getItem("ItemLargeBottle", itemIdBottle);
 			
 			Property DCpotionID = cfg.get("potionID", "Immunization", pothinIDImmunity,
 					"Set new potion ID for this mod. If you set 0, disable new potion effect.");
@@ -446,6 +454,7 @@ public class DCsAppleMilk{
 			blockIdTeaCup2 = blockCup2.getInt();
 			blockIdDial = blockDial.getInt();
 			blockIdCocktail = blockC.getInt();
+			blockIdLargeBottle = blockBottle.getInt();
 			
 			itemIdBapple = itemBapple.getInt();
 			itemIdAppleTart = itemAppleT.getInt();
@@ -468,6 +477,7 @@ public class DCsAppleMilk{
 			itemIdCHammer = itemCHammer.getInt();
 			itemIdChoco = itemChoco.getInt();
 			itemIdIcyCrystal = itemIcyC.getInt();
+			itemIdBottle = itemBottle.getInt();
 			
 			pothinIDImmunity = DCpotionID.getInt();
 			teaTreeGenValue = TeaTreeValue.getInt();
@@ -693,6 +703,14 @@ public class DCsAppleMilk{
 				setUnlocalizedName("defeatedcrow.cocktail").
 				setCreativeTab(applemilk);
 		
+//		largeBottle = (new BlockLargeBottle(blockIdLargeBottle)).
+//				setUnlocalizedName("defeatedcrow.largeBottle").
+//				setCreativeTab(applemilk);
+//		
+//		itemLargeBottle = (ItemLargeBottle) (new ItemLargeBottle(itemIdBottle)).
+//				setUnlocalizedName("defeatedcrow.itemBottle").
+//				setCreativeTab(applemilk);
+		
 		//tree
 		saplingTea = (new BlockSaplingTea(blockIdSapT)).
 				setUnlocalizedName("defeatedcrow.saplingTea").
@@ -792,6 +810,7 @@ public class DCsAppleMilk{
 		GameRegistry.registerItem(chocolateFruits,"defeatedcrow.chocolateFruits");
 		GameRegistry.registerItem(icyCrystal,"defeatedcrow.icyCrystal");
 		GameRegistry.registerItem(DCgrater,"defeatedcrow.grater");
+		//GameRegistry.registerItem(itemLargeBottle,"defeatedcrow.itemBottle");
 		
 		GameRegistry.registerBlock(woodBox, ItemWoodBox.class, "defeatedcrow.WoodBox");
 		GameRegistry.registerBlock(appleBox, "defeatedcrow.AppleBox");
@@ -833,9 +852,11 @@ public class DCsAppleMilk{
 		GameRegistry.registerBlock(teaCup2, ItemBlockTeaCup2.class, "defeatedcrow.filledCup2");
 		GameRegistry.registerBlock(rotaryDial, "defeatedcrow.rotaryDial");
 		GameRegistry.registerBlock(cocktail, ItemCocktail.class, "defeatedcrow.cocktail");
+		//GameRegistry.registerBlock(largeBottle, "defeatedcrow.largeBottle");
 		
 		//クラフトで耐久が減るアイテムの登録
 		GameRegistry.registerCraftingHandler(DCgrater);
+		//GameRegistry.registerCraftingHandler(itemLargeBottle);
 		GameRegistry.registerCraftingHandler(new CraftingEvent());
 		
 		//実績の追加
@@ -921,6 +942,7 @@ public class DCsAppleMilk{
 		this.modelIceCream = proxy.getRenderID();
 		this.modelCocktail = proxy.getRenderID();
 		this.modelDial = proxy.getRenderID();
+		this.modelLargeBottle = proxy.getRenderID();
 		proxy.registerRenderers();
 	      
 	    //Registering OreDictionary  

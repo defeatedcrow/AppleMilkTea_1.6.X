@@ -32,7 +32,7 @@ public class BlockRotaryDial extends BlockContainer{
 	public BlockRotaryDial (int blockid)
 	{
 		super(blockid, Material.glass);
-		this.setStepSound(Block.soundGlassFootstep);
+		this.setStepSound(Block.soundStoneFootstep);
 		this.setHardness(0.2F);
 		this.setResistance(1.0F);
 		this.setTickRandomly(true);

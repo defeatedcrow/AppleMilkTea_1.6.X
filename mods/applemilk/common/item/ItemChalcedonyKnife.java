@@ -31,7 +31,8 @@ public class ItemChalcedonyKnife extends ItemTool{
 	public boolean onBlockDestroyed(ItemStack par1ItemStack, World par2World, int par3, int par4, int par5, int par6, EntityLivingBase par7EntityLivingBase)
     {
         int ID = par2World.getBlockId(par3, par4, par5);
-		if (ID != Block.leaves.blockID && ID != Block.web.blockID && ID != Block.tallGrass.blockID && ID != Block.vine.blockID && ID != Block.tripWire.blockID && !(Block.blocksList[ID] instanceof IShearable))
+		if (ID != Block.leaves.blockID && ID != Block.web.blockID && ID != Block.tallGrass.blockID && ID != Block.vine.blockID && ID != Block.tripWire.blockID
+				&& ID != Block.pumpkin.blockID && ID != Block.melon.blockID && !(Block.blocksList[ID] instanceof IShearable))
         {
             return false;
         }

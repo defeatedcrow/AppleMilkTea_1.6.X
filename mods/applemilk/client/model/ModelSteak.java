@@ -18,6 +18,23 @@ public class ModelSteak extends ModelBase
     ModelRenderer potato2 = (new ModelRenderer(this, 0, 23)).setTextureSize(32, 32);
     ModelRenderer beef = (new ModelRenderer(this, 0, 0)).setTextureSize(32, 32);
     ModelRenderer butter = (new ModelRenderer(this, 9, 18)).setTextureSize(32, 32);
+    
+    ModelRenderer body1 = (new ModelRenderer(this, 0, 0)).setTextureSize(32, 32);
+    ModelRenderer body2 = (new ModelRenderer(this, 0, 3)).setTextureSize(32, 32);
+    ModelRenderer leg1 = (new ModelRenderer(this, 0, 16)).setTextureSize(32, 32);
+    ModelRenderer leg2 = (new ModelRenderer(this, 0, 16)).setTextureSize(32, 32);
+    ModelRenderer leg3 = (new ModelRenderer(this, 3, 18)).setTextureSize(32, 32);
+    ModelRenderer leg4 = (new ModelRenderer(this, 3, 18)).setTextureSize(32, 32);
+    ModelRenderer leg5 = (new ModelRenderer(this, 18, 16)).setTextureSize(32, 32);
+    ModelRenderer leg6 = (new ModelRenderer(this, 18, 16)).setTextureSize(32, 32);
+    ModelRenderer leg7 = (new ModelRenderer(this, 18, 24)).setTextureSize(32, 32);
+    ModelRenderer leg8 = (new ModelRenderer(this, 18, 24)).setTextureSize(32, 32);
+    
+    ModelRenderer bottom = (new ModelRenderer(this, 0, 16)).setTextureSize(32, 32);
+    ModelRenderer bottom2 = (new ModelRenderer(this, 0, 0)).setTextureSize(32, 32);
+    ModelRenderer top1 = (new ModelRenderer(this, 14, 8)).setTextureSize(32, 32);
+    ModelRenderer top2 = (new ModelRenderer(this, 0, 8)).setTextureSize(32, 32);
+    ModelRenderer Shape1 = (new ModelRenderer(this, 0, 22)).setTextureSize(32, 32);
   
   public ModelSteak()
   {
@@ -54,6 +71,68 @@ public class ModelSteak extends ModelBase
       butter.setRotationPoint(0F, 17F, 0F);
       butter.mirror = true;
       setRotation(butter, 0F, 0F, 0F);
+      
+      body1.addBox(-3F, 0F, -6F, 6, 5, 10);
+      body1.setRotationPoint(0F, 17F, 0F);
+      body1.mirror = true;
+      setRotation(body1, 0F, 0F, 0F);
+      body2.addBox(-4F, 0F, -5F, 8, 4, 8);
+      body2.setRotationPoint(0F, 18F, 0F);
+      body2.mirror = true;
+      setRotation(body2, 0F, 0F, 0F);
+      leg1.addBox(3F, 0F, -2F, 2, 5, 7);
+      leg1.setRotationPoint(0F, 16F, 0F);
+      leg1.mirror = true;
+      setRotation(leg1, 0F, 0F, 0F);
+      leg2.addBox(-5F, 0F, -2F, 2, 5, 7);
+      leg2.setRotationPoint(0F, 16F, 0F);
+      leg2.mirror = true;
+      setRotation(leg2, 0F, 0F, 0F);
+      leg3.addBox(5F, 0F, -1F, 1, 4, 5);
+      leg3.setRotationPoint(0F, 16.5F, 0F);
+      leg3.mirror = true;
+      setRotation(leg3, 0F, 0F, 0F);
+      leg4.addBox(-6F, 0F, -1F, 1, 4, 5);
+      leg4.setRotationPoint(0F, 16.5F, 0F);
+      leg4.mirror = true;
+      setRotation(leg4, 0F, 0F, 0F);
+      leg5.addBox(3F, -1F, 2F, 2, 2, 4);
+      leg5.setRotationPoint(0F, 18F, 0F);
+      leg5.mirror = true;
+      setRotation(leg5, 0.3141593F, 0F, 0F);
+      leg6.addBox(-5F, -1F, 1F, 2, 2, 4);
+      leg6.setRotationPoint(0F, 18F, 0F);
+      leg6.mirror = true;
+      setRotation(leg6, 0.3141593F, 0F, 0F);
+      leg7.addBox(3F, 0F, 4F, 2, 1, 4);
+      leg7.setRotationPoint(0F, 17F, 0F);
+      leg7.mirror = true;
+      setRotation(leg7, 0.3141593F, 0F, 0F);
+      leg8.addBox(-5F, 0F, 4F, 2, 1, 4);
+      leg8.setRotationPoint(0F, 17F, 0F);
+      leg8.mirror = true;
+      setRotation(leg8, 0.3141593F, 0F, 0F);
+      
+      bottom.addBox(-2F, 0F, -2F, 4, 1, 4);
+      bottom.setRotationPoint(0F, 21F, 0F);
+      bottom.mirror = true;
+      setRotation(bottom, 0F, 0F, 0F);
+      bottom2.addBox(-3F, 0F, -3F, 6, 1, 6);
+      bottom2.setRotationPoint(0F, 20F, 0F);
+      bottom2.mirror = true;
+      setRotation(bottom2, 0F, 0F, 0F);
+      top1.addBox(-2F, 0F, 4F, 4, 4, 1);
+      top1.setRotationPoint(0F, 14F, 0F);
+      top1.mirror = true;
+      setRotation(top1, 0F, 0F, 0F);
+      top2.addBox(-3F, 0F, 3F, 6, 6, 1);
+      top2.setRotationPoint(0F, 14F, 0F);
+      top2.mirror = true;
+      setRotation(top2, 0F, 0F, 0F);
+      Shape1.addBox(-2F, 0F, -2F, 4, 2, 4);
+      Shape1.setRotationPoint(0F, 18F, 0F);
+      Shape1.mirror = true;
+      setRotation(Shape1, 0F, 0F, 0F);
   }
   
   public void render (Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7, byte par8)
@@ -74,11 +153,24 @@ public class ModelSteak extends ModelBase
 	  }
 	  else if (par8 == 2)
 	  {
-		  
+		  this.body1.render(par7);
+		  this.body2.render(par7);
+		  this.leg1.render(par7);
+		  this.leg2.render(par7);
+		  this.leg3.render(par7);
+		  this.leg4.render(par7);
+		  this.leg5.render(par7);
+		  this.leg6.render(par7);
+		  this.leg7.render(par7);
+		  this.leg8.render(par7);
 	  }
 	  else
 	  {
-		  
+		  this.bottom.render(par7);
+		  this.bottom2.render(par7);
+		  this.top1.render(par7);
+		  this.top2.render(par7);
+		  this.Shape1.render(par7);
 	  }
   }
   
@@ -100,6 +192,20 @@ public class ModelSteak extends ModelBase
       this.carrot3.rotateAngleY = 0.7853982F + f3 / (180F / (float)Math.PI);
       this.potato1.rotateAngleY = f3 / (180F / (float)Math.PI);
       this.potato2.rotateAngleY = f3 / (180F / (float)Math.PI);
+      
+      this.body1.rotateAngleY = f3 / (180F / (float)Math.PI);
+      this.body2.rotateAngleY = f3 / (180F / (float)Math.PI);
+      this.leg1.rotateAngleY = f3 / (180F / (float)Math.PI);
+      this.leg2.rotateAngleY = f3 / (180F / (float)Math.PI);
+      this.leg3.rotateAngleY = f3 / (180F / (float)Math.PI);
+      this.leg4.rotateAngleY = f3 / (180F / (float)Math.PI);
+      this.leg5.rotateAngleY = f3 / (180F / (float)Math.PI);
+      this.leg6.rotateAngleY = f3 / (180F / (float)Math.PI);
+      this.leg7.rotateAngleY = f3 / (180F / (float)Math.PI);
+      this.leg8.rotateAngleY = f3 / (180F / (float)Math.PI);
+      
+      this.top1.rotateAngleY = f3 / (180F / (float)Math.PI);
+      this.top2.rotateAngleY = f3 / (180F / (float)Math.PI);
       
   }
 }

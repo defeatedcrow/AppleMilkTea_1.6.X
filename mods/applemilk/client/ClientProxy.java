@@ -53,6 +53,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.registerTileEntity(TileWipeBox2.class, "TileWipeBox2", new TileEntityWipe2Renderer());
 		ClientRegistry.registerTileEntity(TileRotaryDial.class, "TileRotaryDial", new TileEntityDialRenderer());
 		ClientRegistry.registerTileEntity(TileCocktail.class, "TileCocktail", new TileEntityCocktailRenderer());
+		ClientRegistry.registerTileEntity(TileLargeBottle.class, "TileLargeBottle", new TileEntityBottleRenderer());
 	}
 
 	@Override
@@ -88,6 +89,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderIceCream());
 		RenderingRegistry.registerBlockHandler(new RenderDial());
 		RenderingRegistry.registerBlockHandler(new RenderCocktail());
+		RenderingRegistry.registerBlockHandler(new RenderLargeBottle());
 		RenderingRegistry.registerEntityRenderingHandler(EntityMelonBomb.class, new RenderMelonBomb());
 	}
 	

@@ -53,14 +53,14 @@ public class TileEntityMakerNextRenderer extends TileEntitySpecialRenderer
         
         GL11.glPushMatrix();
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        GL11.glColor4f(0.8F, 0.8F, 0.8F, 1.0F);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.8F);
         if (milk)
         {
         	GL11.glColor4f(2.0F, 2.0F, 2.0F, 1.0F);
         }
         else
         {
-        	GL11.glColor4f(0.8F, 0.8F, 0.8F, 1.0F);
+        	GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.8F);
         }
         GL11.glTranslatef((float)par1, (float)par2 + 1.0F, (float)par3 + 1.0F);
         GL11.glScalef(1.0F, -1.0F, -1.0F);

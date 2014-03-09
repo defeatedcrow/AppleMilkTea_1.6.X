@@ -395,6 +395,16 @@ public class DCsRecipeRegister {
 					 Character.valueOf('Y'), new ItemStack(Block.furnaceIdle, 1)
 				 });
 		 
+//		 GameRegistry.addRecipe(
+//				 new ItemStack(DCsAppleMilk.itemLargeBottle, 3, 0),
+//				 new Object[]{
+//					 " Y ",
+//					 "X X",
+//					 " X ",
+//					 Character.valueOf('X'), new ItemStack(Block.glass, 1),
+//					 Character.valueOf('Y'), new ItemStack(Item.ingotIron, 1)
+//				 });
+		 
 		 // grater recipe
 		 //juice
 		 GameRegistry.addRecipe(
@@ -778,7 +788,7 @@ public class DCsRecipeRegister {
 	    			  new ItemStack(DCsAppleMilk.teaCup2, 1, 4),
 	    			  new ItemStack(DCsAppleMilk.EXItems, 1, 7),
 	    			  new ItemStack(Item.sugar, 1),
-	    			  "drinkRum",
+	    			  "bottleRum",
 					 }));
 		 
 		 GameRegistry.addRecipe(
@@ -929,6 +939,14 @@ public class DCsRecipeRegister {
 	    		  new Object[]{"XXX","ZYZ","XXX",
 	    			  Character.valueOf('X'), new ItemStack(Block.stainedClay, 1, 15),
 	    			  Character.valueOf('Y'), "ingotGold",
+	    			  Character.valueOf('Z'), new ItemStack(DCsAppleMilk.EXItems, 1, 6)}));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapedOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.rotaryDial, 1, 0),
+	    		  new Object[]{"XXX","ZYZ","XXX",
+	    			  Character.valueOf('X'), new ItemStack(Block.stainedClay, 1, 15),
+	    			  Character.valueOf('Y'), new ItemStack(Item.ingotGold, 1, 0),
 	    			  Character.valueOf('Z'), new ItemStack(DCsAppleMilk.EXItems, 1, 6)}));
 		 
 		 //materials
