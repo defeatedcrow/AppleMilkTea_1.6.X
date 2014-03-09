@@ -193,6 +193,10 @@ public class BlockTeaMakerNext extends BlockContainer{
     			tile.setID((byte)recipeID);
     			tile.setRemainByte((byte)(3 + par1World.rand.nextInt(3))); //3～5杯
     			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+    			if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
+                {
+                    par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
+                }
     			return true;
     		}
         	else if(DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Coffeepowder != 0 && itemstack.itemID == LoadIC2Handler.IC2Coffeepowder)
@@ -200,6 +204,10 @@ public class BlockTeaMakerNext extends BlockContainer{
         		tile.setID((byte)(TeaRecipe.getID(new ItemStack(DCsAppleMilk.gratedApple, 1, 3))));
     			tile.setRemainByte((byte)(3 + par1World.rand.nextInt(3))); //3～5杯
     			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+    			if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
+                {
+                    par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
+                }
     			return true;
         	}
         	else

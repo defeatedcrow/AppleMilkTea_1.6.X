@@ -310,7 +310,7 @@ public class TileIceMaker extends TileEntity
 				this.inventory.iceItemStacks[2].stackSize += itemstack.stackSize;
 			}
  
-			if (IceRecipe.canLeave(id) && leave != null)
+			if (IceRecipe.canLeave(id) && leave != null)//材料スロットに残すアイテム
 			{
 				this.inventory.iceItemStacks[0] = leave.copy();
 			}

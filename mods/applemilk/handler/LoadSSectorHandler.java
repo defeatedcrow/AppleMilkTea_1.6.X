@@ -43,9 +43,7 @@ public class LoadSSectorHandler {
 			emptyBottle = bottle.get(0);
 			if (emptyBottle != null) System.out.println("[AppleMilk]Succeeded to get craftingBottle.");
 		}
-		
-		IceRecipe.registerCanLeave(new ItemStack(sakeBottle.itemID, 1, sakeBottle.getItemDamage()), new ItemStack(DCsAppleMilk.cocktail, 1, 3),
-				new ItemStack(emptyBottle.itemID, 1, 0));
+
 	}
 
 }

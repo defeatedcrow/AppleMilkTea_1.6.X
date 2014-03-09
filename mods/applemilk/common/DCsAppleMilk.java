@@ -36,7 +36,7 @@ import cpw.mods.fml.common.registry.*;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.10b",
+		version = "1.6.2_1.11a_dev",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry"
 		)
 @NetworkMod(
@@ -235,6 +235,7 @@ public class DCsAppleMilk{
 	public static boolean SuccessLoadEconomy = false;
 	public static boolean SuccessLoadSSector = false;
 	public static boolean SuccessLoadGummi = false;
+	public static boolean[] SuccessLoadGrowth = new boolean[] {false, false, false};
 	
 	public static boolean IC2exp = true;
 	public static boolean TC4after405 = true;
@@ -703,13 +704,13 @@ public class DCsAppleMilk{
 				setUnlocalizedName("defeatedcrow.cocktail").
 				setCreativeTab(applemilk);
 		
-//		largeBottle = (new BlockLargeBottle(blockIdLargeBottle)).
-//				setUnlocalizedName("defeatedcrow.largeBottle").
-//				setCreativeTab(applemilk);
-//		
-//		itemLargeBottle = (ItemLargeBottle) (new ItemLargeBottle(itemIdBottle)).
-//				setUnlocalizedName("defeatedcrow.itemBottle").
-//				setCreativeTab(applemilk);
+		largeBottle = (new BlockLargeBottle(blockIdLargeBottle)).
+				setUnlocalizedName("defeatedcrow.largeBottle").
+				setCreativeTab(applemilk);
+		
+		itemLargeBottle = (ItemLargeBottle) (new ItemLargeBottle(itemIdBottle)).
+				setUnlocalizedName("defeatedcrow.itemBottle").
+				setCreativeTab(applemilk);
 		
 		//tree
 		saplingTea = (new BlockSaplingTea(blockIdSapT)).
@@ -810,7 +811,7 @@ public class DCsAppleMilk{
 		GameRegistry.registerItem(chocolateFruits,"defeatedcrow.chocolateFruits");
 		GameRegistry.registerItem(icyCrystal,"defeatedcrow.icyCrystal");
 		GameRegistry.registerItem(DCgrater,"defeatedcrow.grater");
-		//GameRegistry.registerItem(itemLargeBottle,"defeatedcrow.itemBottle");
+		GameRegistry.registerItem(itemLargeBottle,"defeatedcrow.itemBottle");
 		
 		GameRegistry.registerBlock(woodBox, ItemWoodBox.class, "defeatedcrow.WoodBox");
 		GameRegistry.registerBlock(appleBox, "defeatedcrow.AppleBox");
@@ -852,11 +853,11 @@ public class DCsAppleMilk{
 		GameRegistry.registerBlock(teaCup2, ItemBlockTeaCup2.class, "defeatedcrow.filledCup2");
 		GameRegistry.registerBlock(rotaryDial, "defeatedcrow.rotaryDial");
 		GameRegistry.registerBlock(cocktail, ItemCocktail.class, "defeatedcrow.cocktail");
-		//GameRegistry.registerBlock(largeBottle, "defeatedcrow.largeBottle");
+		GameRegistry.registerBlock(largeBottle, "defeatedcrow.largeBottle");
 		
 		//クラフトで耐久が減るアイテムの登録
 		GameRegistry.registerCraftingHandler(DCgrater);
-		//GameRegistry.registerCraftingHandler(itemLargeBottle);
+		GameRegistry.registerCraftingHandler(itemLargeBottle);
 		GameRegistry.registerCraftingHandler(new CraftingEvent());
 		
 		//実績の追加
@@ -1061,6 +1062,48 @@ public class DCsAppleMilk{
 	        }
 	        catch (Exception e) {
 	          System.out.println("[AppleMilk]Failed to check SextiarySector");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
+	    if (Loader.isModLoaded("GrowthCraft|Rice"))
+	    {
+	        try
+	        {
+	          this.SuccessLoadGrowth[0] = true;
+	          (new LoadModHandler()).loadGrowthRice();
+	          
+	        }
+	        catch (Exception e) {
+	          System.out.println("[AppleMilk]Failed to check GrowthCraft|Rice");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
+	    if (Loader.isModLoaded("GrowthCraft|Hops"))
+	    {
+	        try
+	        {
+	          this.SuccessLoadGrowth[1] = true;
+	          (new LoadModHandler()).loadGrowthHops();
+	          
+	        }
+	        catch (Exception e) {
+	          System.out.println("[AppleMilk]Failed to check GrowthCraft|Hops");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
+	    if (Loader.isModLoaded("GrowthCraft|Grapes"))
+	    {
+	        try
+	        {
+	          this.SuccessLoadGrowth[2] = true;
+	          (new LoadModHandler()).loadGrowthGrape();
+	          
+	        }
+	        catch (Exception e) {
+	          System.out.println("[AppleMilk]Failed to check GrowthCraft|Grapes");
 	          e.printStackTrace(System.err);
 	        }
 	    }

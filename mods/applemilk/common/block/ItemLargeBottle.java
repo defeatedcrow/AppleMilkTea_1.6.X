@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.tile.TileLargeBottle;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,8 +33,9 @@ public class ItemLargeBottle extends Item implements ICraftingHandler {
 	public ItemLargeBottle(int itemId)
 	{
 		super(itemId);
-		setMaxDamage(0);
-		setHasSubtypes(true);
+		this.setMaxStackSize(0);
+		this.setMaxDamage(0);
+		this.setHasSubtypes(true);
 		this.setNoRepair();
 	}
 	
@@ -261,7 +263,7 @@ public class ItemLargeBottle extends Item implements ICraftingHandler {
 	@SideOnly(Side.CLIENT)
 	public Icon getIconFromDamage(int par1)
     {
-        int j = MathHelper.clamp_int(par1, 0, 6);
+        int j = (par1 & 15);
         return this.thisTex[j];
     }
 
@@ -284,6 +286,18 @@ public class ItemLargeBottle extends Item implements ICraftingHandler {
 		par3List.add(new ItemStack(this, 1, 3));
 		par3List.add(new ItemStack(this, 1, 4));
 		par3List.add(new ItemStack(this, 1, 5));
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister par1IconRegister){
+	
+		this.thisTex = new Icon[6];
+
+        for (int i = 0; i < 6; ++i)
+        {
+            this.thisTex[i] = par1IconRegister.registerIcon("applemilk:bottle_" + contents[i]);
+        }
 	}
 
 }

@@ -1,8 +1,10 @@
 package mods.applemilk.common;
 
+import mods.applemilk.handler.LoadModHandler;
 import mods.applemilk.handler.LoadSSectorHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.ICraftingHandler;
 
@@ -60,6 +62,48 @@ public class CraftingEvent implements ICraftingHandler {
 				if (!player.inventory.addItemStackToInventory(LoadSSectorHandler.emptyBottle))
 	        	{
 	        		player.dropPlayerItem(LoadSSectorHandler.emptyBottle);
+	        	}
+			}
+			if (m != null && DCsAppleMilk.SuccessLoadGrowth[0] && 
+					(m.itemID == LoadModHandler.getItem("grcSake").itemID)) {
+				if (!player.inventory.addItemStackToInventory(new ItemStack(Item.glassBottle, 1, 0)))
+	        	{
+	        		player.dropPlayerItem(new ItemStack(Item.glassBottle, 1, 0));
+	        	}
+			}
+			if (m != null && DCsAppleMilk.SuccessLoadGrowth[0] && 
+					(m.itemID == LoadModHandler.getItem("grcSakeBucket").itemID)) {
+				if (!player.inventory.addItemStackToInventory(new ItemStack(Item.bucketEmpty, 1, 0)))
+	        	{
+	        		player.dropPlayerItem(new ItemStack(Item.bucketEmpty, 1, 0));
+	        	}
+			}
+			if (m != null && DCsAppleMilk.SuccessLoadGrowth[1] && 
+					(m.itemID == LoadModHandler.getItem("grcWine").itemID)) {
+				if (!player.inventory.addItemStackToInventory(new ItemStack(Item.glassBottle, 1, 0)))
+	        	{
+	        		player.dropPlayerItem(new ItemStack(Item.glassBottle, 1, 0));
+	        	}
+			}
+			if (m != null && DCsAppleMilk.SuccessLoadGrowth[1] && 
+					(m.itemID == LoadModHandler.getItem("grcWineBucket").itemID)) {
+				if (!player.inventory.addItemStackToInventory(new ItemStack(Item.bucketEmpty, 1, 0)))
+	        	{
+	        		player.dropPlayerItem(new ItemStack(Item.bucketEmpty, 1, 0));
+	        	}
+			}
+			if (m != null && DCsAppleMilk.SuccessLoadGrowth[2] && 
+					(m.itemID == LoadModHandler.getItem("grcAle").itemID)) {
+				if (!player.inventory.addItemStackToInventory(new ItemStack(Item.glassBottle, 1, 0)))
+	        	{
+	        		player.dropPlayerItem(new ItemStack(Item.glassBottle, 1, 0));
+	        	}
+			}
+			if (m != null && DCsAppleMilk.SuccessLoadGrowth[2] && 
+					(m.itemID == LoadModHandler.getItem("grcAleBucket").itemID)) {
+				if (!player.inventory.addItemStackToInventory(new ItemStack(Item.bucketEmpty, 1, 0)))
+	        	{
+	        		player.dropPlayerItem(new ItemStack(Item.bucketEmpty, 1, 0));
 	        	}
 			}
 		}

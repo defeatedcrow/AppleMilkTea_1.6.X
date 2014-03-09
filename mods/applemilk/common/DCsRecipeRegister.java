@@ -395,15 +395,15 @@ public class DCsRecipeRegister {
 					 Character.valueOf('Y'), new ItemStack(Block.furnaceIdle, 1)
 				 });
 		 
-//		 GameRegistry.addRecipe(
-//				 new ItemStack(DCsAppleMilk.itemLargeBottle, 3, 0),
-//				 new Object[]{
-//					 " Y ",
-//					 "X X",
-//					 " X ",
-//					 Character.valueOf('X'), new ItemStack(Block.glass, 1),
-//					 Character.valueOf('Y'), new ItemStack(Item.ingotIron, 1)
-//				 });
+		 GameRegistry.addRecipe(
+				 new ItemStack(DCsAppleMilk.itemLargeBottle, 3, 0),
+				 new Object[]{
+					 " Y ",
+					 "X X",
+					 " X ",
+					 Character.valueOf('X'), new ItemStack(Block.glass, 1),
+					 Character.valueOf('Y'), new ItemStack(Item.ingotIron, 1)
+				 });
 		 
 		 // grater recipe
 		 //juice
@@ -780,6 +780,7 @@ public class DCsRecipeRegister {
 		    		  "listAllmilk"
 					 }));
 		 
+		 
 		 //cocktail
 		 GameRegistry.addRecipe(
 				 new ShapelessOreRecipe(
@@ -795,8 +796,8 @@ public class DCsRecipeRegister {
 				 new ShapelessOreRecipe(
 	    		  new ItemStack(DCsAppleMilk.cocktail, 1, 2),
 	    		  new Object[]{
-	    			  "drinkGin",
-	    			  "drinkSake",
+	    			  "bottleGin",
+	    			  "bottleSake",
 					 }));
 		 
 		 GameRegistry.addRecipe(
@@ -805,7 +806,7 @@ public class DCsRecipeRegister {
 	    		  new Object[]{
 	    			  new ItemStack(DCsAppleMilk.teaCup2, 1, 4),
 	    			  new ItemStack(Item.sugar, 1),
-	    			  "drinkGin",
+	    			  "bottleGin",
 					 }));
 		 
 		 GameRegistry.addRecipe(
@@ -813,7 +814,7 @@ public class DCsRecipeRegister {
 	    		  new ItemStack(DCsAppleMilk.cocktail, 1, 4),
 	    		  new Object[]{
 	    			  new ItemStack(DCsAppleMilk.teacupBlock, 1, 12),
-	    			  "drinkRum",
+	    			  "bottleRum",
 					 }));
 		 
 		 GameRegistry.addRecipe(
@@ -821,7 +822,7 @@ public class DCsRecipeRegister {
 	    		  new ItemStack(DCsAppleMilk.cocktail, 1, 5),
 	    		  new Object[]{
 	    			  new ItemStack(DCsAppleMilk.teaCup2, 1, 5),
-	    			  "drinkBeer",
+	    			  "bottleBeer",
 					 }));
 		 
 		 //chalcedony
@@ -1048,8 +1049,48 @@ public class DCsRecipeRegister {
 	    		  new ItemStack(DCsAppleMilk.teaMakerNext, 1, 0),
 	    			  new ItemStack(DCsAppleMilk.emptyTeaMaker, 1, 0));
 	      
-	    //for rubberwood
+	      //bottle & cannister
+	      GameRegistry.addRecipe(
+					 new ShapelessOreRecipe(
+		    		  new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (48 + 1)),
+		    		  new Object[]{
+		    			  new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0),
+		    			  "drinkSake",
+						 }));
 	      
+	      GameRegistry.addRecipe(
+					 new ShapelessOreRecipe(
+		    		  new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (48 + 2)),
+		    		  new Object[]{
+		    			  new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0),
+		    			  "drinkBeer",
+						 }));
+	      
+	      GameRegistry.addRecipe(
+					 new ShapelessOreRecipe(
+		    		  new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (48 + 3)),
+		    		  new Object[]{
+		    			  new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0),
+		    			  "drinkWine",
+						 }));
+	      
+	      GameRegistry.addRecipe(
+					 new ShapelessOreRecipe(
+		    		  new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (48 + 4)),
+		    		  new Object[]{
+		    			  new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0),
+		    			  "drinkRum",
+						 }));
+	      
+	      GameRegistry.addRecipe(
+					 new ShapelessOreRecipe(
+		    		  new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (48 + 5)),
+		    		  new Object[]{
+		    			  new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0),
+		    			  "drinkGin",
+						 }));
+	      
+	    //for rubberwood
 	      ArrayList<ItemStack> woodRubber = OreDictionary.getOres("woodRubber");
 	      if (woodRubber.size() > 0){rubberWood = woodRubber.get(0).getItem();}
 	      

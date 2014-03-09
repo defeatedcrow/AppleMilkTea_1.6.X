@@ -124,6 +124,18 @@ public class RegisterMakerRecipe {
 		IceRecipe.registerCanLeave(new ItemStack(DCsAppleMilk.teaCup2, 1, 7), new ItemStack(DCsAppleMilk.blockIcecream, 1, 9),
 				new ItemStack(DCsAppleMilk.emptyCup, 1, 0));
 		
+		IceRecipe.registerCanLeave(new ItemStack(DCsAppleMilk.itemLargeBottle.itemID, 1, 1), new ItemStack(DCsAppleMilk.cocktail, 1, 1),
+				new ItemStack(DCsAppleMilk.itemLargeBottle.itemID, 1, 0));
+		
+		IceRecipe.registerCanLeave(new ItemStack(DCsAppleMilk.itemLargeBottle.itemID, 1, 17), new ItemStack(DCsAppleMilk.cocktail, 1, 1),
+				new ItemStack(DCsAppleMilk.itemLargeBottle.itemID, 1, 1));
+		
+		IceRecipe.registerCanLeave(new ItemStack(DCsAppleMilk.itemLargeBottle.itemID, 1, 33), new ItemStack(DCsAppleMilk.cocktail, 1, 1),
+				new ItemStack(DCsAppleMilk.itemLargeBottle.itemID, 1, 17));
+		
+		IceRecipe.registerCanLeave(new ItemStack(DCsAppleMilk.itemLargeBottle.itemID, 1, 49), new ItemStack(DCsAppleMilk.cocktail, 1, 1),
+				new ItemStack(DCsAppleMilk.itemLargeBottle.itemID, 1, 33));
+		
 		IceRecipe.registerCharger(new ItemStack(DCsAppleMilk.icyCrystal, 1, 0), 64);
 		
 	}

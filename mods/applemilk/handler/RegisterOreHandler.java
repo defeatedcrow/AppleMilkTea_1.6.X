@@ -105,14 +105,14 @@ public class RegisterOreHandler {
 	    	OreDictionary.registerOre("foodBlockIcecream", new ItemStack(DCsAppleMilk.blockIcecream, 1, i));
 	    }
 	    
-//	    for(int i = 0; i < 3 ; i++) //0、16、32、48の四回登録
-//	    {
-//	    	OreDictionary.registerOre("bottleSake", new ItemStack(DCsAppleMilk.largeBottle, 1, (1 + i*16)));
-//	    	OreDictionary.registerOre("bottleBeer", new ItemStack(DCsAppleMilk.largeBottle, 1, (2 + i*16)));
-//	    	OreDictionary.registerOre("bottleWine", new ItemStack(DCsAppleMilk.largeBottle, 1, (3 + i*16)));
-//	    	OreDictionary.registerOre("bottleRum", new ItemStack(DCsAppleMilk.largeBottle, 1, (4 + i*16)));
-//	    	OreDictionary.registerOre("bottleGin", new ItemStack(DCsAppleMilk.largeBottle, 1, (5 + i*16)));
-//	    }
+	    for(int i = 0; i < 3 ; i++) //0、16、32、48の四回登録
+	    {
+	    	OreDictionary.registerOre("bottleSake", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (1 + i*16)));
+	    	OreDictionary.registerOre("bottleBeer", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (2 + i*16)));
+	    	OreDictionary.registerOre("bottleWine", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (3 + i*16)));
+	    	OreDictionary.registerOre("bottleGin", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (4 + i*16)));
+	    	OreDictionary.registerOre("bottleRum", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (5 + i*16)));
+	    }
 	}
 
 }
