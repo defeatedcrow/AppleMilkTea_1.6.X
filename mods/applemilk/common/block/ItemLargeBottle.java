@@ -1,6 +1,8 @@
 package mods.applemilk.common.block;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -10,7 +12,12 @@ import mods.applemilk.common.tile.TileLargeBottle;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -19,10 +26,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IShearable;
 
 public class ItemLargeBottle extends Item implements ICraftingHandler {
 	
-	private static final String[] contents = new String[] {"Empty", "Sake", "Beer", "Wine", "Gin", "Rum"};
+	private static final String[] contents = new String[] {"empty", "sake", "beer", "wine", "gin", "rum", "vodka", "whiskey",
+		"milk", "soy", "sugar", "maple", "honey", "nuts", "berryjam"};
 	
 	private boolean repair;
 	private static final int thisBlockID = DCsAppleMilk.largeBottle.blockID;
@@ -33,7 +42,7 @@ public class ItemLargeBottle extends Item implements ICraftingHandler {
 	public ItemLargeBottle(int itemId)
 	{
 		super(itemId);
-		this.setMaxStackSize(0);
+		this.setMaxStackSize(1);
 		this.setMaxDamage(0);
 		this.setHasSubtypes(true);
 		this.setNoRepair();
@@ -187,6 +196,30 @@ public class ItemLargeBottle extends Item implements ICraftingHandler {
 
        return true;
     }
+    
+    //牛から牛乳を汲む
+    @Override
+    public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity)
+    {
+        if (itemstack != null && itemstack.getItemDamage() == 0 && entity instanceof EntityCow)
+        {
+            EntityCow target = (EntityCow)entity;
+            if (!target.isChild())
+            {
+            	player.worldObj.playSoundAtEntity(player, "random.pop", 0.4F, 1.8F);
+            	if (!player.capabilities.isCreativeMode)
+                {
+                    --itemstack.stackSize;
+                }
+        		if (!player.inventory.addItemStackToInventory(new ItemStack(this,1,120)))
+            	{
+            		player.entityDropItem(new ItemStack(this,1,120), 1);
+            	}
+            }
+            return true;
+        }
+        return false;
+    }
 	
 	@SideOnly(Side.CLIENT)
     //マウスオーバー時の表示情報
@@ -197,7 +230,7 @@ public class ItemLargeBottle extends Item implements ICraftingHandler {
 		int type = checkType(l);
 		int rem = checkRemain(l);
 		if (l < 0) l = 0;
-		if (rem == 0 && l > 0) rem = 1;
+		if (l > 0) rem++;
 		par3List.add(new String("type: " + contents[type]));
 		par3List.add(new String("count: " + rem));
 	}
@@ -211,7 +244,7 @@ public class ItemLargeBottle extends Item implements ICraftingHandler {
 	private int checkRemain(int par1)
 	{
 		int m = par1 >> 4;//右にシフト。16から1へ。
-        m = (m & 3);//16、32の桁をチェック
+        m = (m & 7);//16、32、64の桁をチェック
 		return m;
 	}
 	
@@ -229,20 +262,17 @@ public class ItemLargeBottle extends Item implements ICraftingHandler {
 		int damage = itemStack.getItemDamage();
 		if(itemStack != null && itemStack.itemID == this.itemID)
 		{
-			if (this.checkType(damage) > 0) {
-				int rem = this.checkRemain(damage);
-				if (rem == 3) {
-					itemStack.setItemDamage(damage^16);//3 -> 2
-					ret = itemStack.copy();
-				}
-				else if (rem == 2) {
-					itemStack.setItemDamage(damage^48);//2 -> 1
-					ret = itemStack.copy();
-				}
-				else if (rem == 1) {
-					itemStack.setItemDamage(damage & 15);//1 -> 0
-					ret = itemStack.copy();
-				}
+			int rem = this.checkRemain(damage);
+			int type = this.checkType(damage);
+			
+			if (type > 0 && rem > 0) {
+				
+				rem--;//減らす
+				int newDamage = rem << 4;//左に4シフト
+				newDamage = newDamage + type;//新しいダメージ値
+				
+				itemStack.setItemDamage(newDamage);
+				ret = itemStack.copy();
 			}
 		}
 		return ret;
@@ -280,21 +310,18 @@ public class ItemLargeBottle extends Item implements ICraftingHandler {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
-		par3List.add(new ItemStack(this, 1, 0));
-		par3List.add(new ItemStack(this, 1, 1));
-		par3List.add(new ItemStack(this, 1, 2));
-		par3List.add(new ItemStack(this, 1, 3));
-		par3List.add(new ItemStack(this, 1, 4));
-		par3List.add(new ItemStack(this, 1, 5));
+		for (int i = 0 ; i < 15 ; i++) {
+			par3List.add(new ItemStack(this, 1, i));
+		}
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister){
 	
-		this.thisTex = new Icon[6];
+		this.thisTex = new Icon[15];
 
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < 15; ++i)
         {
             this.thisTex[i] = par1IconRegister.registerIcon("applemilk:bottle_" + contents[i]);
         }

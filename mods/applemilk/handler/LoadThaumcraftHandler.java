@@ -82,6 +82,7 @@ public class LoadThaumcraftHandler {
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.foodPlate.blockID, -1, new AspectList().add(Aspect.HUNGER, 2).add(Aspect.FLESH, 2));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.blockIcecream.blockID, -1, new AspectList().add(Aspect.HUNGER, 2).add(Aspect.ICE, 2));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.cocktail.blockID, -1, new AspectList().add(Aspect.WATER, 2).add(Aspect.MAGIC, 2).add(Aspect.SENSES, 2));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.largeBottle.blockID, -1, new AspectList().add(Aspect.WATER, 8).add(Aspect.VOID, 8).add(Aspect.CRYSTAL, 4));
 		    
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.saplingTea.blockID, 0, new AspectList().add(Aspect.PLANT, 2).add(Aspect.SEED, 2));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.teaTree.blockID, -1, new AspectList().add(Aspect.PLANT, 2).add(Aspect.AIR, 2));
@@ -96,11 +97,11 @@ public class LoadThaumcraftHandler {
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.wipeBox.blockID, -1, new AspectList().add(Aspect.MIND, 6).add(Aspect.MAGIC, 6));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.wipeBox2.blockID, -1, new AspectList().add(Aspect.MIND, 10).add(Aspect.MAGIC, 10).add(Aspect.VOID, 10));
 		    
-		    System.out.println("[AppleMilk]Succeeded to register aspects for Thaumcraft.");
+		    System.out.println("[AppleMilk]Succeeded to register aspects for Thaumcraft");
 		}
 		
 		if (this.thaumicGreatwood != 0){
-			System.out.println("[AppleMilk]Succeeded to get thaumicGreatwood.");
+			System.out.println("[AppleMilk]Succeeded to get thaumicGreatwood");
 			
 			//取得したアイテムを使ったレシピの登録。こちらは恐らく旧版でも動作する
 			GameRegistry.addShapelessRecipe(
@@ -118,7 +119,7 @@ public class LoadThaumcraftHandler {
 		}
 		
 		if (this.thaumicSilverwood != 0){
-			System.out.println("[AppleMilk]Succeeded to get thaumicSilverwood.");
+			System.out.println("[AppleMilk]Succeeded to get thaumicSilverwood");
 			
 			GameRegistry.addShapelessRecipe(
 		    		  new ItemStack(LoadThaumcraftHandler.thaumicSilverwood, 9, 1),

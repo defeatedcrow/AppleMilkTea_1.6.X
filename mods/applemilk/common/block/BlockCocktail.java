@@ -26,7 +26,7 @@ import mods.applemilk.common.tile.TileCocktail;
 
 public class BlockCocktail extends BlockContainer{
 	
-	private static final String[] contents = new String[] {"_milk", "_milk", "_milk", "_lime", "_cocoa", "_tomato"};
+	private static final String[] contents = new String[] {"_milk", "_milk", "_milk", "_lime", "_cocoa", "_tomato", "_juice", "_lemon_gradient", "_lime", "_mintjulep"};
 	
 	@SideOnly(Side.CLIENT)
     private Icon boxTex;
@@ -58,18 +58,6 @@ public class BlockCocktail extends BlockContainer{
         	}
     		
     		par1World.setBlockToAir(par2, par3, par4);
-    		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
-    		return true;
-        }
-        else if (itemstack.itemID == DCsAppleMilk.chopsticks.itemID)
-        {
-        	if (!par1World.isRemote)
-    		{
-        		par5EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 1, 2));
-    			ItemIceBlock.setPotionWithIce(par5EntityPlayer, itemstack.getItemDamage());
-    		}
-        	
-        	par1World.setBlockToAir(par2, par3, par4);
     		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
     		return true;
         }
@@ -132,7 +120,7 @@ public class BlockCocktail extends BlockContainer{
 	public void thisBoundingBox (int par1)
 	{
 		float f = 0.25F;
-		this.setBlockBounds(0.0F + f, 0.0F, 0.0F + f, 1.0F - f, 0.5F, 1.0F - f);
+		this.setBlockBounds(0.0F + f, 0.0F, 0.0F + f, 1.0F - f, 0.7F, 1.0F - f);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -152,7 +140,7 @@ public class BlockCocktail extends BlockContainer{
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
-		for(int i = 0; i < 6; ++i)
+		for(int i = 0; i < 10; ++i)
 		{
 			par3List.add(new ItemStack(this, 1, i));
 		}
@@ -169,8 +157,8 @@ public class BlockCocktail extends BlockContainer{
 	public void registerIcons(IconRegister par1IconRegister)
 	{
 		this.boxTex = par1IconRegister.registerIcon("applemilk:blueglass");
-		this.contentsTex = new Icon[6];
-        for (int i = 0; i < 6; ++i)
+		this.contentsTex = new Icon[10];
+        for (int i = 0; i < 10; ++i)
         {
         	this.contentsTex[i] = par1IconRegister.registerIcon("applemilk:contents" + contents[i]);
         }

@@ -113,6 +113,25 @@ public class DCsLangRegister {
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.Basket,1,4), "ja_JP", "ブレッドバスケット");
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.Basket,1,5), "Bread Basket");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.Basket,1,5), "ja_JP", "ブレッドバスケット");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.Basket,1,6), "Bottle Case");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.Basket,1,6), "ja_JP", "ボトルケース");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.Basket,1,7), "Bottle Case");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.Basket,1,7), "ja_JP", "ボトルケース");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.Basket,1,8), "Bottle Case");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.Basket,1,8), "ja_JP", "ボトルケース");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.Basket,1,9), "Bottle Case");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.Basket,1,9), "ja_JP", "ボトルケース");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.Basket,1,10), "Bottle Case");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.Basket,1,10), "ja_JP", "ボトルケース");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.Basket,1,11), "Bottle Case");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.Basket,1,11), "ja_JP", "ボトルケース");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.Basket,1,12), "Bottle Case");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.Basket,1,12), "ja_JP", "ボトルケース");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.Basket,1,13), "Bottle Case");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.Basket,1,13), "ja_JP", "ボトルケース");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.Basket,1,14), "Bottle Case");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.Basket,1,14), "ja_JP", "ボトルケース");
+		
 		
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.eggBasket,1,0), "Egg Basket");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.eggBasket,1,0), "ja_JP", "タマゴバスケット");
@@ -229,6 +248,10 @@ public class DCsLangRegister {
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.EXItems, 1, 8), "ja_JP", "アールグレイの茶葉");
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.EXItems, 1, 9), "Appletea Leaves");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.EXItems, 1, 9), "ja_JP", "アップルティーの茶葉");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.EXItems, 1, 10), "Empty WallMug");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.EXItems, 1, 10), "ja_JP", "空のウォールマグ");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.EXItems, 1, 11), "Glass Dust");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.EXItems, 1, 11), "ja_JP", "ガラスペレット");
 		
 		LanguageRegistry.addName(DCsAppleMilk.condensedMIlk, "Condensed MIlk");
 		LanguageRegistry.instance().addNameForObject(DCsAppleMilk.condensedMIlk, "ja_JP", "加糖練乳");
@@ -285,6 +308,14 @@ public class DCsLangRegister {
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.cocktail, 1, 4), "ja_JP", "ブラックローズ");
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.cocktail, 1, 5), "Red Eye");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.cocktail, 1, 5), "ja_JP", "レッドアイ");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.cocktail, 1, 6), "Pina Colada");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.cocktail, 1, 6), "ja_JP", "ピニャ・コラーダ");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.cocktail, 1, 7), "American Lemonade");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.cocktail, 1, 7), "ja_JP", "アメリカンレモネード");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.cocktail, 1, 8), "Moscow Mule");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.cocktail, 1, 8), "ja_JP", "モスコミュール");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.cocktail, 1, 9), "Mint Julep");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.cocktail, 1, 9), "ja_JP", "ミントジュレップ");
 		
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.mincedFoods, 1, 0), "Minced Mushrooms");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.mincedFoods, 1, 0), "ja_JP", "キノコシチューの材料");
@@ -502,6 +533,83 @@ public class DCsLangRegister {
 		
 		LanguageRegistry.instance().addStringLocalization("DCs.potion.immunization", "Immunization");
 		LanguageRegistry.instance().addStringLocalization("DCs.potion.immunization", "ja_JP", "免疫力");
+		
+		//items that have large amount damage
+		int[] amount = {0, 16, 32, 48, 64, 80, 96, 112};
+		for (int i = 0 ; i < amount.length ; i++)
+		{
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (0 + amount[i])), "Empty Large Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (0 + amount[i])), "ja_JP", "空の一升瓶");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (1 + amount[i])), "Sake Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (1 + amount[i])), "ja_JP", "日本酒ボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (2 + amount[i])), "Beer Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (2 + amount[i])), "ja_JP", "ビールボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (3 + amount[i])), "Wine Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (3 + amount[i])), "ja_JP", "ワインボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (4 + amount[i])), "Gin Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (4 + amount[i])), "ja_JP", "ジンボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (5 + amount[i])), "Rum Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (5 + amount[i])), "ja_JP", "ラムボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (6 + amount[i])), "Wodka Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (6 + amount[i])), "ja_JP", "ウォッカボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (7 + amount[i])), "Whiskey Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (7 + amount[i])), "ja_JP", "ウィスキーボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (8 + amount[i])), "Milk Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (8 + amount[i])), "ja_JP", "牛乳入り大瓶");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (9 + amount[i])), "Soymilk Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (9 + amount[i])), "ja_JP", "豆乳入り大瓶");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (10 + amount[i])), "Sugar Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (10 + amount[i])), "ja_JP", "砂糖入り大瓶");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (11 + amount[i])), "Caramel Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (11 + amount[i])), "ja_JP", "カラメル大瓶");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (12 + amount[i])), "Honey Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (12 + amount[i])), "ja_JP", "ハチミツ大瓶");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (13 + amount[i])), "Nuts Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (13 + amount[i])), "ja_JP", "瓶詰めナッツ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (14 + amount[i])), "Berry Jam Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (14 + amount[i])), "ja_JP", "瓶詰めベリージャム");
+			
+		}
+		
+		int[] type = {0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240};
+		for (int i = 0 ; i < type.length ; i++)
+		{
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (0 + type[i])), "Tea Wallmug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (0 + type[i])), "ja_JP", "紅茶のウォールマグ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (1 + type[i])), "Green Tea Wallmug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (1 + type[i])), "ja_JP", "緑茶のウォールマグ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (2 + type[i])), "Cocoa Wallmug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (2 + type[i])), "ja_JP", "ココアのウォールマグ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (3 + type[i])), "Coffee Wallmug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (3 + type[i])), "ja_JP", "コーヒーのウォールマグ");
+			
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (4 + type[i])), "Milk Tea Wallmug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (4 + type[i])), "ja_JP", "ミルクティーマグ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (5 + type[i])), "Milk Green Tea Wallmug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (5 + type[i])), "ja_JP", "ミルク抹茶マグ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (6 + type[i])), "Milk Cocoa Wallmug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (6 + type[i])), "ja_JP", "ミルクココアマグ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (7 + type[i])), "Milk Coffee Wallmug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (7 + type[i])), "ja_JP", "ミルクコーヒーマグ");
+			
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (8 + type[i])), "Condensed Milk Tea Mug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (8 + type[i])), "ja_JP", "練乳ティーマグ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (9 + type[i])), "Condenced Milk Green Tea Mug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (9 + type[i])), "ja_JP", "練乳入り抹茶マグ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (10 + type[i])), "Condensed Milk Cocoa Mug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (10 + type[i])), "ja_JP", "練乳入りココアマグ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (11 + type[i])), "Condensed Milk Coffee Mug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (11 + type[i])), "ja_JP", "ベトナムコーヒーマグ");
+			
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (12 + type[i])), "Soy Tea Mug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (12 + type[i])), "ja_JP", "豆乳紅茶ラテマグ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (13 + type[i])), "Soy Green Tea Mug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (13 + type[i])), "ja_JP", "豆乳抹茶ラテマグ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (14 + type[i])), "Soy Cocoa Mug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (14 + type[i])), "ja_JP", "豆乳ココアマグ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.wallMug, 1, (15 + type[i])), "Soy Coffee Mug");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (15 + type[i])), "ja_JP", "豆乳ラテマグ");
+		}
 		
 		if (DCsAppleMilk.useOldItems)
 		{

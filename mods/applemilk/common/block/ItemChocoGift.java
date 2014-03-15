@@ -1,5 +1,6 @@
 package mods.applemilk.common.block;
 
+import mods.applemilk.api.edibles.EdibleItemBlock;
 import mods.applemilk.common.AchievementRegister;
 import mods.applemilk.common.DCsAppleMilk;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,7 +12,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ItemChocoGift extends ItemBlock{
+public class ItemChocoGift extends EdibleItemBlock{
 	
 	private static final String[] type = new String[] {"", "_heartfelt"};
 	
@@ -33,28 +34,18 @@ public class ItemChocoGift extends ItemBlock{
 	@Override
 	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
 	{
-		if (!par3EntityPlayer.capabilities.isCreativeMode)
-        {
-            --par1ItemStack.stackSize;
-        }
-		
 		int meta = par1ItemStack.getItemDamage();
 		
-		if (!par2World.isRemote)
+		if (!par2World.isRemote && meta == 1)
 		{
-			if (meta == 1 && !DCsAppleMilk.safetyChocolate)
+			if (!DCsAppleMilk.safetyChocolate)
 			{
 				this.explode(par2World, par3EntityPlayer);
 				par3EntityPlayer.triggerAchievement(AchievementRegister.eatChocoGift);
 			}
-			else
-			{
-				par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.heal.id, 1, 2));
-			}
-			
 		}
 		
-		return par1ItemStack;
+		return super.onEaten(par1ItemStack, par2World, par3EntityPlayer);
 	}
 	
 	private void explode(World par1World, EntityPlayer par2EntityPlayer)
@@ -64,21 +55,11 @@ public class ItemChocoGift extends ItemBlock{
         
     }
 	
-	public EnumAction getItemUseAction(ItemStack par1ItemStack)
-    {
-    	return EnumAction.eat;
-    }
-	
-	public int getMaxItemUseDuration(ItemStack par1ItemStack)
-    {
-        return 32;
-    }
-	
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-    {
-        par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
-        return par1ItemStack;
-    }
+	@Override
+	public PotionEffect effectOnEaten(int meta) {
+		
+		return new PotionEffect(Potion.heal.id, 2, 2);
+	}
 	
 	@Override
 	public int getMetadata(int par1)

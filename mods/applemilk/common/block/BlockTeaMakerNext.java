@@ -95,6 +95,47 @@ public class BlockTeaMakerNext extends BlockContainer{
         		}
         		return false;
         	}
+        	else if (item == DCsAppleMilk.EXItems.itemID && meta == 10) //ウォールマグは4種しか汲めない
+        	{
+        		if (currentID > 0 && remain > 0)
+        		{
+        			ItemStack output = new ItemStack(Item.stick);
+        			if (currentID == TeaRecipe.getID(new ItemStack(DCsAppleMilk.EXItems, 1, 2))) {
+        				output = new ItemStack(DCsAppleMilk.wallMug.itemID, 1, 1);
+        			}
+        			else if (currentID == TeaRecipe.getID(new ItemStack(DCsAppleMilk.EXItems, 1, 3))) {
+        				output = new ItemStack(DCsAppleMilk.wallMug.itemID, 1, 0);
+        			}
+        			else if (currentID == TeaRecipe.getID(new ItemStack(DCsAppleMilk.gratedApple, 1, 3))) {
+        				output = new ItemStack(DCsAppleMilk.wallMug.itemID, 1, 3);
+        			}
+        			else if (currentID == TeaRecipe.getID(new ItemStack(Item.dyePowder, 1, 3))) {
+        				output = new ItemStack(DCsAppleMilk.wallMug.itemID, 1, 2);
+        			}
+        			
+        			if (output.itemID == DCsAppleMilk.wallMug.itemID)
+        			{
+        				if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
+                        {
+                            par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
+                        }
+            			
+            			if (!par5EntityPlayer.inventory.addItemStackToInventory(output))
+                		{
+                			par5EntityPlayer.entityDropItem(output, 1.0F);
+                		}
+            			
+            			tile.setRemainByte((byte)(remain - 1));
+            			if ((remain - 1) == 0){
+            				tile.setID((byte)0);
+            				tile.setMilk(false);
+            			}
+            			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+            			return true;
+        			}
+        		}
+        		return false;
+        	}
         	else if (recipeID > 0) //手持ちアイテムが登録済みの茶の材料のとき
         	{
         		if (currentID == 1 && this.isCanMilk(recipeID)) //ティーメーカーが牛乳のみのとき

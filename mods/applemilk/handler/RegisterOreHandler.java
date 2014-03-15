@@ -90,6 +90,7 @@ public class RegisterOreHandler {
 	    OreDictionary.registerOre("foodBlackEgg", new ItemStack(DCsAppleMilk.clam, 1, 3));
 	    OreDictionary.registerOre("gemIce", new ItemStack(DCsAppleMilk.icyCrystal, 1, 0));
 	    OreDictionary.registerOre("foodCrushedIce", new ItemStack(DCsAppleMilk.EXItems, 1, 7));
+	    OreDictionary.registerOre("dustGlass", new ItemStack(DCsAppleMilk.EXItems, 1, 11));
 	    
 	    if (DCsAppleMilk.allowSlimeBallDic)
 	    {
@@ -105,14 +106,37 @@ public class RegisterOreHandler {
 	    	OreDictionary.registerOre("foodBlockIcecream", new ItemStack(DCsAppleMilk.blockIcecream, 1, i));
 	    }
 	    
-	    for(int i = 0; i < 3 ; i++) //0、16、32、48の四回登録
-	    {
-	    	OreDictionary.registerOre("bottleSake", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (1 + i*16)));
-	    	OreDictionary.registerOre("bottleBeer", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (2 + i*16)));
-	    	OreDictionary.registerOre("bottleWine", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (3 + i*16)));
-	    	OreDictionary.registerOre("bottleGin", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (4 + i*16)));
-	    	OreDictionary.registerOre("bottleRum", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (5 + i*16)));
-	    }
+	    OreDictionary.registerOre("bottleSake", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 1));
+    	OreDictionary.registerOre("bottleBeer", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 2));
+    	OreDictionary.registerOre("bottleWine", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 3));
+    	OreDictionary.registerOre("bottleGin", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 4));
+    	OreDictionary.registerOre("bottleRum", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 5));
+    	OreDictionary.registerOre("bottleVodka", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 6));
+    	OreDictionary.registerOre("bottleWhiskey", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 7));
+    	
+    	OreDictionary.registerOre("bottleSake", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 17));
+    	OreDictionary.registerOre("bottleBeer", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 18));
+    	OreDictionary.registerOre("bottleWine", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 19));
+    	OreDictionary.registerOre("bottleGin", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 20));
+    	OreDictionary.registerOre("bottleRum", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 21));
+    	OreDictionary.registerOre("bottleVodka", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 22));
+    	OreDictionary.registerOre("bottleWhiskey", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 23));
+    	
+    	OreDictionary.registerOre("bottleSake", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 33));
+    	OreDictionary.registerOre("bottleBeer", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 34));
+    	OreDictionary.registerOre("bottleWine", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 35));
+    	OreDictionary.registerOre("bottleGin", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 36));
+    	OreDictionary.registerOre("bottleRum", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 37));
+    	OreDictionary.registerOre("bottleVodka", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 38));
+    	OreDictionary.registerOre("bottleWhiskey", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 39));
+    	
+    	OreDictionary.registerOre("bottleSake", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 49));
+    	OreDictionary.registerOre("bottleBeer", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 50));
+    	OreDictionary.registerOre("bottleWine", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 51));
+    	OreDictionary.registerOre("bottleGin", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 52));
+    	OreDictionary.registerOre("bottleRum", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 53));
+    	OreDictionary.registerOre("bottleVodka", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 54));
+    	OreDictionary.registerOre("bottleWhiskey", new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 55));
 	}
 
 }

@@ -9,7 +9,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public class LoadTofuHandler {
 	
 	public static Item tofuKinu;
-	public static Item backetTounyu;
+	public static Item bucketTounyu;
 	public static Item negi;
 
 	public void load() {
@@ -22,15 +22,18 @@ public class LoadTofuHandler {
 		
 		if (kinu.size() > 0){
 			tofuKinu = kinu.get(0).getItem();
-			if (tofuKinu != null) System.out.println("[AppleMilk]Succeeded to get tofuKinu.");
+			if (tofuKinu != null) System.out.println("[AppleMilk]Succeeded to get tofuKinu");
 		}
 		if (tounyu.size() > 0){
-			backetTounyu = tounyu.get(0).getItem();
-			if (backetTounyu != null) System.out.println("[AppleMilk]Succeeded to get bucketSoyMilk.");
+			bucketTounyu = tounyu.get(0).getItem();
+			if (bucketTounyu != null) {
+				LoadModHandler.registerModItems("bucketSoy", new ItemStack(bucketTounyu, 1, 0));
+				System.out.println("[AppleMilk]Succeeded to get bucketSoymilk");
+			}
 		}
 		if (naganegi.size() > 0){
 			negi = naganegi.get(0).getItem();
-			if (negi != null) System.out.println("[AppleMilk]Succeeded to get leek.");
+			if (negi != null) System.out.println("[AppleMilk]Succeeded to get leek");
 		}
 	}
 	

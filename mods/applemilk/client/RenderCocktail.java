@@ -19,6 +19,7 @@ public class RenderCocktail implements ISimpleBlockRenderingHandler{
 	
 	private Icon boxIcon;
 	private Icon contentsIcon;
+	private Icon topIcon;
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID,
@@ -27,24 +28,38 @@ public class RenderCocktail implements ISimpleBlockRenderingHandler{
 		int meta = metadata;
 		this.boxIcon = DCsAppleMilk.blockIcecream.getBlockTextureFromSide(0);
 		this.contentsIcon = DCsAppleMilk.cocktail.getIcon(1, meta);
+		this.topIcon = DCsAppleMilk.cocktail.getIcon(1, 5);
 		
 		if (modelID == this.getRenderId())
 		{
-			//bottom
-			renderInvCuboid(renderer, block,  6.0F/16.0F, 0.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 1.0F/16.0F, 10.0F/16.0F,  this.boxIcon);
-			renderInvCuboid(renderer, block,  7.5F/16.0F, 1.0F/16.0F, 7.5F/16.0F, 8.50F/16.0F, 3.0F/16.0F, 8.5F/16.0F,  this.boxIcon);
-			renderInvCuboid(renderer, block,  5.0F/16.0F, 4.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 6.0F/16.0F, 11.0F/16.0F,  this.boxIcon);
-			
-			renderInvCuboid(renderer, block,  4.0F/16.0F, 6.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F, 8.0F/16.0F, 5.0F/16.0F,  this.boxIcon);
-			renderInvCuboid(renderer, block,  4.0F/16.0F, 6.0F/16.0F, 11.0F/16.0F, 12.0F/16.0F, 8.0F/16.0F, 12.0F/16.0F,  this.boxIcon);
-			renderInvCuboid(renderer, block,  4.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 5.0F/16.0F, 8.0F/16.0F, 11.0F/16.0F,  this.boxIcon);
-			renderInvCuboid(renderer, block,  11.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 12.0F/16.0F, 8.0F/16.0F, 11.0F/16.0F,  this.boxIcon);
-			
-			//contents
-			renderInvCuboid(renderer, block,  5.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 7.0F/16.0F, 11.0F/16.0F,  this.contentsIcon);
-			if (meta < 2) {
-				renderInvCuboid(renderer, block,  5.5F/16.0F, 7.0F/16.0F, 5.5F/16.0F, 10.5F/16.0F, 8.0F/16.0F, 10.5F/16.0F,  this.contentsIcon);
-				renderInvCuboid(renderer, block,  6.0F/16.0F, 8.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 9.0F/16.0F, 10.0F/16.0F,  this.contentsIcon);
+			if (meta == 5 || meta == 7 || meta == 8 || meta == 9) { //long type
+				//bottom
+				renderInvCuboid(renderer, block,  5.0F/16.0F, 0.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 1.0F/16.0F, 11.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  4.0F/16.0F, 1.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F, 9.0F/16.0F, 5.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  4.0F/16.0F, 1.0F/16.0F, 11.0F/16.0F, 12.0F/16.0F, 9.0F/16.0F, 12.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  4.0F/16.0F, 1.0F/16.0F, 5.0F/16.0F, 5.0F/16.0F, 9.0F/16.0F, 11.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  11.0F/16.0F, 1.0F/16.0F, 5.0F/16.0F, 12.0F/16.0F, 9.0F/16.0F, 11.0F/16.0F,  this.boxIcon);
+				
+				//contents
+				renderInvCuboid(renderer, block,  5.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 7.0F/16.0F, 11.0F/16.0F,  this.contentsIcon);
+			}
+			else { //short type
+				//bottom
+				renderInvCuboid(renderer, block,  6.0F/16.0F, 0.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 1.0F/16.0F, 10.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  7.5F/16.0F, 1.0F/16.0F, 7.5F/16.0F, 8.50F/16.0F, 3.0F/16.0F, 8.5F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  5.0F/16.0F, 4.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 6.0F/16.0F, 11.0F/16.0F,  this.boxIcon);
+				
+				renderInvCuboid(renderer, block,  4.0F/16.0F, 6.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F, 8.0F/16.0F, 5.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  4.0F/16.0F, 6.0F/16.0F, 11.0F/16.0F, 12.0F/16.0F, 8.0F/16.0F, 12.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  4.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 5.0F/16.0F, 8.0F/16.0F, 11.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  11.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 12.0F/16.0F, 8.0F/16.0F, 11.0F/16.0F,  this.boxIcon);
+				
+				//contents
+				renderInvCuboid(renderer, block,  5.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 7.0F/16.0F, 11.0F/16.0F,  this.contentsIcon);
+				if (meta < 2) {
+					renderInvCuboid(renderer, block,  5.5F/16.0F, 7.0F/16.0F, 5.5F/16.0F, 10.5F/16.0F, 8.0F/16.0F, 10.5F/16.0F,  this.contentsIcon);
+					renderInvCuboid(renderer, block,  6.0F/16.0F, 8.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 9.0F/16.0F, 10.0F/16.0F,  this.contentsIcon);
+				}
 			}
 		}
 	}
@@ -56,52 +71,84 @@ public class RenderCocktail implements ISimpleBlockRenderingHandler{
 		int meta = world.getBlockMetadata(x, y, z);
 		this.boxIcon = DCsAppleMilk.blockIcecream.getBlockTextureFromSide(0);
 		this.contentsIcon = DCsAppleMilk.cocktail.getIcon(1, meta);
+		this.topIcon = DCsAppleMilk.cocktail.getIcon(1, 5);
 		
 		if (modelId == this.getRenderId())
 		{
-			renderer.setOverrideBlockTexture(this.boxIcon);
-			block.setBlockBounds(6.0F/16.0F, 0.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 1.0F/16.0F, 10.0F/16.0F);
-			renderer.setRenderBoundsFromBlock(block);
-			renderer.renderStandardBlock(block, x, y, z);
-			renderer.setOverrideBlockTexture(this.boxIcon);
-			block.setBlockBounds(7.5F/16.0F, 1.0F/16.0F, 7.5F/16.0F, 8.50F/16.0F, 4.0F/16.0F, 8.5F/16.0F);
-			renderer.setRenderBoundsFromBlock(block);
-			renderer.renderStandardBlock(block, x, y, z);
-			renderer.setOverrideBlockTexture(this.boxIcon);
-			block.setBlockBounds(5.0F/16.0F, 4.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 6.0F/16.0F, 11.0F/16.0F);
-			renderer.setRenderBoundsFromBlock(block);
-			renderer.renderStandardBlock(block, x, y, z);
-			
-			renderer.setOverrideBlockTexture(this.boxIcon);
-			block.setBlockBounds(4.0F/16.0F, 6.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F, 8.0F/16.0F, 5.0F/16.0F);
-			renderer.setRenderBoundsFromBlock(block);
-			renderer.renderStandardBlock(block, x, y, z);
-			renderer.setOverrideBlockTexture(this.boxIcon);
-			block.setBlockBounds(4.0F/16.0F, 6.0F/16.0F, 11.0F/16.0F, 12.0F/16.0F, 8.0F/16.0F, 12.0F/16.0F);
-			renderer.setRenderBoundsFromBlock(block);
-			renderer.renderStandardBlock(block, x, y, z);
-			renderer.setOverrideBlockTexture(this.boxIcon);
-			block.setBlockBounds(4.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 5.0F/16.0F, 8.0F/16.0F, 11.0F/16.0F);
-			renderer.setRenderBoundsFromBlock(block);
-			renderer.renderStandardBlock(block, x, y, z);
-			renderer.setOverrideBlockTexture(this.boxIcon);
-			block.setBlockBounds(11.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 12.0F/16.0F, 8.0F/16.0F, 11.0F/16.0F);
-			renderer.setRenderBoundsFromBlock(block);
-			renderer.renderStandardBlock(block, x, y, z);
-			
-			//contents
-			renderer.setOverrideBlockTexture(this.contentsIcon);
-			block.setBlockBounds(5.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 7.5F/16.0F, 11.0F/16.0F);
-			renderer.setRenderBoundsFromBlock(block);
-			renderer.renderStandardBlock(block, x, y, z);
 			
 			if (meta < 2) {
+				//contents
+				renderer.setOverrideBlockTexture(this.contentsIcon);
+				block.setBlockBounds(5.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 7.5F/16.0F, 11.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+				
+				renderer.setOverrideBlockTexture(this.contentsIcon);
+				block.setBlockBounds(5.5F/16.0F, 5.0F/16.0F, 5.5F/16.0F, 10.5F/16.0F, 6.0F/16.0F, 10.5F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+				
 				renderer.setOverrideBlockTexture(this.contentsIcon);
 				block.setBlockBounds(5.5F/16.0F, 7.5F/16.0F, 5.5F/16.0F, 10.5F/16.0F, 8.5F/16.0F, 10.5F/16.0F);
 				renderer.setRenderBoundsFromBlock(block);
 				renderer.renderStandardBlock(block, x, y, z);
 				renderer.setOverrideBlockTexture(this.contentsIcon);
 				block.setBlockBounds(6.0F/16.0F, 8.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 9.5F/16.0F, 10.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+			}
+			else if (meta == 5 || meta == 8 || meta == 9) {
+				renderer.setOverrideBlockTexture(this.contentsIcon);
+				block.setBlockBounds(5.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 8.0F/16.0F, 11.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+				
+				renderer.setOverrideBlockTexture(this.contentsIcon);
+				block.setBlockBounds(5.0F/16.0F, 1.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 6.0F/16.0F, 11.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+			}
+			else if (meta == 6) {
+				renderer.setOverrideBlockTexture(this.contentsIcon);
+				block.setBlockBounds(5.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 9.0F/16.0F, 11.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+				
+				renderer.setOverrideBlockTexture(this.contentsIcon);
+				block.setBlockBounds(5.5F/16.0F, 5.0F/16.0F, 5.5F/16.0F, 10.5F/16.0F, 6.0F/16.0F, 10.5F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+				
+				renderer.setOverrideBlockTexture(this.contentsIcon);
+				block.setBlockBounds(5.5F/16.0F, 9.0F/16.0F, 5.5F/16.0F, 10.5F/16.0F, 9.5F/16.0F, 10.5F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+				
+				renderer.setOverrideBlockTexture(this.contentsIcon);
+				block.setBlockBounds(6.0F/16.0F, 9.5F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 10.0F/16.0F, 10.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+			}
+			else if (meta == 7) {
+				renderer.setOverrideBlockTexture(this.topIcon);
+				block.setBlockBounds(5.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 8.0F/16.0F, 11.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+				
+				renderer.setOverrideBlockTexture(this.contentsIcon);
+				block.setBlockBounds(5.0F/16.0F, 1.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 6.0F/16.0F, 11.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+			}
+			else {
+				//contents
+				renderer.setOverrideBlockTexture(this.contentsIcon);
+				block.setBlockBounds(5.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 7.5F/16.0F, 11.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+				
+				renderer.setOverrideBlockTexture(this.contentsIcon);
+				block.setBlockBounds(5.5F/16.0F, 5.0F/16.0F, 5.5F/16.0F, 10.5F/16.0F, 6.0F/16.0F, 10.5F/16.0F);
 				renderer.setRenderBoundsFromBlock(block);
 				renderer.renderStandardBlock(block, x, y, z);
 			}

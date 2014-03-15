@@ -1,5 +1,6 @@
 package mods.applemilk.common.block;
 
+import mods.applemilk.api.edibles.EdibleItemBlock;
 import mods.applemilk.common.AchievementRegister;
 import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.handler.Util;
@@ -12,9 +13,10 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ItemCocktail extends ItemBlock{
+public class ItemCocktail extends EdibleItemBlock{
 	
-	private static final String[] type = new String[] {"_frozen_daiquiri", "_frozen_sake", "_saketini", "_gimlet", "_blackrose", "_redeye"};
+	private static final String[] type = new String[] {"_frozen_daiquiri", "_frozen_sake", "_saketini", "_gimlet", "_blackrose", "_redeye",
+		"_pinacolada", "_americanlemonade", "_moscowmule", "_mintjulep"};
 	
 	public ItemCocktail(int itemId)
 	{
@@ -27,25 +29,25 @@ public class ItemCocktail extends ItemBlock{
 	public String getUnlocalizedName(ItemStack par1ItemStack)
 	{
 		int m = (par1ItemStack.getItemDamage());
-		if (m < 6) return super.getUnlocalizedName() + type[m];
+		if (m < 10) return super.getUnlocalizedName() + type[m];
 		else return super.getUnlocalizedName() + m;
 	}
 	
 	@Override
 	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
 	{
-		if (!par3EntityPlayer.capabilities.isCreativeMode)
-        {
-            --par1ItemStack.stackSize;
-        }
-		
 		if (!par2World.isRemote)
 		{
     		this.setPotionWithIce(par3EntityPlayer, par1ItemStack.getItemDamage());
 		}
-		
 		par3EntityPlayer.triggerAchievement(AchievementRegister.drinkCocktail);
-		return par1ItemStack;
+		return super.onEaten(par1ItemStack, par2World, par3EntityPlayer);
+	}
+	
+	@Override
+	public PotionEffect effectOnEaten(int meta) {
+		
+		return new PotionEffect(Potion.hunger.id, 300, 1);
 	}
 	
 	protected static void setPotionWithIce (EntityPlayer par1EntityPlayer, int meta)
@@ -53,49 +55,48 @@ public class ItemCocktail extends ItemBlock{
 		if(meta == 0)//frozen daiquiri
 		{
 			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 2400, 2));
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.hunger.id, 300, 0));
 		}
 		else if(meta == 1)//frozen sake
 		{
 			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 2400, 0));
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 300, 0));
 		}
 		else if (meta == 2)//sake-tini
 		{
 			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 2400, 2));
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.hunger.id, 300, 0));
 		}
 		else if ((meta == 3) && DCsAppleMilk.pothinIDImmunity != 0)//gimlet
 		{
 			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.resistance.id, 2400, 2));
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.hunger.id, 300, 0));
 		}
 		else if ((meta == 4) && DCsAppleMilk.pothinIDImmunity != 0)//black rose
 		{
 			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.invisibility.id, 2400, 0));
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.hunger.id, 300, 0));
 		}
 		else if (meta == 5)//red eye
 		{
 			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76434_w.id, 2400, 2));
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.hunger.id, 300, 0));
+		}
+		else if (meta == 6)//pina colada
+		{
+			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 2400, 0));
+		}
+		else if (meta == 7)//american lemonade
+		{
+			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.jump.id, 2400, 3));
+		}
+		else if (meta == 8)//moscow mule
+		{
+			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 2400, 3));
+		}
+		else if (meta == 9)//mint julep
+		{
+			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 2400, 3));
 		}
 	}
 	
 	public EnumAction getItemUseAction(ItemStack par1ItemStack)
     {
     	return EnumAction.drink;
-    }
-	
-	public int getMaxItemUseDuration(ItemStack par1ItemStack)
-    {
-        return 32;
-    }
-	
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-    {
-        par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
-        return par1ItemStack;
     }
 	
 	@Override

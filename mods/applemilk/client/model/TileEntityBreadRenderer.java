@@ -17,6 +17,7 @@ import org.lwjgl.opengl.GL12;
 public class TileEntityBreadRenderer extends TileEntitySpecialRenderer
 {
     private static final ResourceLocation BreadTex = new ResourceLocation("applemilk:textures/entity/breadBasket.png");
+    private static final ResourceLocation BottleTex = new ResourceLocation("applemilk:textures/entity/bottleBasket.png");
     public static TileEntityBreadRenderer BreadRenderer;
     private ModelBreads breadModel = new ModelBreads();
 
@@ -39,13 +40,21 @@ public class TileEntityBreadRenderer extends TileEntitySpecialRenderer
         ModelBreads modelBread = this.breadModel;
         byte l = (byte)tile.getBlockMetadata();
         
-        this.bindTexture(BreadTex);
         GL11.glPushMatrix();
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glTranslatef((float)par1 + 0.5F, (float)par2 + 1.5F, (float)par3 + 0.5F);
         GL11.glScalef(1.0F, -1.0F, -1.0F);
         GL11.glRotatef(0.0F, 0.0F, 0.0F, 0.0F);
-        this.breadModel.render((Entity)null, 0.0F, 0.0F, 0.0F, l, 0.0F, 0.0625F);
+        
+        if (l < 6) {
+        	this.bindTexture(BreadTex);
+            this.breadModel.render((Entity)null, 0.0F, 0.0F, 0.0F, l, 0.0F, 0.0625F);
+        }
+        else {
+        	this.bindTexture(BottleTex);
+            this.breadModel.renderBottle((Entity)null, 0.0F, 0.0F, 0.0F, l, 0.0F, 0.0625F);
+        }
+        
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
     }

@@ -20,11 +20,11 @@ public class LoadBambooHandler {
 		
 		if (basket.size() > 0){
 			bambooBasket = basket.get(0).getItem();
-			if (bambooBasket != null) System.out.println("[AppleMilk]Succeeded to get bambooBasket.");
+			if (bambooBasket != null) System.out.println("[AppleMilk]Succeeded to get bambooBasket");
 		}
 		if (mugimeshi.size() > 0){
 			bambooMugimeshi = mugimeshi.get(0).getItem();
-			if (bambooMugimeshi != null) System.out.println("[AppleMilk]Succeeded to get wheatRice.");
+			if (bambooMugimeshi != null) System.out.println("[AppleMilk]Succeeded to get wheatRice");
 		}
 	}
 

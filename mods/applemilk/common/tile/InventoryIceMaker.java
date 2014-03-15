@@ -79,6 +79,9 @@ public class InventoryIceMaker implements ISidedInventory {
 	// インベントリ内のスロットにアイテムを入れる
 	@Override
 	public void setInventorySlotContents(int par1, ItemStack par2ItemStack) {
+		
+		if (par1 > 2) par1 = 0;//存在しないスロットに入れようとすると強制的に材料スロットに変更される。
+		
 		this.iceItemStacks[par1] = par2ItemStack;
  
 		if (par2ItemStack != null && par2ItemStack.stackSize > this.getInventoryStackLimit())

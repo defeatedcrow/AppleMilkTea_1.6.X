@@ -56,54 +56,12 @@ public class CraftingEvent implements ICraftingHandler {
 	        		player.dropPlayerItem(new ItemStack(DCsAppleMilk.emptyCup,1,0));
 	        	}
 			}
-			if (m != null && DCsAppleMilk.SuccessLoadSSector && 
+			else if (m != null && DCsAppleMilk.SuccessLoadSSector && 
 					(m.itemID == LoadSSectorHandler.rumBottle.itemID || m.itemID == LoadSSectorHandler.ginBottle.itemID 
 					|| m.itemID == LoadSSectorHandler.beerBottle.itemID || m.itemID == LoadSSectorHandler.sakeBottle.itemID)) {
-				if (!player.inventory.addItemStackToInventory(LoadSSectorHandler.emptyBottle))
+				if (!player.inventory.addItemStackToInventory(new ItemStack(LoadSSectorHandler.emptyBottle.itemID, 1, 0)))
 	        	{
-	        		player.dropPlayerItem(LoadSSectorHandler.emptyBottle);
-	        	}
-			}
-			if (m != null && DCsAppleMilk.SuccessLoadGrowth[0] && 
-					(m.itemID == LoadModHandler.getItem("grcSake").itemID)) {
-				if (!player.inventory.addItemStackToInventory(new ItemStack(Item.glassBottle, 1, 0)))
-	        	{
-	        		player.dropPlayerItem(new ItemStack(Item.glassBottle, 1, 0));
-	        	}
-			}
-			if (m != null && DCsAppleMilk.SuccessLoadGrowth[0] && 
-					(m.itemID == LoadModHandler.getItem("grcSakeBucket").itemID)) {
-				if (!player.inventory.addItemStackToInventory(new ItemStack(Item.bucketEmpty, 1, 0)))
-	        	{
-	        		player.dropPlayerItem(new ItemStack(Item.bucketEmpty, 1, 0));
-	        	}
-			}
-			if (m != null && DCsAppleMilk.SuccessLoadGrowth[1] && 
-					(m.itemID == LoadModHandler.getItem("grcWine").itemID)) {
-				if (!player.inventory.addItemStackToInventory(new ItemStack(Item.glassBottle, 1, 0)))
-	        	{
-	        		player.dropPlayerItem(new ItemStack(Item.glassBottle, 1, 0));
-	        	}
-			}
-			if (m != null && DCsAppleMilk.SuccessLoadGrowth[1] && 
-					(m.itemID == LoadModHandler.getItem("grcWineBucket").itemID)) {
-				if (!player.inventory.addItemStackToInventory(new ItemStack(Item.bucketEmpty, 1, 0)))
-	        	{
-	        		player.dropPlayerItem(new ItemStack(Item.bucketEmpty, 1, 0));
-	        	}
-			}
-			if (m != null && DCsAppleMilk.SuccessLoadGrowth[2] && 
-					(m.itemID == LoadModHandler.getItem("grcAle").itemID)) {
-				if (!player.inventory.addItemStackToInventory(new ItemStack(Item.glassBottle, 1, 0)))
-	        	{
-	        		player.dropPlayerItem(new ItemStack(Item.glassBottle, 1, 0));
-	        	}
-			}
-			if (m != null && DCsAppleMilk.SuccessLoadGrowth[2] && 
-					(m.itemID == LoadModHandler.getItem("grcAleBucket").itemID)) {
-				if (!player.inventory.addItemStackToInventory(new ItemStack(Item.bucketEmpty, 1, 0)))
-	        	{
-	        		player.dropPlayerItem(new ItemStack(Item.bucketEmpty, 1, 0));
+	        		player.dropPlayerItem(new ItemStack(LoadSSectorHandler.emptyBottle.itemID, 1, 0));
 	        	}
 			}
 		}

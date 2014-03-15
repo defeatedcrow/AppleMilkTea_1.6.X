@@ -53,24 +53,23 @@ public class TileEntityMakerNextRenderer extends TileEntitySpecialRenderer
         
         GL11.glPushMatrix();
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.8F);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         if (milk)
         {
         	GL11.glColor4f(2.0F, 2.0F, 2.0F, 1.0F);
         }
         else
         {
-        	GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.8F);
+        	
+        	GL11.glColor4f(1.2F, 1.2F, 1.2F, 0.9F);
         }
-        GL11.glTranslatef((float)par1, (float)par2 + 1.0F, (float)par3 + 1.0F);
+        GL11.glTranslatef((float)par1 + 0.5F, (float)par2 + 1.5F, (float)par3 + 0.5F);
         GL11.glScalef(1.0F, -1.0F, -1.0F);
-        GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-        short short1 = 0;
-
-        GL11.glTranslatef(0.0F, -1.0F, 0.0F);
-        GL11.glRotatef((float)short1, 0.0F, -1.0F, 0.0F);
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        GL11.glRotatef((float)0.0F, 0.0F, -1.0F, 0.0F);
         model.render((Entity)null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        GL11.glDisable(GL11.GL_BLEND);
         GL11.glPopMatrix();
     }
 

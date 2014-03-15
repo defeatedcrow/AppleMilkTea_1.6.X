@@ -25,11 +25,14 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import mods.applemilk.common.*;
+import mods.applemilk.common.item.ItemWallMug;
 import mods.applemilk.common.tile.TileLargeBottle;
+import mods.applemilk.handler.LoadModHandler;
 
 public class BlockLargeBottle extends BlockContainer{
 	
-	private static final String[] contents = new String[] {"_empty", "_sake", "_beer", "_wine", "_gin", "_rum"};
+	private static final String[] contents = new String[] {"_empty", "_sake", "_beer", "_wine", "_gin", "_rum", "_vodka", "_whiskey",
+		"_milk", "_milk", "_sugar", "_maple", "_juice", "_nuts", "_berryjam"};
 	
 	@SideOnly(Side.CLIENT)
     private Icon[] boxTex;
@@ -52,16 +55,145 @@ public class BlockLargeBottle extends BlockContainer{
         int currentMeta = par1World.getBlockMetadata(par2, par3, par4);
         TileLargeBottle tile = (TileLargeBottle) par1World.getBlockTileEntity(par2, par3, par4);
         
-        if (itemstack == null && tile != null)//スタック不可物なので素手でしか拾えない
+        if (itemstack == null)//キャニスターの場合に限り、中身を一つづつ取り出すことが出来る。
         {
-        	short rem = tile.getRemainShort();
-        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.itemLargeBottle,1,rem)))
+        	if (tile == null || currentMeta < 8) {
+        		return false;
+        	}
+        	else {
+        		short i = tile.getRemainShort();
+        		int rem = checkRemain(i);
+        		int type = currentMeta & 7;
+        		
+        		//中身の取得
+        		String[] get = new String[] {"bucketMilk", "bucketSoy", "sugar", "maple", "honey", "nuts", "berry"};
+        		ItemStack ret;
+        		if (type == 2) {
+        			ret = new ItemStack(Item.sugar, 1, 0);
+        		}
+        		else {
+        			ret = LoadModHandler.getRandomItem(get[type]);
+        		}
+        		
+        		if (type > 1 && ret != null)
+        		{
+        			if (!par5EntityPlayer.inventory.addItemStackToInventory(ret))
+    	        	{
+    	        		par5EntityPlayer.entityDropItem(ret, 1);
+    	        	}
+        			
+        			if (rem == 0) {
+        				tile.setRemainShort((short)0);
+        				par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
+        			}
+        			else {
+        				rem--;
+        				int newRem = (rem << 4) + type + 8;
+        				tile.setRemainShort((short)newRem);
+        			}
+        			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+        			return true;
+        		}
+        	}
+        	return false;
+        }
+        else if (itemstack.itemID == Item.bucketEmpty.itemID)//キャニスターの場合に限り、中身を一つづつ取り出すことが出来る。
+        {
+        	if (tile == null || currentMeta < 8) {
+        		return false;
+        	}
+        	else {
+        		short i = tile.getRemainShort();
+        		int rem = checkRemain(i);
+        		int type = currentMeta & 7;
+        		
+        		//中身の取得
+        		ItemStack ret;
+        		if (type == 0) {
+        			ret = new ItemStack(Item.bucketMilk, 1, 0);
+        		}
+        		else {
+        			ret = LoadModHandler.getItem("bucketSoy");
+        		}
+        		
+        		if (type < 2 && ret != null)
+        		{
+        			if (!par5EntityPlayer.inventory.addItemStackToInventory(ret))
+    	        	{
+    	        		par5EntityPlayer.entityDropItem(ret, 1);
+    	        	}
+        			if (!par5EntityPlayer.capabilities.isCreativeMode)
+                    {
+                        --itemstack.stackSize;
+                    }
+        			
+        			if (rem == 0) {
+        				tile.setRemainShort((short)0);
+        				par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
+        			}
+        			else {
+        				rem--;
+        				int newRem = (rem << 4) + type + 8;
+        				tile.setRemainShort((short)newRem);
+        			}
+        			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+        			return true;
+        		}
+        	}
+        	return false;
+        }
+        else if (itemstack.itemID == DCsAppleMilk.wallMug.itemID)//wallmug
+        {
+        	short i = tile.getRemainShort();
+        	int type = checkBottleType(i);
+        	int rem = checkRemain(i);
+        	
+        	int damage = itemstack.getItemDamage();
+        	int targetMilk = (damage >> 2) & 3;
+        	int targetSugar = (damage >> 4) & 3;
+        	int targetFruit = (damage >> 6) & 3;
+        	
+        	boolean flag = false;
+        	int[] customize = {4, 12, 16, 32, 48, 128, 192};
+        	
+        	if (rem >= 0 && type > 7)//canisterのとき
         	{
-        		par5EntityPlayer.entityDropItem(new ItemStack(DCsAppleMilk.itemLargeBottle,1,rem), 1);
+        		if (targetMilk == 0 && (type == 8 || type == 9)) {
+        			flag = true;
+        		}
+        		else if (targetSugar == 0 && (type == 10 || type == 11 || type == 12)) {
+        			flag = true;
+        		}
+        		else if (targetFruit == 0 && (type == 13 || type == 14)) {
+        			flag = true;
+        		}
+        	}
+        	
+        	if (flag)
+        	{
+        		if (!par5EntityPlayer.capabilities.isCreativeMode)
+                {
+                    --itemstack.stackSize;
+                }
+        		
+        		if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.wallMug,1,(damage + customize[type & 7]))))
+	        	{
+	        		par5EntityPlayer.entityDropItem(new ItemStack(DCsAppleMilk.wallMug,1,(damage + customize[type & 7])), 1);
+	        	}
+        		
+        		int newRem = 0;
+        		if (rem - 1 < 0) {
+        			par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
+        		}
+        		else {
+        			newRem = ((rem - 1) << 4) + type;
+        		}
+        		tile.setRemainShort((short)newRem);
+        		
+        		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
         	}
     		
-    		par1World.setBlockToAir(par2, par3, par4);
-    		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+    		
     		return true;
         }
         else
@@ -177,21 +309,27 @@ public class BlockLargeBottle extends BlockContainer{
     public Icon getIcon(int par1, int par2)
     { 
 		int i = par2;
-		if (i > 5) i = 5;
-		if (par1 == 1)
-        {
-        	return this.boxTex[i];
-        }
-        else
-        {
-        	return this.sideTex[i];
-        }
+		if (i > 15) i = 15;
+		if (par2 < 8) {
+			if (par1 == 1)
+	        {
+	        	return this.boxTex[i];
+	        }
+	        else
+	        {
+	        	return this.sideTex[i];
+	        }
+		}
+		else {
+			return this.boxTex[i];
+		}
+		
     }
 	
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
-		for(int i = 0; i < 6; ++i)//登録はするが、クリエイティブで出すと残量は1になる
+		for(int i = 0; i < 15; ++i)//登録はするが、クリエイティブで出すと残量は1になる
 		{
 			par3List.add(new ItemStack(this, 1, i));
 		}
@@ -201,13 +339,17 @@ public class BlockLargeBottle extends BlockContainer{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.sideTex = new Icon[6];
-		this.boxTex = new Icon[6];
+		this.sideTex = new Icon[8];
+		this.boxTex = new Icon[15];
 
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < 8; ++i)
         {
         	this.sideTex[i] = par1IconRegister.registerIcon("applemilk:bottleside" + contents[i]);
         	this.boxTex[i] = par1IconRegister.registerIcon("applemilk:bottle" + contents[i]);
+        }
+        for (int j = 8; j < 15; ++j)
+        {
+        	this.boxTex[j] = par1IconRegister.registerIcon("applemilk:contents" + contents[j]);
         }
 	}
 	

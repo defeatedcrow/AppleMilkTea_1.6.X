@@ -1,8 +1,10 @@
 package mods.applemilk.common.block;
 
+import mods.applemilk.api.edibles.EdibleItemBlock;
 import mods.applemilk.common.AchievementRegister;
 import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.handler.Util;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -16,7 +18,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
-public class ItemIceBlock extends ItemBlock{
+public class ItemIceBlock extends EdibleItemBlock{
 	
 	private static final String[] type = new String[] {"_milk", "_tea", "_greentea", "_cocoa", "_coffee", "_fruit", "_lemon", "_lime", "_tomato", "_berry"};
 	
@@ -38,13 +40,13 @@ public class ItemIceBlock extends ItemBlock{
 	@Override
 	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
 	{
-		if (!par3EntityPlayer.capabilities.isCreativeMode)
-        {
-            --par1ItemStack.stackSize;
-        }
-		
 		if (!par2World.isRemote)
 		{
+			if (par1ItemStack.getItemDamage() == 7)//lime
+			{
+				ItemBlockTeaCup2.clearNegativePotion(par3EntityPlayer);
+			}
+			
 			BiomeGenBase biome = Util.checkCurrentBiome(par2World, par3EntityPlayer);
 			if (BiomeDictionary.isBiomeOfType(biome, Type.NETHER)) {
     			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 600, 0));
@@ -56,66 +58,79 @@ public class ItemIceBlock extends ItemBlock{
     		else if (BiomeDictionary.isBiomeOfType(biome, Type.JUNGLE) || BiomeDictionary.isBiomeOfType(biome, Type.DESERT)) {
     			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 1, 2));
     		}
-    		this.setPotionWithIce(par3EntityPlayer, par1ItemStack.getItemDamage());
 		}
 		
-		return par1ItemStack;
+		return super.onEaten(par1ItemStack, par2World, par3EntityPlayer);
 	}
 	
-	protected static void setPotionWithIce (EntityPlayer par1EntityPlayer, int meta)
-	{
+	@Override
+	public PotionEffect effectOnEaten(int meta) {
+		
 		if(meta == 0)//milk
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 900, 0));
+			return new PotionEffect(Potion.fireResistance.id, 900, 0);
 		}
 		else if(meta == 1)//tea
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.heal.id, 1, 0));
+			return new PotionEffect(Potion.heal.id, 1, 0);
 		}
 		else if(meta == 2)//greentea
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 900, 0));
+			return new PotionEffect(Potion.digSpeed.id, 900, 0);
 		}
 		else if (meta == 3 || meta == 4)//cocoa,coffee
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.nightVision.id, 900, 0));
+			return new PotionEffect(Potion.nightVision.id, 900, 0);
 		}
 		else if ((meta == 5) && DCsAppleMilk.pothinIDImmunity != 0)//fruit
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(DCsAppleMilk.Immunization.id, 900, 0));
+			return new PotionEffect(DCsAppleMilk.Immunization.id, 900, 0);
 		}
 		else if ((meta == 6) && DCsAppleMilk.pothinIDImmunity != 0)//lemon
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(DCsAppleMilk.Immunization.id, 900, 1));
+			return new PotionEffect(DCsAppleMilk.Immunization.id, 900, 1);
 		}
 		else if (meta == 7)//lime
 		{
-			ItemBlockTeaCup2.clearNegativePotion(par1EntityPlayer);
+			return null;
 		}
 		else if (meta == 8)//tomato
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 900, 0));
+			return new PotionEffect(Potion.damageBoost.id, 900, 0);
 		}
-		else if (meta == 9)//berry
+		else//berry
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.resistance.id, 900, 1));
+			return new PotionEffect(Potion.resistance.id, 900, 1);
 		}
 	}
 	
-	public EnumAction getItemUseAction(ItemStack par1ItemStack)
+	@Override
+    public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity)
     {
-    	return EnumAction.eat;
-    }
-	
-	public int getMaxItemUseDuration(ItemStack par1ItemStack)
-    {
-        return 32;
-    }
-	
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-    {
-        par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
-        return par1ItemStack;
+        if (entity.worldObj.isRemote || entity == null)
+        {
+            return false;
+        }
+        else
+        {
+        	int meta = itemstack.getItemDamage();
+        	PotionEffect effect = this.effectOnEaten(meta);
+        	ItemStack ret = this.getReturnContainer(meta);
+        	
+        	entity.addPotionEffect(effect);
+        	if (meta == 7) entity.clearActivePotions();
+        	entity.worldObj.playSoundAtEntity(entity, "random.pop", 0.4F, 1.8F);
+        	
+        	if (!player.capabilities.isCreativeMode)
+            {
+                --itemstack.stackSize;
+            }
+        	if (!player.inventory.addItemStackToInventory(ret))
+	    	{
+	    		player.entityDropItem(ret, 1);
+	    	}
+        	return true;
+        }
     }
 	
 	@Override

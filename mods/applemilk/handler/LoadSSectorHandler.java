@@ -25,23 +25,37 @@ public class LoadSSectorHandler {
 		
 		if (sake.size() > 0){
 			sakeBottle = sake.get(0);
-			if (sakeBottle != null) System.out.println("[AppleMilk]Succeeded to get sakeBottle.");
+			if (sakeBottle != null) {
+				System.out.println("[AppleMilk]Succeeded to get sakeBottle");
+				LoadModHandler.registerModItems("drinkSake", new ItemStack(sakeBottle.itemID, 1, 0));
+			}
 		}
 		if (rum.size() > 0){
 			rumBottle = rum.get(0);
-			if (rumBottle != null) System.out.println("[AppleMilk]Succeeded to get rumgBottle.");
+			if (rumBottle != null) {
+				System.out.println("[AppleMilk]Succeeded to get rumBottle");
+				LoadModHandler.registerModItems("drinkRum", new ItemStack(rumBottle.itemID, 1, 0));
+			}
 		}
 		if (gin.size() > 0){
 			ginBottle = gin.get(0);
-			if (ginBottle != null) System.out.println("[AppleMilk]Succeeded to get ginBottle.");
+			if (ginBottle != null) {
+				System.out.println("[AppleMilk]Succeeded to get ginBottle");
+				LoadModHandler.registerModItems("drinkGin", new ItemStack(ginBottle.itemID, 1, 0));
+			}
 		}
 		if (beer.size() > 0){
 			beerBottle = beer.get(0);
-			if (beerBottle != null) System.out.println("[AppleMilk]Succeeded to get beerBottle.");
+			if (beerBottle != null) {
+				System.out.println("[AppleMilk]Succeeded to get beerBottle");
+				LoadModHandler.registerModItems("drinkBeer", new ItemStack(beerBottle.itemID, 1, 0));
+			}
 		}
 		if (bottle.size() > 0){
 			emptyBottle = bottle.get(0);
-			if (emptyBottle != null) System.out.println("[AppleMilk]Succeeded to get craftingBottle.");
+			if (emptyBottle != null) {
+				System.out.println("[AppleMilk]Succeeded to get craftingBottle");
+			}
 		}
 
 	}

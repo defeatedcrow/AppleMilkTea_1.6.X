@@ -237,7 +237,7 @@ public class BlockWipeBox extends BlockContainer{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.boxTex = par1IconRegister.registerIcon("applemilk:basket_B");
+		this.boxTex = par1IconRegister.registerIcon("applemilk:basket_B0");
 		this.KimTex = new Icon[6];
 		
         for (int i = 0; i < 6; ++i)

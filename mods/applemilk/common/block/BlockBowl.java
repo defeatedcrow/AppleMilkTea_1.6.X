@@ -48,9 +48,9 @@ public class BlockBowl extends Block{
         
         if (itemstack == null)
         {
-        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.bowlBlock,1,currentMeta)))
+        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(this,1,currentMeta)))
         	{
-        		par5EntityPlayer.entityDropItem(new ItemStack(DCsAppleMilk.bowlBlock,1,currentMeta), 1);
+        		par5EntityPlayer.entityDropItem(new ItemStack(this,1,currentMeta), 1);
         	}
     		
     		par1World.setBlockToAir(par2, par3, par4);
@@ -74,9 +74,9 @@ public class BlockBowl extends Block{
         }
         else if (itemstack.itemID == this.blockID)
         {
-        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.bowlBlock,1,currentMeta)))
+        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(this,1,currentMeta)))
         	{
-        		par5EntityPlayer.entityDropItem(new ItemStack(DCsAppleMilk.bowlBlock,1,currentMeta), 1);
+        		par5EntityPlayer.entityDropItem(new ItemStack(this,1,currentMeta), 1);
         	}
     		
     		par1World.setBlockToAir(par2, par3, par4);

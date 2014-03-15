@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import mods.applemilk.common.*;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -20,6 +21,7 @@ public class RenderSoupPan implements ISimpleBlockRenderingHandler{
 	private Icon boxIcon;
 	private Icon contentsIcon;
 	private Icon contentsIcon2;
+	private Icon chainTex;
 	
 	public static int modelPan = -1;
 
@@ -70,9 +72,18 @@ public class RenderSoupPan implements ISimpleBlockRenderingHandler{
 		this.boxIcon = Block.hardenedClay.getBlockTextureFromSide(1);
 		this.contentsIcon = DCsAppleMilk.filledPan.getIcon(0, meta);
 		this.contentsIcon2 = DCsAppleMilk.filledPan2.getIcon(0, meta);
+		this.chainTex = DCsAppleMilk.emptyPan.getBlockTextureFromSide(0);
 		
 		if (modelId == this.getRenderId())
 		{
+			if (!world.isAirBlock(x, y + 1, z) && world.getBlockMaterial(x, y + 1, z) != Material.water)
+			{
+				renderer.setOverrideBlockTexture(this.chainTex);
+				block.setBlockBounds(0.0F/16.0F, 0.0F/16.0F, 0.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderCrossedSquares(block, x, y, z);
+			}
+			
 			//box
 			renderer.setOverrideBlockTexture(this.boxIcon);
 			block.setBlockBounds(3.0F/16.0F, 0.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 2.0F/16.0F, 13.0F/16.0F);

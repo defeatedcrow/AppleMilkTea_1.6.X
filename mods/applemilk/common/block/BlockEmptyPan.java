@@ -31,6 +31,8 @@ public class BlockEmptyPan extends BlockContainer{
 	
 	@SideOnly(Side.CLIENT)
     private Icon boxTex;
+	@SideOnly(Side.CLIENT)
+    private Icon chainTex;
 	
 	
 	public BlockEmptyPan (int blockid)
@@ -274,6 +276,10 @@ public class BlockEmptyPan extends BlockContainer{
         {
         	return this.boxTex;
         }
+		else if (par1 == 0)
+		{
+			return this.chainTex;
+		}
         else
         {
         	return Block.waterStill.getBlockTextureFromSide(0);
@@ -291,6 +297,7 @@ public class BlockEmptyPan extends BlockContainer{
 	public void registerIcons(IconRegister par1IconRegister)
 	{
 		this.boxTex = par1IconRegister.registerIcon("applemilk:porcelain");
+		this.chainTex = par1IconRegister.registerIcon("applemilk:chain");
 	}
 
 }

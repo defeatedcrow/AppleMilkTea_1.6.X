@@ -1,5 +1,6 @@
 package mods.applemilk.common.block;
 
+import mods.applemilk.api.edibles.EdibleItemBlock;
 import mods.applemilk.common.DCsAppleMilk;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -10,7 +11,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ItemFoodPlate extends ItemBlock{
+public class ItemFoodPlate extends EdibleItemBlock{
 	
 	private static final String[] type = new String[] {"_beef", "_pork", "_chicken", "_clam"};
 	
@@ -30,39 +31,10 @@ public class ItemFoodPlate extends ItemBlock{
 	}
 	
 	@Override
-	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-	{
-		if (!par3EntityPlayer.capabilities.isCreativeMode)
-        {
-            --par1ItemStack.stackSize;
-        }
+	public PotionEffect effectOnEaten(int meta) {
 		
-		int meta = par1ItemStack.getItemDamage();
-		
-		if (!par2World.isRemote)
-		{
-			if (meta == 3) par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 3, 2));
-			else par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 3, 3));
-		}
-		
-		return par1ItemStack;
+		return meta == 3 ? new PotionEffect(Potion.field_76443_y.id, 3, 2) : new PotionEffect(Potion.field_76443_y.id, 3, 3);
 	}
-	
-	public EnumAction getItemUseAction(ItemStack par1ItemStack)
-    {
-    	return EnumAction.eat;
-    }
-	
-	public int getMaxItemUseDuration(ItemStack par1ItemStack)
-    {
-        return 32;
-    }
-	
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-    {
-        par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
-        return par1ItemStack;
-    }
 	
 	@Override
 	public int getMetadata(int par1)

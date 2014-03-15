@@ -64,8 +64,7 @@ public class BlockIceCream extends BlockContainer{
         {
         	if (!par1World.isRemote)
     		{
-        		par5EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 1, 2));
-    			ItemIceBlock.setPotionWithIce(par5EntityPlayer, itemstack.getItemDamage());
+        		par5EntityPlayer.addPotionEffect(this.effectOnEaten(currentMeta));
     		}
         	
         	par1World.setBlockToAir(par2, par3, par4);
@@ -88,6 +87,46 @@ public class BlockIceCream extends BlockContainer{
         	return false;
         }
     }
+	
+	public PotionEffect effectOnEaten(int meta) {
+		
+		if(meta == 0)//milk
+		{
+			return new PotionEffect(Potion.fireResistance.id, 900, 0);
+		}
+		else if(meta == 1)//tea
+		{
+			return new PotionEffect(Potion.heal.id, 1, 0);
+		}
+		else if(meta == 2)//greentea
+		{
+			return new PotionEffect(Potion.digSpeed.id, 900, 0);
+		}
+		else if (meta == 3 || meta == 4)//cocoa,coffee
+		{
+			return new PotionEffect(Potion.nightVision.id, 900, 0);
+		}
+		else if ((meta == 5) && DCsAppleMilk.pothinIDImmunity != 0)//fruit
+		{
+			return new PotionEffect(DCsAppleMilk.Immunization.id, 900, 0);
+		}
+		else if ((meta == 6) && DCsAppleMilk.pothinIDImmunity != 0)//lemon
+		{
+			return new PotionEffect(DCsAppleMilk.Immunization.id, 900, 1);
+		}
+		else if (meta == 7)//lime
+		{
+			return null;
+		}
+		else if (meta == 8)//tomato
+		{
+			return new PotionEffect(Potion.damageBoost.id, 900, 0);
+		}
+		else//berry
+		{
+			return new PotionEffect(Potion.resistance.id, 900, 1);
+		}
+	}
 	
 	public int damageDropped(int par1)
     {

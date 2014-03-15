@@ -24,6 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.src.*;
 import net.minecraft.stats.Achievement;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.*;
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.Mod.*;
@@ -36,7 +37,7 @@ import cpw.mods.fml.common.registry.*;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.11a_dev",
+		version = "1.6.2_1.11a",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry"
 		)
 @NetworkMod(
@@ -123,7 +124,6 @@ public class DCsAppleMilk{
 	public static Item  chocolateFruits;
 	public static Item  icyCrystal;
 	public static Item  wallMug;
-	public static Item  emptyWallMug;
 	public static ItemLargeBottle  itemLargeBottle;
 	
 	//ポーションのインスタンス
@@ -193,7 +193,6 @@ public class DCsAppleMilk{
 	public int itemIdCHammer = 5998;
 	public int itemIdChoco = 5999;
 	public int itemIdIcyCrystal = 6010;
-	public int itemIdEmptyMug = 6011;
 	public int itemIdWallMug = 6012;
 	public int itemIdBottle = 6013;
 	
@@ -236,6 +235,7 @@ public class DCsAppleMilk{
 	public static boolean SuccessLoadSSector = false;
 	public static boolean SuccessLoadGummi = false;
 	public static boolean[] SuccessLoadGrowth = new boolean[] {false, false, false};
+	public static boolean SuccessLoadMapleTree = false;
 	
 	public static boolean IC2exp = true;
 	public static boolean TC4after405 = true;
@@ -358,6 +358,7 @@ public class DCsAppleMilk{
 			Property itemChoco = cfg.getItem("ChocolateFruits", itemIdChoco);
 			Property itemIcyC = cfg.getItem("IcyCrystal", itemIdIcyCrystal);
 			Property itemBottle = cfg.getItem("ItemLargeBottle", itemIdBottle);
+			Property itemWallMug = cfg.getItem("FilledWallMug", itemIdWallMug);
 			
 			Property DCpotionID = cfg.get("potionID", "Immunization", pothinIDImmunity,
 					"Set new potion ID for this mod. If you set 0, disable new potion effect.");
@@ -479,6 +480,7 @@ public class DCsAppleMilk{
 			itemIdChoco = itemChoco.getInt();
 			itemIdIcyCrystal = itemIcyC.getInt();
 			itemIdBottle = itemBottle.getInt();
+			itemIdWallMug = itemWallMug.getInt();
 			
 			pothinIDImmunity = DCpotionID.getInt();
 			teaTreeGenValue = TeaTreeValue.getInt();
@@ -617,6 +619,10 @@ public class DCsAppleMilk{
 		teaCup2 = (new BlockFilledCup2(blockIdTeaCup2)).
 				setUnlocalizedName("defeatedcrow.filledCup2");
 		
+		wallMug = (new ItemWallMug(itemIdWallMug - 256)).
+				setUnlocalizedName("defeatedcrow.wallMug").
+				setCreativeTab(applemilk);
+		
 		//pan
 		filledPan = (new BlockFilledPan(blockIdFPan)).
 				setUnlocalizedName("defeatedcrow.soupPan");
@@ -705,10 +711,9 @@ public class DCsAppleMilk{
 				setCreativeTab(applemilk);
 		
 		largeBottle = (new BlockLargeBottle(blockIdLargeBottle)).
-				setUnlocalizedName("defeatedcrow.largeBottle").
-				setCreativeTab(applemilk);
+				setUnlocalizedName("defeatedcrow.largeBottle");
 		
-		itemLargeBottle = (ItemLargeBottle) (new ItemLargeBottle(itemIdBottle)).
+		itemLargeBottle = (ItemLargeBottle) (new ItemLargeBottle(itemIdBottle - 256)).
 				setUnlocalizedName("defeatedcrow.itemBottle").
 				setCreativeTab(applemilk);
 		
@@ -812,6 +817,7 @@ public class DCsAppleMilk{
 		GameRegistry.registerItem(icyCrystal,"defeatedcrow.icyCrystal");
 		GameRegistry.registerItem(DCgrater,"defeatedcrow.grater");
 		GameRegistry.registerItem(itemLargeBottle,"defeatedcrow.itemBottle");
+		GameRegistry.registerItem(wallMug,"defeatedcrow.wallMug");
 		
 		GameRegistry.registerBlock(woodBox, ItemWoodBox.class, "defeatedcrow.WoodBox");
 		GameRegistry.registerBlock(appleBox, "defeatedcrow.AppleBox");
@@ -883,7 +889,7 @@ public class DCsAppleMilk{
 		
 		//Checking Server Prop.
 		//サーバーのプロパティを取得しようとして失敗した跡
-		System.out.println("[AppleMilk]Checking server propaty.");
+		//System.out.println("[AppleMilk]Checking server propaty.");
 		proxy.networkUtil();
 		
 		//Registering new Recipe
@@ -952,11 +958,11 @@ public class DCsAppleMilk{
 	    
 	    //registering TeaMaker recipe, It's still in testing yet.
 	    //ティーメーカーのレシピ数の無限化のため、専用のレシピ登録クラスを用意した
-	    System.out.println("[AppleMilk]Registering new tea maker recipe.");
+	    System.out.println("[AppleMilk]Registering new tea maker recipe");
 	    (new RegisterMakerRecipe()).registerTea();
 	    
 	    //アイスメーカーのレシピ登録
-	    System.out.println("[AppleMilk]Registering new ice maker recipe.");
+	    System.out.println("[AppleMilk]Registering new ice maker recipe");
 	    (new RegisterMakerRecipe()).registerIce();
 	    
 	}
@@ -967,11 +973,17 @@ public class DCsAppleMilk{
 		//Checking another mods
 		//他のMODのブロック・アイテム登録クラスに先行しないよう、postInitメソッドでロードする
 		(new LoadOreDicHandler()).load();
-		//(new LoadModHandler()).loadAppleMilk();
+		/*
+		 * 以下はデバッグ時のテスト用メソッドにつきコメントアウト
+		(new LoadModHandler()).loadAppleMilk();
+		String nam = LoadModHandler.getItem("DCsBakedApple").getDisplayName();
+		System.out.println("[AppleMilk]got name is " + nam);
+		*/
 		
 	    if (Loader.isModLoaded("IC2") && DCsAppleMilk.useIC2Items)
 	    {
-	        try
+	    	System.out.println("[AppleMilk]Now checking IC2");
+	    	try
 	        {
 	          this.SuccessLoadIC2 = true;
 	          (new LoadIC2Handler()).load();
@@ -984,7 +996,8 @@ public class DCsAppleMilk{
 	    
 	    if (Loader.isModLoaded("BambooMod"))
 	    {
-	        try
+	    	System.out.println("[AppleMilk]Now checking BambooMod");
+	    	try
 	        {
 	          this.SuccessLoadBamboo = true;
 	          (new LoadBambooHandler()).load();
@@ -998,7 +1011,8 @@ public class DCsAppleMilk{
 	    
 	    if (Loader.isModLoaded("TofuCraft"))
 	    {
-	        try
+	    	System.out.println("[AppleMilk]Now checking Tofucraft");
+	    	try
 	        {
 	          this.SuccessLoadTofu = true;
 	          (new LoadTofuHandler()).load();
@@ -1012,7 +1026,8 @@ public class DCsAppleMilk{
 	    
 	    if (Loader.isModLoaded("Thaumcraft"))
 	    {
-	        try
+	    	System.out.println("[AppleMilk]Now checking Thaumcraft");
+	    	try
 	        {
 	          this.SuccessLoadThaumcraft = true;
 	          (new LoadThaumcraftHandler()).load();
@@ -1024,9 +1039,25 @@ public class DCsAppleMilk{
 	        }
 	    }
 	    
+	    if (Loader.isModLoaded("BiomesOPlenty"))
+	    {
+	    	System.out.println("[AppleMilk]Now checking BoP");
+	    	try
+	        {
+	          this.SuccessLoadBoP = true;
+	          (new LoadBoPHandler()).load();
+	          
+	        }
+	        catch (Exception e) {
+	          System.out.println("[AppleMilk]Failed to check BiomesOPlenty");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
 	    if (Loader.isModLoaded("AndanteMod_Gummi"))
 	    {
-	        try
+	    	System.out.println("[AppleMilk]Now checking Gummi");
+	    	try
 	        {
 	          this.SuccessLoadGummi = true;
 	          (new LoadModHandler()).loadGummi();;
@@ -1040,7 +1071,8 @@ public class DCsAppleMilk{
 	    
 	    if (Loader.isModLoaded("MCEconomy"))
 	    {
-	        try
+	    	System.out.println("[AppleMilk]Now checking MCEconomy");
+	    	try
 	        {
 	          this.SuccessLoadEconomy = true;
 	          (new MCEconomyHandler()).registerSellable();
@@ -1054,7 +1086,8 @@ public class DCsAppleMilk{
 	    
 	    if (Loader.isModLoaded("SextiarySector"))
 	    {
-	        try
+	    	System.out.println("[AppleMilk]Now checking SextiarySector");
+	    	try
 	        {
 	          this.SuccessLoadSSector = true;
 	          (new LoadSSectorHandler()).load();
@@ -1066,9 +1099,10 @@ public class DCsAppleMilk{
 	        }
 	    }
 	    
-	    if (Loader.isModLoaded("GrowthCraft|Rice"))
+	    if (Loader.isModLoaded("Growthcraft|Rice"))
 	    {
-	        try
+	    	System.out.println("[AppleMilk]Now checking Growthcraft|Rice");
+	    	try
 	        {
 	          this.SuccessLoadGrowth[0] = true;
 	          (new LoadModHandler()).loadGrowthRice();
@@ -1080,9 +1114,10 @@ public class DCsAppleMilk{
 	        }
 	    }
 	    
-	    if (Loader.isModLoaded("GrowthCraft|Hops"))
+	    if (Loader.isModLoaded("Growthcraft|Hops"))
 	    {
-	        try
+	    	System.out.println("[AppleMilk]Now checking Growthcraft|Hops");
+	    	try
 	        {
 	          this.SuccessLoadGrowth[1] = true;
 	          (new LoadModHandler()).loadGrowthHops();
@@ -1094,9 +1129,10 @@ public class DCsAppleMilk{
 	        }
 	    }
 	    
-	    if (Loader.isModLoaded("GrowthCraft|Grapes"))
+	    if (Loader.isModLoaded("Growthcraft|Grapes"))
 	    {
-	        try
+	    	System.out.println("[AppleMilk]Now checking Growthcraft|Grapes");
+	    	try
 	        {
 	          this.SuccessLoadGrowth[2] = true;
 	          (new LoadModHandler()).loadGrowthGrape();
@@ -1104,6 +1140,21 @@ public class DCsAppleMilk{
 	        }
 	        catch (Exception e) {
 	          System.out.println("[AppleMilk]Failed to check GrowthCraft|Grapes");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
+	    if (Loader.isModLoaded("mod_ecru_MapleTree_Forge"))
+	    {
+	    	System.out.println("[AppleMilk]Now checking MapleTree");
+	    	try
+	        {
+	          this.SuccessLoadMapleTree = true;
+	          (new LoadModHandler()).loadMaple();
+	          
+	        }
+	        catch (Exception e) {
+	          System.out.println("[AppleMilk]Failed to check mod_ecru_MapleTree_Forge");
 	          e.printStackTrace(System.err);
 	        }
 	    }

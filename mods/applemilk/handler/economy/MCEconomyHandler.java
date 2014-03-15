@@ -49,7 +49,9 @@ public class MCEconomyHandler extends ProductList{
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.wipeBox2, 1, 0), 40);
 		
 		//baskets
-		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.Basket), 5);
+		for (int i = 0; i < 15 ; i++) {
+			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.Basket, 1, i), (5 + i));
+		}
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.chopsticksBox), 5);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.chocoBlock, 1, 0), 50);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.chocoBlock, 1, 1), 500);
@@ -99,8 +101,23 @@ public class MCEconomyHandler extends ProductList{
 		for (int i = 0; i < 4 ; i++) {
 			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.foodPlate, 1, i), 8);
 		}
-		for (int i = 0; i < 6 ; i++) {
+		for (int i = 0; i < 10 ; i++) {
 			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.cocktail, 1, i), 30);
+		}
+		
+		//bottle
+		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0), 10);
+		
+		int[] amount = {0, 16, 32, 48};
+		for (int i = 0 ; i < amount.length ; i++)
+		{
+			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (1 + amount[i])), 50);
+			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (2 + amount[i])), 50);
+			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (3 + amount[i])), 80);
+			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (4 + amount[i])), 80);
+			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (5 + amount[i])), 80);
+			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (6 + amount[i])), 120);
+			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, (7 + amount[i])), 120);
 		}
 		
 		//tree
@@ -113,10 +130,13 @@ public class MCEconomyHandler extends ProductList{
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.appleTart), 3);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.appleSandwich), 2);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.toffyApple), 2);
+		
 		for (int i = 0; i < 4 ; i++) {
 			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.icyToffyApple, 1, i), 5);
 		}
+		
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.condensedMIlk), 1);
+		
 		for (int i = 0; i < 13 ; i++) {
 			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.chocolateFruits, 1, i), 8);
 		}
@@ -124,9 +144,11 @@ public class MCEconomyHandler extends ProductList{
 		for (int i = 0; i < 9 ; i++) {
 			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.mincedFoods, 1, i), 5);
 		}
+		
 		for (int i = 0; i < 9 ; i++) {
 			MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.gratedApple, 1, i), 5);
 		}
+		
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.EXItems, 1, 0), 4);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.EXItems, 1, 1), 3);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.EXItems, 1, 2), 4);
@@ -147,7 +169,7 @@ public class MCEconomyHandler extends ProductList{
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.firestarter), 50);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.DCgrater), 20);
 		
-		System.out.println("[AppleMilk]Succeeded to register the price for MCEconomy.");
+		System.out.println("[AppleMilk]Succeeded to register the price for MCEconomy");
 		
 		DCshopId = MCEconomyAPI.registerProductList(this);
 		this.registerProducts();
@@ -175,6 +197,9 @@ public class MCEconomyHandler extends ProductList{
 		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.teaMakerNext, 1, 0), 1000));
 		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.DCgrater, 1, 0), 80));
 		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.emptyPan, 1, 0), 200));
+		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.largeBottle, 1, 51), 300));
+		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.largeBottle, 1, 54), 500));
+		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.largeBottle, 1, 55), 500));
 	}
 
 	@Override

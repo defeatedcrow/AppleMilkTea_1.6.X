@@ -28,9 +28,11 @@ public class BlockBasket extends BlockContainer{
 	@SideOnly(Side.CLIENT)
     private Icon[] basketTex;
 	@SideOnly(Side.CLIENT)
+    private Icon[] basketSideTex;
+	@SideOnly(Side.CLIENT)
+    private Icon[] basketTopTex;
+	@SideOnly(Side.CLIENT)
     private Icon[] breadTex;
-	
-	private final String[] side = new String[] {"_S", "_T", "_B"};
 		
 	public BlockBasket (int blockid)
 	{
@@ -54,15 +56,45 @@ public class BlockBasket extends BlockContainer{
     		}
     		else
     		{
-    			this.getBowl(par5EntityPlayer, currentMeta);
-    			par1World.setBlockMetadataWithNotify(par2, par3, par4, (currentMeta - 1), 3);
-        		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
-        		return true;
+    			if (currentMeta < 6) {
+    				this.getBowl(par5EntityPlayer, currentMeta);
+        			par1World.setBlockMetadataWithNotify(par2, par3, par4, (currentMeta - 1), 3);
+            		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+            		return true;
+    			}
+    			else {
+    				this.getBottle(par5EntityPlayer, currentMeta);
+        			if (currentMeta == 6) {
+        				par1World.setBlockToAir(par2, par3, par4);
+        			}
+        			else {
+        				par1World.setBlockMetadataWithNotify(par2, par3, par4, (currentMeta - 1), 3);
+        			}
+            		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+            		return true;
+    			}
     		}
         }
         else if (itemstack.itemID == Item.bread.itemID)
         {
         	if (currentMeta >= 5)
+        	{
+        		return false;
+        	}
+        	else
+        	{
+        		if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
+                {
+            		par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
+                }
+            	par1World.setBlockMetadataWithNotify(par2, par3, par4, (currentMeta + 1), 3);
+        		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+        		return true;
+        	}
+        }
+        else if (itemstack.itemID == DCsAppleMilk.itemLargeBottle.itemID && itemstack.getItemDamage() == 0)
+        {
+        	if (currentMeta < 6 || currentMeta > 13)
         	{
         		return false;
         	}
@@ -88,6 +120,14 @@ public class BlockBasket extends BlockContainer{
 		if (!player.inventory.addItemStackToInventory(new ItemStack(Item.bread,1)))
     	{
     		player.entityDropItem(new ItemStack(Item.bread,1), 1.0F);
+    	}
+	}
+	
+	private void getBottle (EntityPlayer player, int meta)
+	{
+		if (!player.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0)))
+    	{
+    		player.entityDropItem(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0), 1.0F);
     	}
 	}
 	
@@ -132,8 +172,13 @@ public class BlockBasket extends BlockContainer{
 	
 	public void TeaMakerBoundingBox (int par1)
 	{
-		float f = 0.0F;
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.6F, 1.0F);
+		if (par1 < 6) {
+			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.6F, 1.0F);
+		}
+		else {
+			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
+		}
+		
 	}
 	
 	@Override
@@ -144,12 +189,19 @@ public class BlockBasket extends BlockContainer{
 	@SideOnly(Side.CLIENT)
     public Icon getIcon(int par1, int par2)
     { 
-		if (par1 == 0) return this.basketTex[0];
-		if (par1 == 1) return this.basketTex[1];
-		if (par1 == 2) return this.basketTex[2];
-		if (par1 == 3) return this.breadTex[0];
-		if (par1 == 4) return this.breadTex[1];
-		else return Block.planks.getBlockTextureFromSide(0);
+		if (par2 < 6) {
+			if (par1 == 0) return this.basketTex[0];
+			if (par1 == 1) return this.basketTopTex[0];
+			if (par1 == 2) return this.basketSideTex[0];
+			if (par1 == 3) return this.breadTex[0];
+			if (par1 == 4) return this.breadTex[1];
+			else return Block.planks.getBlockTextureFromSide(0);
+		}
+		else {
+			if (par1 == 0) return this.basketTex[1];
+			if (par1 == 1) return this.basketTopTex[1];
+			else return this.basketSideTex[1];
+		}
     }
 	
 	@Override
@@ -158,18 +210,29 @@ public class BlockBasket extends BlockContainer{
 		return this.blockID;
 	}
 	
+	@SideOnly(Side.CLIENT)
+	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
+    {
+		par3List.add(new ItemStack(this, 1, 5));
+		par3List.add(new ItemStack(this, 1, 14));
+    }
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.basketTex = new Icon[3];
+		this.basketTex = new Icon[2];
+		this.basketSideTex = new Icon[2];
+		this.basketTopTex = new Icon[2];
 		this.breadTex = new Icon[2];
 		this.breadTex[0] = par1IconRegister.registerIcon("applemilk:bread_S");
 		this.breadTex[1] = par1IconRegister.registerIcon("applemilk:bread_T");
 		
-        for (int i = 0; i < 3; ++i)
+        for (int i = 0; i < 2; ++i)
         {
-        	this.basketTex[i] = par1IconRegister.registerIcon("applemilk:basket" + side[i]);
+        	this.basketTex[i] = par1IconRegister.registerIcon("applemilk:basket_B" + i);
+        	this.basketSideTex[i] = par1IconRegister.registerIcon("applemilk:basket_S" + i);
+        	this.basketTopTex[i] = par1IconRegister.registerIcon("applemilk:basket_T" + i);
         }
 	}
 	

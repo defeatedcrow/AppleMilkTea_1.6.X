@@ -98,6 +98,7 @@ public class ItemAPI {
 	 * chalcedony gear				: EXItems & 6
 	 * animal glue					: EXItems & 1
 	 * ink stick					: inkStick
+	 * glass dust					: EXItems & 11
 	 * 
 	 * (tools)
 	 * 
@@ -133,12 +134,14 @@ public class ItemAPI {
 	 * pan							: emptyPan
 	 * cooking iron plate			: teppann
 	 * empty cup					: emptyCup
+	 * empty wallmug				: EXItems & 10
 	 * rotary dial					: rotaryDial
 	 * 
 	 * (basket and table wares)
 	 * 
-	 * bread basket					: breadBasket (the remaining amount of bread is managed by matadata. 0-5)
-	 * chop sticks holder			: chopstickBox
+	 * bread basket					: breadBasket (the remaining amount of bread is managed by metadata. 0-5)
+	 * bottle case					: breadBasket (the remaining amount of bottle is managed by metadata. 6-14)
+	 * chop sticks holder			: chopstickBox (the remaining amount of bread is managed by metadata. 0-4)
 	 * bowl rack					: bowlRack
 	 * 
 	 * (food blocks)
@@ -152,7 +155,12 @@ public class ItemAPI {
 	 * ice creams					: blockIcecream & milk:0, tea:1, greentea:2, cocoa:3, coffee:4, fruit:5, lemon:6,
 	 * 												  lime:7, tomato:8, berry:9
 	 * steak plates					: foodPlate & beef:0, pork:1, chicken:2, clam:3
-	 * cocktails					: cocktail & frozen daiquiri:0, frozen sake:1, sake-tini:2, gimlet:3, black rose:4, red eye:5
+	 * cocktails					: cocktail & frozen daiquiri:0, frozen sake:1, sake-tini:2, gimlet:3, black rose:4, red eye:5,
+	 * 											pina colada:6, american lemonade:7, moscow mule:8, mint julep:9
+	 * 
+	 * bottles						: itemLargeBottle (the types and remaining amount is managed by metadata. 0-127)
+	 * 									*type = metadata & 15.
+	 * 									*amount = (metadata >> 4) & 7
 	 * 
 	 * (generated on world)
 	 * sapling of tea				: saplingTea
