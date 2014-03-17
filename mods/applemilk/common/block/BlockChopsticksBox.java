@@ -147,7 +147,7 @@ public class BlockChopsticksBox extends BlockContainer{
 	@SideOnly(Side.CLIENT)
     public Icon getIcon(int par1, int par2)
     { 
-		return Block.planks.getIcon(1, 0);
+		return Block.planks.getIcon(1, 4);
     }
 	
 	@Override

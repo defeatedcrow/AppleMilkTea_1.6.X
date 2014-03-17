@@ -309,7 +309,7 @@ public class BlockLargeBottle extends BlockContainer{
     public Icon getIcon(int par1, int par2)
     { 
 		int i = par2;
-		if (i > 15) i = 15;
+		if (i > 14) i = 14;
 		if (par2 < 8) {
 			if (par1 == 1)
 	        {

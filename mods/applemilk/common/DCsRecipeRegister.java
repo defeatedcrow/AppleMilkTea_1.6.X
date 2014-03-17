@@ -412,7 +412,7 @@ public class DCsRecipeRegister {
 	    			 " Y ",
 					 "X X",
 					 " X ",
-					 Character.valueOf('X'), new ItemStack(Block.thinGlass, 1),
+					 Character.valueOf('X'), new ItemStack(Block.glass, 1),
 					 Character.valueOf('Y'), "ingotTin"}));
 		 
 		 GameRegistry.addRecipe(
@@ -433,6 +433,16 @@ public class DCsRecipeRegister {
 					 Character.valueOf('X'), new ItemStack(Block.thinGlass, 1, 0),
 					 Character.valueOf('Y'), new ItemStack(Item.slimeBall, 1, 0)
 				 });
+		 
+		 GameRegistry.addRecipe(
+				 new ShapedOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0),
+	    		  new Object[]{
+	    			" X ",
+					"XYX",
+					" X ",
+					Character.valueOf('X'), new ItemStack(Block.thinGlass, 1, 0),
+					Character.valueOf('Y'), "dropSlime"}));
 		 
 		 // grater recipe
 		 //juice

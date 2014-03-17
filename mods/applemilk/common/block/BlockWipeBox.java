@@ -10,9 +10,11 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.src.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -68,26 +70,18 @@ public class BlockWipeBox extends BlockContainer{
         		{
         			byte remain = tile.getRemainByte();
         			
-        			if (remain == -1)
+        			if (remain < 1)
         			{
-        				if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.paper,1)))
+        				if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.paper, 1, 0)))
         	        	{
-        	        		par5EntityPlayer.entityDropItem(new ItemStack(Item.paper,1), 1);
-        	        	}
-        				par1World.playSoundAtEntity(par5EntityPlayer, "dig.cloth", 1.0F, 1.3F);
-        			}
-        			else if (remain == 0)
-        			{
-        				if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.paper,1)))
-        	        	{
-        	        		par5EntityPlayer.entityDropItem(new ItemStack(Item.paper,1), 1);
+        	        		par5EntityPlayer.entityDropItem(new ItemStack(Item.paper, 1, 0), 1);
         	        	}
         				par1World.setBlockToAir(par2, par3, par4);
         	    		par1World.playSoundAtEntity(par5EntityPlayer, "dig.cloth", 1.0F, 1.3F);
         			}
         			else if (remain > 0)
         			{
-        				if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.paper,1)))
+        				if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.paper, 1, 0)))
         	        	{
         	        		par5EntityPlayer.entityDropItem(new ItemStack(Item.paper,1), 1);
         	        	}
@@ -103,29 +97,19 @@ public class BlockWipeBox extends BlockContainer{
         	}
         	return true;
         }
-        else if (itemstack.itemID == Item.paper.itemID)
-		{
-			if (tile != null && (currentMeta == 1 || currentMeta == 3))
-			{
-				byte r = tile.getRemainByte();
-				r++;
-				tile.setRemainByte((byte)r);
-				
-				if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
-		        {
-					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
-		        }
-    			par1World.playSoundAtEntity(par5EntityPlayer, "dig.cloth", 1.0F, 1.3F);
-    			
-			}
-			return true;
-		}
-        else if (itemstack.itemID == DCsAppleMilk.wipeBox.blockID && itemstack.getItemDamage() == 0)
+        else if (itemstack.itemID == Item.paper.itemID || (itemstack.itemID == DCsAppleMilk.wipeBox.blockID))
 		{
 			if (tile != null && (currentMeta == 1 || currentMeta == 3))
 			{
 				int r = tile.getRemainByte();
-				r += 8;
+				
+				if (itemstack.itemID == Item.paper.itemID) {
+					r++;
+				}
+				else if (itemstack.itemID == DCsAppleMilk.wipeBox.blockID) {
+					r = (itemstack.getItemDamage() == 0) ? r + 9 : r + 81;
+				}
+				
 				if (r > 127)
 				{
 					if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
@@ -133,6 +117,7 @@ public class BlockWipeBox extends BlockContainer{
 						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
 			        }
 	    			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 1.0F, 1.8F);
+	    			tile.setRemainByte((byte)0);
 	    			par1World.setBlock(par2, par3, par4, DCsAppleMilk.wipeBox2.blockID, 0, 3);
 	    			TileWipeBox2 tile2 = (TileWipeBox2) par1World.getBlockTileEntity(par2, par3, par4);
 	    			tile2.setRemainShort((short)r);
@@ -232,6 +217,46 @@ public class BlockWipeBox extends BlockContainer{
 	{
 		return 1;
 	}
+	
+	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
+    {
+        TileWipeBox tile = (TileWipeBox)par1World.getBlockTileEntity(par2, par3, par4);
+
+        if (tile != null && par6 > 1)
+        {
+        	short l = tile.getRemainByte();
+        	if (l >= 0)
+            {
+                float f = par1World.rand.nextFloat() * 0.8F + 0.1F;
+                float f1 = par1World.rand.nextFloat() * 0.8F + 0.1F;
+                float f2 = par1World.rand.nextFloat() * 0.8F + 0.1F;
+                
+                int boxCount = l / 9;
+                int paperCount = l % 9;
+                
+                ItemStack box = new ItemStack(this, boxCount, 0);
+                ItemStack paper = new ItemStack(Item.paper, paperCount, 0);
+                EntityItem entitybox = new EntityItem(par1World, (double)((float)par2 + f), (double)((float)par3 + f1), (double)((float)par4 + f2), box);
+                EntityItem entitypaper = new EntityItem(par1World, (double)((float)par2 + f), (double)((float)par3 + f1), (double)((float)par4 + f2), paper);
+
+
+                float f3 = 0.05F;
+                entitybox.motionX = (double)((float)par1World.rand.nextGaussian() * f3);
+                entitybox.motionY = (double)((float)par1World.rand.nextGaussian() * f3 + 0.2F);
+                entitybox.motionZ = (double)((float)par1World.rand.nextGaussian() * f3);
+                par1World.spawnEntityInWorld(entitybox);
+                
+                entitypaper.motionX = (double)((float)par1World.rand.nextGaussian() * f3);
+                entitypaper.motionY = (double)((float)par1World.rand.nextGaussian() * f3 + 0.2F);
+                entitypaper.motionZ = (double)((float)par1World.rand.nextGaussian() * f3);
+                par1World.spawnEntityInWorld(entitypaper);
+            }
+
+            par1World.func_96440_m(par2, par3, par4, par5);
+        }
+
+        super.breakBlock(par1World, par2, par3, par4, par5, par6);
+    }
 	
 	@Override
 	@SideOnly(Side.CLIENT)

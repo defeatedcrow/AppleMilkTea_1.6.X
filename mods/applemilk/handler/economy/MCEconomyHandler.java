@@ -197,9 +197,9 @@ public class MCEconomyHandler extends ProductList{
 		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.teaMakerNext, 1, 0), 1000));
 		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.DCgrater, 1, 0), 80));
 		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.emptyPan, 1, 0), 200));
-		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.largeBottle, 1, 51), 300));
-		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.largeBottle, 1, 54), 500));
-		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.largeBottle, 1, 55), 500));
+		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 51), 300));
+		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 54), 500));
+		DCsProduct.add(new ProductItem(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 55), 500));
 	}
 
 	@Override

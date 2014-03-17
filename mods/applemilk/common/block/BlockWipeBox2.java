@@ -49,26 +49,26 @@ public class BlockWipeBox2 extends BlockContainer{
     			
     			if (remain == -1)
     			{
-    				if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.paper,1)))
+    				if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.paper, 1, 0)))
     	        	{
-    	        		par5EntityPlayer.entityDropItem(new ItemStack(Item.paper,1), 1);
+    	        		par5EntityPlayer.entityDropItem(new ItemStack(Item.paper, 1, 0), 1);
     	        	}
     				par1World.playSoundAtEntity(par5EntityPlayer, "dig.cloth", 1.0F, 1.3F);
     			}
-    			else if (remain == 0)
+    			else if (remain == 0 || remain < -1)
     			{
-    				if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.paper,1)))
+    				if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.paper, 1, 0)))
     	        	{
-    	        		par5EntityPlayer.entityDropItem(new ItemStack(Item.paper,1), 1);
+    	        		par5EntityPlayer.entityDropItem(new ItemStack(Item.paper, 1, 0), 1);
     	        	}
     				par1World.setBlockToAir(par2, par3, par4);
     	    		par1World.playSoundAtEntity(par5EntityPlayer, "dig.cloth", 1.0F, 1.3F);
     			}
     			else if (remain > 0)
     			{
-    				if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.paper,1)))
+    				if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.paper, 1, 0)))
     	        	{
-    	        		par5EntityPlayer.entityDropItem(new ItemStack(Item.paper,1), 1);
+    	        		par5EntityPlayer.entityDropItem(new ItemStack(Item.paper, 1, 0), 1);
     	        	}
     				par1World.playSoundAtEntity(par5EntityPlayer, "dig.cloth", 1.0F, 1.3F);
     				tile.setRemainShort((short)(remain - 1));
@@ -81,74 +81,51 @@ public class BlockWipeBox2 extends BlockContainer{
         	}
         	return true;
         }
-        else if (itemstack.itemID == Item.paper.itemID)
+        else if (itemstack.itemID == Item.paper.itemID || itemstack.itemID == DCsAppleMilk.wipeBox.blockID)
 		{
-        	int r = tile.getRemainShort();
-        	if (r <= 5000 && r > 0)
-			{
-				r++;
-				if (r > 5000)
-				{
-					if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
-			        {
-						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
-			        }
-	    			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 1.0F, 1.8F);
-	    			
-	    			if (DCsAppleMilk.allowInfinityWipes) {
-	    				tile.setRemainShort((short)-1);
-	    			}
-	    			else {
-	    				tile.setRemainShort((short)5000);
-	    			}
-				}
-				else
-				{
-					tile.setRemainShort((short)r);
-					
-					if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
-			        {
-						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
-			        }
-	    			par1World.playSoundAtEntity(par5EntityPlayer, "dig.cloth", 1.0F, 1.3F);
-				}
-			}
-			return true;
-		}
-        else if (tile != null && itemstack.itemID == DCsAppleMilk.wipeBox.blockID && itemstack.getItemDamage() < 2)
-		{
-        	int r = tile.getRemainShort();
-        	int m = itemstack.getItemDamage();
-        	int m2 = (m == 0)? 8 : 81;
-        	if (r <= 5000 && r > 0)
-			{
-				r += m2;
-				if (r > 5000)
-				{
-					if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
-			        {
-						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
-			        }
-	    			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 1.0F, 1.8F);
-	    			
-	    			if (DCsAppleMilk.allowInfinityWipes) {
-	    				tile.setRemainShort((short)-1);
-	    			}
-	    			else {
-	    				tile.setRemainShort((short)5000);
-	    			}
-				}
-				else
-				{
-					tile.setRemainShort((short)r);
-					
-					if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
-			        {
-						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
-			        }
-	    			par1World.playSoundAtEntity(par5EntityPlayer, "dig.cloth", 1.0F, 1.3F);
-				}
-			}
+        	if (tile != null) {
+        		int r = tile.getRemainShort();
+            	int set = 0;
+            	int m = itemstack.getItemDamage();
+            	
+            	if (itemstack.itemID == Item.paper.itemID) {
+            		set = 1;
+            	}
+            	else {
+            		set = (m == 0)? 9 : 81;
+            	}
+            	
+            	set = r + set;
+            	
+            	if (r != -1)
+            	{
+            		if (set > 5000)
+        			{
+        				if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
+        		        {
+        					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
+        		        }
+            			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 1.0F, 1.8F);
+            			
+            			if (DCsAppleMilk.allowInfinityWipes) {
+            				tile.setRemainShort((short)-1);
+            			}
+            			else {
+            				tile.setRemainShort((short)5000);
+            			}
+        			}
+        			else
+        			{
+        				tile.setRemainShort((short)set);
+        				
+        				if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
+        		        {
+        					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
+        		        }
+            			par1World.playSoundAtEntity(par5EntityPlayer, "dig.cloth", 1.0F, 1.3F);
+        			}
+            	}
+        	}
 			return true;
 		}
         else
@@ -202,7 +179,7 @@ public class BlockWipeBox2 extends BlockContainer{
     {
         short l = (short)par6ItemStack.getItemDamage();
         short l2 = 5000;
-        if (l > 5000)
+        if (l >= 5000)
         {
         	l2 = 0;
         }
@@ -227,20 +204,33 @@ public class BlockWipeBox2 extends BlockContainer{
 
         if (tile != null)
         {
-        	short l = (short)(5000 - tile.getRemainShort());
-        	if (l >= 0 && l <= 5000)
+        	short l = tile.getRemainShort();
+        	int d = 0;
+        	boolean flag = false;
+        	if (l < 0) {
+        		d = 0;
+        		flag = true;
+        	}
+        	else if (l == 0) {
+        		flag = false;
+        	}
+        	else if (l > 4999) {
+        		d = 0;
+        		flag = true;
+        	}
+        	else {
+        		d = 5000 - l;
+        		flag = true;
+        	}
+        	
+        	if (flag)
             {
                 float f = par1World.rand.nextFloat() * 0.8F + 0.1F;
                 float f1 = par1World.rand.nextFloat() * 0.8F + 0.1F;
                 float f2 = par1World.rand.nextFloat() * 0.8F + 0.1F;
                 
-                ItemStack itemstack = new ItemStack(this, 1, l);
+                ItemStack itemstack = new ItemStack(this, 1, d);
                 EntityItem entityitem = new EntityItem(par1World, (double)((float)par2 + f), (double)((float)par3 + f1), (double)((float)par4 + f2), itemstack);
-
-                if (itemstack.hasTagCompound())
-                {
-                    entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
-                }
 
                 float f3 = 0.05F;
                 entityitem.motionX = (double)((float)par1World.rand.nextGaussian() * f3);

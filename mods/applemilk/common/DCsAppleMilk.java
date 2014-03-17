@@ -37,7 +37,7 @@ import cpw.mods.fml.common.registry.*;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.11a",
+		version = "1.6.2_1.11b",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry"
 		)
 @NetworkMod(
@@ -248,7 +248,7 @@ public class DCsAppleMilk{
 	public static boolean inClient = false;
 	public static boolean inServer = false;
 	public static boolean thirdParty = false;
-	public static boolean debugMode = true;
+	public static boolean debugMode = false;
 	
 	//新ツール属性の追加
 	public static EnumToolMaterial enumToolMaterialChalcedony;

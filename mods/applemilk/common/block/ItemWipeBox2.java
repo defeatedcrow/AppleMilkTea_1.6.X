@@ -15,7 +15,7 @@ public class ItemWipeBox2 extends ItemBlock{
 		super(itemId);
 		setMaxDamage(5000);
 		setHasSubtypes(false);
-		
+		this.setMaxStackSize(1);
 	}
 	
 	@SideOnly(Side.CLIENT)
