@@ -14,6 +14,7 @@ import net.minecraft.src.*;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import mods.applemilk.common.*;
+import mods.applemilk.handler.Util;
 
 public class BlockGunpowderContainer extends Block{
 	
@@ -92,12 +93,12 @@ public class BlockGunpowderContainer extends Block{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.boxSideTex = par1IconRegister.registerIcon("applemilk:Container_S");
+		this.boxSideTex = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "Container_S");
 		this.boxTex = new Icon[3];
 		
         for (int i = 0; i < 3; ++i)
         {
-            this.boxTex[i] = par1IconRegister.registerIcon("applemilk:" + boxType[i] + "Container_T");
+            this.boxTex[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + boxType[i] + "Container_T");
         }
 	}
 

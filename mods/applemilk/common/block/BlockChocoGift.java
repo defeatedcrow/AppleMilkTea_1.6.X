@@ -18,6 +18,7 @@ import net.minecraft.src.*;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import mods.applemilk.common.*;
+import mods.applemilk.handler.Util;
 
 public class BlockChocoGift extends Block{
 	
@@ -126,8 +127,8 @@ public class BlockChocoGift extends Block{
 		
         for (int i = 0; i < 2; ++i)
         {
-            this.boxTex[i] = par1IconRegister.registerIcon("applemilk:chocogift" + boxType[i]);
-            this.boxSideTex[i] = par1IconRegister.registerIcon("applemilk:chocogiftside" + boxType[i]);
+            this.boxTex[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "chocogift" + boxType[i]);
+            this.boxSideTex[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "chocogiftside" + boxType[i]);
         }
 	}
 

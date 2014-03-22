@@ -46,7 +46,7 @@ public class TileEntityBottleRenderer extends TileEntitySpecialRenderer
         int rem = (par0Tile.getRemainShort() >> 4) & 7;
         
         if (l < 8) {
-        	String texPass = new String ("applemilk:textures/entity/largebottle" + type[l] + ".png");
+        	String texPass = new String (Util.getEntityTexturePassNoAlt() + "largebottle" + type[l] + ".png");
             bottleTex = new ResourceLocation(texPass);
             this.bindTexture(bottleTex);
             GL11.glPushMatrix();

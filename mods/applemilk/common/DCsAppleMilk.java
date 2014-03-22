@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+import mods.applemilk.api.RegisteredRecipeGet;
 import mods.applemilk.client.*;
 import mods.applemilk.common.block.*;
 import mods.applemilk.common.entity.EntityMelonBomb;
@@ -37,8 +38,8 @@ import cpw.mods.fml.common.registry.*;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.11b",
-		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry"
+		version = "1.6.2_1.11c",
+		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry;after:SextiarySector"
 		)
 @NetworkMod(
 		clientSideRequired = true,
@@ -204,6 +205,7 @@ public class DCsAppleMilk{
 	//コンフィグ項目の初期設定
 	public static int teaTreeGenValue = 5;
 	public static int setCupTexture = 1;
+	public static int setAltTexturePass = 1;
 	public static int teppannReadyTime = 30;
 	public static int cupStackSize = 1;
 	public static int achievementShiftID = 600;
@@ -284,6 +286,18 @@ public class DCsAppleMilk{
 	
 	//コンフィグファイル内で使う改行の記号
 	private final String BR = System.getProperty("line.separator");
+	
+	public static final String[] TEX_PASS = new String[] {
+		"applemilk:",
+		"applemilk:x32/",
+		"applemilk:x32alt/"
+	};
+	
+	public static final String[] TEX_PASS_ENTITY = new String[] {
+		"applemilk:textures/entity/",
+		"applemilk:textures/entity/x32/",
+		"applemilk:textures/entity/x32alt/"
+	};
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -411,6 +425,9 @@ public class DCsAppleMilk{
 					"Allow the WipeBox generate a paper infinitely.");
 			Property achievementID = cfg.get("setting", "Shift Achivement ID", achievementShiftID,
 					"Shift the ID of the achievement.");
+			Property texPass = cfg.get("render setting", "Set Texture Type Number", setAltTexturePass,
+					"Select the texture type number."
+					+ "1:default(x16 tex), 2:use x32 tex");
 			
 			Property IC2ver = cfg.get("plugin setting", "Use version of IC2", IC2exp,
 					"Please tell me version of IC2 you use. If you use IC2_exp, set true. If you use IC2_lf, set false.");
@@ -488,6 +505,7 @@ public class DCsAppleMilk{
 			teppannReadyTime = teppannTime.getInt();
 			cupStackSize = cupStackSizeInt.getInt();
 			achievementShiftID = achievementID.getInt();
+			setAltTexturePass = texPass.getInt();
 			
 			useEXRecipe = EXRecipe.getBoolean(false);
 			notGenTeaTree = noTeaTree.getBoolean(false);
@@ -868,6 +886,9 @@ public class DCsAppleMilk{
 		
 		//実績の追加
 		(new AchievementRegister()).register();
+		
+		//particle用テクスチャ登録
+		proxy.registerTex();
 	}
 
 	
@@ -964,6 +985,8 @@ public class DCsAppleMilk{
 	    //アイスメーカーのレシピ登録
 	    System.out.println("[AppleMilk]Registering new ice maker recipe");
 	    (new RegisterMakerRecipe()).registerIce();
+	    
+	    
 	    
 	}
 	
@@ -1158,6 +1181,9 @@ public class DCsAppleMilk{
 	          e.printStackTrace(System.err);
 	        }
 	    }
+	    
+	    (new RegisteredRecipeGet()).setRecipeList();
+	    proxy.loadNEI();
     }
 	
 }

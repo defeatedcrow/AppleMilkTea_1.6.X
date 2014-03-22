@@ -91,7 +91,7 @@ public class BlockClamSand extends Block
     
     public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
-        if(!par1World.isRemote && par1World.rand.nextInt(6) == 0 && !DCsAppleMilk.disableClam)
+        if(!par1World.isRemote && par1World.rand.nextInt(10) == 0 && !DCsAppleMilk.disableClam)
         {
         	super.updateTick(par1World, par2, par3, par4, par5Random);
         	

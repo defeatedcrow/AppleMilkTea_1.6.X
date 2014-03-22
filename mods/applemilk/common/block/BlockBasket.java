@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileBread;
 import mods.applemilk.common.tile.TileDummy;
+import mods.applemilk.handler.Util;
 
 public class BlockBasket extends BlockContainer{	
 	
@@ -230,9 +231,9 @@ public class BlockBasket extends BlockContainer{
 		
         for (int i = 0; i < 2; ++i)
         {
-        	this.basketTex[i] = par1IconRegister.registerIcon("applemilk:basket_B" + i);
-        	this.basketSideTex[i] = par1IconRegister.registerIcon("applemilk:basket_S" + i);
-        	this.basketTopTex[i] = par1IconRegister.registerIcon("applemilk:basket_T" + i);
+        	this.basketTex[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "basket_B" + i);
+        	this.basketSideTex[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "basket_S" + i);
+        	this.basketTopTex[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "basket_T" + i);
         }
 	}
 	

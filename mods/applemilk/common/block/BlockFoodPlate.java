@@ -3,6 +3,7 @@ package mods.applemilk.common.block;
 import java.util.List;
 import java.util.Random;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -23,6 +24,8 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import mods.applemilk.client.particle.EntityDCCloudFX;
+import mods.applemilk.client.particle.ParticleTex;
 import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileSteak;
 
@@ -284,17 +287,23 @@ public class BlockFoodPlate extends BlockContainer{
         }
 	}
 	
+	@SideOnly(Side.CLIENT)
+	@Override
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
         int l = par1World.getBlockMetadata(par2, par3, par4);
         int i = par1World.getBlockId(par2, par3 - 1, par2);
-        double d0 = (double)((float)par2 + 0.5F);
-        double d1 = (double)((float)par3 + 0.8F);
-        double d2 = (double)((float)par4 + 0.5F);
-        double d3 = 0.2199999988079071D;
+        double d0 = (double)((float)par2 + 0.25F + par5Random.nextFloat()/2);
+        double d1 = (double)((float)par3 + par5Random.nextFloat());
+        double d2 = (double)((float)par4 + 0.25F + par5Random.nextFloat()/2);
+        double d3 = 0.0099999988079071D;
         double d4 = 0.27000001072883606D;
 
-        if (!DCsAppleMilk.noRenderFoodsSteam) par1World.spawnParticle("cloud", d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        if (!DCsAppleMilk.noRenderFoodsSteam) {
+        	EntityDCCloudFX cloud = new EntityDCCloudFX(par1World, d0, d1, d2, 0.0D, d3, 0.0D);
+        	cloud.setParticleIcon(ParticleTex.getInstance().getIcon("applemilk:particle_cloud"));
+			FMLClientHandler.instance().getClient().effectRenderer.addEffect(cloud);
+        }
     }
 
 }

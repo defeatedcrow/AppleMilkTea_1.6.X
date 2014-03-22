@@ -28,6 +28,7 @@ import mods.applemilk.common.*;
 import mods.applemilk.common.item.ItemWallMug;
 import mods.applemilk.common.tile.TileLargeBottle;
 import mods.applemilk.handler.LoadModHandler;
+import mods.applemilk.handler.Util;
 
 public class BlockLargeBottle extends BlockContainer{
 	

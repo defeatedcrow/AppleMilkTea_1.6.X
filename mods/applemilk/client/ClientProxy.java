@@ -6,18 +6,22 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.client.model.*;
+import mods.applemilk.client.particle.ParticleTex;
 import mods.applemilk.common.CommonProxy;
 import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.entity.EntityMelonBomb;
 import mods.applemilk.common.tile.*;
 import mods.applemilk.handler.NetworkUtil;
+import mods.applemilk.handler.nei.LoadNEIHandler;
 
 
 @SideOnly(Side.CLIENT)
@@ -56,6 +60,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.registerTileEntity(TileRotaryDial.class, "TileRotaryDial", new TileEntityDialRenderer());
 		ClientRegistry.registerTileEntity(TileCocktail.class, "TileCocktail", new TileEntityCocktailRenderer());
 		ClientRegistry.registerTileEntity(TileLargeBottle.class, "TileLargeBottle", new TileEntityBottleRenderer());
+		ClientRegistry.registerTileEntity(TileCLamp.class, "TileChalcedonyLamp", new TileEntityCLampRenderer());
 	}
 
 	@Override
@@ -95,6 +100,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityMelonBomb.class, new RenderMelonBomb());
 	}
 	
+	@Override
 	public boolean func_44513dcs()
 	{
 		boolean func_23994dcs = false;
@@ -102,19 +108,42 @@ public class ClientProxy extends CommonProxy {
 		return func_23994dcs;
 	}
 	
+	@Override
 	public boolean func_44892dcs ()
 	{
 		boolean func_25471dcs = !Minecraft.getMinecraft().isSingleplayer();
 		return func_25471dcs;
 	}
 	
+	@Override
 	public void networkUtil()
 	{
 		//(new NetworkUtil()).clientUtility();
 	}
 	
+	@Override
 	public void init() {
 		
+	}
+	
+	@Override
+	public void registerTex() {
+		MinecraftForge.EVENT_BUS.register(new ParticleTex());
+	}
+	
+	@Override
+	public void loadNEI() {
+		if (Loader.isModLoaded("NotEnoughItems")) {
+			System.out.println("[AppleMilk]Now checking NotEnoughItems");
+	    	try
+	        {
+	    		LoadNEIHandler.load();
+	        }
+	        catch (Exception e) {
+	          System.out.println("[AppleMilk]Failed to check NotEnoughItems");
+	          e.printStackTrace(System.err);
+	        }
+		}
 	}
 
 }

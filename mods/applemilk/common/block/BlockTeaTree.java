@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import mods.applemilk.common.*;
+import mods.applemilk.handler.Util;
 
 public class BlockTeaTree extends Block implements IPlantable{
 	
@@ -164,9 +165,9 @@ public class BlockTeaTree extends Block implements IPlantable{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.leafIcon = par1IconRegister.registerIcon("applemilk:tealeaf");
-		this.newleafIcon = par1IconRegister.registerIcon("applemilk:tealeaf_2");
-		this.logIcon = par1IconRegister.registerIcon("applemilk:tealog");
+		this.leafIcon = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "tealeaf");
+		this.newleafIcon = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "tealeaf_2");
+		this.logIcon = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "tealog");
 				
 	}
 	

@@ -700,7 +700,9 @@ public class DCsRecipeRegister {
 	    		  new ItemStack(DCsAppleMilk.mincedFoods, 1, 3),
 	    		  new Object[]{
 	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
-	    			  new ItemStack(Item.wheat, 1),new ItemStack(Item.wheat, 1),new ItemStack(Item.wheat, 1)
+	    			  new ItemStack(Item.wheat, 1),
+	    			  new ItemStack(Item.wheat, 1),
+	    			  new ItemStack(Item.wheat, 1)
 					 }));
 		 
 		 GameRegistry.addRecipe(

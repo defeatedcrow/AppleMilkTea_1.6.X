@@ -2,27 +2,36 @@ package mods.applemilk.common.block;
 
 import static net.minecraftforge.common.ForgeDirection.DOWN;
 import static net.minecraftforge.common.ForgeDirection.UP;
+import mods.applemilk.client.particle.EntityDCCloudFX;
+import mods.applemilk.client.particle.EntityOrbFX;
+import mods.applemilk.client.particle.ParticleTex;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.tile.TileCLamp;
 import net.minecraft.block.Block;
 
 import java.util.List;
 import java.util.Random;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBreakable;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.src.*;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
-public class BlockChalcedonyLamp extends Block{
+public class BlockChalcedonyLamp extends BlockContainer{
 	
 	@SideOnly(Side.CLIENT)
     private Icon[] color;
@@ -95,6 +104,91 @@ public class BlockChalcedonyLamp extends Block{
         return 0;
     }
 	
+	@Override
+	public TileEntity createNewTileEntity(World world) {
+		return DCsAppleMilk.setAltTexturePass == 1 ? null : new TileCLamp();
+	}
+	
+	@Override
+	public void onBlockAdded(World world, int x, int y, int z)
+	{
+		super.onBlockAdded(world, x, y, z);
+		this.setDefaultDirection(world, x, y, z);
+	}
+	
+	private void setDefaultDirection(World world, int x, int y, int z)
+	{
+		if (!DCsAppleMilk.noUseCupDirection && DCsAppleMilk.setAltTexturePass > 1)
+		{
+			TileCLamp tile = (TileCLamp)world.getBlockTileEntity(x, y, z);
+			
+			if (!world.isRemote && tile != null)
+			{
+				int var5 = world.getBlockId(x, y, z - 1);
+				int var6 = world.getBlockId(x, y, z + 1);
+				int var7 = world.getBlockId(x - 1, y, z);
+				int var8 = world.getBlockId(x + 1, y, z);
+				byte var9 = 0;
+	 
+				if (Block.opaqueCubeLookup[var5] && !Block.opaqueCubeLookup[var6])
+				{
+					var9 = 0;
+				}
+	 
+				if (Block.opaqueCubeLookup[var6] && !Block.opaqueCubeLookup[var5])
+				{
+					var9 = 1;
+				}
+	 
+				if (Block.opaqueCubeLookup[var7] && !Block.opaqueCubeLookup[var8])
+				{
+					var9 = 2;
+				}
+	 
+				if (Block.opaqueCubeLookup[var8] && !Block.opaqueCubeLookup[var7])
+				{
+					var9 = 4;
+				}
+	 
+				tile.setDirectionByte(var9);
+			}
+		}
+	}
+ 
+	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
+	{
+		int playerFacing = MathHelper.floor_double((double)((par5EntityLivingBase.rotationYaw * 4F) / 360F) + 0.5D) & 3;
+ 
+		if (!DCsAppleMilk.noUseCupDirection && DCsAppleMilk.setAltTexturePass > 1)
+		{
+			byte facing = 0;
+			if (playerFacing == 0)
+			{
+				facing = 0;
+			}
+			if (playerFacing == 1)
+			{
+				facing = 1;
+			}
+			if (playerFacing == 2)
+			{
+				facing = 2;
+			}
+			if (playerFacing == 3)
+			{
+				facing = 4;
+			}
+	 
+			TileEntity tileEntity = par1World.getBlockTileEntity(par2, par3, par4);
+			if (tileEntity != null && tileEntity instanceof TileCLamp)
+			{
+				((TileCLamp)tileEntity).setDirectionByte(facing);
+				par1World.markBlockForRenderUpdate(par2, par3, par4);
+			}
+		}
+	}
+	
+	//rendering
 	@SideOnly(Side.CLIENT)
     public Icon getIcon(int par1, int par2)
     { 
@@ -137,17 +231,23 @@ public class BlockChalcedonyLamp extends Block{
         return 1;
     }
 	
+	@SideOnly(Side.CLIENT)
+	@Override
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
         int l = par1World.getBlockMetadata(par2, par3, par4);
         int i = par1World.getBlockId(par2, par3 - 1, par2);
-        double d0 = (double)((float)par2 + 0.5F);
-        double d1 = (double)((float)par3 + 0.5F);
-        double d2 = (double)((float)par4 + 0.5F);
-        double d3 = 0.0199999988079071D;
-        double d4 = 0.07000001072883606D;
+        double d0 = (double)((float)par2 + 0.45F + par5Random.nextFloat()/10);
+        double d1 = (double)((float)par3 + 0.45 + par5Random.nextFloat()/10);
+        double d2 = (double)((float)par4 + 0.45F + par5Random.nextFloat()/10);
+        double d3 = 0.0299999988079071D;
+        double d4 = 0.27000001072883606D;
 
-        if (l == 4) par1World.spawnParticle("flame", d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        if (!DCsAppleMilk.noRenderFoodsSteam && DCsAppleMilk.setAltTexturePass == 1 && l == 4) {
+        	EntityOrbFX cloud = new EntityOrbFX(par1World, d0, d1, d2, 0.0D, d3, 0.0D);
+        	cloud.setParticleIcon(ParticleTex.getInstance().getIcon("applemilk:particle_orb"));
+			FMLClientHandler.instance().getClient().effectRenderer.addEffect(cloud);
+        }
     }
 	
 	@Override

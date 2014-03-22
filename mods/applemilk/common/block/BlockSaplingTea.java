@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.handler.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.material.Material;
@@ -149,7 +150,7 @@ public class BlockSaplingTea extends Block implements IPlantable
      */
     public void registerIcons(IconRegister par1IconRegister)
     {
-        this.blockIcon = par1IconRegister.registerIcon("applemilk:sapling_tea");
+        this.blockIcon = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "sapling_tea");
 
     }
 

@@ -18,9 +18,9 @@ import org.lwjgl.opengl.GL12;
 @SideOnly(Side.CLIENT)
 public class TileEntityBowlJPRenderer extends TileEntitySpecialRenderer
 {
-    private static final ResourceLocation BowlJPTex1 = new ResourceLocation("applemilk:textures/entity/bowlJP_sakura.png");
-    private static final ResourceLocation BowlJPTex2 = new ResourceLocation("applemilk:textures/entity/bowlJP_bluepattern.png");
-    private static final ResourceLocation BowlJPTex3= new ResourceLocation("applemilk:textures/entity/bowlJP_whiteporcelain.png");
+    private static final ResourceLocation BowlJPTex1 = new ResourceLocation(Util.getEntityTexturePassNoAlt() + "bowlJP_sakura.png");
+    private static final ResourceLocation BowlJPTex2 = new ResourceLocation(Util.getEntityTexturePassNoAlt() + "bowlJP_bluepattern.png");
+    private static final ResourceLocation BowlJPTex3= new ResourceLocation(Util.getEntityTexturePassNoAlt() + "bowlJP_whiteporcelain.png");
     public static TileEntityBowlJPRenderer BowlRenderer;
     private ModelBowlJP bowlJPModel = new ModelBowlJP();
 

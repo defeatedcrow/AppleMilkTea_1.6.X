@@ -2,8 +2,12 @@ package mods.applemilk.common.block;
 
 import java.util.Random;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.applemilk.client.particle.EntityBlinkFX;
+import mods.applemilk.client.particle.EntityDCCloudFX;
+import mods.applemilk.client.particle.ParticleTex;
 import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.tile.TileIceMaker;
 import net.minecraft.block.Block;
@@ -29,6 +33,7 @@ public class BlockIceMaker extends BlockContainer {
 		super(blockid, Material.ground);
 		this.setHardness(2.0F);
 		this.setResistance(2.0F);
+		this.setTickRandomly(true);
 	}
 	
 	//外見の設定
@@ -153,5 +158,31 @@ public class BlockIceMaker extends BlockContainer {
 	{
 		this.blockIcon = par1IconRegister.registerIcon("applemilk:icemaker_body");
 	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
+    {
+        int l = par1World.getBlockMetadata(par2, par3, par4);
+        int i = par1World.getBlockId(par2, par3 - 1, par2);
+        boolean b = false;
+        TileIceMaker tile = (TileIceMaker) par1World.getBlockTileEntity(par2, par3, par4);
+        if (tile != null){
+        	b = tile.isBurning();
+        }
+        
+        double d0 = (double)((float)par2 + par5Random.nextFloat());
+        double d1 = (double)((float)par3 - 0.2F + par5Random.nextFloat());
+        double d2 = (double)((float)par4 + par5Random.nextFloat());
+        double d3 = 0.0099999988079071D;
+        double d4 = 0.0099999988079071D;
+        double d5 = 0.0099999988079071D;
+
+        if (!DCsAppleMilk.noRenderFoodsSteam && b) {
+        	EntityBlinkFX cloud = new EntityBlinkFX(par1World, d0, d1, d2, 0.0D, d4, 0.0D);
+        	cloud.setParticleIcon(ParticleTex.getInstance().getIcon("applemilk:particle_blink"));
+			FMLClientHandler.instance().getClient().effectRenderer.addEffect(cloud);
+        }
+    }
 
 }

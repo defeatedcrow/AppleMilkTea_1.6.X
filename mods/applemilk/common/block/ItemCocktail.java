@@ -52,45 +52,124 @@ public class ItemCocktail extends EdibleItemBlock{
 	
 	protected static void setPotionWithIce (EntityPlayer par1EntityPlayer, int meta)
 	{
+		PotionEffect potion = new PotionEffect(Potion.digSpeed.id, 2400, 2);
+		int tick = 2400;
+		boolean flag = false;
+		
 		if(meta == 0)//frozen daiquiri
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 2400, 2));
+			if (par1EntityPlayer.isPotionActive(Potion.digSpeed.id)) {
+				tick = par1EntityPlayer.getActivePotionEffect(Potion.digSpeed).getDuration() + 2400;
+				potion = new PotionEffect(Potion.digSpeed.id, tick, 2);
+				flag = true;
+			}
+			else {
+				potion = new PotionEffect(Potion.digSpeed.id, 2400, 2);
+			}
 		}
 		else if(meta == 1)//frozen sake
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 2400, 0));
+			if (par1EntityPlayer.isPotionActive(Potion.fireResistance.id)) {
+				tick = par1EntityPlayer.getActivePotionEffect(Potion.fireResistance).getDuration() + 2400;
+				potion = new PotionEffect(Potion.fireResistance.id, tick, 2);
+				flag = false;
+			}
+			else {
+				potion = new PotionEffect(Potion.fireResistance.id, 2400, 2);
+			}
 		}
 		else if (meta == 2)//sake-tini
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 2400, 2));
+			if (par1EntityPlayer.isPotionActive(Potion.damageBoost.id)) {
+				tick = par1EntityPlayer.getActivePotionEffect(Potion.damageBoost).getDuration() + 2400;
+				potion = new PotionEffect(Potion.damageBoost.id, tick, 2);
+				flag = true;
+			}
+			else {
+				potion = new PotionEffect(Potion.damageBoost.id, 2400, 2);
+			}
 		}
-		else if ((meta == 3) && DCsAppleMilk.pothinIDImmunity != 0)//gimlet
+		else if (meta == 3)//gimlet
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.resistance.id, 2400, 2));
+			if (par1EntityPlayer.isPotionActive(Potion.resistance.id)) {
+				tick = par1EntityPlayer.getActivePotionEffect(Potion.resistance).getDuration() + 2400;
+				potion = new PotionEffect(Potion.resistance.id, tick, 2);
+				flag = true;
+			}
+			else {
+				potion = new PotionEffect(Potion.resistance.id, 2400, 2);
+			}
 		}
-		else if ((meta == 4) && DCsAppleMilk.pothinIDImmunity != 0)//black rose
+		else if (meta == 4)//black rose
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.invisibility.id, 2400, 0));
+			if (par1EntityPlayer.isPotionActive(Potion.invisibility.id)) {
+				tick = par1EntityPlayer.getActivePotionEffect(Potion.invisibility).getDuration() + 2400;
+				potion = new PotionEffect(Potion.invisibility.id, tick, 2);
+				flag = false;
+			}
+			else {
+				potion = new PotionEffect(Potion.invisibility.id, 2400, 2);
+			}
 		}
 		else if (meta == 5)//red eye
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76434_w.id, 2400, 2));
+			if (par1EntityPlayer.isPotionActive(Potion.field_76434_w.id)) {
+				tick = par1EntityPlayer.getActivePotionEffect(Potion.field_76434_w).getDuration() + 2400;
+				potion = new PotionEffect(Potion.field_76434_w.id, tick, 2);
+				flag = true;
+			}
+			else {
+				potion = new PotionEffect(Potion.field_76434_w.id, 2400, 2);
+			}
 		}
 		else if (meta == 6)//pina colada
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 2400, 0));
+			if (par1EntityPlayer.isPotionActive(Potion.waterBreathing.id)) {
+				tick = par1EntityPlayer.getActivePotionEffect(Potion.waterBreathing).getDuration() + 2400;
+				potion = new PotionEffect(Potion.waterBreathing.id, tick, 2);
+				flag = false;
+			}
+			else {
+				potion = new PotionEffect(Potion.waterBreathing.id, 2400, 2);
+			}
 		}
 		else if (meta == 7)//american lemonade
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.jump.id, 2400, 3));
+			if (par1EntityPlayer.isPotionActive(Potion.jump.id)) {
+				tick = par1EntityPlayer.getActivePotionEffect(Potion.jump).getDuration() + 2400;
+				potion = new PotionEffect(Potion.jump.id, tick, 2);
+				flag = true;
+			}
+			else {
+				potion = new PotionEffect(Potion.jump.id, 2400, 2);
+			}
 		}
 		else if (meta == 8)//moscow mule
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 2400, 3));
+			if (par1EntityPlayer.isPotionActive(Potion.damageBoost.id)) {
+				tick = par1EntityPlayer.getActivePotionEffect(Potion.damageBoost).getDuration() + 2400;
+				potion = new PotionEffect(Potion.damageBoost.id, tick, 3);
+				flag = true;
+			}
+			else {
+				potion = new PotionEffect(Potion.damageBoost.id, 2400, 3);
+			}
 		}
 		else if (meta == 9)//mint julep
 		{
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 2400, 3));
+			if (par1EntityPlayer.isPotionActive(Potion.digSpeed.id)) {
+				tick = par1EntityPlayer.getActivePotionEffect(Potion.digSpeed).getDuration() + 2400;
+				potion = new PotionEffect(Potion.digSpeed.id, tick, 3);
+				flag = true;
+			}
+			else {
+				potion = new PotionEffect(Potion.digSpeed.id, 2400, 3);
+			}
+		}
+		
+		par1EntityPlayer.addPotionEffect(potion);
+		if (flag) {
+			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.confusion.id, 150, 1));
 		}
 	}
 	

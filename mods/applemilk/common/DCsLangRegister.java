@@ -571,6 +571,42 @@ public class DCsLangRegister {
 			
 		}
 		
+		int[] amount2 = {0, 16, 32, 48, 64, 80, 96, 112};
+		for (int i = 0 ; i < amount.length ; i++)
+		{
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (0 + amount[i])), "Empty Large Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (0 + amount[i])), "ja_JP", "空の一升瓶");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (1 + amount[i])), "Sake Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (1 + amount[i])), "ja_JP", "日本酒ボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (2 + amount[i])), "Beer Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (2 + amount[i])), "ja_JP", "ビールボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (3 + amount[i])), "Wine Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (3 + amount[i])), "ja_JP", "ワインボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (4 + amount[i])), "Gin Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (4 + amount[i])), "ja_JP", "ジンボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (5 + amount[i])), "Rum Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (5 + amount[i])), "ja_JP", "ラムボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (6 + amount[i])), "Wodka Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (6 + amount[i])), "ja_JP", "ウォッカボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (7 + amount[i])), "Whiskey Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (7 + amount[i])), "ja_JP", "ウィスキーボトル");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (8 + amount[i])), "Milk Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (8 + amount[i])), "ja_JP", "牛乳入り大瓶");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (9 + amount[i])), "Soymilk Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (9 + amount[i])), "ja_JP", "豆乳入り大瓶");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (10 + amount[i])), "Sugar Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (10 + amount[i])), "ja_JP", "砂糖入り大瓶");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (11 + amount[i])), "Caramel Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (11 + amount[i])), "ja_JP", "カラメル大瓶");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (12 + amount[i])), "Honey Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (12 + amount[i])), "ja_JP", "ハチミツ大瓶");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (13 + amount[i])), "Nuts Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (13 + amount[i])), "ja_JP", "瓶詰めナッツ");
+			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.largeBottle, 1, (14 + amount[i])), "Berry Jam Bottle");
+			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.largeBottle, 1, (14 + amount[i])), "ja_JP", "瓶詰めベリージャム");
+			
+		}
+		
 		int[] type = {0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240};
 		for (int i = 0 ; i < type.length ; i++)
 		{

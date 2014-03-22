@@ -3,6 +3,7 @@ package mods.applemilk.client.model;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.common.tile.TileBread;
+import mods.applemilk.handler.Util;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -16,8 +17,8 @@ import org.lwjgl.opengl.GL12;
 @SideOnly(Side.CLIENT)
 public class TileEntityBreadRenderer extends TileEntitySpecialRenderer
 {
-    private static final ResourceLocation BreadTex = new ResourceLocation("applemilk:textures/entity/breadBasket.png");
-    private static final ResourceLocation BottleTex = new ResourceLocation("applemilk:textures/entity/bottleBasket.png");
+    private static final ResourceLocation BreadTex = new ResourceLocation(Util.getEntityTexturePassNoAlt() + "breadBasket.png");
+    private static final ResourceLocation BottleTex = new ResourceLocation(Util.getEntityTexturePassNoAlt() + "bottleBasket.png");
     public static TileEntityBreadRenderer BreadRenderer;
     private ModelBreads breadModel = new ModelBreads();
 

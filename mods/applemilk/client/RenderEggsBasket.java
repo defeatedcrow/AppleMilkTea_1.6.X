@@ -28,9 +28,9 @@ public class RenderEggsBasket implements ISimpleBlockRenderingHandler{
 		
 		int meta = metadata;
 		if (meta > 3)meta = 3;
-		this.boxIcon[0] = DCsAppleMilk.Basket.getBlockTextureFromSide(0);
+		this.boxIcon[2] = DCsAppleMilk.Basket.getBlockTextureFromSide(0);
 		this.boxIcon[1] = DCsAppleMilk.Basket.getBlockTextureFromSide(1);
-		this.boxIcon[2] = DCsAppleMilk.Basket.getBlockTextureFromSide(2);
+		this.boxIcon[0] = DCsAppleMilk.Basket.getBlockTextureFromSide(2);
 		this.eggIcon = DCsAppleMilk.eggBasket.getBlockTextureFromSide(0);
 		this.eggBlackIcon = DCsAppleMilk.eggBasket.getBlockTextureFromSide(1);
 		this.cageicon = DCsAppleMilk.eggBasket.getBlockTextureFromSide(2);
@@ -86,9 +86,9 @@ public class RenderEggsBasket implements ISimpleBlockRenderingHandler{
 		
 		int meta = world.getBlockMetadata(x, y, z);
 		if (meta > 3)meta = 3;
-		this.boxIcon[0] = DCsAppleMilk.Basket.getBlockTextureFromSide(0);
+		this.boxIcon[2] = DCsAppleMilk.Basket.getBlockTextureFromSide(0);
 		this.boxIcon[1] = DCsAppleMilk.Basket.getBlockTextureFromSide(1);
-		this.boxIcon[2] = DCsAppleMilk.Basket.getBlockTextureFromSide(2);
+		this.boxIcon[0] = DCsAppleMilk.Basket.getBlockTextureFromSide(2);
 		this.cageicon = DCsAppleMilk.eggBasket.getBlockTextureFromSide(2);
 		
 		if (modelId == this.getRenderId())

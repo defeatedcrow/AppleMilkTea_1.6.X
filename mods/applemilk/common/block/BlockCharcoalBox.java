@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.src.*;
 import net.minecraft.util.Icon;
 import mods.applemilk.common.*;
+import mods.applemilk.handler.Util;
 
 public class BlockCharcoalBox extends Block implements IFuelHandler{
 	
@@ -52,9 +53,9 @@ public class BlockCharcoalBox extends Block implements IFuelHandler{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.blockIcon = par1IconRegister.registerIcon("applemilk:Container_S");
-		this.charcoalBoxTop = par1IconRegister.registerIcon("applemilk:CharcoalContainer_T");
-		this.charcoalBoxSide = par1IconRegister.registerIcon("applemilk:Container_S");
+		this.blockIcon = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "Container_S");
+		this.charcoalBoxTop = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "CharcoalContainer_T");
+		this.charcoalBoxSide = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "Container_S");
 		
 	}
 

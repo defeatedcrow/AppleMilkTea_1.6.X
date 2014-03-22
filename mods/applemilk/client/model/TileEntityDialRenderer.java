@@ -17,7 +17,7 @@ import org.lwjgl.opengl.GL12;
 @SideOnly(Side.CLIENT)
 public class TileEntityDialRenderer extends TileEntitySpecialRenderer
 {
-    private static final ResourceLocation dialTex = new ResourceLocation("applemilk:textures/entity/rotarydial.png");
+    private static final ResourceLocation dialTex = new ResourceLocation(Util.getEntityTexturePassNoAlt() + "rotarydial.png");
     public static TileEntityDialRenderer dialRenderer;
     private ModelRotaryDial dialModel = new ModelRotaryDial();
 

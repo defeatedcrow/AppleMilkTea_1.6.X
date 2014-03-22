@@ -3,6 +3,7 @@ package mods.applemilk.client.model;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.common.tile.TileChopsticksBox;
+import mods.applemilk.handler.Util;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -16,7 +17,7 @@ import org.lwjgl.opengl.GL12;
 @SideOnly(Side.CLIENT)
 public class TileEntityChopsticksRenderer extends TileEntitySpecialRenderer
 {
-    private static final ResourceLocation SticksTex = new ResourceLocation("applemilk:textures/entity/chopsticks.png");
+    private static final ResourceLocation SticksTex = new ResourceLocation(Util.getEntityTexturePassNoAlt() + "chopsticks.png");
     public static TileEntityChopsticksRenderer sticksRenderer;
     private ModelChopsticks sticksModel = new ModelChopsticks();
 

@@ -22,8 +22,8 @@ public class IceRecipe {
      * ティーメーカーのレシピ登録とほとんど同じ。
      * 異なる点はミルク版がないこと、テクスチャが不要なこと、容器を材料スロットに残す場合の登録方法があるくらい。
      */
-	private static HashMap<ItemStack, Integer> recipeID = new HashMap<ItemStack, Integer>();
-	private static HashMap<Integer, ItemStack> outputs = new HashMap<Integer, ItemStack>();
+	protected static HashMap<ItemStack, Integer> recipeID = new HashMap<ItemStack, Integer>();
+	protected static HashMap<Integer, ItemStack> outputs = new HashMap<Integer, ItemStack>();
 	private static HashMap<Integer, ItemStack> leaveStack = new HashMap<Integer, ItemStack>();
 	private static HashMap<Integer, Boolean> leave = new HashMap<Integer, Boolean>();
 	

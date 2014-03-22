@@ -19,8 +19,8 @@ public class AddChestGen {
 			//addItemメソッドで新しいアイテムを追加
 			dungeon.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.saplingTea),1,3,20));
 			dungeon.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.rotaryDial),1,1,10));
-			dungeon.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 3),1,1,10));
-			dungeon.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 2),1,1,10));
+			dungeon.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 19),1,1,10));
+			dungeon.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 18),1,1,10));
 			dungeon.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0),1,1,20));
 		}
 		
@@ -29,16 +29,16 @@ public class AddChestGen {
 			//上記カテゴリーのお宝リストを取得
 			ChestGenHooks dungeon2 = ChestGenHooks.getInfo(category);
 			//addItemメソッドで新しいアイテムを追加
-			dungeon2.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 6),1,1,10));
-			dungeon2.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 7),1,1,10));
+			dungeon2.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 22),1,1,10));
+			dungeon2.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 23),1,1,10));
 		}
 		
 		ChestGenHooks dungeon3 = ChestGenHooks.getInfo("dungeonChest");
-		dungeon3.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 1),1,1,10));
+		dungeon3.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 17),1,1,10));
 		
 		ChestGenHooks dungeon4 = ChestGenHooks.getInfo("mineshaftCorridor");
-		dungeon4.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 4),1,1,10));
-		dungeon4.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 5),1,1,10));
+		dungeon4.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 20),1,1,10));
+		dungeon4.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 21),1,1,10));
 	}
 	
 }

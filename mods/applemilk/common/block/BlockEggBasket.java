@@ -23,6 +23,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileEggs;
+import mods.applemilk.handler.Util;
 
 public class BlockEggBasket extends BlockContainer{	
 	
@@ -218,7 +219,7 @@ public class BlockEggBasket extends BlockContainer{
 	public void registerIcons(IconRegister par1IconRegister)
 	{
 		this.EggTex = new Icon[2];
-		this.cageTex = par1IconRegister.registerIcon("applemilk:cage");
+		this.cageTex = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "cage");
 		
         for (int i = 0; i < 2; ++i)
         {

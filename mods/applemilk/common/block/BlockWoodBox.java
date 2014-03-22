@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.src.*;
 import net.minecraft.util.Icon;
 import mods.applemilk.common.*;
+import mods.applemilk.handler.Util;
 
 public class BlockWoodBox extends Block{
 	
@@ -78,8 +79,8 @@ public class BlockWoodBox extends Block{
 		
         for (int i = 0; i < 7; ++i)
         {
-            this.boxTex[i] = par1IconRegister.registerIcon("applemilk:WoodBox" + boxType[i]);
-            this.boxSideTex[i] = par1IconRegister.registerIcon("applemilk:WoodBoxside" + boxType[i]);
+            this.boxTex[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "WoodBox" + boxType[i]);
+            this.boxSideTex[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "WoodBoxside" + boxType[i]);
         }
 	}
 

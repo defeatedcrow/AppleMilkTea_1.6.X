@@ -20,8 +20,8 @@ public class TeaRecipe {
 	
 	//以下のマップ登録はほぼForgeOreDictionaryのパクリ。
 	//インプットとID、及びIDとその他もろもろを紐付けしている。
-	private static HashMap<ItemStack, Integer> recipeID = new HashMap<ItemStack, Integer>();
-	private static HashMap<Integer, ItemStack> outputs = new HashMap<Integer, ItemStack>();
+	protected static HashMap<ItemStack, Integer> recipeID = new HashMap<ItemStack, Integer>();
+	protected static HashMap<Integer, ItemStack> outputs = new HashMap<Integer, ItemStack>();
 	private static HashMap<Integer, String> contentsTex = new HashMap<Integer, String>();
 	private static HashMap<Integer, Integer> canMilk = new HashMap<Integer, Integer>(); 
 	

@@ -11,6 +11,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.src.*;
 import net.minecraft.util.Icon;
 import mods.applemilk.common.*;
+import mods.applemilk.handler.Util;
 
 public class BlockAppleBox extends Block{
 	
@@ -41,9 +42,9 @@ public class BlockAppleBox extends Block{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.blockIcon = par1IconRegister.registerIcon("applemilk:WoodBox");
-		this.appleBoxTop = par1IconRegister.registerIcon("applemilk:AppleBox");
-		this.appleBoxSide = par1IconRegister.registerIcon("applemilk:WoodBox");
+		this.blockIcon = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "WoodBox");
+		this.appleBoxTop = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "AppleBox");
+		this.appleBoxSide = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "WoodBox");
 		
 	}
 }

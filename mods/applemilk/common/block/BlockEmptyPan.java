@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileChocoPan;
 import mods.applemilk.common.tile.TilePanHandle;
+import mods.applemilk.handler.Util;
 
 public class BlockEmptyPan extends BlockContainer{
 	
@@ -297,7 +298,7 @@ public class BlockEmptyPan extends BlockContainer{
 	public void registerIcons(IconRegister par1IconRegister)
 	{
 		this.boxTex = par1IconRegister.registerIcon("applemilk:porcelain");
-		this.chainTex = par1IconRegister.registerIcon("applemilk:chain");
+		this.chainTex = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "chain");
 	}
 
 }

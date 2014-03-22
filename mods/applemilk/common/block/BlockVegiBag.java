@@ -14,6 +14,7 @@ import net.minecraft.src.*;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import mods.applemilk.common.*;
+import mods.applemilk.handler.Util;
 
 public class BlockVegiBag extends Block{
 	
@@ -73,13 +74,13 @@ public class BlockVegiBag extends Block{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.blockIcon = par1IconRegister.registerIcon("applemilk:WheatBag_S");
-        this.wheatBagSide = par1IconRegister.registerIcon("applemilk:WheatBag_S");
+		this.blockIcon = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "WheatBag_S");
+        this.wheatBagSide = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "WheatBag_S");
         this.wheatBagTop = new Icon[10];
         
         for (int i = 0; i < 10; ++i)
         {
-            this.wheatBagTop[i] = par1IconRegister.registerIcon("applemilk:" + bagTexType[i]);
+            this.wheatBagTop[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + bagTexType[i]);
         }
         
 	}

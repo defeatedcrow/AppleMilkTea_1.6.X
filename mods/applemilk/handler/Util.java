@@ -46,13 +46,53 @@ public class Util {
 		return l;
 	}
 	
+	//コンフィグで規定範囲外の数値を入れた時に、安全に動かすためのメソッドその4
+	//各Block、Itemクラス側からコンフィグ内容を確認するための中継地点
+	//altテクスチャが用意されていない物は下のメソッドを使う
+	public static String getTexturePass()
+	{
+		int l = DCsAppleMilk.setAltTexturePass - 1;
+		if (l < 0) l = 0;
+		else if (l > 2) l = 2;
+			
+		return DCsAppleMilk.TEX_PASS[l];
+	}
+	
+	public static String getTexturePassNoAlt()
+	{
+		int l = DCsAppleMilk.setAltTexturePass - 1;
+		if (l < 0) l = 0;
+		else if (l > 1) l = 1;
+			
+		return DCsAppleMilk.TEX_PASS[l];
+	}
+	
+	//entityはテクスチャのパスの記述方法が違うので別途作成。
+	public static String getEntityTexturePass()
+	{
+		int l = DCsAppleMilk.setAltTexturePass - 1;
+		if (l < 0) l = 0;
+		else if (l > 2) l = 2;
+			
+		return DCsAppleMilk.TEX_PASS_ENTITY[l];
+	}
+	
+	public static String getEntityTexturePassNoAlt()
+	{
+		int l = DCsAppleMilk.setAltTexturePass - 1;
+		if (l < 0) l = 0;
+		else if (l > 1) l = 1;
+			
+		return DCsAppleMilk.TEX_PASS_ENTITY[l];
+	}
+	
 	//0,0=south, 1,90=west, 2,180=north, 3,-90=east
 	//相変わらず方角を覚えられないため自分用に作ったメソッド
-	public static final int[] metaX = new int[] {0, -1, 0, 1};
+	public static final int[] METAX = new int[] {0, -1, 0, 1};
 	
-	public static final int[] metaZ = new int[] {-1, 0, 1, 0};
+	public static final int[] METAZ = new int[] {-1, 0, 1, 0};
 	
-	public static final int[] rad = new int[] {0, -90, 180, 90};
+	public static final int[] RAD = new int[] {0, -90, 180, 90};
 	
 	//FMLの機能を利用した他MOD様のアイテム取得メソッド。
 	//protectedにする意味は正直あんまりない。
