@@ -281,12 +281,14 @@ public class ItemLargeBottle extends Item implements ICraftingHandler {
 	@Override
 	public void onCrafting(EntityPlayer player, ItemStack item,
 			IInventory craftMatrix) {
-		repair = (this.itemID == item.itemID);//完成品が同じIDかどうか。空容器への充填を判定する。
+		if (this.itemID == item.itemID) repair = true;//完成品が同じIDかどうか。空容器への充填を判定する。
+		else if (item.itemID == DCsAppleMilk.Basket.blockID) repair = true;
 	}
 
 	@Override
 	public void onSmelting(EntityPlayer player, ItemStack item) {
-		repair = (this.itemID == item.itemID);//完成品が同じIDかどうか。空容器への充填を判定する。
+		if (this.itemID == item.itemID) repair = true;//完成品が同じIDかどうか。空容器への充填を判定する。
+		else if (item.itemID == DCsAppleMilk.Basket.blockID) repair = true;
 	}
 	
 	//以下はサブタイプやアイコン登録など
