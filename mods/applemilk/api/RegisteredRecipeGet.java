@@ -2,6 +2,7 @@ package mods.applemilk.api;
 
 import java.util.HashMap;
 
+import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
 import net.minecraft.item.ItemStack;
 
@@ -19,13 +20,6 @@ public class RegisteredRecipeGet {
 			
 			if (input != null && output != null) {
 				teaRecipeList.put(input, output);
-				
-				if (DCsAppleMilk.debugMode)
-				{
-					System.out.println("[AppleMilk]Checking TeaMaker recipe for NEI. No. " + i);
-					System.out.println("[AppleMilk]input is " + input.getDisplayName());
-					System.out.println("[AppleMilk]output is " + output.getDisplayName());
-				}
 			}
 		}
 		
@@ -35,13 +29,6 @@ public class RegisteredRecipeGet {
 			
 			if (input != null && output != null) {
 				iceRecipeList.put(input, output);
-				
-				if (DCsAppleMilk.debugMode)
-				{
-					System.out.println("[AppleMilk]Checking IceMaker recipe for NEI. No. " + i);
-					System.out.println("[AppleMilk]input is " + input.getDisplayName());
-					System.out.println("[AppleMilk]output is " + output.getDisplayName());
-				}
 			}
 		}
 		

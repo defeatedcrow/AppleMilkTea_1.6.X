@@ -26,7 +26,7 @@ public class CreativeTabDCAM extends CreativeTabs {
 	@SideOnly(Side.CLIENT)
 	public String getTranslatedTabLabel()
 	{
-		return "Apple&Milk";
+		return "Apple&Milk&Tea";
 	}
 	
 

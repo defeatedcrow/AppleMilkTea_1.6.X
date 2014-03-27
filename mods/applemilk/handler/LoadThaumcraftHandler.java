@@ -1,6 +1,7 @@
 package mods.applemilk.handler;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -97,11 +98,10 @@ public class LoadThaumcraftHandler {
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.wipeBox.blockID, -1, new AspectList().add(Aspect.MIND, 6).add(Aspect.MAGIC, 6));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.wipeBox2.blockID, -1, new AspectList().add(Aspect.MIND, 10).add(Aspect.MAGIC, 10).add(Aspect.VOID, 10));
 		    
-		    System.out.println("[AppleMilk]Succeeded to register aspects for Thaumcraft");
+		    AMTLogger.debugInfo("Succeeded to register aspects for Thaumcraft");
 		}
 		
 		if (this.thaumicGreatwood != 0){
-			System.out.println("[AppleMilk]Succeeded to get thaumicGreatwood");
 			
 			//取得したアイテムを使ったレシピの登録。こちらは恐らく旧版でも動作する
 			GameRegistry.addShapelessRecipe(
@@ -119,7 +119,6 @@ public class LoadThaumcraftHandler {
 		}
 		
 		if (this.thaumicSilverwood != 0){
-			System.out.println("[AppleMilk]Succeeded to get thaumicSilverwood");
 			
 			GameRegistry.addShapelessRecipe(
 		    		  new ItemStack(LoadThaumcraftHandler.thaumicSilverwood, 9, 1),

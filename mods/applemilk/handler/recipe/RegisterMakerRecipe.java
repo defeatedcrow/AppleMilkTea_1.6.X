@@ -72,20 +72,6 @@ public class RegisterMakerRecipe {
 	    
 	    TeaRecipe.register(new ItemStack(DCsAppleMilk.gratedApple, 1, 8), new ItemStack(DCsAppleMilk.teaCup2, 1, 8),
 	    		new String("applemilk:textures/blocks/contents_grape.png"));
-	    
-	    //デバッグモードがONの時に確認用メッセージを出す
-	    if (DCsAppleMilk.debugMode)
-	    {
-	    	ItemStack input = new ItemStack(DCsAppleMilk.gratedApple, 1, 6);
-	    	int id = TeaRecipe.getID(input);
-	    	System.out.println("[AppleMilk]Cheking registered new TeaMaker recipe");
-	    	ItemStack output2 = TeaRecipe.getOutput(id);
-	    	System.out.println("[AppleMilk]TeaMaker recipe ID is " + id);
-	    	String outputName = output2.getDisplayName();
-	    	System.out.println("[AppleMilk]Output: " + outputName);
-	    	String textureName = TeaRecipe.getTex(id);
-	    	System.out.println("[AppleMilk]Texture: " + textureName);
-	    }
 	}
 	
 	public void registerIce()

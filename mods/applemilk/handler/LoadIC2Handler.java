@@ -1,5 +1,6 @@
 package mods.applemilk.handler;
 
+import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,13 +28,6 @@ public class LoadIC2Handler {
         this.IC2MugCoffee = Items.getItem("mugCoffee").itemID;
         this.IC2dropRubber = Items.getItem("rubber").itemID;
         
-        if (this.IC2Cell != 0) System.out.println("[AppleMilk]Succeeded to get IC2cell");
-        if (this.IC2WaterCell != 0) System.out.println("[AppleMilk]Succeeded to get IC2watercell");
-        if (this.IC2Coffeepowder != 0) System.out.println("[AppleMilk]Succeeded to get IC2dustcoffee");
-        if (this.IC2Mug != 0) System.out.println("[AppleMilk]Succeeded to get IC2mug");
-        if (this.IC2MugCoffee != 0) System.out.println("[AppleMilk]Succeeded to get IC2mugcoffee");
-        if (this.IC2dropRubber != 0) System.out.println("[AppleMilk]Succeeded to get IC2rubber");
-        
         //以下はexp版専用のメソッド
         if (DCsAppleMilk.IC2exp)
         {
@@ -57,10 +51,10 @@ public class LoadIC2Handler {
                 
                 Recipes.macerator.addRecipe(input2, metadata2, outputs2);
                 Recipes.macerator.addRecipe(input3, metadata2, outputs3);
-                System.out.println("[AppleMilk]Succeeded to register IC2machines recipe");
+                AMTLogger.debugInfo("Succeeded to register IC2machines recipe");
             }
             catch (Exception e) {
-              System.out.println("[AppleMilk]Failed to register IC2machines recipe");
+              AMTLogger.debugInfo("Failed to register IC2machines recipe");
               e.printStackTrace(System.err);
             }
             

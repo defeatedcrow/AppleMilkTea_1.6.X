@@ -792,6 +792,17 @@ public class DCsRecipeRegister {
 	    		  new Object[]{
 	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
 	    			  new ItemStack(Item.chickenRaw, 1, 0),
+	    			  "leek",
+		    		  "bucketSoymilk",
+		    		  "tofuMomen"
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.mincedFoods, 1, 5),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
+	    			  new ItemStack(Item.chickenRaw, 1, 0),
 	    			  "cropLeek",
 		    		  "foodSoymilk",
 		    		  "foodSilkentofu"
@@ -831,7 +842,7 @@ public class DCsRecipeRegister {
 	    		  new Object[]{
 	    			  new ItemStack(DCsAppleMilk.DCgrater, 1, 32767),
 	    			  new ItemStack(Item.porkCooked, 1, 0),
-	    			  "cabbege",
+	    			  "cabbage",
 		    		  "tomato",
 					 }));
 		 
@@ -1021,6 +1032,15 @@ public class DCsRecipeRegister {
 	    			  "dustSugar",
 	    			  "cropWheat"
 					 }));
+		
+		GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.toffyApple, 1, 0),
+	    		  new Object[]{
+	    			  "cropApple",
+	    			  "dustSugar",
+	    			  "stickWood"
+					 }));
 		 
 		 GameRegistry.addShapelessRecipe(
 	    		  new ItemStack(DCsAppleMilk.icyToffyApple,1,0),
@@ -1081,13 +1101,13 @@ public class DCsRecipeRegister {
 	    			  new ItemStack(Item.coal,1,1));
 		 
 		 GameRegistry.addShapelessRecipe(
-	    		  new ItemStack(DCsAppleMilk.appleSandwich,2,0),
+	    		  new ItemStack(DCsAppleMilk.appleSandwich, 2, 0),
 	    			  new ItemStack(Item.appleRed,1),
 	    			  new ItemStack(Item.bread,1));
 		 
 		 GameRegistry.addRecipe(
 				 new ShapelessOreRecipe(
-	    		  new ItemStack(DCsAppleMilk.appleSandwich, 1, 0),
+	    		  new ItemStack(DCsAppleMilk.appleSandwich, 2, 0),
 	    		  new Object[]{
 	    			  "cropApple",
 		    		  new ItemStack(Item.bread, 1)

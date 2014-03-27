@@ -2,6 +2,7 @@ package mods.applemilk.handler;
 
 import java.util.ArrayList;
 
+import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -68,7 +69,7 @@ public class LoadOreDicHandler {
 	{
 		boolean flag = false;
 		flag = matchItems(listAlmond, itemstack);
-		if (flag && DCsAppleMilk.debugMode) System.out.println("[AppleMilk]Succeeded to get almomd");
+		if (flag) AMTLogger.debugInfo("get:almond");
 		return flag;
 	}
 	
@@ -76,7 +77,7 @@ public class LoadOreDicHandler {
 	{
 		boolean flag = false;
 		flag = matchItems(listPeanut, itemstack);
-		if (flag && DCsAppleMilk.debugMode) System.out.println("[AppleMilk]Succeeded to get peanuts");
+		if (flag) AMTLogger.debugInfo("get:peanut");
 		return flag;
 	}
 	
@@ -84,7 +85,7 @@ public class LoadOreDicHandler {
 	{
 		boolean flag = false;
 		flag = matchItems(listNuts, itemstack);
-		if (flag && DCsAppleMilk.debugMode) System.out.println("[AppleMilk]Succeeded to get some nuts");
+		if (flag) AMTLogger.debugInfo("get:nuts");
 		return flag;
 	}
 
@@ -92,7 +93,7 @@ public class LoadOreDicHandler {
 	{
 		boolean flag = false;
 		flag = matchItems(listCherry, itemstack);
-		if (flag && DCsAppleMilk.debugMode) System.out.println("[AppleMilk]Succeeded to get some cherrys");
+		if (flag) AMTLogger.debugInfo("get:cherry");
 		return flag;
 	}
 	
@@ -100,7 +101,7 @@ public class LoadOreDicHandler {
 	{
 		boolean flag = false;
 		flag = matchItems(listStraw, itemstack);
-		if (flag && DCsAppleMilk.debugMode) System.out.println("[AppleMilk]Succeeded to get strawberrys");
+		if (flag) AMTLogger.debugInfo("get:strawberry");
 		return flag;
 	}
 	
@@ -108,7 +109,7 @@ public class LoadOreDicHandler {
 	{
 		boolean flag = false;
 		flag = matchItems(listBerry, itemstack);
-		if (flag && DCsAppleMilk.debugMode) System.out.println("[AppleMilk]Succeeded to get some berrys");
+		if (flag) AMTLogger.debugInfo("get:berrys");
 		return flag;
 	}
 	
@@ -116,7 +117,7 @@ public class LoadOreDicHandler {
 	{
 		boolean flag = false;
 		flag = matchItems(listBanana, itemstack);
-		if (flag && DCsAppleMilk.debugMode) System.out.println("[AppleMilk]Succeeded to get bananas");
+		if (flag) AMTLogger.debugInfo("get:banana");
 		return flag;
 	}
 	
@@ -124,7 +125,7 @@ public class LoadOreDicHandler {
 	{
 		boolean flag = false;
 		flag = matchItems(listRice, itemstack);
-		if (flag && DCsAppleMilk.debugMode) System.out.println("[AppleMilk]Succeeded to get rices.");
+		if (flag) AMTLogger.debugInfo("get:rice");
 		return flag;
 	}
 	

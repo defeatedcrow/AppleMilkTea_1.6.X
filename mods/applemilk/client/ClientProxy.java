@@ -16,6 +16,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.client.model.*;
 import mods.applemilk.client.particle.ParticleTex;
+import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.CommonProxy;
 import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.entity.EntityMelonBomb;
@@ -134,13 +135,13 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void loadNEI() {
 		if (Loader.isModLoaded("NotEnoughItems")) {
-			System.out.println("[AppleMilk]Now checking NotEnoughItems");
+			AMTLogger.LoadingModInfo("NotEnoughItems");
 	    	try
 	        {
 	    		LoadNEIHandler.load();
 	        }
 	        catch (Exception e) {
-	          System.out.println("[AppleMilk]Failed to check NotEnoughItems");
+	        	AMTLogger.LoadedModInfo("NotEnoughItems");
 	          e.printStackTrace(System.err);
 	        }
 		}

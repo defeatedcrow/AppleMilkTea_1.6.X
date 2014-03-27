@@ -38,7 +38,7 @@ import cpw.mods.fml.common.registry.*;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.11d",
+		version = "1.6.2_1.11e",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry;after:SextiarySector"
 		)
 @NetworkMod(
@@ -238,6 +238,7 @@ public class DCsAppleMilk{
 	public static boolean SuccessLoadGummi = false;
 	public static boolean[] SuccessLoadGrowth = new boolean[] {false, false, false};
 	public static boolean SuccessLoadMapleTree = false;
+	public static boolean SuccessLoadExtraTrees = false;
 	
 	public static boolean IC2exp = true;
 	public static boolean TC4after405 = true;
@@ -979,11 +980,11 @@ public class DCsAppleMilk{
 	    
 	    //registering TeaMaker recipe, It's still in testing yet.
 	    //ティーメーカーのレシピ数の無限化のため、専用のレシピ登録クラスを用意した
-	    System.out.println("[AppleMilk]Registering new tea maker recipe");
+	    AMTLogger.info("Registering new tea maker recipe");
 	    (new RegisterMakerRecipe()).registerTea();
 	    
 	    //アイスメーカーのレシピ登録
-	    System.out.println("[AppleMilk]Registering new ice maker recipe");
+	    AMTLogger.info("Registering new ice maker recipe");
 	    (new RegisterMakerRecipe()).registerIce();
 	    
 	    
@@ -993,9 +994,6 @@ public class DCsAppleMilk{
 	@EventHandler
     public void postInit(FMLPostInitializationEvent event) {
 		
-		//Checking another mods
-		//他のMODのブロック・アイテム登録クラスに先行しないよう、postInitメソッドでロードする
-		(new LoadOreDicHandler()).load();
 		/*
 		 * 以下はデバッグ時のテスト用メソッドにつきコメントアウト
 		(new LoadModHandler()).loadAppleMilk();
@@ -1005,21 +1003,21 @@ public class DCsAppleMilk{
 		
 	    if (Loader.isModLoaded("IC2") && DCsAppleMilk.useIC2Items)
 	    {
-	    	System.out.println("[AppleMilk]Now checking IC2");
+	    	AMTLogger.LoadingModInfo("IC2");
 	    	try
 	        {
 	          this.SuccessLoadIC2 = true;
 	          (new LoadIC2Handler()).load();
 	        }
 	        catch (Exception e) {
-	          System.out.println("[AppleMilk]Failed to check IC2");
+	        	AMTLogger.LoadedModInfo("IC2");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("BambooMod"))
 	    {
-	    	System.out.println("[AppleMilk]Now checking BambooMod");
+	    	AMTLogger.LoadingModInfo("BambooMod");
 	    	try
 	        {
 	          this.SuccessLoadBamboo = true;
@@ -1027,14 +1025,14 @@ public class DCsAppleMilk{
 	          
 	        }
 	        catch (Exception e) {
-	          System.out.println("[AppleMilk]Failed to check BambooMod");
+	        	AMTLogger.LoadedModInfo("BambooMod");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("TofuCraft"))
 	    {
-	    	System.out.println("[AppleMilk]Now checking Tofucraft");
+	    	AMTLogger.LoadingModInfo("TofuCraft");
 	    	try
 	        {
 	          this.SuccessLoadTofu = true;
@@ -1042,14 +1040,14 @@ public class DCsAppleMilk{
 	          
 	        }
 	        catch (Exception e) {
-	          System.out.println("[AppleMilk]Failed to check TofuCraft");
+	        	AMTLogger.LoadedModInfo("TofuCraft");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("Thaumcraft"))
 	    {
-	    	System.out.println("[AppleMilk]Now checking Thaumcraft");
+	    	AMTLogger.LoadingModInfo("Thaumcraft");
 	    	try
 	        {
 	          this.SuccessLoadThaumcraft = true;
@@ -1057,14 +1055,14 @@ public class DCsAppleMilk{
 	          
 	        }
 	        catch (Exception e) {
-	          System.out.println("[AppleMilk]Failed to check Thaumcraft");
+	        	AMTLogger.LoadedModInfo("Thaumcraft");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("BiomesOPlenty"))
 	    {
-	    	System.out.println("[AppleMilk]Now checking BoP");
+	    	AMTLogger.LoadingModInfo("BiomesOPlenty");
 	    	try
 	        {
 	          this.SuccessLoadBoP = true;
@@ -1072,14 +1070,14 @@ public class DCsAppleMilk{
 	          
 	        }
 	        catch (Exception e) {
-	          System.out.println("[AppleMilk]Failed to check BiomesOPlenty");
+	        	AMTLogger.LoadedModInfo("BiomesOPlenty");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("AndanteMod_Gummi"))
 	    {
-	    	System.out.println("[AppleMilk]Now checking Gummi");
+	    	AMTLogger.LoadingModInfo("AndanteMod_Gummi");
 	    	try
 	        {
 	          this.SuccessLoadGummi = true;
@@ -1087,14 +1085,14 @@ public class DCsAppleMilk{
 	          
 	        }
 	        catch (Exception e) {
-	          System.out.println("[AppleMilk]Failed to check Gummi");
+	        	AMTLogger.LoadedModInfo("AndanteMod_Gummi");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("MCEconomy"))
 	    {
-	    	System.out.println("[AppleMilk]Now checking MCEconomy");
+	    	AMTLogger.LoadingModInfo("MCEconomy");
 	    	try
 	        {
 	          this.SuccessLoadEconomy = true;
@@ -1102,14 +1100,14 @@ public class DCsAppleMilk{
 	          
 	        }
 	        catch (Exception e) {
-	          System.out.println("[AppleMilk]Failed to check MCEconomy");
+	        	AMTLogger.LoadedModInfo("MCEconomy");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("SextiarySector"))
 	    {
-	    	System.out.println("[AppleMilk]Now checking SextiarySector");
+	    	AMTLogger.LoadingModInfo("SextiarySector");
 	    	try
 	        {
 	          this.SuccessLoadSSector = true;
@@ -1117,14 +1115,14 @@ public class DCsAppleMilk{
 	          
 	        }
 	        catch (Exception e) {
-	          System.out.println("[AppleMilk]Failed to check SextiarySector");
+	        	AMTLogger.LoadedModInfo("SextiarySector");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("Growthcraft|Rice"))
 	    {
-	    	System.out.println("[AppleMilk]Now checking Growthcraft|Rice");
+	    	AMTLogger.LoadingModInfo("Growthcraft|Rice");
 	    	try
 	        {
 	          this.SuccessLoadGrowth[0] = true;
@@ -1132,14 +1130,14 @@ public class DCsAppleMilk{
 	          
 	        }
 	        catch (Exception e) {
-	          System.out.println("[AppleMilk]Failed to check GrowthCraft|Rice");
+	        	AMTLogger.LoadedModInfo("Growthcraft|Rice");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("Growthcraft|Hops"))
 	    {
-	    	System.out.println("[AppleMilk]Now checking Growthcraft|Hops");
+	    	AMTLogger.LoadingModInfo("Growthcraft|Hops");
 	    	try
 	        {
 	          this.SuccessLoadGrowth[1] = true;
@@ -1147,14 +1145,14 @@ public class DCsAppleMilk{
 	          
 	        }
 	        catch (Exception e) {
-	          System.out.println("[AppleMilk]Failed to check GrowthCraft|Hops");
+	        	AMTLogger.LoadedModInfo("Growthcraft|Hops");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("Growthcraft|Grapes"))
 	    {
-	    	System.out.println("[AppleMilk]Now checking Growthcraft|Grapes");
+	    	AMTLogger.LoadingModInfo("Growthcraft|Grapes");
 	    	try
 	        {
 	          this.SuccessLoadGrowth[2] = true;
@@ -1162,14 +1160,14 @@ public class DCsAppleMilk{
 	          
 	        }
 	        catch (Exception e) {
-	          System.out.println("[AppleMilk]Failed to check GrowthCraft|Grapes");
+	        	AMTLogger.LoadedModInfo("Growthcraft|Grapes");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("mod_ecru_MapleTree_Forge"))
 	    {
-	    	System.out.println("[AppleMilk]Now checking MapleTree");
+	    	AMTLogger.LoadingModInfo("mod_ecru_MapleTree_Forge");
 	    	try
 	        {
 	          this.SuccessLoadMapleTree = true;
@@ -1177,10 +1175,30 @@ public class DCsAppleMilk{
 	          
 	        }
 	        catch (Exception e) {
-	          System.out.println("[AppleMilk]Failed to check mod_ecru_MapleTree_Forge");
+	        	AMTLogger.LoadedModInfo("mod_ecru_MapleTree_Forge");
 	          e.printStackTrace(System.err);
 	        }
 	    }
+	    
+	    if (Loader.isModLoaded("ExtraTrees"))
+	    {
+	    	AMTLogger.LoadingModInfo("ExtraTrees");
+	    	try
+	        {
+	          this.SuccessLoadExtraTrees = true;
+	          (new LoadModHandler()).loadExtraTrees();
+	          
+	        }
+	        catch (Exception e) {
+	        	AMTLogger.LoadedModInfo("ExtraTrees");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
+	  //Checking another mods
+	  //他のMODのブロック・アイテム登録クラスに先行しないよう、postInitメソッドでロードする
+	  //当MODで勝手に追加する鉱石辞書も含めるように、読み込む位置を他MODのロード処理より後にした
+	  (new LoadOreDicHandler()).load();
 	    
 	    (new RegisteredRecipeGet()).setRecipeList();
 	    proxy.loadNEI();

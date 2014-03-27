@@ -14,6 +14,7 @@ public class RegisterOreHandler {
 	    OreDictionary.registerOre("treeSapling", new ItemStack(DCsAppleMilk.saplingTea));
 	    OreDictionary.registerOre("saplingTea", new ItemStack(DCsAppleMilk.saplingTea));
 	    OreDictionary.registerOre("foodClam", new ItemStack(DCsAppleMilk.clam, 1, 0));
+	    OreDictionary.registerOre("cookingClam", new ItemStack(DCsAppleMilk.clam, 1, 0));
 	    OreDictionary.registerOre("cropTea", new ItemStack(DCsAppleMilk.leafTea));
 	    OreDictionary.registerOre("foodCondencedMilk", new ItemStack(DCsAppleMilk.condensedMIlk,1));
 	    OreDictionary.registerOre("foodGreenTea", new ItemStack(DCsAppleMilk.EXItems, 1, 2));
@@ -22,6 +23,7 @@ public class RegisterOreHandler {
 	    OreDictionary.registerOre("foodAppletea", new ItemStack(DCsAppleMilk.EXItems, 1, 9));
 	    OreDictionary.registerOre("foodCoffee", new ItemStack(DCsAppleMilk.gratedApple, 1, 3));
 	    OreDictionary.registerOre("cropRice", new ItemStack(DCsAppleMilk.mincedFoods, 1, 3));
+	    OreDictionary.registerOre("cookingRice", new ItemStack(DCsAppleMilk.mincedFoods, 1, 3));
 	    
 	    OreDictionary.registerOre("foodGratedApple", new ItemStack(DCsAppleMilk.gratedApple, 1, 0));
 	    OreDictionary.registerOre("foodGratedFruit", new ItemStack(DCsAppleMilk.gratedApple, 1, 1));
@@ -90,12 +92,14 @@ public class RegisterOreHandler {
 	    OreDictionary.registerOre("foodBlackEgg", new ItemStack(DCsAppleMilk.clam, 1, 3));
 	    OreDictionary.registerOre("gemIce", new ItemStack(DCsAppleMilk.icyCrystal, 1, 0));
 	    OreDictionary.registerOre("foodCrushedIce", new ItemStack(DCsAppleMilk.EXItems, 1, 7));
+	    OreDictionary.registerOre("cookingIce", new ItemStack(DCsAppleMilk.EXItems, 1, 7));
 	    OreDictionary.registerOre("dustGlass", new ItemStack(DCsAppleMilk.EXItems, 1, 11));
 	    
 	    if (DCsAppleMilk.allowSlimeBallDic)
 	    {
 	    	OreDictionary.registerOre("dropSlime", new ItemStack(Item.slimeBall));
 		    OreDictionary.registerOre("dropSlime", new ItemStack(DCsAppleMilk.EXItems,1,1));
+		    OreDictionary.registerOre("slimeBall", new ItemStack(DCsAppleMilk.EXItems,1,1));
 	    }
 	    
 	    for(int i = 0; i < 13 ; i++){

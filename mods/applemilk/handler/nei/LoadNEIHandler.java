@@ -1,5 +1,6 @@
 package mods.applemilk.handler.nei;
 
+import mods.applemilk.common.AMTLogger;
 import codechicken.nei.api.API;
 
 public class LoadNEIHandler {
@@ -26,7 +27,7 @@ public class LoadNEIHandler {
 		API.registerUsageHandler(panRecipe);
 		API.registerGuiOverlay(GuiRecipe.class, panRecipe.getOverlayIdentifier(), 0, 0);
 		
-		System.out.println("[AppleMilk]Succeeded to check NEI");
+		AMTLogger.LoadedModInfo("NEI");
 		
 	}
 

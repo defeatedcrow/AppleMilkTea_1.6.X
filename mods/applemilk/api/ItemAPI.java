@@ -1,5 +1,6 @@
 package mods.applemilk.api;
 
+import mods.applemilk.common.AMTLogger;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,7 +25,7 @@ public class ItemAPI {
 			return target;
 		}
 		catch (Exception e) {
-			System.out.println("[AppleMilk]Failed to get item : " + itemName);
+			AMTLogger.info("Failed to get item: " + itemName);
 			return null;
 		}
 	}
@@ -43,7 +44,7 @@ public class ItemAPI {
 			return target;
 		}
 		catch (Exception e) {
-			System.out.println("[AppleMilk]Failed to get item : " + blockName);
+			AMTLogger.info("Failed to get block: " + blockName);
 			return null;
 		}
 	}

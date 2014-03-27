@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
 import net.minecraft.item.ItemStack;
 
@@ -102,7 +103,7 @@ public class TeaRecipe {
 		{
 			ItemStack inputs = new ItemStack(input.itemID, 1, input.getItemDamage());
 			val = getRecipeID(inputs);
-			if (DCsAppleMilk.debugMode) System.out.println("[AppleMilk]ID: " + val);
+			AMTLogger.debugInfo("ID: " + val);
 		}
 		
 		return val;
@@ -176,13 +177,9 @@ public class TeaRecipe {
 					outputs.put(newID, output);
 					contentsTex.put(newID, tex);
 					canMilk.put(newID, 0);
-					if (DCsAppleMilk.debugMode)
-					{
-						System.out.println("[AppleMilk]new Tea ID is " + newID);
-						System.out.println("[AppleMilk]new input is " + input.itemID);
-						System.out.println("[AppleMilk]new output is " + output.itemID);
-					}
-					
+					AMTLogger.debugInfo("newID(tea): " + newID);
+					AMTLogger.debugInfo("input: " + input.getDisplayName());
+					AMTLogger.debugInfo("output: " + output.getDisplayName());
 					
 					return true;
 				}
@@ -205,12 +202,9 @@ public class TeaRecipe {
 					recipeID.put(input, newID);
 					outputs.put(newID, output);
 					contentsTex.put(newID, tex);
-					if (DCsAppleMilk.debugMode)
-					{
-						System.out.println("[AppleMilk]new Tea ID is " + newID);
-						System.out.println("[AppleMilk]new input is " + input.itemID);
-						System.out.println("[AppleMilk]new output is " + output.itemID);
-					}
+					AMTLogger.debugInfo("newID(tea): " + newID);
+					AMTLogger.debugInfo("input: " + input.getDisplayName());
+					AMTLogger.debugInfo("output: " + output.getDisplayName());
 					
 					if(milk)
 					{
@@ -221,8 +215,8 @@ public class TeaRecipe {
 						canMilk.put(newID2, 0);
 						if (DCsAppleMilk.debugMode)
 						{
-							System.out.println("[AppleMilk]new Tea ID (milk) is " + newID2);
-							System.out.println("[AppleMilk]new output (milk) is " + output2.itemID);
+							AMTLogger.debugInfo("newID(milk): " + newID2);
+							AMTLogger.debugInfo("output: " + output2.getDisplayName());
 						}
 						
 					}

@@ -7,6 +7,7 @@ import mceconomy.api.MCEconomyAPI;
 import mceconomy.api.shop.IProductItem;
 import mceconomy.api.shop.ProductItem;
 import mceconomy.api.shop.ProductList;
+import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
 
 public class MCEconomyHandler extends ProductList{
@@ -169,12 +170,12 @@ public class MCEconomyHandler extends ProductList{
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.firestarter), 50);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.DCgrater), 20);
 		
-		System.out.println("[AppleMilk]Succeeded to register the price for MCEconomy");
+		AMTLogger.info("Succeeded to register the price for MCEconomy");
 		
 		DCshopId = MCEconomyAPI.registerProductList(this);
 		this.registerProducts();
 		
-		System.out.println("[AppleMilk]Succeeded to register the shop ID. ID: " + DCshopId);
+		AMTLogger.info("Succeeded to register the shop ID. ID: " + DCshopId);
 	}
 	
 	static void registerProducts()

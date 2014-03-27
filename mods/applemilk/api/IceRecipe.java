@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
 import net.minecraft.item.ItemStack;
 
@@ -87,7 +88,7 @@ public class IceRecipe {
 		{
 			ItemStack inputs = new ItemStack(input.itemID, 1, input.getItemDamage());
 			val = getRecipeID(inputs);
-			if (DCsAppleMilk.debugMode) System.out.println("[AppleMilk]ID: " + val);
+			AMTLogger.debugInfo("ID: " + val);
 		}
 		
 		return val;
@@ -212,12 +213,9 @@ public class IceRecipe {
 					recipeID.put(input, newID);
 					outputs.put(newID, output);
 					leave.put(newID, false);
-					if (DCsAppleMilk.debugMode)
-					{
-						System.out.println("[AppleMilk]new Ice ID is " + newID);
-						System.out.println("[AppleMilk]new input is " + input.itemID);
-						System.out.println("[AppleMilk]new output is " + output.itemID);
-					}
+					AMTLogger.debugInfo("newID(ice): " + newID);
+					AMTLogger.debugInfo("input: " + input.getDisplayName());
+					AMTLogger.debugInfo("output: " + output.getDisplayName());
 					
 					
 					return true;
@@ -256,13 +254,10 @@ public class IceRecipe {
 						leaveStack.put(newID, leaveItem);
 					}
 					
-					if (DCsAppleMilk.debugMode)
-					{
-						System.out.println("[AppleMilk]new Ice ID is " + newID);
-						System.out.println("[AppleMilk]new input is " + input.itemID);
-						System.out.println("[AppleMilk]new output is " + output.itemID);
-						System.out.println("[AppleMilk]new leave is " + leaveItem.itemID);
-					}
+					AMTLogger.debugInfo("newID(ice): " + newID);
+					AMTLogger.debugInfo("input: " + input.getDisplayName());
+					AMTLogger.debugInfo("output: " + output.getDisplayName());
+					AMTLogger.debugInfo("Leaves: " + leaveItem.getDisplayName());
 					
 					
 					return true;
@@ -283,11 +278,8 @@ public class IceRecipe {
 			if (val > 0)
 			{
 				charger.put(input, val);
-				if (DCsAppleMilk.debugMode)
-				{
-					System.out.println("[AppleMilk]new Ice charger is " + input.itemID);
-					System.out.println("[AppleMilk]charge amount is " + val);
-				}
+				AMTLogger.debugInfo("newChargeItem(ice): " + input.getDisplayName());
+				AMTLogger.debugInfo("amount: " + val);
 				return true;
 			}
 		}

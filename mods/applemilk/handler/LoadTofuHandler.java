@@ -22,18 +22,15 @@ public class LoadTofuHandler {
 		
 		if (kinu.size() > 0){
 			tofuKinu = kinu.get(0).getItem();
-			if (tofuKinu != null) System.out.println("[AppleMilk]Succeeded to get tofuKinu");
 		}
 		if (tounyu.size() > 0){
 			bucketTounyu = tounyu.get(0).getItem();
 			if (bucketTounyu != null) {
 				LoadModHandler.registerModItems("bucketSoy", new ItemStack(bucketTounyu, 1, 0));
-				System.out.println("[AppleMilk]Succeeded to get bucketSoymilk");
 			}
 		}
 		if (naganegi.size() > 0){
 			negi = naganegi.get(0).getItem();
-			if (negi != null) System.out.println("[AppleMilk]Succeeded to get leek");
 		}
 	}
 	

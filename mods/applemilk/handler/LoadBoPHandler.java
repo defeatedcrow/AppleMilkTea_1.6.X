@@ -16,13 +16,11 @@ public class LoadBoPHandler {
 		bopBerry = new ItemStack(Items.food.get(), 1, 0);
 		
 		if (bopHoney != null) {
-			System.out.println("[AppleMilk]Succeeded to get BoP honey");
 			OreDictionary.registerOre("dropHoney", bopHoney);
 			LoadModHandler.registerModItems("honey", bopHoney);
 		}
 		
 		if (bopBerry != null) {
-			System.out.println("[AppleMilk]Succeeded to get BoP berry");
 			OreDictionary.registerOre("cropRaspberry", bopBerry);
 			LoadModHandler.registerModItems("berry", bopBerry);
 		}
