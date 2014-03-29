@@ -135,13 +135,13 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void loadNEI() {
 		if (Loader.isModLoaded("NotEnoughItems")) {
-			AMTLogger.LoadingModInfo("NotEnoughItems");
+			AMTLogger.loadingModInfo("NotEnoughItems");
 	    	try
 	        {
 	    		LoadNEIHandler.load();
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("NotEnoughItems");
+	        	AMTLogger.failLoadingModInfo("NotEnoughItems");
 	          e.printStackTrace(System.err);
 	        }
 		}

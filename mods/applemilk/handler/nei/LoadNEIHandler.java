@@ -27,7 +27,7 @@ public class LoadNEIHandler {
 		API.registerUsageHandler(panRecipe);
 		API.registerGuiOverlay(GuiRecipe.class, panRecipe.getOverlayIdentifier(), 0, 0);
 		
-		AMTLogger.LoadedModInfo("NEI");
+		AMTLogger.loadedModInfo("NEI");
 		
 	}
 

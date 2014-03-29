@@ -170,12 +170,12 @@ public class MCEconomyHandler extends ProductList{
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.firestarter), 50);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.DCgrater), 20);
 		
-		AMTLogger.info("Succeeded to register the price for MCEconomy");
+		AMTLogger.trace("Succeeded to register the price for MCEconomy");
 		
 		DCshopId = MCEconomyAPI.registerProductList(this);
 		this.registerProducts();
 		
-		AMTLogger.info("Succeeded to register the shop ID. ID: " + DCshopId);
+		AMTLogger.trace("Succeeded to register the shop ID. ID: " + DCshopId);
 	}
 	
 	static void registerProducts()

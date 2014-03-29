@@ -980,13 +980,12 @@ public class DCsAppleMilk{
 	    
 	    //registering TeaMaker recipe, It's still in testing yet.
 	    //ティーメーカーのレシピ数の無限化のため、専用のレシピ登録クラスを用意した
-	    AMTLogger.info("Registering new tea maker recipe");
 	    (new RegisterMakerRecipe()).registerTea();
+	    AMTLogger.trace("Registered new tea maker recipe");
 	    
 	    //アイスメーカーのレシピ登録
-	    AMTLogger.info("Registering new ice maker recipe");
 	    (new RegisterMakerRecipe()).registerIce();
-	    
+	    AMTLogger.trace("Registered new ice maker recipe");
 	    
 	    
 	}
@@ -1003,202 +1002,214 @@ public class DCsAppleMilk{
 		
 	    if (Loader.isModLoaded("IC2") && DCsAppleMilk.useIC2Items)
 	    {
-	    	AMTLogger.LoadingModInfo("IC2");
+	    	AMTLogger.loadingModInfo("IC2");
 	    	try
 	        {
 	          this.SuccessLoadIC2 = true;
 	          (new LoadIC2Handler()).load();
+	          AMTLogger.loadedModInfo("IC2");
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("IC2");
+	        	AMTLogger.failLoadingModInfo("IC2");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("BambooMod"))
 	    {
-	    	AMTLogger.LoadingModInfo("BambooMod");
+	    	AMTLogger.loadingModInfo("BambooMod");
 	    	try
 	        {
 	          this.SuccessLoadBamboo = true;
 	          (new LoadBambooHandler()).load();
+	          AMTLogger.loadedModInfo("BambooMod");
 	          
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("BambooMod");
+	        	AMTLogger.failLoadingModInfo("BambooMod");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("TofuCraft"))
 	    {
-	    	AMTLogger.LoadingModInfo("TofuCraft");
+	    	AMTLogger.loadingModInfo("TofuCraft");
 	    	try
 	        {
 	          this.SuccessLoadTofu = true;
 	          (new LoadTofuHandler()).load();
+	          AMTLogger.loadedModInfo("TofuCraft");
 	          
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("TofuCraft");
+	        	AMTLogger.failLoadingModInfo("TofuCraft");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("Thaumcraft"))
 	    {
-	    	AMTLogger.LoadingModInfo("Thaumcraft");
+	    	AMTLogger.loadingModInfo("Thaumcraft");
 	    	try
 	        {
 	          this.SuccessLoadThaumcraft = true;
 	          (new LoadThaumcraftHandler()).load();
+	          AMTLogger.loadedModInfo("Thaumcraft");
 	          
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("Thaumcraft");
+	        	AMTLogger.failLoadingModInfo("Thaumcraft");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("BiomesOPlenty"))
 	    {
-	    	AMTLogger.LoadingModInfo("BiomesOPlenty");
+	    	AMTLogger.loadingModInfo("BiomesOPlenty");
 	    	try
 	        {
 	          this.SuccessLoadBoP = true;
 	          (new LoadBoPHandler()).load();
+	          AMTLogger.loadedModInfo("BipmesOPlenty");
 	          
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("BiomesOPlenty");
+	        	AMTLogger.failLoadingModInfo("BiomesOPlenty");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("AndanteMod_Gummi"))
 	    {
-	    	AMTLogger.LoadingModInfo("AndanteMod_Gummi");
+	    	AMTLogger.loadingModInfo("AndanteMod_Gummi");
 	    	try
 	        {
 	          this.SuccessLoadGummi = true;
-	          (new LoadModHandler()).loadGummi();;
+	          (new LoadModHandler()).loadGummi();
+	          AMTLogger.loadedModInfo("AndanteMod_Gummi");
 	          
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("AndanteMod_Gummi");
+	        	AMTLogger.failLoadingModInfo("AndanteMod_Gummi");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("MCEconomy"))
 	    {
-	    	AMTLogger.LoadingModInfo("MCEconomy");
+	    	AMTLogger.loadingModInfo("MCEconomy");
 	    	try
 	        {
 	          this.SuccessLoadEconomy = true;
 	          (new MCEconomyHandler()).registerSellable();
+	          AMTLogger.loadedModInfo("MCEconomy");
 	          
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("MCEconomy");
+	        	AMTLogger.failLoadingModInfo("MCEconomy");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("SextiarySector"))
 	    {
-	    	AMTLogger.LoadingModInfo("SextiarySector");
+	    	AMTLogger.loadingModInfo("SextiarySector");
 	    	try
 	        {
 	          this.SuccessLoadSSector = true;
 	          (new LoadSSectorHandler()).load();
+	          AMTLogger.loadedModInfo("SextiarySector");
 	          
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("SextiarySector");
+	        	AMTLogger.failLoadingModInfo("SextiarySector");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("Growthcraft|Rice"))
 	    {
-	    	AMTLogger.LoadingModInfo("Growthcraft|Rice");
+	    	AMTLogger.loadingModInfo("Growthcraft|Rice");
 	    	try
 	        {
 	          this.SuccessLoadGrowth[0] = true;
 	          (new LoadModHandler()).loadGrowthRice();
+	          AMTLogger.loadedModInfo("Growthcraft|Rice");
 	          
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("Growthcraft|Rice");
+	        	AMTLogger.failLoadingModInfo("Growthcraft|Rice");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("Growthcraft|Hops"))
 	    {
-	    	AMTLogger.LoadingModInfo("Growthcraft|Hops");
+	    	AMTLogger.loadingModInfo("Growthcraft|Hops");
 	    	try
 	        {
 	          this.SuccessLoadGrowth[1] = true;
 	          (new LoadModHandler()).loadGrowthHops();
+	          AMTLogger.loadedModInfo("Growthcraft|Hops");
 	          
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("Growthcraft|Hops");
+	        	AMTLogger.failLoadingModInfo("Growthcraft|Hops");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("Growthcraft|Grapes"))
 	    {
-	    	AMTLogger.LoadingModInfo("Growthcraft|Grapes");
+	    	AMTLogger.loadingModInfo("Growthcraft|Grapes");
 	    	try
 	        {
 	          this.SuccessLoadGrowth[2] = true;
 	          (new LoadModHandler()).loadGrowthGrape();
+	          AMTLogger.loadedModInfo("Growthcraft|Grapes");
 	          
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("Growthcraft|Grapes");
+	        	AMTLogger.failLoadingModInfo("Growthcraft|Grapes");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("mod_ecru_MapleTree_Forge"))
 	    {
-	    	AMTLogger.LoadingModInfo("mod_ecru_MapleTree_Forge");
+	    	AMTLogger.loadingModInfo("mod_ecru_MapleTree_Forge");
 	    	try
 	        {
 	          this.SuccessLoadMapleTree = true;
 	          (new LoadModHandler()).loadMaple();
+	          AMTLogger.loadedModInfo("mod_ecru_MapleTree_Forge");
 	          
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("mod_ecru_MapleTree_Forge");
+	        	AMTLogger.failLoadingModInfo("mod_ecru_MapleTree_Forge");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
 	    if (Loader.isModLoaded("ExtraTrees"))
 	    {
-	    	AMTLogger.LoadingModInfo("ExtraTrees");
+	    	AMTLogger.loadingModInfo("ExtraTrees");
 	    	try
 	        {
 	          this.SuccessLoadExtraTrees = true;
 	          (new LoadModHandler()).loadExtraTrees();
-	          
+	          AMTLogger.loadedModInfo("ExtraTrees");
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.LoadedModInfo("ExtraTrees");
+	        	AMTLogger.failLoadingModInfo("ExtraTrees");
 	          e.printStackTrace(System.err);
 	        }
 	    }
 	    
-	  //Checking another mods
-	  //他のMODのブロック・アイテム登録クラスに先行しないよう、postInitメソッドでロードする
-	  //当MODで勝手に追加する鉱石辞書も含めるように、読み込む位置を他MODのロード処理より後にした
-	  (new LoadOreDicHandler()).load();
+	    //Checking another mods
+	    //他のMODのブロック・アイテム登録クラスに先行しないよう、postInitメソッドでロードする
+	    //当MODで勝手に追加する鉱石辞書も含めるように、読み込む位置を他MODのロード処理より後にした
+	    (new LoadOreDicHandler()).load();
 	    
 	    (new RegisteredRecipeGet()).setRecipeList();
 	    proxy.loadNEI();
