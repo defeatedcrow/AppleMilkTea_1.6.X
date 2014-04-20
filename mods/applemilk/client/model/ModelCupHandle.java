@@ -1,5 +1,6 @@
 package mods.applemilk.client.model;
 
+import mods.applemilk.common.DCsAppleMilk;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -25,6 +26,13 @@ public class ModelCupHandle extends ModelBase
     public ModelRenderer handled1 = (new ModelRenderer(this, 0, 0)).setTextureSize(64, 32);
     public ModelRenderer handled3 = (new ModelRenderer(this, 0, 0)).setTextureSize(64, 32);
     public ModelRenderer handled2 = (new ModelRenderer(this, 0, 0)).setTextureSize(64, 32);
+    
+    //for Summer or JP rendering
+    ModelRenderer sideF = new ModelRenderer(this, 0, 10);
+    ModelRenderer sideB = new ModelRenderer(this, 0, 10);
+    ModelRenderer sideR = new ModelRenderer(this, 15, 10);
+    ModelRenderer sideL = new ModelRenderer(this, 15, 10);
+    ModelRenderer Bottom = new ModelRenderer(this, 0, 0);
   
   public ModelCupHandle()
   {
@@ -78,34 +86,76 @@ public class ModelCupHandle extends ModelBase
       handled2.addBox(0F, 0F, 0F, 1, 6, 2);
       handled2.setRotationPoint(-6F, 17F, -1F);
       handled2.mirror = true;
+      
+      //Summer and JP
+      sideF.addBox(-3F, 0F, -3F, 6, 8, 1);
+      sideF.setRotationPoint(0F, 16F, 0F);
+      sideF.setTextureSize(64, 32);
+      sideF.mirror = true;
+      sideB.addBox(-3F, 0F, 2F, 6, 8, 1);
+      sideB.setRotationPoint(0F, 16F, 0F);
+      sideB.setTextureSize(64, 32);
+      sideB.mirror = true;
+      sideR.addBox(-3F, 0F, -2F, 1, 8, 4);
+      sideR.setRotationPoint(0F, 16F, 0F);
+      sideR.setTextureSize(64, 32);
+      sideR.mirror = true;
+      sideL.addBox(2F, 0F, -2F, 1, 8, 4);
+      sideL.setRotationPoint(0F, 16F, 0F);
+      sideL.setTextureSize(64, 32);
+      sideL.mirror = true;
+      Bottom.addBox(-2F, 0F, -2F, 4, 2, 4);
+      Bottom.setRotationPoint(0F, 22F, 0F);
+      Bottom.setTextureSize(64, 32);
+      Bottom.mirror = true;
   }
   
   public void render (Entity par1Entity, float par2, float par3, float par4, byte par5, float par6, float par7)
   {
-	  if (par5 == 0)
+	  if (DCsAppleMilk.useJapaneseCup)
 	  {
-		  this.handleb1.render(0.0625F);
-	      this.handleb2.render(0.0625F);
-	      this.handleb3.render(0.0625F);
+		  this.sideB.render(par7);
+		  this.sideF.render(par7);
+		  this.sideL.render(par7);
+		  this.sideR.render(par7);
+		  this.Bottom.render(par7);
 	  }
-	  else if (par5 == 1)
+	  else
 	  {
-		  this.handlec1.render(0.0625F);
-	      this.handlec2.render(0.0625F);
-	      this.handlec3.render(0.0625F);
+		  if (par5 == 0)
+		  {
+			  this.handleb1.render(0.0625F);
+		      this.handleb2.render(0.0625F);
+		      this.handleb3.render(0.0625F);
+		  }
+		  else if (par5 == 1)
+		  {
+			  this.handlec1.render(0.0625F);
+		      this.handlec2.render(0.0625F);
+		      this.handlec3.render(0.0625F);
+		  }
+		  else if (par5 == 2)
+		  {
+			  this.handlea1.render(0.0625F);
+		      this.handlea2.render(0.0625F);
+		      this.handlea3.render(0.0625F);
+		  }
+		  else if (par5 == 4)
+		  {
+			  this.handled1.render(0.0625F);
+		      this.handled2.render(0.0625F);
+		      this.handled3.render(0.0625F);
+		  }
 	  }
-	  else if (par5 == 2)
-	  {
-		  this.handlea1.render(0.0625F);
-	      this.handlea2.render(0.0625F);
-	      this.handlea3.render(0.0625F);
-	  }
-	  else if (par5 == 4)
-	  {
-		  this.handled1.render(0.0625F);
-	      this.handled2.render(0.0625F);
-	      this.handled3.render(0.0625F);
-	  }
+  }
+  
+  public void renderSummer (Entity par1Entity, float par2, float par3, float par4, float per5, float par6, float par7)
+  {
+	  this.sideB.render(par7);
+	  this.sideF.render(par7);
+	  this.sideL.render(par7);
+	  this.sideR.render(par7);
+	  this.Bottom.render(par7);
   }
 
 }

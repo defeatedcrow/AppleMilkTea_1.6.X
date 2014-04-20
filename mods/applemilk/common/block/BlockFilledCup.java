@@ -77,7 +77,7 @@ public class BlockFilledCup extends BlockContainer{
 	@Override
 	public int getRenderType()
 	{
-		return DCsAppleMilk.useSummerRender ? DCsAppleMilk.modelCupSummer : DCsAppleMilk.modelFilledCup;
+		return (DCsAppleMilk.useSummerRender || DCsAppleMilk.useJapaneseCup) ? DCsAppleMilk.modelCupSummer : DCsAppleMilk.modelFilledCup;
 	}
 	
 	public int damageDropped(int par1)

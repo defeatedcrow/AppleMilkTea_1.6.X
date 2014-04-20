@@ -371,6 +371,8 @@ public class DCsLangRegister {
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.bowlBlock, 1, 6), "ja_JP", "かぼちゃポタージュ");
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.bowlBlock, 1, 7), "BLT Soup");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.bowlBlock, 1, 7), "ja_JP", "BLTスープ");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.bowlBlock, 1, 7), "Empty Bowl");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.bowlBlock, 1, 7), "ja_JP", "空のボウル");
 		
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.bowlJP, 1, 0), "JP Boiled Rice");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.bowlJP, 1, 0), "ja_JP", "御飯(和風)");
@@ -388,6 +390,8 @@ public class DCsLangRegister {
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.bowlJP, 1, 6), "ja_JP", "かぼちゃポタージュ(和風)");
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.bowlJP, 1, 7), "JP BLT Soup");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.bowlJP, 1, 7), "ja_JP", "BLTスープ(和風)");
+		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.bowlJP, 1, 7), "Empty JP Bowl");
+		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.bowlJP, 1, 7), "ja_JP", "空のお椀");
 		
 		LanguageRegistry.addName(new ItemStack(DCsAppleMilk.teacupBlock, 1, 0), "Empty Tea Cup");
 		LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.teacupBlock, 1, 0), "ja_JP", "空のティーカップ");

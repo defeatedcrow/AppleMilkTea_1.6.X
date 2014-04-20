@@ -42,12 +42,15 @@ public class RenderFilledBowlJP implements ISimpleBlockRenderingHandler{
 			renderInvCuboid(renderer, block,  11.0F/16.0F, 2.0F/16.0F, 5.0F/16.0F, 12.0F/16.0F, 6.0F/16.0F, 11.0F/16.0F,  this.boxIcon);
 			
 			//contents
-			if (meta == 0 || meta == 4)
+			if (meta < 8)
 			{
-				renderInvCuboid(renderer, block,  5.0F/16.0F, 2.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 7.0F/16.0F, 11.0F/16.0F,  this.contentsIcon);
-				renderInvCuboid(renderer, block,  6.0F/16.0F, 7.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 8.0F/16.0F, 10.0F/16.0F,  this.contentsIcon);
+				if (meta == 0 || meta == 4)
+				{
+					renderInvCuboid(renderer, block,  5.0F/16.0F, 2.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 7.0F/16.0F, 11.0F/16.0F,  this.contentsIcon);
+					renderInvCuboid(renderer, block,  6.0F/16.0F, 7.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 8.0F/16.0F, 10.0F/16.0F,  this.contentsIcon);
+				}
+				renderInvCuboid(renderer, block,  5.0F/16.0F, 2.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F,  this.contentsIcon);
 			}
-			renderInvCuboid(renderer, block,  5.0F/16.0F, 2.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F,  this.contentsIcon);
 			
 		}
 		
@@ -79,7 +82,7 @@ public class RenderFilledBowlJP implements ISimpleBlockRenderingHandler{
 				renderer.setRenderBoundsFromBlock(block);
 				renderer.renderStandardBlock(block, x, y, z);
 			}
-			else
+			else if (meta < 8)
 			{
 				renderer.setOverrideBlockTexture(this.contentsIcon);
 				block.setBlockBounds(5.0F/16.0F, 2.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F);

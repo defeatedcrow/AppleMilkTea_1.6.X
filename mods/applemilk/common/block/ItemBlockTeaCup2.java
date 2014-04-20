@@ -1,7 +1,12 @@
 package mods.applemilk.common.block;
 
+import java.util.List;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.api.edibles.EdibleItemBlock;
 import mods.applemilk.common.*;
+import mods.applemilk.handler.LoadSSectorHandler;
 import mods.applemilk.handler.Util;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
@@ -12,6 +17,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class ItemBlockTeaCup2 extends EdibleItemBlock{
@@ -35,8 +41,9 @@ public class ItemBlockTeaCup2 extends EdibleItemBlock{
 		if (!par2World.isRemote)
 		{
 			this.setPotionWithTea(par3EntityPlayer, meta);
+			
 		}
-
+        this.addSSMoisture(3, 1.5F, par3EntityPlayer);
         return super.onEaten(par1ItemStack, par2World, par3EntityPlayer);
     }
 	
@@ -166,6 +173,38 @@ public class ItemBlockTeaCup2 extends EdibleItemBlock{
 	public int getMetadata(int par1)
 	{
 		return par1;
+	}
+	
+	@SideOnly(Side.CLIENT)
+    //マウスオーバー時の表示情報
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+	{
+		super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
+		int l = par1ItemStack.getItemDamage();
+		PotionEffect effect = this.effectOnEaten(l);
+		String s = StatCollector.translateToLocal(effect.getEffectName()).trim();
+		if (effect.getAmplifier() > 0)
+        {
+            s = s + " " + StatCollector.translateToLocal("potion.potency." + effect.getAmplifier()).trim();
+        }
+
+        if (effect.getDuration() > 20)
+        {
+            s = s + " (" + Potion.getDurationString(effect) + ")";
+        }
+		
+		par3List.add(s);
+	}
+	
+	private void addSSMoisture(int par1, float par2, EntityPlayer par3EntityPlayer)
+	{
+		int heal = par1;
+		float satuation = par2;
+		if (DCsAppleMilk.SuccessLoadSSector)
+		{
+			AMTLogger.debugInfo("Trying add status.");
+			LoadSSectorHandler.addStatus(heal, satuation, 0, 0.0F, par3EntityPlayer);
+		}
 	}
 
 }

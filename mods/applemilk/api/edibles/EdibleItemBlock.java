@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 /**
  * 食べられるブロックの作成を補助するためのクラス。
  * <br>ブロックのItemBlockクラスに継承させることで、そのブロックを食べられるようにする。
- * <br>デフォルト動作では、返却容器はなし、飲食時の効果はのポーション効果である。
+ * <br>デフォルト動作では、返却容器はなし、飲食時の効果は空腹度回復のポーション効果である。
  */
 public class EdibleItemBlock extends ItemBlock implements IEdibleItem {
 

@@ -56,20 +56,60 @@ public class BlockBowlJP extends BlockContainer{
         
         if (itemstack == null)
         {
-        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(this,1,currentMeta)))
+        	if (currentMeta == 15)
         	{
-        		par5EntityPlayer.entityDropItem(new ItemStack(this,1,currentMeta), 1);
+        		if (DCsAppleMilk.SuccessLoadBamboo)
+        		{
+        			if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(LoadBambooHandler.bambooBasket,1)))
+                	{
+                		par5EntityPlayer.entityDropItem(new ItemStack(LoadBambooHandler.bambooBasket,1), 1);
+                	}
+        		}
+        		else
+        		{
+        			if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.bowlEmpty,1)))
+        	    	{
+        				par5EntityPlayer.entityDropItem(new ItemStack(Item.bowlEmpty,1), 1);
+        	    	}
+        		}
+        	}
+        	else
+        	{
+        		if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(this,1,currentMeta)))
+            	{
+            		par5EntityPlayer.entityDropItem(new ItemStack(this,1,currentMeta), 1);
+            	}
         	}
     		
     		par1World.setBlockToAir(par2, par3, par4);
     		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
     		return true;
         }
-        else if (itemstack.itemID == this.blockID)
+        else if (itemstack.itemID == this.blockID || itemstack.itemID == Item.bowlEmpty.itemID)
         {
-        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(this,1,currentMeta)))
+        	if (currentMeta == 15)
         	{
-        		par5EntityPlayer.entityDropItem(new ItemStack(this,1,currentMeta), 1);
+        		if (DCsAppleMilk.SuccessLoadBamboo)
+        		{
+        			if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(LoadBambooHandler.bambooBasket,1)))
+                	{
+                		par5EntityPlayer.entityDropItem(new ItemStack(LoadBambooHandler.bambooBasket,1), 1);
+                	}
+        		}
+        		else
+        		{
+        			if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.bowlEmpty,1)))
+        	    	{
+        				par5EntityPlayer.entityDropItem(new ItemStack(Item.bowlEmpty,1), 1);
+        	    	}
+        		}
+        	}
+        	else
+        	{
+        		if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(this,1,currentMeta)))
+            	{
+            		par5EntityPlayer.entityDropItem(new ItemStack(this,1,currentMeta), 1);
+            	}
         	}
     		
     		par1World.setBlockToAir(par2, par3, par4);
@@ -78,26 +118,12 @@ public class BlockBowlJP extends BlockContainer{
         }
         else if (itemstack.itemID == DCsAppleMilk.chopsticks.itemID)
         {
-        	if (DCsAppleMilk.SuccessLoadBamboo)
-    		{
-    			if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(LoadBambooHandler.bambooBasket,1)))
-            	{
-            		par5EntityPlayer.entityDropItem(new ItemStack(LoadBambooHandler.bambooBasket,1), 1);
-            	}
-    		}
-    		else
-    		{
-    			if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.bowlEmpty,1)))
-    	    	{
-    				par5EntityPlayer.entityDropItem(new ItemStack(Item.bowlEmpty,1), 1);
-    	    	}
-    		}
         	if (!par1World.isRemote)
     		{
     			par5EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 2, 2));
     		}
         	
-        	par1World.setBlockToAir(par2, par3, par4);
+        	par1World.setBlockMetadataWithNotify(par2, par3, par4, 15, 3);
     		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
     		return true;
         }
@@ -170,7 +196,7 @@ public class BlockBowlJP extends BlockContainer{
         }
         else
         {
-        	return this.contentsTex[i];
+        	return i < 8 ? this.contentsTex[i] : this.boxTex;
         }
     }
 	
@@ -181,6 +207,7 @@ public class BlockBowlJP extends BlockContainer{
 		{
 			par3List.add(new ItemStack(this, 1, i));
 		}
+		par3List.add(new ItemStack(this, 1, 15));
     }
 	
 	@Override
@@ -208,13 +235,13 @@ public class BlockBowlJP extends BlockContainer{
     {
         int l = par1World.getBlockMetadata(par2, par3, par4);
         int i = par1World.getBlockId(par2, par3 - 1, par2);
-        double d0 = (double)((float)par2 + 0.25F + par5Random.nextFloat()/2);
+        double d0 = (double)((float)par2 + 0.375F + par5Random.nextFloat()/4);
         double d1 = (double)((float)par3 + par5Random.nextFloat());
-        double d2 = (double)((float)par4 + 0.25F + par5Random.nextFloat()/2);
-        double d3 = 0.0099999988079071D;
+        double d2 = (double)((float)par4 + 0.375F + par5Random.nextFloat()/4);
+        double d3 = 0.0059999988079071D;
         double d4 = 0.27000001072883606D;
 
-        if (!DCsAppleMilk.noRenderFoodsSteam) {
+        if (!DCsAppleMilk.noRenderFoodsSteam && l != 15) {
         	EntityDCCloudFX cloud = new EntityDCCloudFX(par1World, d0, d1, d2, 0.0D, d3, 0.0D);
         	cloud.setParticleIcon(ParticleTex.getInstance().getIcon("applemilk:particle_cloud"));
 			FMLClientHandler.instance().getClient().effectRenderer.addEffect(cloud);

@@ -1,5 +1,9 @@
 package mods.applemilk.common.block;
 
+import java.util.List;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.api.edibles.EdibleItemBlock;
 import mods.applemilk.common.AchievementRegister;
 import mods.applemilk.common.DCsAppleMilk;
@@ -13,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
@@ -137,6 +142,34 @@ public class ItemIceBlock extends EdibleItemBlock{
 	public int getMetadata(int par1)
 	{
 		return par1;
+	}
+	
+	@SideOnly(Side.CLIENT)
+    //マウスオーバー時の表示情報
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+	{
+		super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
+		int l = par1ItemStack.getItemDamage();
+		if (l == 7)
+		{
+			String s = "cure bad status";
+			par3List.add(s);
+		}
+		else
+		{
+			PotionEffect effect = this.effectOnEaten(l);
+			String s = StatCollector.translateToLocal(effect.getEffectName()).trim();
+			if (effect.getAmplifier() > 0)
+	        {
+	            s = s + " " + StatCollector.translateToLocal("potion.potency." + effect.getAmplifier()).trim();
+	        }
+
+	        if (effect.getDuration() > 20)
+	        {
+	            s = s + " (" + Potion.getDurationString(effect) + ")";
+	        }
+	        par3List.add(s);
+		}
 	}
 
 }

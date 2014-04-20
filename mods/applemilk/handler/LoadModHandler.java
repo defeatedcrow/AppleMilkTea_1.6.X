@@ -282,6 +282,66 @@ public class LoadModHandler {
         }
 	}
 	
+	public void loadBambooItems()//BambooMod様のアイテムのうち、鉱石辞書登録されていないものはココを使う
+	{
+		try
+		{
+			//何故か"rawrice", "bamboo:rawrice"等で取得できず。仕方なしにリフレクション使用。ゴザは取得できたのになんでや・・・
+			//Item item = Util.getModItem("BambooMod", "bamboo:rawrice");
+			Object obj = Class.forName("ruby.bamboo.BambooInit").getField("rawriceIID").get(null);
+			AMTLogger.debugInfo("Current get Number : " + obj.toString());
+			if (obj != null && obj instanceof Integer ) {
+				ItemStack registerItem = new ItemStack((Integer)obj, 1, 0);
+				if (this.registerModItems("rice", registerItem)) {
+					OreDictionary.registerOre("cropRice", registerItem);
+					OreDictionary.registerOre("cookingRice", registerItem);
+					AMTLogger.debugInfo("Succeeded to get rawrice");
+				}
+			}
+			//ruby氏に申し訳ない
+			//Item item2 = Util.getModItem("BambooMod", "bamboo:straw");
+			Object obj2 = Class.forName("ruby.bamboo.BambooInit").getField("strawIID").get(null);
+			AMTLogger.debugInfo("Current get Number : " + obj2.toString());
+			if (obj2 != null && obj2 instanceof Integer ) {
+				ItemStack registerItem2 = new ItemStack((Integer)obj2, 1, 0);
+				if (this.registerModItems("straw", registerItem2)) {
+					OreDictionary.registerOre("cropStraw", registerItem2);
+					AMTLogger.debugInfo("Succeeded to get straw");
+					
+					GameRegistry.addRecipe(
+						 new ItemStack(DCsAppleMilk.Basket, 1),
+						 new Object[]{
+							 "X X",
+							 "X X",
+							 "XXX",
+							 Character.valueOf('X'), registerItem2
+						 });
+				}
+			}
+			Item item3 = Util.getModItem("BambooMod", "decoCarpet");
+			if (item3 != null) {
+				ItemStack registerItem3 = new ItemStack(item3, 1, 0);
+				if (this.registerModItems("strawCarpet", registerItem3)) {
+					AMTLogger.debugInfo("Succeeded to get decoCarpet");
+				}
+				
+				if (this.getItem("straw") != null)
+				{
+					GameRegistry.addRecipe(
+							 registerItem3,
+							 new Object[]{
+								 "XXX",
+								 Character.valueOf('X'), this.getItem("straw")
+							 });
+				}
+			}
+		}
+        catch (Exception e) {
+        	AMTLogger.debugInfo("Failed to register ModItems");
+          e.printStackTrace(System.err);
+        }
+	}
+	
 	public void loadExtraTrees() { //ExtraTree様のアイテム。
 		
 		Item item = Util.getModItem("ExtraTrees", "itemFood");

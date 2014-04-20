@@ -26,7 +26,7 @@ public class DCsRecipeRegister {
 		OreDictionary.registerOre("bucketMilk", new ItemStack(Item.bucketMilk, 1, 0));
 		
 		this.addContainerRecipe();
-		this.addTablewareeRecipe();
+		this.addTablewareRecipe();
 		this.addGraterRecipe();
 		this.addCocktailRecipe();
 		this.addFoodRecipe();
@@ -327,7 +327,7 @@ public class DCsRecipeRegister {
 				 });
 	}
 	
-	static void addTablewareeRecipe() {
+	static void addTablewareRecipe() {
 		
 		GameRegistry.addRecipe(
 				 new ShapedOreRecipe(

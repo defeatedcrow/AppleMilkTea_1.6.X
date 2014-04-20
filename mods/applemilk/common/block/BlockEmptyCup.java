@@ -6,6 +6,7 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -14,14 +15,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.src.*;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import mods.applemilk.common.*;
+import mods.applemilk.common.tile.TileCupHandle;
 
-public class BlockEmptyCup extends Block{
+public class BlockEmptyCup extends BlockContainer{
 	
 	@SideOnly(Side.CLIENT)
     private Icon itemIcon;
@@ -82,7 +85,12 @@ public class BlockEmptyCup extends Block{
 	@Override
 	public int getRenderType()
 	{
-		return DCsAppleMilk.useSummerRender ? DCsAppleMilk.modelCupSummer : DCsAppleMilk.modelCup;
+		return (DCsAppleMilk.useSummerRender || DCsAppleMilk.useJapaneseCup) ? DCsAppleMilk.modelCupSummer : DCsAppleMilk.modelCup;
+	}
+	
+	@Override
+	public TileEntity createNewTileEntity(World world) {
+		return (DCsAppleMilk.useSummerRender || DCsAppleMilk.useJapaneseCup) ? new TileCupHandle() : null;
 	}
 	
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)

@@ -1,8 +1,14 @@
 package mods.applemilk.common.block;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.api.edibles.EdibleItemBlock;
 import mods.applemilk.common.AchievementRegister;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.handler.LoadSSectorHandler;
 import mods.applemilk.handler.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -11,6 +17,8 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class ItemCocktail extends EdibleItemBlock{
@@ -39,6 +47,7 @@ public class ItemCocktail extends EdibleItemBlock{
 		if (!par2World.isRemote)
 		{
     		this.setPotionWithIce(par3EntityPlayer, par1ItemStack.getItemDamage());
+    		this.addSSMoisture(4, 3F, par3EntityPlayer);
 		}
 		par3EntityPlayer.triggerAchievement(AchievementRegister.drinkCocktail);
 		return super.onEaten(par1ItemStack, par2World, par3EntityPlayer);
@@ -50,11 +59,13 @@ public class ItemCocktail extends EdibleItemBlock{
 		return new PotionEffect(Potion.hunger.id, 300, 1);
 	}
 	
-	protected static void setPotionWithIce (EntityPlayer par1EntityPlayer, int meta)
+	protected static ArrayList<PotionEffect> getPotionWithIce (EntityPlayer par1EntityPlayer, int meta)
 	{
 		PotionEffect potion = new PotionEffect(Potion.digSpeed.id, 2400, 2);
 		int tick = 2400;
 		boolean flag = false;
+		
+		ArrayList<PotionEffect> ret = new ArrayList<PotionEffect>();
 		
 		if(meta == 0)//frozen daiquiri
 		{
@@ -71,11 +82,11 @@ public class ItemCocktail extends EdibleItemBlock{
 		{
 			if (par1EntityPlayer.isPotionActive(Potion.fireResistance.id)) {
 				tick = par1EntityPlayer.getActivePotionEffect(Potion.fireResistance).getDuration() + 2400;
-				potion = new PotionEffect(Potion.fireResistance.id, tick, 2);
+				potion = new PotionEffect(Potion.fireResistance.id, tick, 0);
 				flag = false;
 			}
 			else {
-				potion = new PotionEffect(Potion.fireResistance.id, 2400, 2);
+				potion = new PotionEffect(Potion.fireResistance.id, 2400, 0);
 			}
 		}
 		else if (meta == 2)//sake-tini
@@ -104,11 +115,11 @@ public class ItemCocktail extends EdibleItemBlock{
 		{
 			if (par1EntityPlayer.isPotionActive(Potion.invisibility.id)) {
 				tick = par1EntityPlayer.getActivePotionEffect(Potion.invisibility).getDuration() + 2400;
-				potion = new PotionEffect(Potion.invisibility.id, tick, 2);
+				potion = new PotionEffect(Potion.invisibility.id, tick, 0);
 				flag = false;
 			}
 			else {
-				potion = new PotionEffect(Potion.invisibility.id, 2400, 2);
+				potion = new PotionEffect(Potion.invisibility.id, 2400, 0);
 			}
 		}
 		else if (meta == 5)//red eye
@@ -126,11 +137,11 @@ public class ItemCocktail extends EdibleItemBlock{
 		{
 			if (par1EntityPlayer.isPotionActive(Potion.waterBreathing.id)) {
 				tick = par1EntityPlayer.getActivePotionEffect(Potion.waterBreathing).getDuration() + 2400;
-				potion = new PotionEffect(Potion.waterBreathing.id, tick, 2);
+				potion = new PotionEffect(Potion.waterBreathing.id, tick, 0);
 				flag = false;
 			}
 			else {
-				potion = new PotionEffect(Potion.waterBreathing.id, 2400, 2);
+				potion = new PotionEffect(Potion.waterBreathing.id, 2400, 0);
 			}
 		}
 		else if (meta == 7)//american lemonade
@@ -167,9 +178,20 @@ public class ItemCocktail extends EdibleItemBlock{
 			}
 		}
 		
-		par1EntityPlayer.addPotionEffect(potion);
+		ret.add(potion);
 		if (flag) {
-			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.confusion.id, 150, 1));
+			ret.add(new PotionEffect(Potion.confusion.id, 300, 1));
+		}
+		
+		return ret;
+	}
+	
+	public static void setPotionWithIce(EntityPlayer par1EntityPlayer, int meta)
+	{
+		ArrayList<PotionEffect> effect = getPotionWithIce(par1EntityPlayer, meta);
+		for(PotionEffect potions : effect)
+		{
+			par1EntityPlayer.addPotionEffect(potions);
 		}
 	}
 	
@@ -182,6 +204,39 @@ public class ItemCocktail extends EdibleItemBlock{
 	public int getMetadata(int par1)
 	{
 		return par1;
+	}
+	
+	@SideOnly(Side.CLIENT)
+    //マウスオーバー時の表示情報
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+	{
+		super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
+		int l = par1ItemStack.getItemDamage();
+		ArrayList<PotionEffect> effects = this.getPotionWithIce(par2EntityPlayer, l);
+		for (PotionEffect effect : effects)
+		{
+			String s = StatCollector.translateToLocal(effect.getEffectName()).trim();
+			if (effect.getAmplifier() > 0)
+	        {
+	            s = s + " " + StatCollector.translateToLocal("potion.potency." + effect.getAmplifier()).trim();
+	        }
+
+	        if (effect.getDuration() > 20)
+	        {
+	            s = s + " (" + Potion.getDurationString(effect) + ")";
+	        }
+			par3List.add(EnumChatFormatting.GRAY + s);
+		}
+	}
+	
+	private void addSSMoisture(int par1, float par2, EntityPlayer par3EntityPlayer)
+	{
+		int heal = par1;
+		float saturation = par2;
+		if (DCsAppleMilk.SuccessLoadSSector)
+		{
+			LoadSSectorHandler.addStatus(heal, saturation, 0, 0.0F, par3EntityPlayer);
+		}
 	}
 
 }

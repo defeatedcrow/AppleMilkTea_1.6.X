@@ -24,9 +24,9 @@ public class MCEconomyHandler extends ProductList{
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.woodBox, 1, 1), 3);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.woodBox, 1, 2), 3);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.woodBox, 1, 3), 3);
-		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.woodBox, 1, 3), 24);
-		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.woodBox, 1, 3), 32);
-		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.woodBox, 1, 3), 32);
+		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.woodBox, 1, 4), 24);
+		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.woodBox, 1, 5), 32);
+		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.woodBox, 1, 6), 32);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.charcoalBox, 1, 0), 3);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.gunpowderContainer, 1, 0), 3);
 		MCEconomyAPI.addPurchaseItem(new ItemStack(DCsAppleMilk.gunpowderContainer, 1, 1), 0);

@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import mods.applemilk.*;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.handler.LoadSSectorHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -78,6 +79,11 @@ public class ItemIcyToffyApple extends ItemFood {
 			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 600, 0));
 		}
 		
+		if (par2World.isRemote)
+		{
+			this.reduceMoisture(-1, 0.0F, par3EntityPlayer);
+		}
+		
 		return par1ItemStack.stackSize <= 0 ? new ItemStack(Item.stick) : par1ItemStack;
 	}
 	
@@ -107,5 +113,13 @@ public class ItemIcyToffyApple extends ItemFood {
             this.iconToffyType[i] = par1IconRegister.registerIcon("applemilk:icytoffyapple" + i);
         }
     }
+	
+	private void reduceMoisture(int par1, float par2, EntityPlayer par3EntityPlayer)
+	{
+		if (DCsAppleMilk.SuccessLoadSSector)
+		{
+			LoadSSectorHandler.addStatus(par1, par2, 0, 0.0F, par3EntityPlayer);
+		}
+	}
 
 }

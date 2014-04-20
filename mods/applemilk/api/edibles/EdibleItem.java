@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 /**
  * 食べられるアイテムの作成を補助するためのクラス。
  * <br>同じ処理（容器返却処理）を複数のアイテムに重複して追加するのは面倒だし見た目も良くないので作成。
- * <br>デフォルト動作では、返却容器はなし、飲食時の効果はのポーション効果である。
+ * <br>デフォルト動作では、返却容器はなし、飲食時の効果は空腹度回復のポーション効果である。
  */
 public class EdibleItem extends ItemBlock implements IEdibleItem {
 

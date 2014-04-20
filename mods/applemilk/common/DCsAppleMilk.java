@@ -38,8 +38,8 @@ import cpw.mods.fml.common.registry.*;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.11e",
-		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry;after:SextiarySector"
+		version = "1.6.2_1.11f",
+		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry"
 		)
 @NetworkMod(
 		clientSideRequired = true,
@@ -226,8 +226,10 @@ public class DCsAppleMilk{
 	public static boolean melonBreakBlock = false;
 	public static boolean safetyChocolate = false;
 	public static boolean allowInfinityWipes = true;
+	public static boolean useJapaneseCup = false;
 	
 	public static boolean useIC2Items = true;
+	public static boolean allowMoisture = true;
 	public static boolean SuccessLoadIC2 = false;
 	public static boolean SuccessLoadBamboo = false;
 	public static boolean SuccessLoadBoP = false;
@@ -239,6 +241,8 @@ public class DCsAppleMilk{
 	public static boolean[] SuccessLoadGrowth = new boolean[] {false, false, false};
 	public static boolean SuccessLoadMapleTree = false;
 	public static boolean SuccessLoadExtraTrees = false;
+	public static boolean SuccessLoadExBucket = false;
+	public static boolean SuccessLoadRC = false;
 	
 	public static boolean IC2exp = true;
 	public static boolean TC4after405 = true;
@@ -251,7 +255,7 @@ public class DCsAppleMilk{
 	public static boolean inClient = false;
 	public static boolean inServer = false;
 	public static boolean thirdParty = false;
-	public static boolean debugMode = false;
+	public static boolean debugMode = true;
 	
 	//新ツール属性の追加
 	public static EnumToolMaterial enumToolMaterialChalcedony;
@@ -401,6 +405,8 @@ public class DCsAppleMilk{
 					+ "1:cherry flowers, 2:blue pattern, 3:white porcelain");
 			Property useSummer = cfg.get("render setting", "Use Summer Rendering", useSummerRender,
 					"Use the Summer Rendering to the Cups.");
+			Property useJPcup = cfg.get("render setting", "Use Japanese Style Cup", useJapaneseCup,
+					"Use the Japanese style (Yunomi) Rendering to the Cups.");
 			Property teppannHard = cfg.get("setting", "Teppann Hard Mode", teppannHardMode,
 					"Enable time limit to get the food from the iron plate.");
 			Property teppannTime = cfg.get("setting", "Teppann Ready Time", teppannReadyTime,
@@ -429,6 +435,8 @@ public class DCsAppleMilk{
 			Property texPass = cfg.get("render setting", "Set Texture Type Number", setAltTexturePass,
 					"Select the texture type number."
 					+ "1:default(x16 tex), 2:use x32 tex");
+			Property moisture = cfg.get("plugin setting", "Enable Moisture and Stamina", allowMoisture,
+					"Allow healing (or damage) to the Moisture and the Stamina gauge, for SextiarySector.");
 			
 			Property IC2ver = cfg.get("plugin setting", "Use version of IC2", IC2exp,
 					"Please tell me version of IC2 you use. If you use IC2_exp, set true. If you use IC2_lf, set false.");
@@ -523,6 +531,8 @@ public class DCsAppleMilk{
 			useOldItems = oldFoods.getBoolean(false);
 			melonBreakBlock = melonBreak.getBoolean(false);
 			safetyChocolate = safetyChoco.getBoolean(false);
+			useJapaneseCup = useJPcup.getBoolean(false);
+			allowMoisture = moisture.getBoolean(false);
 			
 			IC2exp = IC2ver.getBoolean(false);
 			TC4after405 = TC4ver.getBoolean(false);
@@ -890,6 +900,10 @@ public class DCsAppleMilk{
 		
 		//particle用テクスチャ登録
 		proxy.registerTex();
+		
+	    //Registering OreDictionary  
+		//ForgeのOreDicyionaryの登録部分をpreInitに移した
+		(new RegisterOreHandler()).register();
 	}
 
 	
@@ -974,9 +988,6 @@ public class DCsAppleMilk{
 		this.modelLargeBottle = proxy.getRenderID();
 		proxy.registerRenderers();
 	      
-	    //Registering OreDictionary  
-		//ForgeのOreDicyionaryの登録部分
-		(new RegisterOreHandler()).register();
 	    
 	    //registering TeaMaker recipe, It's still in testing yet.
 	    //ティーメーカーのレシピ数の無限化のため、専用のレシピ登録クラスを用意した
@@ -1022,6 +1033,7 @@ public class DCsAppleMilk{
 	        {
 	          this.SuccessLoadBamboo = true;
 	          (new LoadBambooHandler()).load();
+	          (new LoadModHandler()).loadBambooItems();
 	          AMTLogger.loadedModInfo("BambooMod");
 	          
 	        }
@@ -1091,6 +1103,22 @@ public class DCsAppleMilk{
 	        }
 	        catch (Exception e) {
 	        	AMTLogger.failLoadingModInfo("AndanteMod_Gummi");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
+	    if (Loader.isModLoaded("AndanteMod_ExBucket"))
+	    {
+	    	AMTLogger.loadingModInfo("AndanteMod_ExBucket");
+	    	try
+	        {
+	          this.SuccessLoadExBucket = true;
+	          (new LoadExBucketHandler()).load();
+	          AMTLogger.loadedModInfo("AndanteMod_ExBucket");
+	          
+	        }
+	        catch (Exception e) {
+	        	AMTLogger.failLoadingModInfo("AndanteMod_ExBucket");
 	          e.printStackTrace(System.err);
 	        }
 	    }
@@ -1202,6 +1230,21 @@ public class DCsAppleMilk{
 	        }
 	        catch (Exception e) {
 	        	AMTLogger.failLoadingModInfo("ExtraTrees");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
+	    if (Loader.isModLoaded("Railcraft"))
+	    {
+	    	AMTLogger.loadingModInfo("Railcraft");
+	    	try
+	        {
+	          this.SuccessLoadRC = true;
+	          (new LoadRailCraftHandler()).load();
+	          AMTLogger.loadedModInfo("Railcraft");
+	        }
+	        catch (Exception e) {
+	        	AMTLogger.failLoadingModInfo("Railcraft");
 	          e.printStackTrace(System.err);
 	        }
 	    }
