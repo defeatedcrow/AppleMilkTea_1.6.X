@@ -17,7 +17,8 @@ import mods.applemilk.handler.Util;
 
 public class BlockWoodBox extends Block{
 	
-	private static final String[] boxType = new String[] {"_oak", "_spruse", "_birch", "_jungle", "_rubber", "_great", "_silver"};
+	private static final String[] boxType = new String[] {"_oak", "_spruse", "_birch", "_jungle", "_rubber", "_great", "_silver",
+		"_force", "_sakura", "_momizi", "_JPcedar"};
 	
 	@SideOnly(Side.CLIENT)
     private Icon[] boxTex;
@@ -41,7 +42,7 @@ public class BlockWoodBox extends Block{
     public Icon getIcon(int par1, int par2)
     { 
 		int i = par2;
-		if (i > 6) i = 6;
+		if (i > 10) i = 10;
 		if (par1 == 4 || par1 == 5)
         {
         	return this.boxSideTex[i];
@@ -62,6 +63,10 @@ public class BlockWoodBox extends Block{
         par3List.add(new ItemStack(par1, 1, 4));
         par3List.add(new ItemStack(par1, 1, 5));
         par3List.add(new ItemStack(par1, 1, 6));
+        par3List.add(new ItemStack(par1, 1, 7));
+        par3List.add(new ItemStack(par1, 1, 8));
+        par3List.add(new ItemStack(par1, 1, 9));
+        par3List.add(new ItemStack(par1, 1, 10));
     }
 	
 	@Override
@@ -74,10 +79,10 @@ public class BlockWoodBox extends Block{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.boxTex = new Icon[7];
-		this.boxSideTex = new Icon[7];
+		this.boxTex = new Icon[11];
+		this.boxSideTex = new Icon[11];
 		
-        for (int i = 0; i < 7; ++i)
+        for (int i = 0; i < 11; ++i)
         {
             this.boxTex[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "WoodBox" + boxType[i]);
             this.boxSideTex[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "WoodBoxside" + boxType[i]);

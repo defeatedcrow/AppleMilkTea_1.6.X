@@ -8,6 +8,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import mods.applemilk.api.ItemAPI;
 import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -16,6 +17,8 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 /**
  * 他MOD様のアイテムの収集・管理用クラス。
+ * FMLのfindItem、又はリフレクションを使用する場合はここに集める。
+ * 各ModのAPI、あるいは単に鉱石辞書を使う場合は別のクラスを使う。
  */
 public class LoadModHandler {
 	
@@ -275,6 +278,30 @@ public class LoadModHandler {
 								 Character.valueOf('Z'), new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0),
 								 Character.valueOf('X'), registerItem}));
 			}
+			Object obj2 = Class.forName("ecru.MapleTree.mod_ecru_MapleTree").getField("mapleWood").get(null);
+			if (obj2 instanceof Block) {
+				Block maplewood = (Block)obj2;
+				ItemStack registerItem2 = new ItemStack(maplewood.blockID, 1, 0);
+				if (this.registerModItems("mapleWood", registerItem2)) {
+					AMTLogger.debugInfo("Succeeded to get mapleWood");
+				}
+				
+				GameRegistry.addRecipe(
+						 new ShapedOreRecipe(
+			    		  new ItemStack(DCsAppleMilk.woodBox, 1, 9),
+			    		  new Object[]{
+								 "XXX",
+								 "XXX",
+								 "XXX",
+								 Character.valueOf('X'), registerItem2}));
+				
+				GameRegistry.addRecipe(
+						 new ShapelessOreRecipe(
+								 new ItemStack(maplewood.blockID, 9, 0),
+			    		  new Object[]{
+						  new ItemStack(DCsAppleMilk.woodBox, 1, 9)
+							 }));
+			}
 		}
         catch (Exception e) {
         	AMTLogger.debugInfo("Failed to register ModItems");
@@ -286,8 +313,17 @@ public class LoadModHandler {
 	{
 		try
 		{
-			//何故か"rawrice", "bamboo:rawrice"等で取得できず。仕方なしにリフレクション使用。ゴザは取得できたのになんでや・・・
-			//Item item = Util.getModItem("BambooMod", "bamboo:rawrice");
+//			//なんでや・・・
+			Item item = Util.getModItem("BambooMod", "BambooMod:rawrice");
+//			if (item != null)
+//			{
+//				ItemStack registerItem = new ItemStack(item, 1, 0);
+//				if (this.registerModItems("rice", registerItem)) {
+//					OreDictionary.registerOre("cropRice", registerItem);
+//					OreDictionary.registerOre("cookingRice", registerItem);
+//					AMTLogger.debugInfo("Succeeded to get rawrice");
+//				}
+//			}
 			Object obj = Class.forName("ruby.bamboo.BambooInit").getField("rawriceIID").get(null);
 			AMTLogger.debugInfo("Current get Number : " + obj.toString());
 			if (obj != null && obj instanceof Integer ) {
@@ -298,11 +334,11 @@ public class LoadModHandler {
 					AMTLogger.debugInfo("Succeeded to get rawrice");
 				}
 			}
-			//ruby氏に申し訳ない
-			//Item item2 = Util.getModItem("BambooMod", "bamboo:straw");
+//			Item item2 = Util.getModItem("BambooMod", "bamboo:straw");
 			Object obj2 = Class.forName("ruby.bamboo.BambooInit").getField("strawIID").get(null);
 			AMTLogger.debugInfo("Current get Number : " + obj2.toString());
-			if (obj2 != null && obj2 instanceof Integer ) {
+			if (obj2 != null && obj2 instanceof Integer) {
+//			if (item2 != null) {
 				ItemStack registerItem2 = new ItemStack((Integer)obj2, 1, 0);
 				if (this.registerModItems("straw", registerItem2)) {
 					OreDictionary.registerOre("cropStraw", registerItem2);
@@ -335,8 +371,110 @@ public class LoadModHandler {
 							 });
 				}
 			}
+			Item item4 = Util.getModItem("BambooMod", "sakuraLog");
+			if (item4 != null) {
+				ItemStack registerItem4 = new ItemStack(item4, 1, 0);
+				if (this.registerModItems("sakuraWood", registerItem4)) {
+					AMTLogger.debugInfo("Succeeded to get sakuraLog");
+				}
+				
+				if (registerItem4 != null)
+				{
+					GameRegistry.addRecipe(
+							 new ShapedOreRecipe(
+				    		  new ItemStack(DCsAppleMilk.woodBox, 1, 8),
+				    		  new Object[]{
+									 "XXX",
+									 "XXX",
+									 "XXX",
+									 Character.valueOf('X'), registerItem4}));
+					
+					GameRegistry.addRecipe(
+							 new ShapelessOreRecipe(
+									 new ItemStack(item4, 9, 0),
+				    		  new Object[]{
+							  new ItemStack(DCsAppleMilk.woodBox, 1, 8)
+								 }));
+				}
+			}
 		}
         catch (Exception e) {
+        	AMTLogger.debugInfo("Failed to register ModItems");
+          e.printStackTrace(System.err);
+        }
+	}
+	
+	public void loadSugi()//SugiForest様の杉
+	{
+		try
+		{
+			Block block = Util.getModBlock("kegare.sugiforest", "woodSugi");
+			if (block != null)
+			{
+				ItemStack registerItem = new ItemStack(block, 1, 0);
+				if (this.registerModItems("sugiWood", registerItem)) {
+					AMTLogger.debugInfo("Succeeded to get woodSugi");
+				}
+				
+				if (registerItem != null)
+				{
+					GameRegistry.addRecipe(
+							 new ShapedOreRecipe(
+				    		  new ItemStack(DCsAppleMilk.woodBox, 1, 10),
+				    		  new Object[]{
+									 "XXX",
+									 "XXX",
+									 "XXX",
+									 Character.valueOf('X'), registerItem}));
+					
+					GameRegistry.addRecipe(
+							 new ShapelessOreRecipe(
+									 new ItemStack(block, 9, 0),
+				    		  new Object[]{
+							  new ItemStack(DCsAppleMilk.woodBox, 1, 10)
+								 }));
+				}
+			}
+		}
+		catch (Exception e) {
+        	AMTLogger.debugInfo("Failed to register ModItems");
+          e.printStackTrace(System.err);
+        }
+	}
+	
+	public void loadForce()//DartCraft様のアイテム取得
+	{
+		try
+		{
+			Block block = Util.getModBlock("DartCraft", "forceLog");
+			if (block != null)
+			{
+				ItemStack registerItem = new ItemStack(block, 1, 0);
+				if (this.registerModItems("forceWood", registerItem)) {
+					AMTLogger.debugInfo("Succeeded to get forceLog");
+				}
+				
+				if (registerItem != null)
+				{
+					GameRegistry.addRecipe(
+							 new ShapedOreRecipe(
+				    		  new ItemStack(DCsAppleMilk.woodBox, 1, 7),
+				    		  new Object[]{
+									 "XXX",
+									 "XXX",
+									 "XXX",
+									 Character.valueOf('X'), registerItem}));
+					
+					GameRegistry.addRecipe(
+							 new ShapelessOreRecipe(
+									 new ItemStack(block, 9, 0),
+				    		  new Object[]{
+							  new ItemStack(DCsAppleMilk.woodBox, 1, 7)
+								 }));
+				}
+			}
+		}
+		catch (Exception e) {
         	AMTLogger.debugInfo("Failed to register ModItems");
           e.printStackTrace(System.err);
         }

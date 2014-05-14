@@ -28,7 +28,7 @@ public class RenderChalcedonyLamp implements ISimpleBlockRenderingHandler{
 			RenderBlocks renderer) {
 		
 		int meta = metadata;
-		if (meta > 5)meta = 5;
+		if (meta > 11)meta = 11;
 		this.boxIcon = DCsAppleMilk.cLamp.getIcon(1, meta);
 		this.glassIcon = Block.glass.getBlockTextureFromSide(0);
 		this.Icon0 = DCsAppleMilk.cLamp.getIcon(0, meta);
@@ -37,12 +37,12 @@ public class RenderChalcedonyLamp implements ISimpleBlockRenderingHandler{
 		
 		if (modelID == this.getRenderId())
 		{
-			if (meta == 0 || meta == 1) //for normal glass lamp
+			if (meta == 0 || meta == 1 || meta == 6 || meta == 7) //for normal glass lamp
 			{
 				renderInvCuboid(renderer, block,  0.0F/16.0F, 0.0F/16.0F, 0.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F,  this.boxIcon);
 				renderInvCuboid(renderer, block,  7.0F/16.0F, 7.0F/16.0F, 7.0F/16.0F, 9.0F/16.0F, 9.0F/16.0F, 9.0F/16.0F,  this.Icon0);
 			}
-			else if (meta == 2 || meta == 3) //for inner glass lamp
+			else if (meta == 2 || meta == 3 || meta == 8 || meta == 9) //for inner glass lamp
 			{
 				renderInvCuboid(renderer, block,  0.0F/16.0F, 0.0F/16.0F, 0.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F,  this.glassIcon);
 				renderInvCuboid(renderer, block,  3.0F/16.0F, 3.0F/16.0F, 3.0F/16.0F, 13.0F/16.0F, 13.0F/16.0F, 13.0F/16.0F,  this.boxIcon);
@@ -120,7 +120,26 @@ public class RenderChalcedonyLamp implements ISimpleBlockRenderingHandler{
 				//base
 				renderInvCuboid(renderer, block,  7.0F/16.0F, 1.0F/16.0F, 7.0F/16.0F, 9.0F/16.0F, 7.0F/16.0F, 9.0F/16.0F,  this.Icon0);
 				renderInvCuboid(renderer, block,  4.0F/16.0F, 0.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F, 1.0F/16.0F, 12.0F/16.0F,  this.Icon0);
-			}		
+			}
+			else if (meta == 10 || meta == 11)
+			{
+				//たて
+				renderInvCuboid(renderer, block,  2.0F/16.0F, 2.0F/16.0F, 2.0F/16.0F, 4.0F/16.0F, 14.0F/16.0F, 4.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  2.0F/16.0F, 2.0F/16.0F, 12.0F/16.0F, 4.0F/16.0F, 14.0F/16.0F, 14.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  12.0F/16.0F, 2.0F/16.0F, 2.0F/16.0F, 14.0F/16.0F, 14.0F/16.0F, 4.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  12.0F/16.0F, 2.0F/16.0F, 12.0F/16.0F, 14.0F/16.0F, 14.0F/16.0F, 14.0F/16.0F,  this.boxIcon);
+				
+				//よこ
+				renderInvCuboid(renderer, block,  2.0F/16.0F, 2.0F/16.0F, 4.0F/16.0F, 4.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  12.0F/16.0F, 2.0F/16.0F, 4.0F/16.0F, 14.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  4.0F/16.0F, 2.0F/16.0F, 2.0F/16.0F, 12.0F/16.0F, 4.0F/16.0F, 4.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  4.0F/16.0F, 2.0F/16.0F, 12.0F/16.0F, 12.0F/16.0F, 4.0F/16.0F, 14.0F/16.0F,  this.boxIcon);
+				
+				renderInvCuboid(renderer, block,  2.0F/16.0F, 12.0F/16.0F, 4.0F/16.0F, 4.0F/16.0F, 14.0F/16.0F, 12.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  12.0F/16.0F, 12.0F/16.0F, 4.0F/16.0F, 14.0F/16.0F, 14.0F/16.0F, 12.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  4.0F/16.0F, 12.0F/16.0F, 2.0F/16.0F, 12.0F/16.0F, 14.0F/16.0F, 4.0F/16.0F,  this.boxIcon);
+				renderInvCuboid(renderer, block,  4.0F/16.0F, 12.0F/16.0F, 12.0F/16.0F, 12.0F/16.0F, 14.0F/16.0F, 14.0F/16.0F,  this.boxIcon);
+			}
 		}
 		
 	}
@@ -130,7 +149,7 @@ public class RenderChalcedonyLamp implements ISimpleBlockRenderingHandler{
 			Block block, int modelId, RenderBlocks renderer) {
 		
 		int meta = world.getBlockMetadata(x, y, z);
-		if (meta > 5)meta = 5;
+		if (meta > 11)meta = 11;
 		this.boxIcon = DCsAppleMilk.cLamp.getIcon(1, meta);
 		this.glassIcon = Block.glass.getBlockTextureFromSide(0);
 		this.Icon0 = DCsAppleMilk.setAltTexturePass > 1 ? DCsAppleMilk.teppann.getBlockTextureFromSide(0) : 
@@ -140,7 +159,7 @@ public class RenderChalcedonyLamp implements ISimpleBlockRenderingHandler{
 		
 		if (modelId == this.getRenderId())
 		{
-			if (meta == 0 || meta == 1)
+			if (meta == 0 || meta == 1 || meta == 6 || meta == 7)
 			{
 				renderer.setOverrideBlockTexture(this.boxIcon);
 				block.setBlockBounds(0.0F/16.0F, 0.0F/16.0F, 0.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F);
@@ -152,7 +171,7 @@ public class RenderChalcedonyLamp implements ISimpleBlockRenderingHandler{
 				renderer.setRenderBoundsFromBlock(block);
 				renderer.renderStandardBlock(block, x, y, z);
 			}
-			else if (meta == 2 || meta == 3)
+			else if (meta == 2 || meta == 3 || meta == 8 || meta == 9)
 			{
 				renderer.setOverrideBlockTexture(this.glassIcon);
 				block.setBlockBounds(0.0F/16.0F, 0.0F/16.0F, 0.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F, 16.0F/16.0F);
@@ -407,6 +426,72 @@ public class RenderChalcedonyLamp implements ISimpleBlockRenderingHandler{
 				//base
 				renderer.setOverrideBlockTexture(this.Icon0);
 				block.setBlockBounds(7.5F/16.0F, 1.0F/16.0F, 7.5F/16.0F, 8.5F/16.0F, 7.0F/16.0F, 8.5F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+				renderer.setOverrideBlockTexture(this.Icon0);
+				block.setBlockBounds(4.0F/16.0F, 0.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F, 1.0F/16.0F, 12.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+			}
+			else if (meta == 10 || meta == 11)
+			{
+				if (DCsAppleMilk.setAltTexturePass == 1)
+				{
+					renderer.setOverrideBlockTexture(this.boxIcon);
+					block.setBlockBounds(2.0F/16.0F, 2.0F/16.0F, 2.0F/16.0F, 4.0F/16.0F, 14.0F/16.0F, 4.0F/16.0F);
+					renderer.setRenderBoundsFromBlock(block);
+					renderer.renderStandardBlock(block, x, y, z);
+					renderer.setOverrideBlockTexture(this.boxIcon);
+					block.setBlockBounds(2.0F/16.0F, 2.0F/16.0F, 12.0F/16.0F, 4.0F/16.0F, 14.0F/16.0F, 14.0F/16.0F);
+					renderer.setRenderBoundsFromBlock(block);
+					renderer.renderStandardBlock(block, x, y, z);
+					renderer.setOverrideBlockTexture(this.boxIcon);
+					block.setBlockBounds(12.0F/16.0F, 2.0F/16.0F, 2.0F/16.0F, 14.0F/16.0F, 14.0F/16.0F, 4.0F/16.0F);
+					renderer.setRenderBoundsFromBlock(block);
+					renderer.renderStandardBlock(block, x, y, z);
+					renderer.setOverrideBlockTexture(this.boxIcon);
+					block.setBlockBounds(12.0F/16.0F, 2.0F/16.0F, 12.0F/16.0F, 14.0F/16.0F, 14.0F/16.0F, 14.0F/16.0F);
+					renderer.setRenderBoundsFromBlock(block);
+					renderer.renderStandardBlock(block, x, y, z);
+					
+					renderer.setOverrideBlockTexture(this.boxIcon);
+					block.setBlockBounds(2.0F/16.0F, 2.0F/16.0F, 4.0F/16.0F, 4.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F);
+					renderer.setRenderBoundsFromBlock(block);
+					renderer.renderStandardBlock(block, x, y, z);
+					renderer.setOverrideBlockTexture(this.boxIcon);
+					block.setBlockBounds(12.0F/16.0F, 2.0F/16.0F, 4.0F/16.0F, 14.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F);
+					renderer.setRenderBoundsFromBlock(block);
+					renderer.renderStandardBlock(block, x, y, z);
+					renderer.setOverrideBlockTexture(this.boxIcon);
+					block.setBlockBounds(4.0F/16.0F, 2.0F/16.0F, 2.0F/16.0F, 12.0F/16.0F, 4.0F/16.0F, 4.0F/16.0F);
+					renderer.setRenderBoundsFromBlock(block);
+					renderer.renderStandardBlock(block, x, y, z);
+					renderer.setOverrideBlockTexture(this.boxIcon);
+					block.setBlockBounds(4.0F/16.0F, 2.0F/16.0F, 12.0F/16.0F, 12.0F/16.0F, 4.0F/16.0F, 14.0F/16.0F);
+					renderer.setRenderBoundsFromBlock(block);
+					renderer.renderStandardBlock(block, x, y, z);
+					
+					renderer.setOverrideBlockTexture(this.boxIcon);
+					block.setBlockBounds(2.0F/16.0F, 12.0F/16.0F, 4.0F/16.0F, 4.0F/16.0F, 14.0F/16.0F, 12.0F/16.0F);
+					renderer.setRenderBoundsFromBlock(block);
+					renderer.renderStandardBlock(block, x, y, z);
+					renderer.setOverrideBlockTexture(this.boxIcon);
+					block.setBlockBounds(12.0F/16.0F, 12.0F/16.0F, 4.0F/16.0F, 14.0F/16.0F, 14.0F/16.0F, 12.0F/16.0F);
+					renderer.setRenderBoundsFromBlock(block);
+					renderer.renderStandardBlock(block, x, y, z);
+					renderer.setOverrideBlockTexture(this.boxIcon);
+					block.setBlockBounds(4.0F/16.0F, 12.0F/16.0F, 2.0F/16.0F, 12.0F/16.0F, 14.0F/16.0F, 4.0F/16.0F);
+					renderer.setRenderBoundsFromBlock(block);
+					renderer.renderStandardBlock(block, x, y, z);
+					renderer.setOverrideBlockTexture(this.boxIcon);
+					block.setBlockBounds(4.0F/16.0F, 12.0F/16.0F, 12.0F/16.0F, 12.0F/16.0F, 14.0F/16.0F, 14.0F/16.0F);
+					renderer.setRenderBoundsFromBlock(block);
+					renderer.renderStandardBlock(block, x, y, z);
+				}
+				
+				//base
+				renderer.setOverrideBlockTexture(this.Icon0);
+				block.setBlockBounds(7.5F/16.0F, 1.0F/16.0F, 7.5F/16.0F, 8.5F/16.0F, 3.0F/16.0F, 8.5F/16.0F);
 				renderer.setRenderBoundsFromBlock(block);
 				renderer.renderStandardBlock(block, x, y, z);
 				renderer.setOverrideBlockTexture(this.Icon0);

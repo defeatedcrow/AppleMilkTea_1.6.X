@@ -1,6 +1,7 @@
 package mods.applemilk.handler;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.MathHelper;
@@ -96,9 +97,21 @@ public class Util {
 	
 	//FMLの機能を利用した他MOD様のアイテム取得メソッド。
 	//protectedにする意味は正直あんまりない。
+	//そもそもこのメソッドの存在意義がない
 	protected static Item getModItem(String modId, String name)
 	{
 		Item ret = GameRegistry.findItem(modId, name);
+		if (ret != null) {
+			return ret;
+		}
+		else {
+			return null;
+		}
+	}
+	
+	protected static Block getModBlock(String modId, String name)
+	{
+		Block ret = GameRegistry.findBlock(modId, name);
 		if (ret != null) {
 			return ret;
 		}

@@ -1,5 +1,6 @@
-package mods.applemilk.common;
+package mods.applemilk.event;
 
+import mods.applemilk.common.DCsAppleMilk;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;

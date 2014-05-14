@@ -17,6 +17,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.src.*;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -77,13 +78,14 @@ public class BlockChalcedony extends BlockBreakable{
 	@SideOnly(Side.CLIENT)
     public Icon getIcon(int par1, int par2)
     { 
-		return color[par2 & 1];
+		int i = MathHelper.clamp_int(par2, 0, 2);
+		return color[i];
     }
 	
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
-		for(int i = 0; i < 2; ++i)
+		for(int i = 0; i < 3; ++i)
 		{
 			par3List.add(new ItemStack(this, 1, i));
 		}
@@ -93,12 +95,13 @@ public class BlockChalcedony extends BlockBreakable{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.color = new Icon[2];
+		this.color = new Icon[3];
 		
-        for (int i = 0; i < 2; ++i)
+        for (int i = 0; i < 3; ++i)
         {
             if (i == 0) this.color[i] = par1IconRegister.registerIcon("applemilk:chalcedony");
-            else this.color[i] = par1IconRegister.registerIcon("applemilk:chalcedony_orange");
+            else if (i == 1) this.color[i] = par1IconRegister.registerIcon("applemilk:chalcedony_orange");
+            else this.color[i] = par1IconRegister.registerIcon("applemilk:chalcedony_white");
         	
         }
 		

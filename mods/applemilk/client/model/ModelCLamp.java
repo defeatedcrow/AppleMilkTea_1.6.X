@@ -32,6 +32,33 @@ public class ModelCLamp extends ModelBase
     ModelRenderer blade21;
     ModelRenderer blade22;
     ModelRenderer blade23;
+    
+    ModelRenderer side1;
+    ModelRenderer side2;
+    ModelRenderer side3;
+    ModelRenderer side4;
+    ModelRenderer inner1;
+    ModelRenderer inner2;
+    ModelRenderer barB1;
+    ModelRenderer barB2;
+    ModelRenderer barB3;
+    ModelRenderer barB4;
+    ModelRenderer barB5;
+    ModelRenderer barB6;
+    ModelRenderer barF1;
+    ModelRenderer barF2;
+    ModelRenderer barF3;
+    ModelRenderer barF4;
+    ModelRenderer barF5;
+    ModelRenderer barF6;
+    ModelRenderer barR1;
+    ModelRenderer barR2;
+    ModelRenderer barR3;
+    ModelRenderer barR4;
+    ModelRenderer barL1;
+    ModelRenderer barL2;
+    ModelRenderer barL3;
+    ModelRenderer barL4;
   
   public ModelCLamp()
   {
@@ -163,8 +190,166 @@ public class ModelCLamp extends ModelBase
       blade23.setTextureSize(64, 32);
       blade23.mirror = true;
       setRotation(blade23, -0.5410521F, -2.234021F, 0F);
+      
+      side1 = new ModelRenderer(this, 0, 0);
+      side1.addBox(-6F, -2F, -6F, 2, 14, 2);
+      side1.setRotationPoint(0F, 10F, 0F);
+      side1.setTextureSize(64, 32);
+      side1.mirror = true;
+      setRotation(side1, 0F, 0F, 0F);
+      side2 = new ModelRenderer(this, 0, 0);
+      side2.addBox(4F, -2F, -6F, 2, 14, 2);
+      side2.setRotationPoint(0F, 10F, 0F);
+      side2.setTextureSize(64, 32);
+      side2.mirror = true;
+      setRotation(side2, 0F, 0F, 0F);
+      side3 = new ModelRenderer(this, 0, 0);
+      side3.addBox(-6F, -2F, 4F, 2, 14, 2);
+      side3.setRotationPoint(0F, 10F, 0F);
+      side3.setTextureSize(64, 32);
+      side3.mirror = true;
+      setRotation(side3, 0F, 0F, 0F);
+      side4 = new ModelRenderer(this, 0, 0);
+      side4.addBox(4F, -2F, 4F, 2, 14, 2);
+      side4.setRotationPoint(0F, 10F, 0F);
+      side4.setTextureSize(64, 32);
+      side4.mirror = true;
+      setRotation(side4, 0F, 0F, 0F);
+      inner1 = new ModelRenderer(this, 32, 0);
+      inner1.addBox(-4F, -2F, -4F, 8, 14, 8);
+      inner1.setRotationPoint(0F, 10F, 0F);
+      inner1.setTextureSize(64, 32);
+      inner1.mirror = true;
+      setRotation(inner1, 0F, 0F, 0F);
+      inner2 = new ModelRenderer(this, 32, 0);
+      inner2.addBox(-3.5F, 0F, -3.5F, 7, 13, 7);
+      inner2.setRotationPoint(0F, 8.5F, 0F);
+      inner2.setTextureSize(64, 32);
+      inner2.mirror = true;
+      setRotation(inner2, 0F, 0F, 0F);
+      barL1 = new ModelRenderer(this, 0, 0);
+      barL1.addBox(4F, 0F, -9F, 1, 10, 1);
+      barL1.setRotationPoint(0F, 2F, 0F);
+      barL1.setTextureSize(64, 32);
+      barL1.mirror = true;
+      setRotation(barL1, 1.047198F, 0F, 0F);
+      barL2 = new ModelRenderer(this, 0, 0);
+      barL2.addBox(4F, 0F, 8F, 1, 10, 1);
+      barL2.setRotationPoint(0F, 2F, 0F);
+      barL2.setTextureSize(64, 32);
+      barL2.mirror = true;
+      setRotation(barL2, -1.047198F, 0F, 0F);
+      barL3 = new ModelRenderer(this, 0, 0);
+      barL3.addBox(4F, 0F, -9F, 1, 10, 1);
+      barL3.setRotationPoint(0F, 8F, 0F);
+      barL3.setTextureSize(64, 32);
+      barL3.mirror = true;
+      setRotation(barL3, 1.047198F, 0F, 0F);
+      barL4 = new ModelRenderer(this, 0, 0);
+      barL4.addBox(4F, 0F, 8F, 1, 10, 1);
+      barL4.setRotationPoint(0F, 8F, 0F);
+      barL4.setTextureSize(64, 32);
+      barL4.mirror = true;
+      setRotation(barL4, -1.047198F, 0F, 0F);
+      barR1 = new ModelRenderer(this, 0, 0);
+      barR1.addBox(-5F, 0F, 8F, 1, 10, 1);
+      barR1.setRotationPoint(0F, 2F, 0F);
+      barR1.setTextureSize(64, 32);
+      barR1.mirror = true;
+      setRotation(barR1, -1.047198F, 0F, 0F);
+      barR2 = new ModelRenderer(this, 0, 0);
+      barR2.addBox(-5F, 0F, -9F, 1, 10, 1);
+      barR2.setRotationPoint(0F, 2F, 0F);
+      barR2.setTextureSize(64, 32);
+      barR2.mirror = true;
+      setRotation(barR2, 1.047198F, 0F, 0F);
+      barR3 = new ModelRenderer(this, 0, 0);
+      barR3.addBox(-5F, 0F, 8F, 1, 10, 1);
+      barR3.setRotationPoint(0F, 8F, 0F);
+      barR3.setTextureSize(64, 32);
+      barR3.mirror = true;
+      setRotation(barR3, -1.047198F, 0F, 0F);
+      barR4 = new ModelRenderer(this, 0, 0);
+      barR4.addBox(-5F, 0F, -9F, 1, 10, 1);
+      barR4.setRotationPoint(0F, 8F, 0F);
+      barR4.setTextureSize(64, 32);
+      barR4.mirror = true;
+      setRotation(barR4, 1.047198F, 0F, 0F);
+      barF1 = new ModelRenderer(this, 0, 0);
+      barF1.addBox(4F, 0F, 0F, 1, 6, 1);
+      barF1.setRotationPoint(0F, 8F, 0F);
+      barF1.setTextureSize(64, 32);
+      barF1.mirror = true;
+      setRotation(barF1, -1.047198F, 1.570796F, 0F);
+      barF2 = new ModelRenderer(this, 0, 0);
+      barF2.addBox(4F, 0F, -1F, 1, 6, 1);
+      barF2.setRotationPoint(0F, 8F, 0F);
+      barF2.setTextureSize(64, 32);
+      barF2.mirror = true;
+      setRotation(barF2, 1.047198F, 1.570796F, 0F);
+      barF3 = new ModelRenderer(this, 0, 0);
+      barF3.addBox(4F, 0F, -9F, 1, 10, 1);
+      barF3.setRotationPoint(0F, 5F, 0F);
+      barF3.setTextureSize(64, 32);
+      barF3.mirror = true;
+      setRotation(barF3, 1.047198F, 1.570796F, 0F);
+      barF4 = new ModelRenderer(this, 0, 0);
+      barF4.addBox(4F, 0F, 8F, 1, 10, 1);
+      barF4.setRotationPoint(0F, 5F, 0F);
+      barF4.setTextureSize(64, 32);
+      barF4.mirror = true;
+      setRotation(barF4, -1.047198F, 1.570796F, 0F);
+      barF5 = new ModelRenderer(this, 0, 0);
+      barF5.addBox(4F, 0F, -9F, 1, 5, 1);
+      barF5.setRotationPoint(0F, 11F, 0F);
+      barF5.setTextureSize(64, 32);
+      barF5.mirror = true;
+      setRotation(barF5, 1.047198F, 1.570796F, 0F);
+      barF6 = new ModelRenderer(this, 0, 0);
+      barF6.addBox(4F, 0F, 9F, 1, 6, 1);
+      barF6.setRotationPoint(0F, 10F, 0F);
+      barF6.setTextureSize(64, 32);
+      barF6.mirror = true;
+      setRotation(barF6, -1.047198F, 1.570796F, 0F);
+      barB1 = new ModelRenderer(this, 0, 0);
+      barB1.addBox(-5F, 0F, -1F, 1, 6, 1);
+      barB1.setRotationPoint(0F, 8F, 0F);
+      barB1.setTextureSize(64, 32);
+      barB1.mirror = true;
+      setRotation(barB1, 1.047198F, 1.570796F, 0F);
+      barB2 = new ModelRenderer(this, 0, 0);
+      barB2.addBox(-5F, 0F, 0F, 1, 6, 1);
+      barB2.setRotationPoint(0F, 8F, 0F);
+      barB2.setTextureSize(64, 32);
+      barB2.mirror = true;
+      setRotation(barB2, -1.047198F, 1.570796F, 0F);
+      barB3 = new ModelRenderer(this, 0, 0);
+      barB3.addBox(-5F, 0F, 8F, 1, 10, 1);
+      barB3.setRotationPoint(0F, 5F, 0F);
+      barB3.setTextureSize(64, 32);
+      barB3.mirror = true;
+      setRotation(barB3, -1.047198F, 1.570796F, 0F);
+      barB4 = new ModelRenderer(this, 0, 0);
+      barB4.addBox(-5F, 0F, -9F, 1, 10, 1);
+      barB4.setRotationPoint(0F, 5F, 0F);
+      barB4.setTextureSize(64, 32);
+      barB4.mirror = true;
+      setRotation(barB4, 1.047198F, 1.570796F, 0F);
+      barB5 = new ModelRenderer(this, 0, 0);
+      barB5.addBox(-5F, 0F, 9F, 1, 6, 1);
+      barB5.setRotationPoint(0F, 10F, 0F);
+      barB5.setTextureSize(64, 32);
+      barB5.mirror = true;
+      setRotation(barB5, -1.047198F, 1.570796F, 0F);
+      barB6 = new ModelRenderer(this, 0, 0);
+      barB6.addBox(-5F, 0F, -10F, 1, 6, 1);
+      barB6.setRotationPoint(0F, 10F, 0F);
+      barB6.setTextureSize(64, 32);
+      barB6.mirror = true;
+      setRotation(barB6, 1.047198F, 1.570796F, 0F);
   }
   
+  //通常色の部分
   public void render (Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7, byte b0)
   {
 	  super.render(par1Entity, par2, par3, par4, par5, par6, par7);
@@ -184,6 +369,7 @@ public class ModelCLamp extends ModelBase
 	  }
   }
   
+  //半透明かつ、明るい色
   public void renderLucent(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7, byte b0)
   {
 	  super.render(par1Entity, par2, par3, par4, par5, par6, par7);
@@ -204,8 +390,13 @@ public class ModelCLamp extends ModelBase
 	  {
 		  this.sphere.render(par7);
 	  }
+	  else if (b0 == 10)
+	  {
+		  this.inner1.render(par7);
+	  }
   }
   
+  //不透明、明るい色
   public void renderGlow(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7, byte b0)
   {
 	  super.render(par1Entity, par2, par3, par4, par5, par6, par7);
@@ -219,6 +410,34 @@ public class ModelCLamp extends ModelBase
 	  else if (b0 == 5)
 	  {
 		  this.sphere2.render(par7);
+	  }
+	  else if (b0 == 10)
+	  {
+		  this.inner2.render(par7);
+		  this.side1.render(par7);
+		  this.side2.render(par7);
+		  this.side3.render(par7);
+		  this.side4.render(par7);
+		  this.barB1.render(par7);
+		  this.barB2.render(par7);
+		  this.barB3.render(par7);
+		  this.barB4.render(par7);
+		  this.barF1.render(par7);
+		  this.barF2.render(par7);
+		  this.barF3.render(par7);
+		  this.barF4.render(par7);
+		  this.barL1.render(par7);
+		  this.barL2.render(par7);
+		  this.barL3.render(par7);
+		  this.barL4.render(par7);
+		  this.barB5.render(par7);
+		  this.barB6.render(par7);
+		  this.barR1.render(par7);
+		  this.barR2.render(par7);
+		  this.barR3.render(par7);
+		  this.barR4.render(par7);
+		  this.barF5.render(par7);
+		  this.barF6.render(par7);
 	  }
   }
   

@@ -193,7 +193,15 @@ public class ItemBlockTeaCup2 extends EdibleItemBlock{
             s = s + " (" + Potion.getDurationString(effect) + ")";
         }
 		
-		par3List.add(s);
+        if (l == 4)//ライムジュースのみ
+        {
+        	par3List.add("Clear negative potioneffect");
+        }
+        else
+        {
+        	par3List.add(s);
+        }
+		
 	}
 	
 	private void addSSMoisture(int par1, float par2, EntityPlayer par3EntityPlayer)

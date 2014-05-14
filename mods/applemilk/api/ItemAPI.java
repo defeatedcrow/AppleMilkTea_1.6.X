@@ -109,6 +109,10 @@ public class ItemAPI {
 	 * chalcedony stone cutter		: chalcedonyHammer
 	 * fire starter					: firestarter
 	 * 
+	 * (magical items)
+	 * 
+	 * princess clam                : princessClam & princessclam:0, charm(flower):1, charm(butterfly):2, charm(wind):3, charm(moon):4
+	 * 
 	 * 
 	 * Values of blockName & metadata
 	 * 
@@ -116,9 +120,10 @@ public class ItemAPI {
 	 * 
 	 * log boxes					: woodBox & oak:0, spruce:1, birch:2, jungle:3, 
 	 * 											(IC2)rubber:4, (TC4)great wood:5, (TC4)silver wood:6
+	 *                                          (DartCraft)forceLog:7, (Bamboo)sakuraLog:8, (MapleTree)mapleLog:9, (SugiForest)sugiLog:10
 	 * apple box					: appleBox
 	 * charcoal container			: charcoalContainer
-	 * another container			: gunpowderContainer & gunpowder:1, Kayaku:1, clay:2
+	 * another container			: gunpowderContainer & gunpowder:1, Kayaku:1, clay:2, clam:3
 	 * vegetable bags				: vegiBag & tea leaves:0, potato:1, carrot:2, pumpkin:3, seed:4, reed:5,
 	 * 								:			cactus:6, cocoa:7, nether wart:8, sugar:9
 	 * mushroom block				: mushroomBox & red:0, brown:1
@@ -166,13 +171,14 @@ public class ItemAPI {
 	 * (generated on world)
 	 * sapling of tea				: saplingTea
 	 * tea tree						: teaTree & normal:0, grown:1
-	 * clam in sand					: clamSand
+	 * clam in sand					: clamSand & normal:0, declined:1, princess:2
 	 * 
 	 * (chalcedony)
 	 * 
 	 * flint block					: flintBlock
-	 * chalcedony block				: chalcedoy & blue:0, orange:1
-	 * chalcedony lamp				: cLamp & blue:0, orange:1, glass_blue:2, glass_orange:3, candlestick:4, tablelamp:6
+	 * chalcedony block				: chalcedoy & blue:0, orange:1, white:2
+	 * chalcedony lamp				: cLamp & blue:0, orange:1, glass_blue:2, glass_orange:3, candlestick:4, table lamp:5,
+	 *                                        white:6, glass_white:8, cube lamp:10
 	 * 
 	 * 
 	 */

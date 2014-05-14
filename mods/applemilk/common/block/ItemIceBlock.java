@@ -130,7 +130,7 @@ public class ItemIceBlock extends EdibleItemBlock{
             {
                 --itemstack.stackSize;
             }
-        	if (!player.inventory.addItemStackToInventory(ret))
+        	if (ret != null && !player.inventory.addItemStackToInventory(ret))
 	    	{
 	    		player.entityDropItem(ret, 1);
 	    	}

@@ -19,6 +19,7 @@ public class TileEntityCLampRenderer extends TileEntitySpecialRenderer
 {
     private static final ResourceLocation DTex = new ResourceLocation("applemilk:textures/entity/x32/lamp_embrion.png");
     private static final ResourceLocation RTex = new ResourceLocation("applemilk:textures/entity/x32/lamp_R13A.png");
+    private static final ResourceLocation GTex = new ResourceLocation("applemilk:textures/entity/x32/lamp_markIII.png");
     public static TileEntityCLampRenderer lampRenderer;
     private ModelCLamp lampModel = new ModelCLamp();
 
@@ -52,6 +53,9 @@ public class TileEntityCLampRenderer extends TileEntitySpecialRenderer
         else if (l == 5){
         	this.bindTexture(RTex);
             model.render((Entity)null, 0.0F, 0.0F, 0.0F, l, 0.0F, 0.0625F);
+        }
+        else if (l == 10){
+        	this.bindTexture(GTex);
         }
         
         GL11.glPushMatrix();

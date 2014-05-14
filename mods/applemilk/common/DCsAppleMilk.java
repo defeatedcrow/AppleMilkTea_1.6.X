@@ -9,8 +9,10 @@ import mods.applemilk.api.RegisteredRecipeGet;
 import mods.applemilk.client.*;
 import mods.applemilk.common.block.*;
 import mods.applemilk.common.entity.EntityMelonBomb;
+import mods.applemilk.common.entity.VillagerCafe;
 import mods.applemilk.common.item.*;
 import mods.applemilk.common.tile.*;
+import mods.applemilk.event.*;
 import mods.applemilk.handler.*;
 import mods.applemilk.handler.economy.*;
 import mods.applemilk.handler.recipe.*;
@@ -25,6 +27,8 @@ import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.src.*;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.gen.structure.ComponentVillageHouse1;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.*;
 import cpw.mods.fml.common.*;
@@ -38,7 +42,7 @@ import cpw.mods.fml.common.registry.*;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.11f",
+		version = "1.6.2_1.12b",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry"
 		)
 @NetworkMod(
@@ -126,6 +130,8 @@ public class DCsAppleMilk{
 	public static Item  icyCrystal;
 	public static Item  wallMug;
 	public static ItemLargeBottle  itemLargeBottle;
+	public static Item  milkBottle;
+	public static Item  princessClam;
 	
 	//ポーションのインスタンス
 	public static Potion Immunization;
@@ -196,14 +202,26 @@ public class DCsAppleMilk{
 	public int itemIdIcyCrystal = 6010;
 	public int itemIdWallMug = 6012;
 	public int itemIdBottle = 6013;
+	public int itemIdMilkBottle = 6014;
+	public int itemIdPClam = 6015;
 	
+	//potionID
 	public static int pothinIDImmunity = 25;
+	
+	//entity
 	public int entityIdMelon = 0;
+	
+	//gui
 	public int guiIdAutoMaker = 1;
 	public int guiIceMaker = 2;
 	
+	//villager関連
+	public static VillagerCafe villager;
+	public static int villagerRecipeID = 15;
+	
 	//コンフィグ項目の初期設定
 	public static int teaTreeGenValue = 5;
+	public static int clamChanceValue = 5;
 	public static int setCupTexture = 1;
 	public static int setAltTexturePass = 1;
 	public static int teppannReadyTime = 30;
@@ -243,6 +261,8 @@ public class DCsAppleMilk{
 	public static boolean SuccessLoadExtraTrees = false;
 	public static boolean SuccessLoadExBucket = false;
 	public static boolean SuccessLoadRC = false;
+	public static boolean SuccessLoadSugi = false;
+	public static boolean SuccessLoadDart = false;
 	
 	public static boolean IC2exp = true;
 	public static boolean TC4after405 = true;
@@ -255,7 +275,7 @@ public class DCsAppleMilk{
 	public static boolean inClient = false;
 	public static boolean inServer = false;
 	public static boolean thirdParty = false;
-	public static boolean debugMode = true;
+	public static boolean debugMode = false;
 	
 	//新ツール属性の追加
 	public static EnumToolMaterial enumToolMaterialChalcedony;
@@ -378,12 +398,16 @@ public class DCsAppleMilk{
 			Property itemIcyC = cfg.getItem("IcyCrystal", itemIdIcyCrystal);
 			Property itemBottle = cfg.getItem("ItemLargeBottle", itemIdBottle);
 			Property itemWallMug = cfg.getItem("FilledWallMug", itemIdWallMug);
+			Property itemMilkBottle = cfg.getItem("MilkCan", itemIdMilkBottle);
+			Property itemPrincess = cfg.getItem("PrincessClam", itemIdPClam);
 			
 			Property DCpotionID = cfg.get("potionID", "Immunization", pothinIDImmunity,
 					"Set new potion ID for this mod. If you set 0, disable new potion effect.");
 			
 			Property TeaTreeValue = cfg.get("world setting", "Tea Tree Gen Probability", teaTreeGenValue,
 					"Set the generation probability of tea tree.(1-20) Default value is 5.");
+			Property ClamValue = cfg.get("world setting", "Clam Gen Probability", clamChanceValue,
+					"Set the generation probability and the increase probability of clam.(1-12) Default value is 5.");
 			Property EXRecipe = cfg.get("setting", "Use Extra Recipe", useEXRecipe,
 					"Add recipe for crafting tea tree sapling.");
 			Property noTeaTree = cfg.get("world setting", "No Gen TeaTree", notGenTeaTree,
@@ -437,6 +461,8 @@ public class DCsAppleMilk{
 					+ "1:default(x16 tex), 2:use x32 tex");
 			Property moisture = cfg.get("plugin setting", "Enable Moisture and Stamina", allowMoisture,
 					"Allow healing (or damage) to the Moisture and the Stamina gauge, for SextiarySector.");
+			Property cafeRecipe = cfg.get("entity", "New Villager ID", villagerRecipeID,
+					"Set the number of new villager ID.");
 			
 			Property IC2ver = cfg.get("plugin setting", "Use version of IC2", IC2exp,
 					"Please tell me version of IC2 you use. If you use IC2_exp, set true. If you use IC2_lf, set false.");
@@ -507,6 +533,8 @@ public class DCsAppleMilk{
 			itemIdIcyCrystal = itemIcyC.getInt();
 			itemIdBottle = itemBottle.getInt();
 			itemIdWallMug = itemWallMug.getInt();
+			itemIdMilkBottle = itemMilkBottle.getInt();
+			itemIdPClam = itemPrincess.getInt();
 			
 			pothinIDImmunity = DCpotionID.getInt();
 			teaTreeGenValue = TeaTreeValue.getInt();
@@ -515,6 +543,8 @@ public class DCsAppleMilk{
 			cupStackSize = cupStackSizeInt.getInt();
 			achievementShiftID = achievementID.getInt();
 			setAltTexturePass = texPass.getInt();
+			clamChanceValue = ClamValue.getInt();
+			villagerRecipeID = cafeRecipe.getInt();
 			
 			useEXRecipe = EXRecipe.getBoolean(false);
 			notGenTeaTree = noTeaTree.getBoolean(false);
@@ -534,6 +564,7 @@ public class DCsAppleMilk{
 			useJapaneseCup = useJPcup.getBoolean(false);
 			allowMoisture = moisture.getBoolean(false);
 			
+			
 			IC2exp = IC2ver.getBoolean(false);
 			TC4after405 = TC4ver.getBoolean(false);
 			
@@ -550,6 +581,9 @@ public class DCsAppleMilk{
 		{
 			cfg.save();
 		}
+		
+		//sound load event
+		MinecraftForge.EVENT_BUS.register(new DCsNewSound());
 		
 		//Registering
 		//Material
@@ -760,6 +794,10 @@ public class DCsAppleMilk{
 				setUnlocalizedName("defeatedcrow.clam").
 				setCreativeTab(applemilk);
 		
+		princessClam = (new ItemPrincessClam(itemIdPClam - 256)).
+				setUnlocalizedName("defeatedcrow.princessClam").
+				setCreativeTab(applemilk);
+		
 		clamSand = (new BlockClamSand(blockIdClamSand)).
 				setUnlocalizedName("defeatedcrow.clamSand").
 				setCreativeTab(applemilk);
@@ -847,6 +885,7 @@ public class DCsAppleMilk{
 		GameRegistry.registerItem(DCgrater,"defeatedcrow.grater");
 		GameRegistry.registerItem(itemLargeBottle,"defeatedcrow.itemBottle");
 		GameRegistry.registerItem(wallMug,"defeatedcrow.wallMug");
+		GameRegistry.registerItem(princessClam,"defeatedcrow.princessClam");
 		
 		GameRegistry.registerBlock(woodBox, ItemWoodBox.class, "defeatedcrow.WoodBox");
 		GameRegistry.registerBlock(appleBox, "defeatedcrow.AppleBox");
@@ -872,7 +911,7 @@ public class DCsAppleMilk{
 		GameRegistry.registerBlock(foodPlate, ItemFoodPlate.class, "defeatedcrow.foodPlate");
 		GameRegistry.registerBlock(filledPan2, ItemFilledPan2.class, "defeatedcrow.soupPan2");
 		GameRegistry.registerBlock(bowlJP, ItemBowlJP.class, "defeatedcrow.bowlJP");
-		GameRegistry.registerBlock(clamSand, "defeatedcrow.clamSand");
+		GameRegistry.registerBlock(clamSand, ItemClamSand.class, "defeatedcrow.clamSand");
 		GameRegistry.registerBlock(chopsticksBox, ItemChopsticksBox.class,  "defeatedcrow.chopsticksBox");
 		GameRegistry.registerBlock(eggBasket, ItemEggBasket.class,  "defeatedcrow.eggBasket");
 		GameRegistry.registerBlock(mushroomBox, ItemMushBox.class,  "defeatedcrow.mushroomBox");
@@ -923,6 +962,13 @@ public class DCsAppleMilk{
 		LanguageRegistry.instance().addStringLocalization("entity.compressedMelon.name", "Compressed Melon");
 		LanguageRegistry.instance().addStringLocalization("entity.compressedMelon.name", "ja_JP", "圧縮メロン");
 		
+		//Villagerの登録
+		villager = new VillagerCafe();
+		VillagerRegistry.instance().registerVillagerId(villagerRecipeID);
+		VillagerRegistry.instance().registerVillagerSkin(villagerRecipeID, new ResourceLocation(Util.getEntityTexturePassNoAlt() + "villager_cafe.png"));
+		VillagerRegistry.instance().registerVillageTradeHandler(villagerRecipeID, villager);
+		
+		
 		//Checking Server Prop.
 		//サーバーのプロパティを取得しようとして失敗した跡
 		//System.out.println("[AppleMilk]Checking server propaty.");
@@ -956,6 +1002,8 @@ public class DCsAppleMilk{
 		//Registering new event
 		//ポーション効果の内容をLivingEventで作ったのでそれの読み込み
 		MinecraftForge.EVENT_BUS.register(new DCsLivingEvent());
+		//螺鈿チャームの効果
+		MinecraftForge.EVENT_BUS.register(new EntityMoreDropEvent());
 		
 		//Registering new Render
 		//新しいレンダーIDの登録もプロキシクラス内でやる
@@ -1245,6 +1293,36 @@ public class DCsAppleMilk{
 	        }
 	        catch (Exception e) {
 	        	AMTLogger.failLoadingModInfo("Railcraft");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
+	    if (Loader.isModLoaded("kegare.sugiforest"))
+	    {
+	    	AMTLogger.loadingModInfo("kegare.sugiforest");
+	    	try
+	        {
+	          this.SuccessLoadSugi = true;
+	          (new LoadModHandler()).loadSugi();
+	          AMTLogger.loadedModInfo("kegare.sugiforest");
+	        }
+	        catch (Exception e) {
+	        	AMTLogger.failLoadingModInfo("kegare.sugiforest");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
+	    if (Loader.isModLoaded("DartCraft"))
+	    {
+	    	AMTLogger.loadingModInfo("DartCraft");
+	    	try
+	        {
+	          this.SuccessLoadDart = true;
+	          (new LoadModHandler()).loadForce();
+	          AMTLogger.loadedModInfo("DartCraft");
+	        }
+	        catch (Exception e) {
+	        	AMTLogger.failLoadingModInfo("DartCraft");
 	          e.printStackTrace(System.err);
 	        }
 	    }

@@ -1,22 +1,22 @@
 [
   {
-    "description":"",
+    "description":"Enjoy a leisurely tea time.",
     "parent":"",
     "logoFile":"",
-    "credits":"defeatedcrow",
+    "credits":"defeatedcrow, RazzleberryFox(fixed PacketHandler.class.)",
     "dependencies":[],
     "modid":"DCsAppleMilk",
     "mcversion":"1.6.2",
     "screenshots":[],
     "authorList":[
-      "defeatedcrow","RazzleberryFox(fixed PacketHandler.class.)"
+      "defeatedcrow"
     ],
-    "name":"Apple&Milk&TeaMod",
+    "name":"Apple&Milk&Tea!",
     "url":"http://forum.minecraftuser.jp/viewtopic.php?f=13&t=17657",
     "updateUrl":"",
-    "version":"1.6.2_1.11f",
+    "version":"1.6.2_1.12b",
     "requiredMods":[
-      "Minecraft Forge1.6.2 9.10.1.871"
+      "Minecraft Forge1.6.2 9.10.1.871+"
     ]
   }
 ]

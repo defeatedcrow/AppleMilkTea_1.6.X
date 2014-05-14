@@ -43,7 +43,7 @@ public class LoadIC2Handler {
                 
                 RecipeInputItemStack input2 = new RecipeInputItemStack(new ItemStack(DCsAppleMilk.leafTea, 1, 0), 1);
                 NBTTagCompound metadata2 = new NBTTagCompound();
-                metadata.setInteger("macerater", 2000);
+                metadata2.setInteger("macerater", 2000);
                 ItemStack outputs2 = new ItemStack(DCsAppleMilk.EXItems, 2, 2);
                 
                 RecipeInputItemStack input3 = new RecipeInputItemStack(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0), 1);

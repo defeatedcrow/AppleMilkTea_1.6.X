@@ -22,7 +22,7 @@ public class WorldgenClam implements IWorldGenerator {
 		
 		int chunk2X = chunkX << 4;
         int chunk2Z = chunkZ << 4;         
-        int count = DCsAppleMilk.teaTreeGenValue*2;
+        int count = DCsAppleMilk.clamChanceValue;
         
     	if ((genDim1 == 0))
     	{
@@ -34,7 +34,14 @@ public class WorldgenClam implements IWorldGenerator {
 				
 				if (world.getBlockMaterial(PosX, PosY + 1, PosZ) == Material.water && (world.getBlockId(PosX, PosY, PosZ) == Block.sand.blockID || world.getBlockId(PosX, PosY, PosZ) == Block.dirt.blockID))
 				{
-					world.setBlock(PosX, PosY, PosZ, DCsAppleMilk.clamSand.blockID, 0, 2);
+					if (world.rand.nextInt(30) == 0)
+					{
+						world.setBlock(PosX, PosY, PosZ, DCsAppleMilk.clamSand.blockID, 2, 2);
+					}
+					else
+					{
+						world.setBlock(PosX, PosY, PosZ, DCsAppleMilk.clamSand.blockID, 0, 2);
+					}
 				}
 			}
     	}

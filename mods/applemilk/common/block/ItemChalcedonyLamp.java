@@ -12,7 +12,8 @@ import net.minecraft.world.World;
 
 public class ItemChalcedonyLamp extends ItemBlock{
 	
-	private static final String[] type = new String[] {"_optionBlue", "_option", "_yazukaBlue", "_yazuka", "_legendBurst", "_force"};
+	private static final String[] type = new String[] {"_optionBlue", "_option", "_yazukaBlue", "_yazuka", "_legendBurst", "_force",
+		"_optionWhite", "optionWhite2", "_yazukaWhite", "_yazukaWhite2", "_cube", "_cube2"};
 	
 	public ItemChalcedonyLamp(int itemId)
 	{
@@ -74,7 +75,7 @@ public class ItemChalcedonyLamp extends ItemBlock{
 	public String getUnlocalizedName(ItemStack par1ItemStack)
 	{
 		int m = (par1ItemStack.getItemDamage());
-		if (m < 6) return super.getUnlocalizedName() + type[m];
+		if (m < 12) return super.getUnlocalizedName() + type[m];
 		else return super.getUnlocalizedName() + m;
 	}
 	

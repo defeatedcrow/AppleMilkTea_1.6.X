@@ -80,6 +80,7 @@ public class RegisterOreHandler {
 	    
 	    OreDictionary.registerOre("blockChalcedony", new ItemStack(DCsAppleMilk.chalcedony, 1, 0));
 	    OreDictionary.registerOre("blockChalcedony", new ItemStack(DCsAppleMilk.chalcedony, 1, 1));
+	    OreDictionary.registerOre("blockChalcedony", new ItemStack(DCsAppleMilk.chalcedony, 1, 2));
 	    
 	    OreDictionary.registerOre("toolGrater", new ItemStack(DCsAppleMilk.DCgrater));
 	    OreDictionary.registerOre("blockTeaMaker", new ItemStack(DCsAppleMilk.teaMakerNext));

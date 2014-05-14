@@ -18,7 +18,7 @@ import mods.applemilk.handler.Util;
 
 public class BlockGunpowderContainer extends Block{
 	
-	private static final String[] boxType = new String[] {"Gunpowder", "Kayaku", "Clay"};
+	private static final String[] boxType = new String[] {"Gunpowder", "Kayaku", "Clay", "Clam"};
 	
 	@SideOnly(Side.CLIENT)
     private Icon[] boxTex;
@@ -44,7 +44,7 @@ public class BlockGunpowderContainer extends Block{
     public Icon getIcon(int par1, int par2)
     { 
 		int i = par2;
-		if (i > 2) i = 2;
+		if (i > 3) i = 3;
 		if (par1 == 1)
         {
         	return this.boxTex[i];
@@ -57,12 +57,13 @@ public class BlockGunpowderContainer extends Block{
 	
 	public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
 	{
-		if (!par1World.isRemote && !DCsAppleMilk.noWetGContainer)
+		if (!par1World.isRemote)
 		{
 			super.updateTick(par1World, par2, par3, par4, par5Random);
 			
 			int meta = par1World.getBlockMetadata(par2, par3, par4);
-			if (meta < 2 && (par1World.isRaining()) && par1World.canBlockSeeTheSky(par2, par3 + 1, par4))
+			
+			if (!DCsAppleMilk.noWetGContainer && meta < 2 && (par1World.isRaining()) && par1World.canBlockSeeTheSky(par2, par3 + 1, par4))
 			{
 				if (meta == 0) par1World.setBlockMetadataWithNotify(par2, par3, par4, 1, 2);
 				else if (meta == 1) par1World.setBlockMetadataWithNotify(par2, par3, par4, 2, 2);
@@ -81,6 +82,7 @@ public class BlockGunpowderContainer extends Block{
         par3List.add(new ItemStack(par1, 1, 0));
         par3List.add(new ItemStack(par1, 1, 1));
         par3List.add(new ItemStack(par1, 1, 2));
+        par3List.add(new ItemStack(par1, 1, 3));
     }
 	
 	@Override
@@ -94,9 +96,9 @@ public class BlockGunpowderContainer extends Block{
 	public void registerIcons(IconRegister par1IconRegister)
 	{
 		this.boxSideTex = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "Container_S");
-		this.boxTex = new Icon[3];
+		this.boxTex = new Icon[4];
 		
-        for (int i = 0; i < 3; ++i)
+        for (int i = 0; i < 4; ++i)
         {
             this.boxTex[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + boxType[i] + "Container_T");
         }

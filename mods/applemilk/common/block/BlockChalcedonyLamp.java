@@ -88,7 +88,7 @@ public class BlockChalcedonyLamp extends BlockContainer{
 	public void LampBoundingBox (int par1)
 	{
 		float f = 0.125F;
-		if (par1 < 4)
+		if ((par1 < 4) || (par1 > 5 && par1 < 10))
 		{
 			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		}
@@ -204,9 +204,13 @@ public class BlockChalcedonyLamp extends BlockContainer{
 		{
 			return par1 == 1? this.color[0] : (par1 == 0 ? this.burst[0] : (par1 == 2 ? this.burst[1] : this.burst[2]));
 		}
-		else
+		else if (par2 == 5)
 		{
 			return par1 == 1? this.color[1] : (par1 == 0 ? this.force[0] : this.force[1]);
+		}
+		else
+		{
+			return this.color[2];
 		}
     }
 	
@@ -217,6 +221,9 @@ public class BlockChalcedonyLamp extends BlockContainer{
 		{
 			par3List.add(new ItemStack(this, 1, i));
 		}
+		par3List.add(new ItemStack(this, 1, 6));
+		par3List.add(new ItemStack(this, 1, 8));
+		par3List.add(new ItemStack(this, 1, 10));
     }
 	
 	@Override
@@ -238,15 +245,20 @@ public class BlockChalcedonyLamp extends BlockContainer{
         int l = par1World.getBlockMetadata(par2, par3, par4);
         int i = par1World.getBlockId(par2, par3 - 1, par2);
         double d0 = (double)((float)par2 + 0.45F + par5Random.nextFloat()/10);
-        double d1 = (double)((float)par3 + 0.45 + par5Random.nextFloat()/10);
+        double d1 = (double)((float)par3 + 0.25 + par5Random.nextFloat()/10);
         double d2 = (double)((float)par4 + 0.45F + par5Random.nextFloat()/10);
-        double d3 = 0.0299999988079071D;
+        double d3 = 0.0159999988079071D;
         double d4 = 0.27000001072883606D;
 
-        if (!DCsAppleMilk.noRenderFoodsSteam && DCsAppleMilk.setAltTexturePass == 1 && l == 4) {
-        	EntityOrbFX cloud = new EntityOrbFX(par1World, d0, d1, d2, 0.0D, d3, 0.0D);
-        	cloud.setParticleIcon(ParticleTex.getInstance().getIcon("applemilk:particle_orb"));
-			FMLClientHandler.instance().getClient().effectRenderer.addEffect(cloud);
+        if (!DCsAppleMilk.noRenderFoodsSteam && DCsAppleMilk.setAltTexturePass == 1) {
+        	
+        	if (l == 4 || l == 10)
+        	{
+        		EntityOrbFX cloud = new EntityOrbFX(par1World, d0, d1, d2, 0.0D, d3, 0.0D);
+            	cloud.setParticleIcon(ParticleTex.getInstance().getIcon("applemilk:particle_orb"));
+    			FMLClientHandler.instance().getClient().effectRenderer.addEffect(cloud);
+        	}
+        	
         }
     }
 	
@@ -254,11 +266,12 @@ public class BlockChalcedonyLamp extends BlockContainer{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.color = new Icon[2];
-        for (int i = 0; i < 2; ++i)
+		this.color = new Icon[3];
+        for (int i = 0; i < 3; ++i)
         {
             if (i == 0) this.color[i] = par1IconRegister.registerIcon("applemilk:chalcedony");
-            else this.color[i] = par1IconRegister.registerIcon("applemilk:chalcedony_orange");
+            else if (i == 1) this.color[i] = par1IconRegister.registerIcon("applemilk:chalcedony_orange");
+            else this.color[i] = par1IconRegister.registerIcon("applemilk:chalcedony_white");
         	
         }
         this.force = new Icon[2];

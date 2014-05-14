@@ -39,7 +39,7 @@ public class ItemClam extends ItemFood {
         Block block = Block.sand;
         if (i1 == Block.sand.blockID && par1ItemStack.getItemDamage() == 0)
         {
-        	par3World.setBlock(par4, par5, par6, DCsAppleMilk.clamSand.blockID);
+        	par3World.setBlock(par4, par5, par6, DCsAppleMilk.clamSand.blockID, 0, 3);
         	par3World.playSoundEffect((double)((float)par4 + 0.5F), (double)((float)par5 + 0.5F), (double)((float)par6 + 0.5F), block.stepSound.getPlaceSound(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
             --par1ItemStack.stackSize;
         	return true;
