@@ -1,6 +1,7 @@
 package mods.applemilk.client;
 
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -12,6 +13,7 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.client.model.*;
@@ -22,6 +24,7 @@ import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.entity.EntityMelonBomb;
 import mods.applemilk.common.tile.*;
 import mods.applemilk.handler.NetworkUtil;
+import mods.applemilk.handler.Util;
 import mods.applemilk.handler.nei.LoadNEIHandler;
 
 
@@ -99,6 +102,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderCocktail());
 		RenderingRegistry.registerBlockHandler(new RenderLargeBottle());
 		RenderingRegistry.registerEntityRenderingHandler(EntityMelonBomb.class, new RenderMelonBomb());
+		VillagerRegistry.instance().registerVillagerSkin(DCsAppleMilk.villagerRecipeID, new ResourceLocation(Util.getEntityTexturePassNoAlt() + "villager_cafe.png"));
 	}
 	
 	@Override

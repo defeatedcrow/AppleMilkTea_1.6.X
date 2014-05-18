@@ -38,11 +38,13 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.registry.*;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.12b",
+		version = "1.6.2_1.12d",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry"
 		)
 @NetworkMod(
@@ -965,7 +967,6 @@ public class DCsAppleMilk{
 		//Villagerの登録
 		villager = new VillagerCafe();
 		VillagerRegistry.instance().registerVillagerId(villagerRecipeID);
-		VillagerRegistry.instance().registerVillagerSkin(villagerRecipeID, new ResourceLocation(Util.getEntityTexturePassNoAlt() + "villager_cafe.png"));
 		VillagerRegistry.instance().registerVillageTradeHandler(villagerRecipeID, villager);
 		
 		

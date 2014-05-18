@@ -181,7 +181,7 @@ public class BlockClamSand extends Block
         		else
         		{
         			//消えてしまう
-        			if (!flag) par1World.setBlock(par2, par3, par4, Block.sand.blockID);
+        			if (!flag2) par1World.setBlock(par2, par3, par4, Block.sand.blockID);
         		}
         	}
         	else if (meta == 2 && flag)
@@ -204,6 +204,8 @@ public class BlockClamSand extends Block
         return 20;
     }
     
+    @SideOnly(Side.CLIENT)
+	@Override
     public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
         int l = par1World.getBlockMetadata(par2, par3, par4);
