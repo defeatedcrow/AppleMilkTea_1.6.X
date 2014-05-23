@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import mods.applemilk.common.AchievementRegister;
 import mods.applemilk.common.DCsAppleMilk;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -429,9 +430,14 @@ public class EntityMelonBomb extends Entity
             //衝突時に壊れるか
             if (this.isCollidedHorizontally && d3 > 0.3D)
             {
-                //速度0.30D以上だと爆発
+                //速度0.30D以上だとドロップ化・実績解除
             	if (!this.worldObj.isRemote && !this.isDead)
                 {
+            		if (this.riddenByEntity instanceof EntityPlayer)
+            		{
+            			EntityPlayer player = (EntityPlayer) this.riddenByEntity;
+            			player.triggerAchievement(AchievementRegister.crashMelon);
+            		}
                     this.setDead();
                     this.dropItemWithOffset(DCsAppleMilk.melonBomb.blockID, 1, 0.0F);
                 }

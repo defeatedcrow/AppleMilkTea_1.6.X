@@ -25,7 +25,7 @@ import net.minecraft.world.World;
 public class ItemWallMug extends Item{
 	
 	private static final String[] contents = new String[] {"_tea", "_green", "_cocoa", "_coffee"};
-	private static final String[] contentsFruit = new String[] {"_form", "_foam", "_nuts", "_berry"};
+	private static final String[] contentsFruit = new String[] {"_foam", "_foam", "_nuts", "_berry"};
 	
 	private static final String[] drinkType = new String[] {"Tea", "Green Tea", "Cocoa", "Coffee"};
 	private static final String[] milkType = new String[] {"None", "Milk", "Condenced Milk", "Soy"};
@@ -212,9 +212,9 @@ public class ItemWallMug extends Item{
 		int meta = par1ItemStack.getItemDamage();
 		int type = checkType(meta);
 		int milk = checkMilkType(meta);
-		int sugar = checkMilkType(meta);
-		int fruit = checkMilkType(meta);
-		int[] time = {600, 1200, 2400, 3000};
+		int sugar = checkSugarType(meta);
+		int fruit = checkFruitType(meta);
+		int[] time = {600, 1800, 3000, 5400};
 		int m = 600 + time[milk];
 		
 		if (!par2World.isRemote)

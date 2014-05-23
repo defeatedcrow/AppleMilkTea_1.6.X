@@ -53,11 +53,11 @@ public class ItemPrincessClam extends Item {
             --par1ItemStack.stackSize;
         	return true;
         }
-        else if (meta == 3)
+        else if (meta == 3)//風のチャーム
         {
         	if (par3World.isRemote)
             {
-                return false;
+                return true;
             }
             else
             {
@@ -124,7 +124,8 @@ public class ItemPrincessClam extends Item {
 						return itemstack;
 	                }
 				}
-				else if (mode == 1)//playerモード
+				
+				if (mode == 1)//playerモード
 				{
 					String name = nbt.getString("targetName");
 					EntityPlayer target = world.getPlayerEntityByName(name);
@@ -134,22 +135,23 @@ public class ItemPrincessClam extends Item {
 						int X = (int) target.posX;
 						int Y = (int) target.posY;
 						int Z = (int) target.posZ;
-						AMTLogger.debugInfo(X + "," + Y + "," + Z);
+						String DimName = target.worldObj.provider.getDimensionName();
+						AMTLogger.debugInfo(DimName + " : " + X + "," + Y + "," + Z);
 						
 						int x1 = 0;
 						int y1 = 0;
 						int z1 = 0;
 						boolean flag = false;
 						
-						for (int i = -1 ; i < 2 ; i++)
+						for (int i = 0 ; i < 3 ; i++)
 						{
-							for (int k = -1 ; k < 2 ; k++)
+							for (int k = 0 ; k < 3 ; k++)
 							{
-								if (world.isAirBlock(X + i, Y + 1, Z + k) && world.isAirBlock(X + 1, Y + 2, Z + k)
-										&& world.isBlockSolidOnSide(X + 1, Y, Z + k, ForgeDirection.UP))
+								if (world.isAirBlock(X + i - 1, Y, Z + k - 1) && world.isAirBlock(X + i - 1, Y + 1, Z + k - 1)
+										&& world.isBlockSolidOnSide(X + i - 1, Y - 1, Z + k - 1, ForgeDirection.UP))
 								{
-									x1 = X + i;
-									z1 = Z + k;
+									x1 = X + i - 1;
+									z1 = Z + k - 1;
 									y1 = Y;
 									flag = true;
 								}
@@ -158,20 +160,41 @@ public class ItemPrincessClam extends Item {
 						
 						if (flag)
 						{
-							if (!thisPlayer.playerNetServerHandler.connectionClosed && thisPlayer.worldObj == target.worldObj)
+							AMTLogger.debugInfo("Checking... " + DimName + " : " + x1 + "," + y1 + "," + z1);
+							
+							boolean connected = !thisPlayer.playerNetServerHandler.connectionClosed;
+							boolean thisWorld = thisPlayer.worldObj == world;
+							boolean sameDim = target.worldObj.provider.getDimensionName().equalsIgnoreCase(world.provider.getDimensionName());
+							
+							if (connected && thisWorld && sameDim)
 			                {
 								AMTLogger.debugInfo("warp");
 								
 								thisPlayer.setPositionAndUpdate(x1, y1 + 1, z1);
 								thisPlayer.fallDistance = 0.0F;
 								world.playSoundAtEntity(thisPlayer, "applemilk:suzu", 1.0F, 1.2F);
+								thisPlayer.addChatMessage("Succeeded to warp near the registered player : " + target.getDisplayName());
 								return itemstack;
 			                }
+							else if (!sameDim)
+							{
+								thisPlayer.addChatMessage("Fail to warp near the registered player : " + target.getDisplayName() + " is not alive in this dimention.");
+							}
+							else
+							{
+								thisPlayer.addChatMessage("Fail to get position of the registered player.");
+							}
 						}
-							
+						else
+						{
+							thisPlayer.addChatMessage("Fail to warp near the registered player : " + "Fail to get position of around " + target.getDisplayName() + ".");
+						}
 						
 					}
-					
+					else
+					{
+						thisPlayer.addChatMessage("Fail to get position of the registered player.");
+					}
 				}
 			}
 			else if (meta == 4)//moon
@@ -222,16 +245,16 @@ public class ItemPrincessClam extends Item {
 	//月チャームのワープ可能判定
 	private boolean moonCanWarp(World world, int X, int Y, int Z)
 	{
-		return (world.canBlockSeeTheSky(X, Y + 1, Z) && !world.provider.hasNoSky) ? true : (world.getBlockId(X, Y, Z) == Block.grass.blockID ? true : false);
+		return (world.canBlockSeeTheSky(X, Y + 1, Z) && !world.provider.hasNoSky) ? true : ((Y < 128 && world.getBlockId(X, Y, Z) == Block.grass.blockID) ? true : false);
 	}
 	
 	//プレイヤーに使った（マルチのみ）
 	@Override
     public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity)
     {
-		if (entity.worldObj.isRemote || entity == null || itemstack.getItemDamage() != 3)
+		if (player.worldObj.isRemote || entity == null || itemstack.getItemDamage() != 3)
         {
-            return false;
+            return true;
         }
         else
         {
@@ -241,17 +264,23 @@ public class ItemPrincessClam extends Item {
         	if (entity instanceof EntityPlayer && entity.isEntityAlive() && nbt == null)
         	{
         		EntityPlayer target = (EntityPlayer)entity;
-        		String name = target.getDisplayName();
+        		String name = target.username;
         		
-        		nbt = new NBTTagCompound();
-				
-				nbt.setByte("mode", (byte)1);
-				nbt.setString("targetName", name);
-				itemstack.setTagCompound(nbt);
-				
-				player.worldObj.playSoundAtEntity(player, "random.pop", 0.4F, 1.8F);
-				player.addChatMessage("Registered player name : " + name);
-				target.addChatMessage(player.getDisplayName() + " registered you to the Raden Charm");
+        		ItemStack targetItem = player.inventory.getCurrentItem();
+        		
+        		if (targetItem.itemID == this.itemID)
+        		{
+        			nbt = new NBTTagCompound();
+    				
+    				nbt.setByte("mode", (byte)1);
+    				nbt.setString("targetName", name);
+    				targetItem.setTagCompound(nbt);
+    				
+    				player.worldObj.playSoundAtEntity(player, "random.pop", 0.4F, 1.8F);
+    				player.addChatMessage("Registered player name : " + name);
+    				target.addChatMessage(player.getDisplayName() + " registered you to the Raden Charm");
+        		}
+        		
 				return true;
         	}
         	

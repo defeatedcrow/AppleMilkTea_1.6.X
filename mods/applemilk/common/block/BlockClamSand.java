@@ -136,18 +136,18 @@ public class BlockClamSand extends Block
         	boolean flag = par1World.getBlockId(X1, Y1, Z1) == Block.sand.blockID && par1World.getBlockMaterial(X1, Y1 + 1, Z1) == Material.water;
         	boolean flag2 = par1World.rand.nextInt(1 + chance) > par1World.rand.nextInt(1 + count);//どちらも乱数判断
         	
-        	if (meta == 0 && flag)//ハマグリ
+        	if (meta == 0)//ハマグリ
         	{
         		if (count < 6)//ふつうに増える。
         		{
-        			if (flag2)
+        			if (flag2 && flag)
                 	{
         				par1World.setBlock(X1, Y1, Z1, DCsAppleMilk.clamSand.blockID);
                 	}
         		}
         		else if (count < 9)
         		{
-        			if (flag2)
+        			if (flag2 && flag)
     				{
     					par1World.setBlock(X1, Y1, Z1, DCsAppleMilk.clamSand.blockID);
     				}
@@ -159,7 +159,7 @@ public class BlockClamSand extends Block
         		}
         		else
         		{
-        			if (flag2 && par1World.rand.nextInt(50) == 0)//超低確率
+        			if (flag2 && flag && par1World.rand.nextInt(50) == 0)//超低確率
     				{
         				//プリンセス誕生
     					par1World.setBlockMetadataWithNotify(par2, par3, par4, 2, 3);
@@ -171,9 +171,9 @@ public class BlockClamSand extends Block
     				}
         		}
         	}
-        	else if (meta == 1 && flag)
+        	else if (meta == 1)
         	{
-        		if (count < 4)//減ってきた
+        		if (count < 4 && flag)//減ってきた
         		{
         			//復活する
 					par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
