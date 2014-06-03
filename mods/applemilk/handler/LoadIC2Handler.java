@@ -17,6 +17,8 @@ public class LoadIC2Handler {
 	public static int IC2MugCoffee = 0;
 	public static int IC2dropRubber = 0;
 	public static int IC2Rum = 0;
+	
+	public static ItemStack IC2Furnace;
 
 	public void load() {
 		
@@ -27,6 +29,22 @@ public class LoadIC2Handler {
         this.IC2Mug = Items.getItem("mugEmpty").itemID;
         this.IC2MugCoffee = Items.getItem("mugCoffee").itemID;
         this.IC2dropRubber = Items.getItem("rubber").itemID;
+        this.IC2Furnace = new ItemStack(Items.getItem("ironFurnace").itemID, 1, Items.getItem("ironFurnace").getItemDamage());
+        
+        //インスタントティー用の水入り容器登録
+        if (this.IC2WaterCell != 0)
+        {
+        	if (LoadModHandler.registerModItems("containerWater", new ItemStack(IC2WaterCell, 1, 1))) {
+				AMTLogger.debugInfo("Succeeded to get IC2 water cell");
+			}
+        }
+        
+        if (this.IC2Furnace != null)
+        {
+        	if (LoadModHandler.registerModItems("furnaceBlock", this.IC2Furnace)) {
+				AMTLogger.debugInfo("Succeeded to get IC2 Iron Furnace");
+			}
+        }
         
         //以下はexp版専用のメソッド
         if (DCsAppleMilk.IC2exp)
@@ -49,8 +67,12 @@ public class LoadIC2Handler {
                 RecipeInputItemStack input3 = new RecipeInputItemStack(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0), 1);
                 ItemStack outputs3 = new ItemStack(DCsAppleMilk.EXItems, 2, 11);
                 
+                RecipeInputItemStack input4 = new RecipeInputItemStack(new ItemStack(DCsAppleMilk.clam, 1, 0), 1);
+                ItemStack outputs4 = new ItemStack(DCsAppleMilk.EXItems, 2, 12);
+                
                 Recipes.macerator.addRecipe(input2, metadata2, outputs2);
                 Recipes.macerator.addRecipe(input3, metadata2, outputs3);
+                Recipes.macerator.addRecipe(input4, metadata2, outputs4);
                 AMTLogger.debugInfo("Succeeded to register IC2machines recipe");
             }
             catch (Exception e) {

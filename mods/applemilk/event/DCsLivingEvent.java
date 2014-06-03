@@ -10,6 +10,10 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 
 public class DCsLivingEvent {
 	
+	private int remain = 0;//カウントダウン用
+	private int type = 0;
+	private static boolean remaining;
+	
 	@ForgeSubscribe
 	  public void onLivingUpdate(LivingEvent.LivingUpdateEvent event)
 	  {
@@ -38,7 +42,7 @@ public class DCsLivingEvent {
 							player.removePotionEffect(Potion.hunger.id);
 						}
 					}
-					else if (potion != null && amp > 0)
+					else if (potion != null && amp == 1)
 					{
 						//レベル1の時
 						//同じことを毒とウィザーで行う
@@ -51,6 +55,23 @@ public class DCsLivingEvent {
 							player.removePotionEffect(Potion.wither.id);
 						}
 					}
+				}
+				
+				if (this.remain > 0 && this.remaining)
+				{
+					this.remain--;
+					
+					if (this.remain == 0)
+					{
+						player.addChatMessage("remain : 0");
+						this.remaining = false;
+					}
+				}
+				
+				if (!player.isEntityAlive())//生存確認
+				{
+					this.remain = 0;
+					this.remaining = false;
 				}
 			}
 		}

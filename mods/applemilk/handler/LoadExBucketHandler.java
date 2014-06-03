@@ -21,7 +21,7 @@ public class LoadExBucketHandler {
 			Item item = Util.getModItem("AndanteMod_ExBucket", "ExBucket:WoodenBucketMilk");
 			if (item != null) {
 				woodenBucketMilk = new ItemStack(item, 1, 0);
-				if (LoadModHandler.registerModItems("WBucketMilk", woodenBucketMilk)) {
+				if (LoadModHandler.registerModItems("containerMilk", woodenBucketMilk)) {
 					AMTLogger.debugInfo("Succeeded to get WoodenBucketMIlk");
 				}
 				
@@ -102,7 +102,7 @@ public class LoadExBucketHandler {
 			Item item2 = Util.getModItem("AndanteMod_ExBucket", "ExBucket:GoldenBucketMilk");
 			if (item2 != null) {
 				goldenBucketMilk = new ItemStack(item2, 1, 32767);
-				if (LoadModHandler.registerModItems("GBucketMIlk", goldenBucketMilk)) {
+				if (LoadModHandler.registerModItems("containerMilk", goldenBucketMilk)) {
 					AMTLogger.debugInfo("Succeeded to get GoldenBucketMilk");
 				}
 				
@@ -177,6 +177,19 @@ public class LoadExBucketHandler {
 					    		  goldenBucketMilk,
 					    		  "foodCrushedIce"
 								 }));
+				}
+			}
+			//以下は別のレシピ用の水バケツ
+			Item item3 = Util.getModItem("AndanteMod_ExBucket", "ExBucket:WoodenBucketWater");
+			if (item3 != null) {
+				if (LoadModHandler.registerModItems("containerWater", new ItemStack(item3, 1, 0))) {
+					AMTLogger.debugInfo("Succeeded to get WoodenBucketWater");
+				}
+			}
+			Item item4 = Util.getModItem("AndanteMod_ExBucket", "ExBucket:GoldenBucketWater");
+			if (item4 != null) {
+				if (LoadModHandler.registerModItems("containerWater", new ItemStack(item4, 1, 32767))) {
+					AMTLogger.debugInfo("Succeeded to get GoldenBucketWater");
 				}
 			}
 		}

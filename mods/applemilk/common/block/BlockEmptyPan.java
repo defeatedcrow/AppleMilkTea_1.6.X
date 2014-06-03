@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileChocoPan;
 import mods.applemilk.common.tile.TilePanHandle;
+import mods.applemilk.handler.LoadModHandler;
 import mods.applemilk.handler.Util;
 
 public class BlockEmptyPan extends BlockContainer{
@@ -83,7 +84,7 @@ public class BlockEmptyPan extends BlockContainer{
         	int IDm = itemstack.getItemDamage();
         	int setMeta = this.getMakerMeta(ID, IDm);
         	
-        	if ((setMeta > 0) && (bottomBlockID == Block.furnaceBurning.blockID || block instanceof BlockFurnace))
+        	if ((setMeta > 0) && (this.onFurnace(par1World, par2, par3 - 1, par4)))
     		{
     			this.setPanMeta(par1World, par2, par3, par4, par5EntityPlayer, itemstack, setMeta);
     			par5EntityPlayer.triggerAchievement(AchievementRegister.makeRice);
@@ -95,6 +96,25 @@ public class BlockEmptyPan extends BlockContainer{
     		}
         }
     }
+	
+	private boolean onFurnace(World world, int x , int y, int z)
+	{
+		int ID = world.getBlockId(x, y, z);
+		int meta = world.getBlockMetadata(x, y, z);
+		ItemStack underBlock = new ItemStack(ID, 1, meta);
+		
+		if (ID == Block.furnaceBurning.blockID || ID == Block.furnaceIdle.blockID) {
+			return true;
+		}
+		else if (LoadModHandler.matchItem("furnaceBlock", underBlock)) {
+			return true;
+		}
+		else if (world.getBlockMaterial(x, y, z) == Material.fire) {
+			return true;
+		}
+		
+		return false;
+	}
 	
 	private int getMakerMeta (int ID, int meta)
 	{

@@ -25,6 +25,9 @@ public class ModelIceCream extends ModelBase
     ModelRenderer green;
     ModelRenderer berry;
     ModelRenderer lime;
+    ModelRenderer red;
+    ModelRenderer grape;
+    ModelRenderer mint;
   
   public ModelIceCream()
   {
@@ -125,6 +128,24 @@ public class ModelIceCream extends ModelBase
       lime.setTextureSize(64, 32);
       lime.mirror = true;
       setRotation(lime, 0F, 0F, 0F);
+      red = new ModelRenderer(this, 48, 9);
+      red.addBox(-2F, 0F, -2F, 4, 3, 4);
+      red.setRotationPoint(0F, 16F, 0F);
+      red.setTextureSize(64, 32);
+      red.mirror = true;
+      setRotation(red, 0F, 0F, 0F);
+      grape = new ModelRenderer(this, 48, 16);
+      grape.addBox(-2F, 0F, -2F, 4, 3, 4);
+      grape.setRotationPoint(0F, 16F, 0F);
+      grape.setTextureSize(64, 32);
+      grape.mirror = true;
+      setRotation(grape, 0F, 0F, 0F);
+      mint = new ModelRenderer(this, 48, 23);
+      mint.addBox(-2F, 0F, -2F, 4, 3, 4);
+      mint.setRotationPoint(0F, 16F, 0F);
+      mint.setTextureSize(64, 32);
+      mint.mirror = true;
+      setRotation(mint, 0F, 0F, 0F);
   }
   
   public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5, byte b0)
@@ -132,14 +153,17 @@ public class ModelIceCream extends ModelBase
     super.render(entity, f, f1, f2, f3, f4, f5);
     
     if (b0 == 0) white.render(f5);
-    else if (b0 == 1 || b0 == 8) orange.render(f5);
+    else if (b0 == 1) orange.render(f5);
     else if (b0 == 2) green.render(f5);
     else if (b0 == 3) cocoa.render(f5);
     else if (b0 == 4) brown.render(f5);
     else if (b0 == 5) pink.render(f5);
     else if (b0 == 6) yellow.render(f5);
     else if (b0 == 7) lime.render(f5);
+    else if (b0 == 8) red.render(f5);
     else if (b0 == 9) berry.render(f5);
+    else if (b0 == 10) grape.render(f5);
+    else if (b0 == 11) mint.render(f5);
   }
   
   public void renderClear (Entity entity, float f, float f1, float f2, float f3, float f4, float f5, byte b0)

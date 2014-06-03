@@ -309,101 +309,6 @@ public class LoadModHandler {
         }
 	}
 	
-	public void loadBambooItems()//BambooMod様のアイテムのうち、鉱石辞書登録されていないものはココを使う
-	{
-		try
-		{
-//			//なんでや・・・
-			Item item = Util.getModItem("BambooMod", "BambooMod:rawrice");
-//			if (item != null)
-//			{
-//				ItemStack registerItem = new ItemStack(item, 1, 0);
-//				if (this.registerModItems("rice", registerItem)) {
-//					OreDictionary.registerOre("cropRice", registerItem);
-//					OreDictionary.registerOre("cookingRice", registerItem);
-//					AMTLogger.debugInfo("Succeeded to get rawrice");
-//				}
-//			}
-			Object obj = Class.forName("ruby.bamboo.BambooInit").getField("rawriceIID").get(null);
-			AMTLogger.debugInfo("Current get Number : " + obj.toString());
-			if (obj != null && obj instanceof Integer ) {
-				ItemStack registerItem = new ItemStack((Integer)obj, 1, 0);
-				if (this.registerModItems("rice", registerItem)) {
-					OreDictionary.registerOre("cropRice", registerItem);
-					OreDictionary.registerOre("cookingRice", registerItem);
-					AMTLogger.debugInfo("Succeeded to get rawrice");
-				}
-			}
-//			Item item2 = Util.getModItem("BambooMod", "bamboo:straw");
-			Object obj2 = Class.forName("ruby.bamboo.BambooInit").getField("strawIID").get(null);
-			AMTLogger.debugInfo("Current get Number : " + obj2.toString());
-			if (obj2 != null && obj2 instanceof Integer) {
-//			if (item2 != null) {
-				ItemStack registerItem2 = new ItemStack((Integer)obj2, 1, 0);
-				if (this.registerModItems("straw", registerItem2)) {
-					OreDictionary.registerOre("cropStraw", registerItem2);
-					AMTLogger.debugInfo("Succeeded to get straw");
-					
-					GameRegistry.addRecipe(
-						 new ItemStack(DCsAppleMilk.Basket, 1),
-						 new Object[]{
-							 "X X",
-							 "X X",
-							 "XXX",
-							 Character.valueOf('X'), registerItem2
-						 });
-				}
-			}
-			Item item3 = Util.getModItem("BambooMod", "decoCarpet");
-			if (item3 != null) {
-				ItemStack registerItem3 = new ItemStack(item3, 1, 0);
-				if (this.registerModItems("strawCarpet", registerItem3)) {
-					AMTLogger.debugInfo("Succeeded to get decoCarpet");
-				}
-				
-				if (this.getItem("straw") != null)
-				{
-					GameRegistry.addRecipe(
-							 registerItem3,
-							 new Object[]{
-								 "XXX",
-								 Character.valueOf('X'), this.getItem("straw")
-							 });
-				}
-			}
-			Item item4 = Util.getModItem("BambooMod", "sakuraLog");
-			if (item4 != null) {
-				ItemStack registerItem4 = new ItemStack(item4, 1, 0);
-				if (this.registerModItems("sakuraWood", registerItem4)) {
-					AMTLogger.debugInfo("Succeeded to get sakuraLog");
-				}
-				
-				if (registerItem4 != null)
-				{
-					GameRegistry.addRecipe(
-							 new ShapedOreRecipe(
-				    		  new ItemStack(DCsAppleMilk.woodBox, 1, 8),
-				    		  new Object[]{
-									 "XXX",
-									 "XXX",
-									 "XXX",
-									 Character.valueOf('X'), registerItem4}));
-					
-					GameRegistry.addRecipe(
-							 new ShapelessOreRecipe(
-									 new ItemStack(item4, 9, 0),
-				    		  new Object[]{
-							  new ItemStack(DCsAppleMilk.woodBox, 1, 8)
-								 }));
-				}
-			}
-		}
-        catch (Exception e) {
-        	AMTLogger.debugInfo("Failed to register ModItems");
-          e.printStackTrace(System.err);
-        }
-	}
-	
 	public void loadSugi()//SugiForest様の杉
 	{
 		try
@@ -527,6 +432,18 @@ public class LoadModHandler {
 	
 	/**
      * Stringを引数にしてアイテムを取得。
+     * Stringは他MOD様とは無関係な当MOD専用の登録名。
+     * 失敗時にはnullを返す。
+     */
+	public static ArrayList<ItemStack> getArray(String name)
+	{
+		ArrayList<ItemStack> ret = modItems.get(name);
+		if (ret != null && !ret.isEmpty()) return ret;
+		else return null;
+	}
+	
+	/**
+     * Stringを引数にしてアイテムを取得。
      * こちらは登録されたItemStackのうち一つをランダムに返す。
      * 失敗時にはnullを返す。
      */
@@ -538,6 +455,29 @@ public class LoadModHandler {
 			return ret.get(random);
 		}
 		else return (ItemStack)null;
+	}
+	
+	/**
+     * Stringを引数にしてアイテムを取得し、
+     * targetのアイテムと同一かどうかを返すメソッド。
+     * 登録済みアイテムのいずれかと一致すればtrueを返す。
+     */
+	public static boolean matchItem(String name, ItemStack target)
+	{
+		ArrayList<ItemStack> ret = modItems.get(name);
+		boolean flag = false;
+		
+		if (ret == null || ret.isEmpty()) return false;
+		
+		for (ItemStack items : ret)
+		{
+			if (items.itemID == target.itemID && (items.getItemDamage() == target.getItemDamage())) {
+				flag = true;
+				break;
+			}
+		}
+		
+		return flag;
 	}
 	
 	/**

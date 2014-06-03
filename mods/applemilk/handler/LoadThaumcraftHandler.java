@@ -14,12 +14,15 @@ public class LoadThaumcraftHandler {
 	
 	public static int thaumicSilverwood = 0;
 	public static int thaumicGreatwood = 0;
+	public static ItemStack thaumicNitor;
 	
 	public void load()
 	{
 		//TC4apiの機能でアイテムを取得
 		this.thaumicGreatwood = ItemApi.getBlock("blockMagicalLog", 0).itemID;
 		this.thaumicSilverwood = ItemApi.getBlock("blockMagicalLog", 1).itemID;
+		
+		this.thaumicNitor = new ItemStack(ItemApi.getBlock("blockAiry", 1).itemID, 1, 1);
 		
 		//相の設定。4.0.5以降にしか対応していない。
 		if (DCsAppleMilk.TC4after405)
@@ -143,6 +146,13 @@ public class LoadThaumcraftHandler {
 						 "UUU",
 						 Character.valueOf('U'), new ItemStack(LoadThaumcraftHandler.thaumicSilverwood, 1, 1)
 					 });
-		}  
+		}
+		
+		if (this.thaumicNitor != null)
+		{
+			if (LoadModHandler.registerModItems("furnaceBlock", this.thaumicNitor)){
+				AMTLogger.debugInfo("Succeeded to get Nitor.");
+			}
+		}
 	}
 }

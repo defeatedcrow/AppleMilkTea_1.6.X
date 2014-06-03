@@ -43,7 +43,8 @@ public class TileEntityBottleRenderer extends TileEntitySpecialRenderer
     {
         ModelLargeBottle model = this.bottleModel;
         byte l = (byte)(par0Tile.getBlockMetadata()& 15);
-        int rem = (par0Tile.getRemainShort() >> 4) & 7;
+        short remShort = par0Tile.getRemainShort();
+        int rem = par0Tile.getRemainClient();
         
         if (l < 8) {
         	String texPass = new String (Util.getEntityTexturePassNoAlt() + "largebottle" + type[l] + ".png");

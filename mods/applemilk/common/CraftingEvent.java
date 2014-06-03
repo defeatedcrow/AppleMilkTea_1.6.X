@@ -1,5 +1,7 @@
 package mods.applemilk.common;
 
+import java.util.ArrayList;
+
 import mods.applemilk.handler.LoadModHandler;
 import mods.applemilk.handler.LoadSSectorHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,25 +49,43 @@ public class CraftingEvent implements ICraftingHandler {
 			}
 		}
 		
+		ArrayList<ItemStack> rets = new ArrayList<ItemStack>();
+		
 		for (int i = 0; i < 9 ; i++)
 		{
 			ItemStack m = craftMatrix.getStackInSlot(i);
 			if (m != null && (m.itemID == DCsAppleMilk.teacupBlock.blockID || m.itemID == DCsAppleMilk.teaCup2.blockID)) {
-				if (!player.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.emptyCup,1,0)))
-	        	{
-	        		player.dropPlayerItem(new ItemStack(DCsAppleMilk.emptyCup,1,0));
-	        	}
+				rets.add(new ItemStack(DCsAppleMilk.emptyCup,1,0));
 			}
 			else if (m != null && DCsAppleMilk.SuccessLoadSSector && 
 					(m.itemID == LoadSSectorHandler.rumBottle.itemID || m.itemID == LoadSSectorHandler.ginBottle.itemID 
 					|| m.itemID == LoadSSectorHandler.beerBottle.itemID || m.itemID == LoadSSectorHandler.sakeBottle.itemID)) {
-				if (!player.inventory.addItemStackToInventory(new ItemStack(LoadSSectorHandler.emptyBottle.itemID, 1, 0)))
+				rets.add(new ItemStack(LoadSSectorHandler.emptyBottle.itemID, 1, 0));
+			}
+			else if (m != null && m.itemID == DCsAppleMilk.itemLargeBottle.itemID && m.getItemDamage() > 0) {
+				int type = m.getItemDamage() & 15;
+				int rem = (m.getItemDamage() >> 4) & 7;
+				if (type > 0)
+				{
+					rem--;
+					if (rem < 0){
+						rem = 0;
+						type = 0;
+					}
+					int next = (rem << 4) + type;
+					rets.add(new ItemStack(DCsAppleMilk.itemLargeBottle.itemID, 1, next));
+				}
+			}
+		}
+		if (!rets.isEmpty()) {
+			for (ItemStack ret : rets)
+			{
+				if (!player.inventory.addItemStackToInventory(ret))
 	        	{
-	        		player.dropPlayerItem(new ItemStack(LoadSSectorHandler.emptyBottle.itemID, 1, 0));
+	        		player.dropPlayerItem(ret);
 	        	}
 			}
 		}
-		
 	}
 
 	@Override

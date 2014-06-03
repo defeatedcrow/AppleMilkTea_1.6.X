@@ -1,5 +1,6 @@
 package mods.applemilk.common.block;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -11,6 +12,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,7 +31,7 @@ import mods.applemilk.common.tile.TileIceCream;
 
 public class BlockIceCream extends BlockContainer{
 	
-	private static final String[] contents = new String[] {"_milk", "_tea_milk", "_greentea_milk", "_cocoa", "_cocoa_milk", "_juice", "_lemon", "_lime", "_tomato", "_berry"};
+	private static final String[] contents = new String[] {"_milk", "_tea_milk", "_greentea_milk", "_cocoa", "_cocoa_milk", "_juice", "_lemon", "_lime", "_tomato", "_berry", "_grape", "_mint"};
 	
 	@SideOnly(Side.CLIENT)
     private Icon boxTex;
@@ -67,7 +69,15 @@ public class BlockIceCream extends BlockContainer{
         {
         	if (!par1World.isRemote)
     		{
-        		par5EntityPlayer.addPotionEffect(this.effectOnEaten(currentMeta));
+        		if (this.effectOnEaten(currentMeta) != null) {
+        			par5EntityPlayer.addPotionEffect(this.effectOnEaten(currentMeta));
+        		}
+        		else if (currentMeta == 4) {
+        			ItemBlockTeaCup2.clearNegativePotion(par5EntityPlayer);
+        		}
+        		else if (currentMeta == 11) {
+        			this.increaseAmplifier(par5EntityPlayer);
+        		}
     		}
         	
         	par1World.setBlockToAir(par2, par3, par4);
@@ -90,6 +100,19 @@ public class BlockIceCream extends BlockContainer{
         	return false;
         }
     }
+	
+	protected static void increaseAmplifier(EntityLivingBase living)
+	{
+		Iterator current = living.getActivePotionEffects().iterator();
+		int increase = 1;
+		
+		while (current.hasNext())
+        {
+            PotionEffect potioneffect = (PotionEffect)current.next();
+            boolean flag = potioneffect.getPotionID() != Potion.regeneration.id && potioneffect.getAmplifier() < 10;
+            if (flag) living.addPotionEffect(new PotionEffect(potioneffect.getPotionID(), potioneffect.getDuration(), potioneffect.getAmplifier() + increase));
+        }
+	}
 	
 	public PotionEffect effectOnEaten(int meta) {
 		
@@ -125,9 +148,17 @@ public class BlockIceCream extends BlockContainer{
 		{
 			return new PotionEffect(Potion.damageBoost.id, 900, 0);
 		}
-		else//berry
+		else if (meta == 9)//berry
 		{
 			return new PotionEffect(Potion.resistance.id, 900, 1);
+		}
+		else if (meta == 10)//grape
+		{
+			return new PotionEffect(Potion.moveSpeed.id, 900, 0);
+		}
+		else//mint
+		{
+			return null;
 		}
 	}
 	
@@ -193,7 +224,7 @@ public class BlockIceCream extends BlockContainer{
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
-		for(int i = 0; i < 10; ++i)
+		for(int i = 0; i < 12; ++i)
 		{
 			par3List.add(new ItemStack(this, 1, i));
 		}
@@ -210,8 +241,8 @@ public class BlockIceCream extends BlockContainer{
 	public void registerIcons(IconRegister par1IconRegister)
 	{
 		this.boxTex = par1IconRegister.registerIcon("applemilk:blueglass");
-		this.contentsTex = new Icon[10];
-        for (int i = 0; i < 10; ++i)
+		this.contentsTex = new Icon[12];
+        for (int i = 0; i < 12; ++i)
         {
         	this.contentsTex[i] = par1IconRegister.registerIcon("applemilk:contents" + contents[i]);
         }

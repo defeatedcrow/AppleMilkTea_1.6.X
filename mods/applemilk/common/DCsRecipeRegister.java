@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
+import mods.applemilk.handler.LoadModHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class DCsRecipeRegister {
 	
 	private Item rubberWood;
+	private ArrayList<ItemStack> waterContainer = new ArrayList<ItemStack>();
 	
 	public void addRecipe()
 	{
@@ -152,7 +154,7 @@ public class DCsRecipeRegister {
 		 
 		 for(int i = 0; i < 10; i++)
 		 {
-			 ItemStack itemStack = new ItemStack(DCsAppleMilk.leafTea,9);
+			 ItemStack itemStack = new ItemStack(DCsAppleMilk.leafTea,9, 0);
 			 if (i == 1) itemStack = new ItemStack(Item.potato,9);
 			 else if (i == 2) itemStack = new ItemStack(Item.carrot,9);
 			 else if (i == 3) itemStack = new ItemStack(Block.pumpkin,9);
@@ -162,7 +164,7 @@ public class DCsRecipeRegister {
 			 else if (i == 7) itemStack = new ItemStack(Item.dyePowder,9,3);
 			 else if (i == 8) itemStack = new ItemStack(Item.netherStalkSeeds,9);
 			 else if (i == 9) itemStack = new ItemStack(Item.sugar,9);
-			 else itemStack = new ItemStack(DCsAppleMilk.leafTea,9);
+			 else itemStack = new ItemStack(DCsAppleMilk.leafTea,9, 0);
 			 
 			 GameRegistry.addShapelessRecipe(
 		    		  itemStack,
@@ -1563,18 +1565,23 @@ public class DCsRecipeRegister {
 		 
 		 //extended vanilla recipe
 		 GameRegistry.addShapelessRecipe(
-	    		  new ItemStack(DCsAppleMilk.EXItems,1,1),
+	    		  new ItemStack(DCsAppleMilk.EXItems, 1, 1),
 	    			  new ItemStack(Item.leather,1));
 		 
 		 GameRegistry.addShapelessRecipe(
-	    		  new ItemStack(Block.pistonStickyBase,1),
+	    		  new ItemStack(Block.pistonStickyBase, 1),
 	    			  new ItemStack(DCsAppleMilk.EXItems,1,1),
 	    			  new ItemStack(Block.pistonBase,1));
 		 
 		 GameRegistry.addShapelessRecipe(
-	    		  new ItemStack(Item.dyePowder,1,2),
+	    		  new ItemStack(Item.dyePowder, 1, 2),
 	    			  new ItemStack(DCsAppleMilk.DCgrater,1,32767),
-	    			  new ItemStack(DCsAppleMilk.leafTea, 1));
+	    			  new ItemStack(DCsAppleMilk.leafTea, 1, 0));
+		 
+		 GameRegistry.addShapelessRecipe(
+	    		  new ItemStack(DCsAppleMilk.EXItems, 1, 12),
+	    			  new ItemStack(DCsAppleMilk.DCgrater,1,32767),
+	    			  new ItemStack(DCsAppleMilk.clam, 1, 0));
 		 
 		 GameRegistry.addRecipe(
 				 new ItemStack(Item.leash,1),
@@ -1611,11 +1618,6 @@ public class DCsRecipeRegister {
 	    		  0F);
 	      
 	      GameRegistry.addSmelting(
-	    		  DCsAppleMilk.leafTea.itemID,
-	    		  new ItemStack(DCsAppleMilk.EXItems, 1,2),
-	    		  0.1F);
-	      
-	      GameRegistry.addSmelting(
 	    		  DCsAppleMilk.flintBlock.blockID,
 	    		  new ItemStack(DCsAppleMilk.chalcedony, 1, 0),
 	    		  0.5F);
@@ -1625,6 +1627,9 @@ public class DCsRecipeRegister {
 	    		  new ItemStack(Item.netherQuartz, 1),
 	    		  0.5F);
 	      
+	      FurnaceRecipes.smelting().addSmelting(DCsAppleMilk.leafTea.itemID, 0,
+	    		  new ItemStack(DCsAppleMilk.EXItems, 1, 2), 0.2F);
+	      
 	      FurnaceRecipes.smelting().addSmelting(DCsAppleMilk.clam.itemID, 0,
 	    		  new ItemStack(DCsAppleMilk.clam, 1, 1), 0.2F);
 	      
@@ -1633,5 +1638,120 @@ public class DCsRecipeRegister {
 	      
 	      FurnaceRecipes.smelting().addSmelting(DCsAppleMilk.EXItems.itemID, 11,
 	    		  new ItemStack(Block.glass,1, 0), 0.2F);
+	}
+	
+	/*この部分は、複数のModの水入り容器を取得した後に呼び出すため、postInitに呼ぶ
+	 * 水入り容器の取得はLoadModHandlerを利用*/
+	public void addInstantTea() {
+		
+		this.waterContainer.add(new ItemStack(Item.bucketWater, 1, 0));
+		
+		if (LoadModHandler.getArray("containerWater") != null && !LoadModHandler.getArray("containerWater").isEmpty()){
+			this.waterContainer.addAll(LoadModHandler.getArray("containerWater"));
+		}
+		
+		for (ItemStack water : waterContainer)
+		{
+		
+		GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.teacupBlock, 1, 4),//greentea
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+		    		  water,
+		    		  new ItemStack(DCsAppleMilk.EXItems, 1, 2)
+					 }));
+		
+		GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.teacupBlock, 1, 2),//tea
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  water,
+		    		  new ItemStack(DCsAppleMilk.EXItems, 1, 3)
+					 }));
+		
+		GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.teacupBlock, 1, 6),//cocoa
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  water,
+		    		  new ItemStack(Item.dyePowder, 1, 3)
+					 }));
+		
+		GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.teacupBlock, 1, 8),//juice
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  water,
+		    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 0)
+					 }));
+		
+		GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.teacupBlock, 1, 8),//juice
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  water,
+		    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 1)
+					 }));
+		
+		GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.teacupBlock, 1, 10),//lemon
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  water,
+		    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 2)
+					 }));
+		
+		GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.teacupBlock, 1, 12),//coffee
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  water,
+		    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 3)
+					 }));
+		
+		GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.wallMug, 1, 1),//greentea
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.EXItems, 1, 10),
+	    			  water,
+		    		  new ItemStack(DCsAppleMilk.EXItems, 1, 2)
+					 }));
+		
+		GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.wallMug, 1, 0),//tea
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.EXItems, 1, 10),
+	    			  water,
+		    		  new ItemStack(DCsAppleMilk.EXItems, 1, 3)
+					 }));
+		
+		GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.wallMug, 1, 2),//cocoa
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.EXItems, 1, 10),
+	    			  water,
+		    		  new ItemStack(Item.dyePowder, 1, 3)
+					 }));
+		
+		GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.wallMug, 1, 3),//coffee
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.EXItems, 1, 10),
+	    			  water,
+		    		  new ItemStack(DCsAppleMilk.gratedApple, 1, 3)
+					 }));
+		}
+		
 	}
 }

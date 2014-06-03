@@ -28,7 +28,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 
-public class ItemLargeBottle extends Item implements ICraftingHandler {
+public class ItemLargeBottle extends Item{
 	
 	private static final String[] contents = new String[] {"empty", "sake", "beer", "wine", "gin", "rum", "vodka", "whiskey",
 		"milk", "soy", "sugar", "maple", "honey", "nuts", "berryjam"};
@@ -246,49 +246,6 @@ public class ItemLargeBottle extends Item implements ICraftingHandler {
 		int m = par1 >> 4;//右にシフト。16から1へ。
         m = (m & 7);//16、32、64の桁をチェック
 		return m;
-	}
-	
-	public boolean doesContainerItemLeaveCraftingGrid(ItemStack par1ItemStack){
-		return false;
-	}
-	
-	public boolean hasContainerItem(){
-		return !repair;
-	}
-	
-	public ItemStack getContainerItemStack(ItemStack itemStack)
-	{
-		ItemStack ret = new ItemStack(this, 1, 0);
-		int damage = itemStack.getItemDamage();
-		if(itemStack != null && itemStack.itemID == this.itemID)
-		{
-			int rem = this.checkRemain(damage);
-			int type = this.checkType(damage);
-			
-			if (type > 0 && rem > 0) {
-				
-				rem--;//減らす
-				int newDamage = rem << 4;//左に4シフト
-				newDamage = newDamage + type;//新しいダメージ値
-				
-				itemStack.setItemDamage(newDamage);
-				ret = itemStack.copy();
-			}
-		}
-		return ret;
-	}
-	
-	@Override
-	public void onCrafting(EntityPlayer player, ItemStack item,
-			IInventory craftMatrix) {
-		if (this.itemID == item.itemID) repair = true;//完成品が同じIDかどうか。空容器への充填を判定する。
-		else if (item.itemID == DCsAppleMilk.Basket.blockID) repair = true;
-	}
-
-	@Override
-	public void onSmelting(EntityPlayer player, ItemStack item) {
-		if (this.itemID == item.itemID) repair = true;//完成品が同じIDかどうか。空容器への充填を判定する。
-		else if (item.itemID == DCsAppleMilk.Basket.blockID) repair = true;
 	}
 	
 	//以下はサブタイプやアイコン登録など

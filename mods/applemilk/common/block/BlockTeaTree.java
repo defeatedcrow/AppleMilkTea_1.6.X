@@ -59,9 +59,9 @@ public class BlockTeaTree extends Block implements IPlantable{
         {
         	if (meta == 1)
         	{
-        		if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.leafTea,1)))
+        		if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.leafTea, 1, 0)))
         		{
-        			par5EntityPlayer.entityDropItem(new ItemStack(DCsAppleMilk.leafTea,1), 1);
+        			par5EntityPlayer.entityDropItem(new ItemStack(DCsAppleMilk.leafTea, 1, 0), 1);
         		}
         		
         		par5EntityPlayer.triggerAchievement(AchievementRegister.getTeaLeaves);
@@ -77,9 +77,9 @@ public class BlockTeaTree extends Block implements IPlantable{
         }
         else if (meta == 1 && itemstack.itemID == DCsAppleMilk.leafTea.itemID)
         {
-        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.leafTea,1)))
+        	if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(DCsAppleMilk.leafTea, 1, 0)))
         	{
-        		par5EntityPlayer.entityDropItem(new ItemStack(DCsAppleMilk.leafTea,1), 1);
+        		par5EntityPlayer.entityDropItem(new ItemStack(DCsAppleMilk.leafTea, 1, 0), 1);
         	}
         	par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
     		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);

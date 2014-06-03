@@ -72,6 +72,9 @@ public class RegisterMakerRecipe {
 	    
 	    TeaRecipe.register(new ItemStack(DCsAppleMilk.gratedApple, 1, 8), new ItemStack(DCsAppleMilk.teaCup2, 1, 8),
 	    		new String("applemilk:textures/blocks/contents_grape.png"));
+	    
+	    TeaRecipe.register(new ItemStack(DCsAppleMilk.leafTea, 1, 1), new ItemStack(DCsAppleMilk.teaCup2, 1, 9),
+	    		new String("applemilk:textures/blocks/contents_mint.png"));
 	}
 	
 	public void registerIce()
@@ -108,6 +111,12 @@ public class RegisterMakerRecipe {
 				new ItemStack(DCsAppleMilk.emptyCup, 1, 0));
 		
 		IceRecipe.registerCanLeave(new ItemStack(DCsAppleMilk.teaCup2, 1, 7), new ItemStack(DCsAppleMilk.blockIcecream, 1, 9),
+				new ItemStack(DCsAppleMilk.emptyCup, 1, 0));
+		
+		IceRecipe.registerCanLeave(new ItemStack(DCsAppleMilk.teaCup2, 1, 8), new ItemStack(DCsAppleMilk.blockIcecream, 1, 10),
+				new ItemStack(DCsAppleMilk.emptyCup, 1, 0));
+		
+		IceRecipe.registerCanLeave(new ItemStack(DCsAppleMilk.teaCup2, 1, 9), new ItemStack(DCsAppleMilk.blockIcecream, 1, 11),
 				new ItemStack(DCsAppleMilk.emptyCup, 1, 0));
 		
 		IceRecipe.registerCanLeave(new ItemStack(DCsAppleMilk.itemLargeBottle.itemID, 1, 1), new ItemStack(DCsAppleMilk.cocktail, 1, 1),

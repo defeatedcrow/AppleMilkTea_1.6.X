@@ -170,7 +170,7 @@ public class ItemPrincessClam extends Item {
 			                {
 								AMTLogger.debugInfo("warp");
 								
-								thisPlayer.setPositionAndUpdate(x1, y1 + 1, z1);
+								thisPlayer.setPositionAndUpdate(x1, y1, z1);
 								thisPlayer.fallDistance = 0.0F;
 								world.playSoundAtEntity(thisPlayer, "applemilk:suzu", 1.0F, 1.2F);
 								thisPlayer.addChatMessage("Succeeded to warp near the registered player : " + target.getDisplayName());

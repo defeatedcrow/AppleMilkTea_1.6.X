@@ -25,7 +25,7 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class ItemIceBlock extends EdibleItemBlock{
 	
-	private static final String[] type = new String[] {"_milk", "_tea", "_greentea", "_cocoa", "_coffee", "_fruit", "_lemon", "_lime", "_tomato", "_berry"};
+	private static final String[] type = new String[] {"_milk", "_tea", "_greentea", "_cocoa", "_coffee", "_fruit", "_lemon", "_lime", "_tomato", "_berry", "_grape", "_mint"};
 	
 	public ItemIceBlock(int itemId)
 	{
@@ -38,7 +38,7 @@ public class ItemIceBlock extends EdibleItemBlock{
 	public String getUnlocalizedName(ItemStack par1ItemStack)
 	{
 		int m = (par1ItemStack.getItemDamage());
-		if (m < 10) return super.getUnlocalizedName() + type[m];
+		if (m < 12) return super.getUnlocalizedName() + type[m];
 		else return super.getUnlocalizedName() + m;
 	}
 	
@@ -63,6 +63,11 @@ public class ItemIceBlock extends EdibleItemBlock{
     		else if (BiomeDictionary.isBiomeOfType(biome, Type.JUNGLE) || BiomeDictionary.isBiomeOfType(biome, Type.DESERT)) {
     			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 1, 2));
     		}
+			
+			if (par1ItemStack.getItemDamage() == 11)//mint
+			{
+				BlockIceCream.increaseAmplifier(par3EntityPlayer);
+			}
 		}
 		
 		return super.onEaten(par1ItemStack, par2World, par3EntityPlayer);
@@ -103,9 +108,17 @@ public class ItemIceBlock extends EdibleItemBlock{
 		{
 			return new PotionEffect(Potion.damageBoost.id, 900, 0);
 		}
-		else//berry
+		else if (meta == 9)//berry
 		{
 			return new PotionEffect(Potion.resistance.id, 900, 1);
+		}
+		else if (meta == 10)//grape
+		{
+			return new PotionEffect(Potion.moveSpeed.id, 900, 0);
+		}
+		else//mint
+		{
+			return null;
 		}
 	}
 	
@@ -122,8 +135,9 @@ public class ItemIceBlock extends EdibleItemBlock{
         	PotionEffect effect = this.effectOnEaten(meta);
         	ItemStack ret = this.getReturnContainer(meta);
         	
-        	entity.addPotionEffect(effect);
+        	if (effect != null)entity.addPotionEffect(effect);
         	if (meta == 7) entity.clearActivePotions();
+        	if (meta == 11) BlockIceCream.increaseAmplifier(entity);
         	entity.worldObj.playSoundAtEntity(entity, "random.pop", 0.4F, 1.8F);
         	
         	if (!player.capabilities.isCreativeMode)
@@ -153,6 +167,11 @@ public class ItemIceBlock extends EdibleItemBlock{
 		if (l == 7)
 		{
 			String s = "cure bad status";
+			par3List.add(s);
+		}
+		else if (l == 11)
+		{
+			String s = "Increase amplifier of current potion effect. (+1)";
 			par3List.add(s);
 		}
 		else

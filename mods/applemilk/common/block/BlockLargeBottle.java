@@ -143,7 +143,7 @@ public class BlockLargeBottle extends BlockContainer{
         	}
         	return false;
         }
-        else if (itemstack.itemID == DCsAppleMilk.wallMug.itemID)//wallmug
+        else if (itemstack.itemID == DCsAppleMilk.wallMug.itemID)//wallmugのカスタマイズ
         {
         	short i = tile.getRemainShort();
         	int type = checkBottleType(i);

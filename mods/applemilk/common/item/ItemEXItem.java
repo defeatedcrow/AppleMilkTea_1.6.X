@@ -8,6 +8,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.creativetab.CreativeTabs;
@@ -35,7 +36,7 @@ public class ItemEXItem extends Item {
 	@SideOnly(Side.CLIENT)
 	public Icon getIconFromDamage(int par1)
     {
-        int j = MathHelper.clamp_int(par1, 0, 11);
+        int j = MathHelper.clamp_int(par1, 0, 12);
         return this.iconItemType[j];
     }
 
@@ -64,6 +65,7 @@ public class ItemEXItem extends Item {
 		par3List.add(new ItemStack(this, 1, 9));
 		par3List.add(new ItemStack(this, 1, 10));
 		par3List.add(new ItemStack(this, 1, 11));
+		par3List.add(new ItemStack(this, 1, 12));
 	}
 	
 	@Override
@@ -100,13 +102,37 @@ public class ItemEXItem extends Item {
         return par1ItemStack;
     }
 	
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
+    {
+        if (!par2EntityPlayer.canPlayerEdit(par4, par5, par6, par7, par1ItemStack))
+        {
+            return false;
+        }
+        else
+        {
+            if (par1ItemStack.getItemDamage() == 12 && DCsAppleMilk.bonemealClam)//骨粉と全く同じ効果
+            {
+                if (ItemDye.applyBonemeal(par1ItemStack, par3World, par4, par5, par6, par2EntityPlayer))
+                {
+                    if (!par3World.isRemote)
+                    {
+                        par3World.playAuxSFX(2005, par4, par5, par6, 0);
+                    }
+
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.iconItemType = new Icon[12];
+		this.iconItemType = new Icon[13];
 
-        for (int i = 0; i < 12; ++i)
+        for (int i = 0; i < 13; ++i)
         {
             
         	if (i == 0)
@@ -148,6 +174,10 @@ public class ItemEXItem extends Item {
         	else if (i == 11)
         	{
         		this.iconItemType[i] = par1IconRegister.registerIcon("applemilk:dustGlass");
+        	}
+        	else if (i == 12)
+        	{
+        		this.iconItemType[i] = par1IconRegister.registerIcon("applemilk:dustClam");
         	}
         	
         }

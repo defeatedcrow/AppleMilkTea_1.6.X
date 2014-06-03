@@ -22,6 +22,7 @@ public class AddChestGen {
 			dungeon.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 19),1,1,10));
 			dungeon.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 18),1,1,10));
 			dungeon.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0),1,1,20));
+			dungeon.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.leafTea, 1, 1),1,3,20));
 		}
 		
 		for (String category : categoryB)
@@ -31,6 +32,7 @@ public class AddChestGen {
 			//addItemメソッドで新しいアイテムを追加
 			dungeon2.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 22),1,1,10));
 			dungeon2.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 23),1,1,10));
+			dungeon2.addItem(new WeightedRandomChestContent(new ItemStack(DCsAppleMilk.princessClam, 1, 0),1,1,5));
 		}
 		
 		ChestGenHooks dungeon3 = ChestGenHooks.getInfo("dungeonChest");

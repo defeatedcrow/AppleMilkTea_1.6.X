@@ -44,7 +44,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.12e",
+		version = "1.6.2_1.13c_dev",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry"
 		)
 @NetworkMod(
@@ -131,7 +131,7 @@ public class DCsAppleMilk{
 	public static Item  chocolateFruits;
 	public static Item  icyCrystal;
 	public static Item  wallMug;
-	public static ItemLargeBottle  itemLargeBottle;
+	public static Item  itemLargeBottle;
 	public static Item  milkBottle;
 	public static Item  princessClam;
 	
@@ -247,6 +247,7 @@ public class DCsAppleMilk{
 	public static boolean safetyChocolate = false;
 	public static boolean allowInfinityWipes = true;
 	public static boolean useJapaneseCup = false;
+	public static boolean bonemealClam = true;
 	
 	public static boolean useIC2Items = true;
 	public static boolean allowMoisture = true;
@@ -265,6 +266,7 @@ public class DCsAppleMilk{
 	public static boolean SuccessLoadRC = false;
 	public static boolean SuccessLoadSugi = false;
 	public static boolean SuccessLoadDart = false;
+	public static boolean SuccessLoadTE3 = false;
 	
 	public static boolean IC2exp = true;
 	public static boolean TC4after405 = true;
@@ -456,6 +458,8 @@ public class DCsAppleMilk{
 					"Disable explosion of the heartfelt chocolate gift.");
 			Property infinityWipes = cfg.get("setting", "Allow Infinity Wipes", allowInfinityWipes,
 					"Allow the WipeBox generate a paper infinitely.");
+			Property bonemealClams = cfg.get("setting", "Allow Clam Fertilizer", bonemealClam,
+					"Allow to use the clam and the clam container as fertilizer.");
 			Property achievementID = cfg.get("setting", "Shift Achivement ID", achievementShiftID,
 					"Shift the ID of the achievement.");
 			Property texPass = cfg.get("render setting", "Set Texture Type Number", setAltTexturePass,
@@ -565,7 +569,7 @@ public class DCsAppleMilk{
 			safetyChocolate = safetyChoco.getBoolean(false);
 			useJapaneseCup = useJPcup.getBoolean(false);
 			allowMoisture = moisture.getBoolean(false);
-			
+			bonemealClam = bonemealClams.getBoolean(false);
 			
 			IC2exp = IC2ver.getBoolean(false);
 			TC4after405 = TC4ver.getBoolean(false);
@@ -933,7 +937,7 @@ public class DCsAppleMilk{
 		
 		//クラフトで耐久が減るアイテムの登録
 		GameRegistry.registerCraftingHandler(DCgrater);
-		GameRegistry.registerCraftingHandler(itemLargeBottle);
+		//GameRegistry.registerCraftingHandler(itemLargeBottle);
 		GameRegistry.registerCraftingHandler(new CraftingEvent());
 		
 		//実績の追加
@@ -981,7 +985,8 @@ public class DCsAppleMilk{
 		
 		(new AddChestGen()).addChestItems();
 		
-		(new DCsLangRegister()).registerLang();
+		//Langファイル同梱のため、Lang登録クラスはコメントアウトしました。
+		//(new DCsLangRegister()).registerLang();
 		
 		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 		
@@ -1047,7 +1052,21 @@ public class DCsAppleMilk{
 	    (new RegisterMakerRecipe()).registerIce();
 	    AMTLogger.trace("Registered new ice maker recipe");
 	    
-	    
+	    //TEへのIMC送信はここで行う
+	    if (Loader.isModLoaded("ThermalExpansion"))
+	    {
+	    	AMTLogger.loadingModInfo("ThermalExpansion");
+	    	try
+	        {
+	          this.SuccessLoadTE3 = true;
+	          (new LoadTE3Handler()).load();
+	          AMTLogger.loadedModInfo("IC2");
+	        }
+	        catch (Exception e) {
+	        	AMTLogger.failLoadingModInfo("IC2");
+	          e.printStackTrace(System.err);
+	        }
+	    }
 	}
 	
 	@EventHandler
@@ -1082,7 +1101,7 @@ public class DCsAppleMilk{
 	        {
 	          this.SuccessLoadBamboo = true;
 	          (new LoadBambooHandler()).load();
-	          (new LoadModHandler()).loadBambooItems();
+	          (new LoadBambooHandler()).loadBambooItems();
 	          AMTLogger.loadedModInfo("BambooMod");
 	          
 	        }
@@ -1332,6 +1351,10 @@ public class DCsAppleMilk{
 	    //他のMODのブロック・アイテム登録クラスに先行しないよう、postInitメソッドでロードする
 	    //当MODで勝手に追加する鉱石辞書も含めるように、読み込む位置を他MODのロード処理より後にした
 	    (new LoadOreDicHandler()).load();
+	    
+	    //インスタントティーレシピ
+	    //他MODの水入り容器をひと通り取得した後に行うので、最後のほうで呼ぶ
+	    (new DCsRecipeRegister()).addInstantTea();
 	    
 	    (new RegisteredRecipeGet()).setRecipeList();
 	    proxy.loadNEI();
