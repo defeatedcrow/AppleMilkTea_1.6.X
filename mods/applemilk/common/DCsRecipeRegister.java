@@ -59,7 +59,7 @@ public class DCsRecipeRegister {
 	    
 	    
 	    //extra recipe
-	    if (DCsAppleMilk.useEXRecipe)
+	    if (DCsConfig.useEXRecipe)
 	    {
 	    	GameRegistry.addRecipe(
 	 			new ItemStack(DCsAppleMilk.saplingTea,1),
@@ -101,7 +101,7 @@ public class DCsRecipeRegister {
 	     }
 	    
 	     //old Items
-	    if (DCsAppleMilk.useOldItems)
+	    if (DCsConfig.useOldItems)
 	    {
 	    	GameRegistry.addShapelessRecipe(
 		    		new ItemStack(DCsAppleMilk.bowlBlock, 1, 2),
@@ -1160,7 +1160,7 @@ public class DCsRecipeRegister {
 	    		  new Object[]{" X ","X X"," X ",
 	    			  Character.valueOf('X'), new ItemStack(DCsAppleMilk.chalcedony, 1, 0)}));
 		 
-		 if (!DCsAppleMilk.disableFireSteater)
+		 if (!DCsConfig.disableFireSteater)
 		 {
 			 GameRegistry.addRecipe(
 					 new ShapelessOreRecipe(
@@ -1295,7 +1295,7 @@ public class DCsRecipeRegister {
 	
 	static void addPrincess() {
 		
-		if (DCsAppleMilk.useEXRecipe)
+		if (DCsConfig.useEXRecipe)
 		{
 			GameRegistry.addRecipe(
 					 new ShapedOreRecipe(

@@ -184,7 +184,7 @@ public class BlockBasket extends BlockContainer{
 	
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return DCsAppleMilk.noUseCupDirection ? null : new TileBread();
+		return DCsConfig.noUseCupDirection ? null : new TileBread();
 	}
 	
 	@SideOnly(Side.CLIENT)

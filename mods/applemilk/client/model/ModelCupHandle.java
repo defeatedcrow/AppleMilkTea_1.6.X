@@ -1,6 +1,6 @@
 package mods.applemilk.client.model;
 
-import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.*;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -112,7 +112,7 @@ public class ModelCupHandle extends ModelBase
   
   public void render (Entity par1Entity, float par2, float par3, float par4, byte par5, float par6, float par7)
   {
-	  if (DCsAppleMilk.useJapaneseCup)
+	  if (DCsConfig.useJapaneseCup)
 	  {
 		  this.sideB.render(par7);
 		  this.sideF.render(par7);

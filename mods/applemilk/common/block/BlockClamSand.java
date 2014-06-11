@@ -10,6 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.client.particle.EntityOrbFX;
 import mods.applemilk.client.particle.ParticleTex;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.DCsConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -124,7 +125,7 @@ public class BlockClamSand extends Block
         	int count = this.hamaguriCalculater(par1World, par2, par3, par4);
         	//メタデータ
         	int meta = par1World.getBlockMetadata(par2, par3, par4);
-        	int chance = DCsAppleMilk.clamChanceValue;
+        	int chance = DCsConfig.clamChanceValue;
         	
         	//増殖予定の座標選定
         	int i = par1World.rand.nextInt(4);
@@ -228,7 +229,7 @@ public class BlockClamSand extends Block
         		
         }
 
-        if (!DCsAppleMilk.noRenderFoodsSteam)
+        if (!DCsConfig.noRenderFoodsSteam)
         {
         	if (l == 2)
         	{

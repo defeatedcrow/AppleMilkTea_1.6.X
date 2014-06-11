@@ -48,7 +48,7 @@ public class ItemLargeBottle extends Item{
 		this.setNoRepair();
 	}
 	
-	//ItemBlockのように振る舞う。設置するのはブロック版の酒瓶、ダメージ値はTileEntityに渡す
+	//ItemBlockのように振る舞う。設置するのはブロック版の酒瓶、TileEntityに渡すのは残量のみに変更。種類はメタデータに渡される。
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
     {
         int i1 = par3World.getBlockId(par4, par5, par6);
@@ -119,7 +119,9 @@ public class ItemLargeBottle extends Item{
             
             TileLargeBottle tile = (TileLargeBottle) par3World.getBlockTileEntity(par4, par5, par6);
             if (tile != null) {
-            	tile.setRemainShort((short)j1);//ダメージ値をTileに渡す
+            	int j2 = j1 >> 4;
+                j2 = j2 & 7;
+            	tile.setRemainShort((short)j2);//ダメージ値から残量だけ取り出してTileに渡す
             }//Block側のonBlockPlacedByでも同じことをやっているため、処理が重複している
             
             return true;

@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import mods.applemilk.*;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.DCsConfig;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -110,7 +111,7 @@ public class ItemEXItem extends Item {
         }
         else
         {
-            if (par1ItemStack.getItemDamage() == 12 && DCsAppleMilk.bonemealClam)//骨粉と全く同じ効果
+            if (par1ItemStack.getItemDamage() == 12 && DCsConfig.bonemealClam)//骨粉と全く同じ効果
             {
                 if (ItemDye.applyBonemeal(par1ItemStack, par3World, par4, par5, par6, par2EntityPlayer))
                 {

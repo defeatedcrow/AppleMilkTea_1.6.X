@@ -77,7 +77,7 @@ public class BlockFilledCup extends BlockContainer{
 	@Override
 	public int getRenderType()
 	{
-		return (DCsAppleMilk.useSummerRender || DCsAppleMilk.useJapaneseCup) ? DCsAppleMilk.modelCupSummer : DCsAppleMilk.modelFilledCup;
+		return (DCsConfig.useSummerRender || DCsConfig.useJapaneseCup) ? DCsAppleMilk.modelCupSummer : DCsAppleMilk.modelFilledCup;
 	}
 	
 	public int damageDropped(int par1)
@@ -112,7 +112,7 @@ public class BlockFilledCup extends BlockContainer{
 	//set direction as tileentity
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return DCsAppleMilk.noUseCupDirection ? null : new TileCupHandle();
+		return DCsConfig.noUseCupDirection ? null : new TileCupHandle();
 	}
 	
 	@Override
@@ -124,7 +124,7 @@ public class BlockFilledCup extends BlockContainer{
 	
 	private void setDefaultDirection(World world, int x, int y, int z)
 	{
-		if (!DCsAppleMilk.noUseCupDirection)
+		if (!DCsConfig.noUseCupDirection)
 		{
 			TileCupHandle tileCupHandle = (TileCupHandle)world.getBlockTileEntity(x, y, z);
 			
@@ -165,7 +165,7 @@ public class BlockFilledCup extends BlockContainer{
 	{
 		int playerFacing = MathHelper.floor_double((double)((par5EntityLivingBase.rotationYaw * 4F) / 360F) + 0.5D) & 3;
  
-		if (!DCsAppleMilk.noUseCupDirection)
+		if (!DCsConfig.noUseCupDirection)
 		{
 			byte facing = 0;
 			if (playerFacing == 0)

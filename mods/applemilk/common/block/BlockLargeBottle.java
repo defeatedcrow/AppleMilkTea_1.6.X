@@ -30,6 +30,10 @@ import mods.applemilk.common.tile.TileLargeBottle;
 import mods.applemilk.handler.LoadModHandler;
 import mods.applemilk.handler.Util;
 
+/**
+ * メタデータ0~7: 酒瓶。ロックアイスを持って右クリックすると、ロック・ストレートで頂ける
+ * <br>メタデータ8~15: キャニスター。中身の取り出し及びウォールマグのカスタマイズ。
+ * */
 public class BlockLargeBottle extends BlockContainer{
 	
 	private static final String[] contents = new String[] {"_empty", "_sake", "_beer", "_wine", "_gin", "_rum", "_vodka", "_whiskey",
@@ -76,6 +80,7 @@ public class BlockLargeBottle extends BlockContainer{
         			ret = LoadModHandler.getRandomItem(get[type]);
         		}
         		
+        		//取得成功時のみ
         		if (type > 1 && ret != null)
         		{
         			if (!par5EntityPlayer.inventory.addItemStackToInventory(ret))
@@ -89,8 +94,7 @@ public class BlockLargeBottle extends BlockContainer{
         			}
         			else {
         				rem--;
-        				int newRem = (rem << 4) + type + 8;
-        				tile.setRemainShort((short)newRem);
+        				tile.setRemainShort((short)rem);
         			}
         			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
         			return true;
@@ -113,8 +117,12 @@ public class BlockLargeBottle extends BlockContainer{
         		if (type == 0) {
         			ret = new ItemStack(Item.bucketMilk, 1, 0);
         		}
-        		else {
+        		else if (type == 1) {
         			ret = LoadModHandler.getItem("bucketSoy");
+        		}
+        		else
+        		{
+        			ret = null;
         		}
         		
         		if (type < 2 && ret != null)
@@ -134,8 +142,7 @@ public class BlockLargeBottle extends BlockContainer{
         			}
         			else {
         				rem--;
-        				int newRem = (rem << 4) + type + 8;
-        				tile.setRemainShort((short)newRem);
+        				tile.setRemainShort((short)rem);
         			}
         			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
         			return true;
@@ -146,7 +153,7 @@ public class BlockLargeBottle extends BlockContainer{
         else if (itemstack.itemID == DCsAppleMilk.wallMug.itemID)//wallmugのカスタマイズ
         {
         	short i = tile.getRemainShort();
-        	int type = checkBottleType(i);
+        	int type = currentMeta;
         	int rem = checkRemain(i);
         	
         	int damage = itemstack.getItemDamage();
@@ -187,7 +194,7 @@ public class BlockLargeBottle extends BlockContainer{
         			par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
         		}
         		else {
-        			newRem = ((rem - 1) << 4) + type;
+        			newRem = rem - 1;
         		}
         		tile.setRemainShort((short)newRem);
         		
@@ -203,7 +210,7 @@ public class BlockLargeBottle extends BlockContainer{
         }
     }
 	
-	//ドロップ
+	//設置動作
 	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
     {
         short l = (short)par6ItemStack.getItemDamage();
@@ -212,18 +219,24 @@ public class BlockLargeBottle extends BlockContainer{
         par1World.setBlockMetadataWithNotify(par2, par3, par4, (l & 15), 3);
         //メタデータ自体はタイプに対応している。RenderBlockクラスでメタデータごとのテクスチャを振り分けるためだが、他にも方法はある気がする。
         
+        //damageから残量だけを取り出す
+        int i = l >> 4;
+        i = i & 7;
 		TileLargeBottle tile = (TileLargeBottle) par1World.getBlockTileEntity(par2, par3, par4);
-    	if (tile != null) tile.setRemainShort(l);
-    	//ダメージ値をそのままTileEntityに渡す。
+    	if (tile != null) tile.setRemainShort((short)i);
     }
 	
+	//破壊
 	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
     {
         TileLargeBottle tile = (TileLargeBottle)par1World.getBlockTileEntity(par2, par3, par4);
 
         if (tile != null)
         {
+        	//ブロックのメタデータとTileのShort値から新しいダメージ値を生成
         	short l = (short)(tile.getRemainShort());
+        	int type = par1World.getBlockMetadata(par2, par3, par4);
+        	int damage = (l << 4) + type;
         	
         	if (l >= 0 && l <= 5000)//上限については余り考えていない
             {
@@ -232,8 +245,7 @@ public class BlockLargeBottle extends BlockContainer{
                 float f2 = par1World.rand.nextFloat() * 0.8F + 0.1F;
                 
                 //アイテム版の酒瓶をドロップ
-                ItemStack itemstack = new ItemStack(DCsAppleMilk.itemLargeBottle, 1, l);
-                //TileEntityのShort値をそのままダメージ値にして渡す
+                ItemStack itemstack = new ItemStack(DCsAppleMilk.itemLargeBottle, 1, damage);
                 EntityItem entityitem = new EntityItem(par1World, (double)((float)par2 + f), (double)((float)par3 + f1), (double)((float)par4 + f2), itemstack);
 
                 float f3 = 0.05F;
@@ -361,17 +373,9 @@ public class BlockLargeBottle extends BlockContainer{
 		return new TileLargeBottle();
 	}
 	
-	//shortから情報を得るメソッド
-	public static int checkBottleType(short par1)//内容物の種類は最大16種、remain値16以降は別のブロックとしての動作
-	{
-		int m = par1 & 15;
-		return m;
-	}
-	
 	public static int checkRemain(short par1)//Remain値の16、32、64の位が残量の管理用バイト
 	{
-		int m = par1 >> 4;//右にシフト。16から1へ。
-        m = (m & 7);//16、32、64の桁をチェック
+        int m = (par1 & 7);//シフトを不要にした
 		return m;
 	}
 

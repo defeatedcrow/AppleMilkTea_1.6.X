@@ -3,6 +3,7 @@ package mods.applemilk.handler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.DCsConfig;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ItemApi;
@@ -25,7 +26,7 @@ public class LoadThaumcraftHandler {
 		this.thaumicNitor = new ItemStack(ItemApi.getBlock("blockAiry", 1).itemID, 1, 1);
 		
 		//相の設定。4.0.5以降にしか対応していない。
-		if (DCsAppleMilk.TC4after405)
+		if (DCsConfig.TC4after405)
 		{
 			//blocks
 			ThaumcraftApi.registerObjectTag(DCsAppleMilk.woodBox.blockID, 5, new AspectList().add(Aspect.TREE, 9).add(Aspect.MAGIC, 3));

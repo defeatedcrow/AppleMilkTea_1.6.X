@@ -152,7 +152,7 @@ public class RenderChalcedonyLamp implements ISimpleBlockRenderingHandler{
 		if (meta > 11)meta = 11;
 		this.boxIcon = DCsAppleMilk.cLamp.getIcon(1, meta);
 		this.glassIcon = Block.glass.getBlockTextureFromSide(0);
-		this.Icon0 = DCsAppleMilk.setAltTexturePass > 1 ? DCsAppleMilk.teppann.getBlockTextureFromSide(0) : 
+		this.Icon0 = DCsConfig.setAltTexturePass > 1 ? DCsAppleMilk.teppann.getBlockTextureFromSide(0) : 
 			DCsAppleMilk.cLamp.getIcon(0, meta);
 		this.Icon2 = DCsAppleMilk.cLamp.getIcon(2, meta);
 		this.Icon3 = DCsAppleMilk.cLamp.getIcon(3, meta);
@@ -191,7 +191,7 @@ public class RenderChalcedonyLamp implements ISimpleBlockRenderingHandler{
 			else if (meta == 4)
 			{
 				//is  using x32Texture?
-				if (DCsAppleMilk.setAltTexturePass == 1) {
+				if (DCsConfig.setAltTexturePass == 1) {
 					//wing1
 					renderer.setOverrideBlockTexture(this.Icon2);
 					block.setBlockBounds(7.0F/16.0F, 10.0F/16.0F, 1.0F/16.0F, 9.0F/16.0F, 15.0F/16.0F, 2.0F/16.0F);
@@ -346,7 +346,7 @@ public class RenderChalcedonyLamp implements ISimpleBlockRenderingHandler{
 			else if (meta == 5)
 			{
 				//is  using x32Texture?
-				if (DCsAppleMilk.setAltTexturePass == 1) {
+				if (DCsConfig.setAltTexturePass == 1) {
 					//force
 					renderer.setOverrideBlockTexture(this.boxIcon);
 					block.setBlockBounds(4.0F/16.0F, 7.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F, 15.0F/16.0F, 12.0F/16.0F);
@@ -435,7 +435,7 @@ public class RenderChalcedonyLamp implements ISimpleBlockRenderingHandler{
 			}
 			else if (meta == 10 || meta == 11)
 			{
-				if (DCsAppleMilk.setAltTexturePass == 1)
+				if (DCsConfig.setAltTexturePass == 1)
 				{
 					renderer.setOverrideBlockTexture(this.boxIcon);
 					block.setBlockBounds(2.0F/16.0F, 2.0F/16.0F, 2.0F/16.0F, 4.0F/16.0F, 14.0F/16.0F, 4.0F/16.0F);

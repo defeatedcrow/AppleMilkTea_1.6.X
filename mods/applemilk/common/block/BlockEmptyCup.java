@@ -85,12 +85,12 @@ public class BlockEmptyCup extends BlockContainer{
 	@Override
 	public int getRenderType()
 	{
-		return (DCsAppleMilk.useSummerRender || DCsAppleMilk.useJapaneseCup) ? DCsAppleMilk.modelCupSummer : DCsAppleMilk.modelCup;
+		return (DCsConfig.useSummerRender || DCsConfig.useJapaneseCup) ? DCsAppleMilk.modelCupSummer : DCsAppleMilk.modelCup;
 	}
 	
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return (DCsAppleMilk.useSummerRender || DCsAppleMilk.useJapaneseCup) ? new TileCupHandle() : null;
+		return (DCsConfig.useSummerRender || DCsConfig.useJapaneseCup) ? new TileCupHandle() : null;
 	}
 	
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)

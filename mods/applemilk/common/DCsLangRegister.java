@@ -699,7 +699,7 @@ public class DCsLangRegister {
 			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.wallMug, 1, (15 + type[i])), "ja_JP", "豆乳ラテマグ");
 		}
 		
-		if (DCsAppleMilk.useOldItems)
+		if (DCsConfig.useOldItems)
 		{
 			LanguageRegistry.addName(new ItemStack(DCsAppleMilk.teaCup, 1, 0), "Empty Tea Cup");
 			LanguageRegistry.instance().addNameForObject(new ItemStack(DCsAppleMilk.teaCup, 1, 0), "ja_JP", "空のティーカップ");

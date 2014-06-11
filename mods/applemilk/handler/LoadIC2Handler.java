@@ -2,6 +2,7 @@ package mods.applemilk.handler;
 
 import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.DCsConfig;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -47,7 +48,7 @@ public class LoadIC2Handler {
         }
         
         //以下はexp版専用のメソッド
-        if (DCsAppleMilk.IC2exp)
+        if (DCsConfig.IC2exp)
         {
         	try
             {

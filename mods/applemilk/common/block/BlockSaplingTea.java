@@ -18,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBigTree;
 import net.minecraft.world.gen.feature.WorldGenForest;
@@ -32,7 +33,10 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class BlockSaplingTea extends Block implements IPlantable
 {
-
+	@SideOnly(Side.CLIENT)
+    private Icon[] saplingIcon;
+	
+	private static final String[] index = new String[] {"tea", "cassis", "camellia"};
 
     public BlockSaplingTea(int par1)
     {
@@ -86,19 +90,42 @@ public class BlockSaplingTea extends Block implements IPlantable
     {
         if (!TerrainGen.saplingGrowTree(par1World, par5Random, par2, par3, par4)) return;
 
-        par1World.setBlock(par2, par3, par4, DCsAppleMilk.teaTree.blockID, 0, 2);
+        int meta = par1World.getBlockMetadata(par2, par3, par4);
+        
+        if (meta == 0)
+        {
+        	par1World.setBlock(par2, par3, par4, DCsAppleMilk.teaTree.blockID, 0, 2);
+        }
+        else if (meta == 1)
+        {
+        	par1World.setBlock(par2, par3, par4, DCsAppleMilk.cassisTree.blockID, 0, 2);
+        	if (par1World.isAirBlock(par2, par3 + 1, par4))
+        	{
+        		par1World.setBlock(par2, par3 + 1, par4, DCsAppleMilk.cassisTree.blockID, 0, 2);
+        	}
+        }
+        else
+        {
+        	par1World.setBlock(par2, par3, par4, DCsAppleMilk.cassisTree.blockID, 4, 2);
+        	if (par1World.isAirBlock(par2, par3 + 1, par4))
+        	{
+        		par1World.setBlock(par2, par3 + 1, par4, DCsAppleMilk.cassisTree.blockID, 4, 2);
+        	}
+        }
     }
     
     protected boolean canThisPlantGrowOnThisBlockID(int par1)
     {
-        return par1 == Block.grass.blockID || par1 == Block.dirt.blockID || par1 == Block.tilledField.blockID;
+    	Block block = Block.blocksList[par1];
+        return par1 == Block.grass.blockID || par1 == Block.dirt.blockID || par1 == Block.tilledField.blockID
+        		|| (block != null && block.blockMaterial == Material.grass);
     }
     
     public boolean canBlockStay(World par1World, int par2, int par3, int par4)
     {
         Block soil = blocksList[par1World.getBlockId(par2, par3 - 1, par4)];
         return (par1World.getFullBlockLightValue(par2, par3, par4) >= 11 || par1World.canBlockSeeTheSky(par2, par3, par4)) && 
-                (soil != null && soil.canSustainPlant(par1World, par2, par3 - 1, par4, ForgeDirection.UP, this));
+                this.canThisPlantGrowOnThisBlockID(par1World.getBlockId(par2, par3 - 1, par4));
     }
     
     public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4)
@@ -117,13 +144,13 @@ public class BlockSaplingTea extends Block implements IPlantable
         }
         else
         {
-        	if ((itemstack.itemID == Item.dyePowder.itemID) && (itemstack.getItemDamage() == 15) && (meta == 0) && (par1World.getBlockLightValue(par2, par3, par4) > 11))
+        	if ((itemstack.itemID == Item.dyePowder.itemID) && (itemstack.getItemDamage() == 15) && (par1World.getBlockLightValue(par2, par3, par4) > 11))
         	{
         		if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
                 {
                     par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
                 }
-        		par1World.setBlock(par2, par3, par4, DCsAppleMilk.teaTree.blockID, 0, 2);
+        		this.growTree(par1World, par2, par3, par4, par1World.rand);
         		return true;
         	}
         	else
@@ -138,20 +165,32 @@ public class BlockSaplingTea extends Block implements IPlantable
      */
     public int damageDropped(int par1)
     {
-        return 0;
+        return Math.min(par1, 2);
     }
 
+    @SideOnly(Side.CLIENT)
+    public Icon getIcon(int par1, int par2)
+    { 
+    	int meta = Math.min(par2, 2);
+    	return this.saplingIcon[meta];
+    }
 
     @SideOnly(Side.CLIENT)
-
-    /**
-     * When this method is called, your block should register all the icons it needs with the given IconRegister. This
-     * is the only chance you get to register icons.
-     */
     public void registerIcons(IconRegister par1IconRegister)
     {
-        this.blockIcon = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "sapling_tea");
-
+        this.saplingIcon = new Icon[3];
+        for (int i = 0; i < 3; ++i)
+        {
+            this.saplingIcon[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "sapling_" + index[i]);
+        }
+    }
+    
+    @SideOnly(Side.CLIENT)
+	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
+    {
+        par3List.add(new ItemStack(par1, 1, 0));
+        par3List.add(new ItemStack(par1, 1, 1));
+        par3List.add(new ItemStack(par1, 1, 2));
     }
 
 	@Override

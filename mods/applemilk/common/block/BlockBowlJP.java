@@ -181,7 +181,7 @@ public class BlockBowlJP extends BlockContainer{
 	//tile
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return DCsAppleMilk.noUseCupDirection ? null : new TileJPBowl();
+		return DCsConfig.noUseCupDirection ? null : new TileJPBowl();
 	}
 	
 	//icon
@@ -241,7 +241,7 @@ public class BlockBowlJP extends BlockContainer{
         double d3 = 0.0059999988079071D;
         double d4 = 0.27000001072883606D;
 
-        if (!DCsAppleMilk.noRenderFoodsSteam && l != 15) {
+        if (!DCsConfig.noRenderFoodsSteam && l != 15) {
         	EntityDCCloudFX cloud = new EntityDCCloudFX(par1World, d0, d1, d2, 0.0D, d3, 0.0D);
         	cloud.setParticleIcon(ParticleTex.getInstance().getIcon("applemilk:particle_cloud"));
 			FMLClientHandler.instance().getClient().effectRenderer.addEffect(cloud);

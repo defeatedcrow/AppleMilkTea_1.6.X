@@ -3,6 +3,7 @@ package mods.applemilk.common.entity;
 import java.util.Random;
 
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.DCsConfig;
 import net.minecraft.block.Block;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.item.Item;
@@ -17,7 +18,7 @@ public class VillagerCafe implements IVillageTradeHandler {
 	public void manipulateTradesForVillager(EntityVillager villager,
 			MerchantRecipeList recipeList, Random random) {
 		
-		if (villager.getProfession() == DCsAppleMilk.villagerRecipeID)
+		if (villager.getProfession() == DCsConfig.villagerRecipeID)
 		{
 			//タルト
 			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 1), new ItemStack(DCsAppleMilk.appleTart, 1, 0)));

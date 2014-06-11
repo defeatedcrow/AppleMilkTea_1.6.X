@@ -74,7 +74,7 @@ public class RenderFilledCup implements ISimpleBlockRenderingHandler{
 			renderer.setRenderBoundsFromBlock(block);
 			renderer.renderStandardBlock(block, x, y, z);
 			
-			if (DCsAppleMilk.noUseCupDirection)
+			if (DCsConfig.noUseCupDirection)
 			{
 				//handle
 				renderer.setOverrideBlockTexture(this.boxIcon);

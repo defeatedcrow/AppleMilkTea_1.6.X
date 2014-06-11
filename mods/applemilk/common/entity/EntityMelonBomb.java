@@ -7,6 +7,7 @@ import java.util.List;
 
 import mods.applemilk.common.AchievementRegister;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.DCsConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -158,7 +159,7 @@ public class EntityMelonBomb extends Entity
             {
             	//起爆条件を満たしたので爆発
             	this.setDead();
-            	if (DCsAppleMilk.canExplodeMelon) this.explode();
+            	if (DCsConfig.canExplodeMelon) this.explode();
             }
 
             return true;
@@ -172,7 +173,7 @@ public class EntityMelonBomb extends Entity
     private void explode()
     {
         float f = 3.0F;
-        boolean b = !DCsAppleMilk.melonBreakBlock;
+        boolean b = !DCsConfig.melonBreakBlock;
         this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, f, b);
         
     }

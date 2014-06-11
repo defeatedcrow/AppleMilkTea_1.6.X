@@ -75,13 +75,13 @@ public class BlockGunpowderContainer extends Block{
 			
 			int meta = par1World.getBlockMetadata(par2, par3, par4);
 			
-			if (!DCsAppleMilk.noWetGContainer && meta < 2 && (par1World.isRaining()) && par1World.canBlockSeeTheSky(par2, par3 + 1, par4))
+			if (!DCsConfig.noWetGContainer && meta < 2 && (par1World.isRaining()) && par1World.canBlockSeeTheSky(par2, par3 + 1, par4))
 			{
 				if (meta == 0) par1World.setBlockMetadataWithNotify(par2, par3, par4, 1, 2);
 				else if (meta == 1) par1World.setBlockMetadataWithNotify(par2, par3, par4, 2, 2);
 			}
 			
-			if (meta == 3 && DCsAppleMilk.bonemealClam)
+			if (meta == 3 && DCsConfig.bonemealClam)
 			{
 				boolean flag = false;
 				int y = 0;

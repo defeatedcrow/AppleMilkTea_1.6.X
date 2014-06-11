@@ -12,15 +12,7 @@ import java.io.IOException;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 
-import mods.applemilk.common.tile.ContainerAutoMaker;
-import mods.applemilk.common.tile.TileAutoMaker;
-import mods.applemilk.common.tile.TileCupHandle;
-import mods.applemilk.common.tile.TileHasDirection;
-import mods.applemilk.common.tile.TileHasRemain2;
-import mods.applemilk.common.tile.TileHasRemaining;
-import mods.applemilk.common.tile.TileIceMaker;
-import mods.applemilk.common.tile.TileMakerNext;
-import mods.applemilk.common.tile.TileTeppann;
+import mods.applemilk.common.tile.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
@@ -248,6 +240,37 @@ public class PacketHandler implements IPacketHandler
     				{
     					TileHasRemain2 tile = (TileHasRemain2)tileEntity;
     					tile.setRemainShort(Remaining);
+    				}
+    			}
+    			catch (Exception e)
+    			{
+    				
+    			}	
+            }
+            else if (packet.channel.equals("DCsCordial"))
+            {
+    			ByteArrayDataInput bis = ByteStreams.newDataInput(packet.data);
+    			
+    			try
+    			{
+    				int x = bis.readInt();
+    				int y = bis.readInt();
+    				int z = bis.readInt();
+    				int Aging = bis.readInt();
+    				boolean IsAged = bis.readBoolean();
+    				
+    				World world = DCsAppleMilk.proxy.getClientWorld();
+    				if (world == null)
+    				{
+    					world = ((EntityPlayer) player).worldObj;
+    				}
+    				TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+     
+    				if (tileEntity instanceof TileCordial)
+    				{
+    					TileCordial tile = (TileCordial)tileEntity;
+    					tile.setAgingTime(Aging);
+    					tile.setAged(IsAged);
     				}
     			}
     			catch (Exception e)
@@ -496,6 +519,39 @@ public class PacketHandler implements IPacketHandler
 
                 Packet250CustomPayload packet = new Packet250CustomPayload();
                 packet.channel = "DCsRemain2";
+                packet.data = bos.toByteArray();
+                packet.length = bos.size();
+                packet.isChunkDataPacket = true;
+
+                return packet;
+        }
+        
+        public static Packet getCordialPacket(TileCordial tile)
+        {
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                DataOutputStream dos = new DataOutputStream(bos);
+
+                int x = tile.xCoord;
+                int y = tile.yCoord;
+                int z = tile.zCoord;
+                int Aging = tile.getAgingTime();
+                boolean IsAged = tile.getAged();
+
+                try
+                {
+                        dos.writeInt(x);
+                        dos.writeInt(y);
+                        dos.writeInt(z);
+                        dos.writeInt(Aging);
+                        dos.writeBoolean(IsAged);
+                }
+                catch(Exception e)
+                {
+                        e.printStackTrace();
+                }
+
+                Packet250CustomPayload packet = new Packet250CustomPayload();
+                packet.channel = "DCsRemaining";
                 packet.data = bos.toByteArray();
                 packet.length = bos.size();
                 packet.isChunkDataPacket = true;

@@ -10,7 +10,7 @@ public class TileLargeBottle extends TileHasRemain2{
 	public short getRemainClient()
 	{
 		int r = this.getRemainShort();
-		r = ((r >> 4) & 7);
+		r = (r & 7);
 		return (short) r;
 	}
 

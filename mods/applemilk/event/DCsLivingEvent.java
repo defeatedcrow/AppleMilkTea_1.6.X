@@ -1,5 +1,8 @@
 package mods.applemilk.event;
 
+import mods.applemilk.potion.PotionImmunity;
+import mods.applemilk.api.potion.PotionImmunityBase;
+import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,30 +32,17 @@ public class DCsLivingEvent {
 				if(player.isPotionActive(DCsAppleMilk.Immunization))
 				{
 					//プレイヤーに現在かかっているポーション効果
-					PotionEffect potion = player.getActivePotionEffect(DCsAppleMilk.Immunization);
+					PotionEffect effect = player.getActivePotionEffect(DCsAppleMilk.Immunization);
 					//かかっているポーション効果のレベル
-					int amp = potion.getAmplifier();
+					int amp = effect.getAmplifier();
+					Potion potion = Potion.potionTypes[effect.getPotionID()];
 					
-					if(potion != null && amp == 0)
+					if(potion != null && potion instanceof PotionImmunityBase)
 					{
-						//レベル0の時
-						//食あたりに掛かったのを検知すると食あたりを消す
-						if(player.isPotionActive(Potion.hunger))
-						{
-							player.removePotionEffect(Potion.hunger.id);
-						}
-					}
-					else if (potion != null && amp == 1)
-					{
-						//レベル1の時
-						//同じことを毒とウィザーで行う
-						if(player.isPotionActive(Potion.poison))
-						{
-							player.removePotionEffect(Potion.poison.id);
-						}
-						if(player.isPotionActive(Potion.wither))
-						{
-							player.removePotionEffect(Potion.wither.id);
+						PotionImmunityBase immunity = (PotionImmunityBase) potion;
+						
+						if (immunity.preventPotion(amp, immunity.id, player)) {
+							AMTLogger.debugInfo("Succeeded to prevent bad status by PotionImmunity effect.");
 						}
 					}
 				}

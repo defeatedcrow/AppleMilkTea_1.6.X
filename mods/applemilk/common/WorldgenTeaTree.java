@@ -21,7 +21,7 @@ public class WorldgenTeaTree implements IWorldGenerator {
 		
 		int chunk2X = chunkX << 4;
         int chunk2Z = chunkZ << 4;         
-        int count = DCsAppleMilk.teaTreeGenValue;
+        int count = DCsConfig.teaTreeGenValue;
         
     	if ((genDim1 == 0))
     	{

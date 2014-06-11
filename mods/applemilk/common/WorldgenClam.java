@@ -22,7 +22,7 @@ public class WorldgenClam implements IWorldGenerator {
 		
 		int chunk2X = chunkX << 4;
         int chunk2Z = chunkZ << 4;         
-        int count = DCsAppleMilk.clamChanceValue;
+        int count = DCsConfig.clamChanceValue;
         
     	if ((genDim1 == 0))
     	{

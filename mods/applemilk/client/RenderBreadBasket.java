@@ -198,7 +198,7 @@ public class RenderBreadBasket implements ISimpleBlockRenderingHandler{
 				renderer.renderStandardBlock(block, x, y, z);
 				
 				
-				if (DCsAppleMilk.noUseCupDirection)
+				if (DCsConfig.noUseCupDirection)
 				{
 					//contents
 					if (meta > 0)

@@ -5,7 +5,7 @@ import static net.minecraftforge.common.ForgeDirection.UP;
 import mods.applemilk.client.particle.EntityDCCloudFX;
 import mods.applemilk.client.particle.EntityOrbFX;
 import mods.applemilk.client.particle.ParticleTex;
-import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileCLamp;
 import net.minecraft.block.Block;
 
@@ -106,7 +106,7 @@ public class BlockChalcedonyLamp extends BlockContainer{
 	
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return DCsAppleMilk.setAltTexturePass == 1 ? null : new TileCLamp();
+		return DCsConfig.setAltTexturePass == 1 ? null : new TileCLamp();
 	}
 	
 	@Override
@@ -118,7 +118,7 @@ public class BlockChalcedonyLamp extends BlockContainer{
 	
 	private void setDefaultDirection(World world, int x, int y, int z)
 	{
-		if (!DCsAppleMilk.noUseCupDirection && DCsAppleMilk.setAltTexturePass > 1)
+		if (!DCsConfig.noUseCupDirection && DCsConfig.setAltTexturePass > 1)
 		{
 			TileCLamp tile = (TileCLamp)world.getBlockTileEntity(x, y, z);
 			
@@ -159,7 +159,7 @@ public class BlockChalcedonyLamp extends BlockContainer{
 	{
 		int playerFacing = MathHelper.floor_double((double)((par5EntityLivingBase.rotationYaw * 4F) / 360F) + 0.5D) & 3;
  
-		if (!DCsAppleMilk.noUseCupDirection && DCsAppleMilk.setAltTexturePass > 1)
+		if (!DCsConfig.noUseCupDirection && DCsConfig.setAltTexturePass > 1)
 		{
 			byte facing = 0;
 			if (playerFacing == 0)
@@ -250,7 +250,7 @@ public class BlockChalcedonyLamp extends BlockContainer{
         double d3 = 0.0159999988079071D;
         double d4 = 0.27000001072883606D;
 
-        if (!DCsAppleMilk.noRenderFoodsSteam && DCsAppleMilk.setAltTexturePass == 1) {
+        if (!DCsConfig.noRenderFoodsSteam && DCsConfig.setAltTexturePass == 1) {
         	
         	if (l == 4 || l == 10)
         	{

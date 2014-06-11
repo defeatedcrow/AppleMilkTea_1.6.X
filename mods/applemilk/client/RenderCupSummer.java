@@ -66,7 +66,7 @@ public class RenderCupSummer implements ISimpleBlockRenderingHandler{
 		
 		if (modelId == this.getRenderId())
 		{
-			if (DCsAppleMilk.noUseCupDirection)
+			if (DCsConfig.noUseCupDirection)
 			{
 				//bottom
 				renderer.setOverrideBlockTexture(this.boxIcon);

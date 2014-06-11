@@ -65,7 +65,7 @@ public class RenderChopsticksBox implements ISimpleBlockRenderingHandler{
 		
 		if (modelId == this.getRenderId())
 		{
-			if (DCsAppleMilk.noUseCupDirection)
+			if (DCsConfig.noUseCupDirection)
 			{
 				renderer.setOverrideBlockTexture(this.boxIcon);
 				block.setBlockBounds(6.0F/16.0F, 0.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 5.0F/16.0F, 10.0F/16.0F);

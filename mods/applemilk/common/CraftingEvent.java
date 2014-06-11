@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.FakePlayer;
 import cpw.mods.fml.common.ICraftingHandler;
 
 public class CraftingEvent implements ICraftingHandler {
@@ -80,7 +81,7 @@ public class CraftingEvent implements ICraftingHandler {
 		if (!rets.isEmpty()) {
 			for (ItemStack ret : rets)
 			{
-				if (!player.inventory.addItemStackToInventory(ret))
+				if (!(player instanceof FakePlayer) && !player.inventory.addItemStackToInventory(ret))
 	        	{
 	        		player.dropPlayerItem(ret);
 	        	}

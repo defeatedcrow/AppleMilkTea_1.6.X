@@ -117,7 +117,7 @@ public class RenderFoodPlate implements ISimpleBlockRenderingHandler{
 				renderer.setRenderBoundsFromBlock(block);
 				renderer.renderStandardBlock(block, x, y, z);
 				
-				if (DCsAppleMilk.noUseCupDirection)
+				if (DCsConfig.noUseCupDirection)
 				{
 					//meat
 					renderer.setOverrideBlockTexture(this.contentsIcon);
@@ -165,7 +165,7 @@ public class RenderFoodPlate implements ISimpleBlockRenderingHandler{
 				renderer.setRenderBoundsFromBlock(block);
 				renderer.renderStandardBlock(block, x, y, z);
 				
-				if (DCsAppleMilk.noUseCupDirection)
+				if (DCsConfig.noUseCupDirection)
 				{
 					if (meta == 2)
 					{

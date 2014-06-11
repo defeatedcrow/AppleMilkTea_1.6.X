@@ -44,7 +44,6 @@ public class TileEntityBottleRenderer extends TileEntitySpecialRenderer
         ModelLargeBottle model = this.bottleModel;
         byte l = (byte)(par0Tile.getBlockMetadata()& 15);
         short remShort = par0Tile.getRemainShort();
-        int rem = par0Tile.getRemainClient();
         
         if (l < 8) {
         	String texPass = new String (Util.getEntityTexturePassNoAlt() + "largebottle" + type[l] + ".png");
@@ -72,7 +71,7 @@ public class TileEntityBottleRenderer extends TileEntitySpecialRenderer
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glTranslatef((float)par1 + 1.5F, (float)par2 + 1.5F, (float)par3 + 1.5F);
             
-            switch (rem)
+            switch (remShort)
             {
             case 0:
             	GL11.glTranslatef(-1.0F, -1.1175F, -1.0F);

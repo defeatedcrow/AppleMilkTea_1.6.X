@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -214,7 +215,8 @@ public class ItemPrincessClam extends Item {
 						break;
 					}
 					
-					if (world.isBlockSolidOnSide(X, Y + i, Z, ForgeDirection.UP) && world.isAirBlock(X, Y + i + 1, Z) && world.isAirBlock(X, Y + i + 2, Z)
+					if (world.isBlockSolidOnSide(X, Y + i, Z, ForgeDirection.UP) && (world.isAirBlock(X, Y + i + 1, Z) || world.getBlockMaterial(X, Y + i + 1, Z) == Material.plants)
+							&& world.isAirBlock(X, Y + i + 2, Z)
 							&& this.moonCanWarp(world, X, Y + i, Z))
 					{
 						y1 = Y + i;

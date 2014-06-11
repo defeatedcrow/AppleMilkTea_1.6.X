@@ -1,6 +1,7 @@
 package mods.applemilk.common.tile;
 
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.DCsConfig;
 import mods.applemilk.common.PacketHandler;
 import mods.applemilk.handler.Util;
 import net.minecraft.item.Item;
@@ -149,7 +150,7 @@ public class TileTeppann extends TileEntity
     		{
     			if (this.cookingItem != null || this.finishedCooking)
     			{
-    				if (DCsAppleMilk.teppannHardMode)
+    				if (DCsConfig.teppannHardMode)
     				{
     					this.tooLate = true;
     					this.worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.fizz", 1.0F, 1.0F);
@@ -181,7 +182,7 @@ public class TileTeppann extends TileEntity
     {
     	int l = 1;
     	
-    	if (DCsAppleMilk.teppannRandomCookTime) l += this.worldObj.rand.nextInt(100);
+    	if (DCsConfig.teppannRandomCookTime) l += this.worldObj.rand.nextInt(100);
     	else l = 100;
     	
     	return l;

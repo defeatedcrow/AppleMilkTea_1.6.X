@@ -9,6 +9,7 @@ import mods.applemilk.client.particle.EntityBlinkFX;
 import mods.applemilk.client.particle.EntityDCCloudFX;
 import mods.applemilk.client.particle.ParticleTex;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.DCsConfig;
 import mods.applemilk.common.tile.TileIceMaker;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -178,7 +179,7 @@ public class BlockIceMaker extends BlockContainer {
         double d4 = 0.0099999988079071D;
         double d5 = 0.0099999988079071D;
 
-        if (!DCsAppleMilk.noRenderFoodsSteam && b) {
+        if (!DCsConfig.noRenderFoodsSteam && b) {
         	EntityBlinkFX cloud = new EntityBlinkFX(par1World, d0, d1, d2, 0.0D, d4, 0.0D);
         	cloud.setParticleIcon(ParticleTex.getInstance().getIcon("applemilk:particle_blink"));
 			FMLClientHandler.instance().getClient().effectRenderer.addEffect(cloud);

@@ -90,7 +90,7 @@ public class RenderFilledBowlJP implements ISimpleBlockRenderingHandler{
 				renderer.renderStandardBlock(block, x, y, z);
 			}
 			
-			if (DCsAppleMilk.noUseCupDirection)
+			if (DCsConfig.noUseCupDirection)
 			{
 				//box
 				renderer.setOverrideBlockTexture(this.boxIcon);

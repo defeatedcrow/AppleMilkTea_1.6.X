@@ -5,8 +5,7 @@ import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.api.edibles.EdibleItemBlock;
-import mods.applemilk.common.AchievementRegister;
-import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.*;
 import mods.applemilk.handler.Util;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -92,11 +91,11 @@ public class ItemIceBlock extends EdibleItemBlock{
 		{
 			return new PotionEffect(Potion.nightVision.id, 900, 0);
 		}
-		else if ((meta == 5) && DCsAppleMilk.pothinIDImmunity != 0)//fruit
+		else if ((meta == 5) && DCsConfig.potionIDImmunity != 0)//fruit
 		{
 			return new PotionEffect(DCsAppleMilk.Immunization.id, 900, 0);
 		}
-		else if ((meta == 6) && DCsAppleMilk.pothinIDImmunity != 0)//lemon
+		else if ((meta == 6) && DCsConfig.potionIDImmunity != 0)//lemon
 		{
 			return new PotionEffect(DCsAppleMilk.Immunization.id, 900, 1);
 		}

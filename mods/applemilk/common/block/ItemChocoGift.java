@@ -3,6 +3,7 @@ package mods.applemilk.common.block;
 import mods.applemilk.api.edibles.EdibleItemBlock;
 import mods.applemilk.common.AchievementRegister;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.DCsConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -38,7 +39,7 @@ public class ItemChocoGift extends EdibleItemBlock{
 		
 		if (!par2World.isRemote && meta == 1)
 		{
-			if (!DCsAppleMilk.safetyChocolate)
+			if (!DCsConfig.safetyChocolate)
 			{
 				this.explode(par2World, par3EntityPlayer);
 				par3EntityPlayer.triggerAchievement(AchievementRegister.eatChocoGift);

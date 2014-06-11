@@ -6,8 +6,7 @@ import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.api.edibles.EdibleItemBlock;
-import mods.applemilk.common.AchievementRegister;
-import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.*;
 import mods.applemilk.handler.LoadSSectorHandler;
 import mods.applemilk.handler.Util;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,8 +22,8 @@ import net.minecraft.world.World;
 
 public class ItemCocktail extends EdibleItemBlock{
 	
-	private static final String[] type = new String[] {"_frozen_daiquiri", "_frozen_sake", "_saketini", "_gimlet", "_blackrose", "_redeye",
-		"_pinacolada", "_americanlemonade", "_moscowmule", "_mintjulep"};
+	private static final String[] type = new String[] {"_frozen_daiquiri", "_frozen_sake", "_saketini", "_gimlet", "_blackrose", "_redeye", "_pinacolada", "_americanlemonade",
+		"_moscowmule", "_mintjulep", "_kir", "_cassismilk", "_bloodymary"};
 	
 	public ItemCocktail(int itemId)
 	{
@@ -37,7 +36,7 @@ public class ItemCocktail extends EdibleItemBlock{
 	public String getUnlocalizedName(ItemStack par1ItemStack)
 	{
 		int m = (par1ItemStack.getItemDamage());
-		if (m < 10) return super.getUnlocalizedName() + type[m];
+		if (m < 13) return super.getUnlocalizedName() + type[m];
 		else return super.getUnlocalizedName() + m;
 	}
 	
@@ -80,13 +79,13 @@ public class ItemCocktail extends EdibleItemBlock{
 		}
 		else if(meta == 1)//frozen sake
 		{
-			if (par1EntityPlayer.isPotionActive(Potion.fireResistance.id)) {
-				tick = par1EntityPlayer.getActivePotionEffect(Potion.fireResistance).getDuration() + 2400;
-				potion = new PotionEffect(Potion.fireResistance.id, tick, 0);
+			if (par1EntityPlayer.isPotionActive(DCsConfig.potionIDReflex)) {
+				tick = par1EntityPlayer.getActivePotionEffect(DCsAppleMilk.reflex).getDuration() + 2400;
+				potion = new PotionEffect(DCsConfig.potionIDReflex, tick, 2);
 				flag = false;
 			}
 			else {
-				potion = new PotionEffect(Potion.fireResistance.id, 2400, 0);
+				potion = new PotionEffect(DCsConfig.potionIDReflex, 2400, 2);
 			}
 		}
 		else if (meta == 2)//sake-tini
@@ -175,6 +174,28 @@ public class ItemCocktail extends EdibleItemBlock{
 			}
 			else {
 				potion = new PotionEffect(Potion.digSpeed.id, 2400, 3);
+			}
+		}
+		else if (meta == 10)//kir
+		{
+			if (par1EntityPlayer.isPotionActive(DCsConfig.potionIDAbsEXP)) {
+				tick = par1EntityPlayer.getActivePotionEffect(DCsAppleMilk.absEXP).getDuration() + 2400;
+				potion = new PotionEffect(DCsConfig.potionIDAbsEXP, tick, 2);
+				flag = false;
+			}
+			else {
+				potion = new PotionEffect(DCsConfig.potionIDAbsEXP, 2400, 2);
+			}
+		}
+		else if (meta == 11)//cassis milk
+		{
+			if (par1EntityPlayer.isPotionActive(DCsConfig.potionIDPrvExplode)) {
+				tick = par1EntityPlayer.getActivePotionEffect(DCsAppleMilk.prvExplode).getDuration() + 2400;
+				potion = new PotionEffect(DCsConfig.potionIDPrvExplode, tick, 2);
+				flag = false;
+			}
+			else {
+				potion = new PotionEffect(DCsConfig.potionIDPrvExplode, 2400, 2);
 			}
 		}
 		

@@ -132,11 +132,11 @@ public class BlockIceCream extends BlockContainer{
 		{
 			return new PotionEffect(Potion.nightVision.id, 900, 0);
 		}
-		else if ((meta == 5) && DCsAppleMilk.pothinIDImmunity != 0)//fruit
+		else if ((meta == 5) && DCsConfig.potionIDImmunity != 0)//fruit
 		{
 			return new PotionEffect(DCsAppleMilk.Immunization.id, 900, 0);
 		}
-		else if ((meta == 6) && DCsAppleMilk.pothinIDImmunity != 0)//lemon
+		else if ((meta == 6) && DCsConfig.potionIDImmunity != 0)//lemon
 		{
 			return new PotionEffect(DCsAppleMilk.Immunization.id, 900, 1);
 		}
@@ -267,7 +267,7 @@ public class BlockIceCream extends BlockContainer{
         double d4 = 0.0099999988079071D;
         double d5 = 0.0099999988079071D;
 
-        if (!DCsAppleMilk.noRenderFoodsSteam) {
+        if (!DCsConfig.noRenderFoodsSteam) {
         	EntityBlinkFX cloud = new EntityBlinkFX(par1World, d0, d1, d2, 0.0D, d4, 0.0D);
         	cloud.setParticleIcon(ParticleTex.getInstance().getIcon("applemilk:particle_blink"));
 			FMLClientHandler.instance().getClient().effectRenderer.addEffect(cloud);

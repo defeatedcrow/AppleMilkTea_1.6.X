@@ -90,7 +90,7 @@ public class RenderSoupPan implements ISimpleBlockRenderingHandler{
 			renderer.setRenderBoundsFromBlock(block);
 			renderer.renderStandardBlock(block, x, y, z);
 			
-			if (DCsAppleMilk.noUseCupDirection){
+			if (DCsConfig.noUseCupDirection){
 			renderer.setOverrideBlockTexture(this.boxIcon);
 			block.setBlockBounds(0.0F/16.0F, 7.0F/16.0F, 6.0F/16.0F, 2.0F/16.0F, 8.0F/16.0F, 10.0F/16.0F);
 			renderer.setRenderBoundsFromBlock(block);

@@ -6,6 +6,7 @@ import sextiarysector.stats.EntityPlayerManager;
 import mods.applemilk.api.IceRecipe;
 import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.DCsConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -73,7 +74,7 @@ public class LoadSSectorHandler {
 		int s = prevStam + par3 < 0 ? 0 : par3;
 		float ss = prevSatStam + par4 < 0 ? 0 : par4;
 		
-		if (!par5EntityPlayer.worldObj.isRemote && DCsAppleMilk.allowMoisture)
+		if (!par5EntityPlayer.worldObj.isRemote && DCsConfig.allowMoisture)
 		{
 			EntityPlayerManager.getMoistureStats(par5EntityPlayer).addStats(m, ms);
 			EntityPlayerManager.getStaminaStats(par5EntityPlayer).addStats(s, ss);

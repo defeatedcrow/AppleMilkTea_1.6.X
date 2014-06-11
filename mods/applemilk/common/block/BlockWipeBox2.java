@@ -107,7 +107,7 @@ public class BlockWipeBox2 extends BlockContainer{
         		        }
             			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 1.0F, 1.8F);
             			
-            			if (DCsAppleMilk.allowInfinityWipes) {
+            			if (DCsConfig.allowInfinityWipes) {
             				tile.setRemainShort((short)-1);
             			}
             			else {
@@ -295,7 +295,7 @@ public class BlockWipeBox2 extends BlockContainer{
         double d1 = (double)((float)par3 + 0.5F + r);
         double d2 = (double)((float)par4 + r);
 
-        if (!DCsAppleMilk.noRenderFoodsSteam && i == -1) par1World.spawnParticle("happyVillager", d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        if (!DCsConfig.noRenderFoodsSteam && i == -1) par1World.spawnParticle("happyVillager", d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
 }

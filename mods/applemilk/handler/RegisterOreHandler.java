@@ -1,6 +1,7 @@
 package mods.applemilk.handler;
 
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.DCsConfig;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -102,7 +103,7 @@ public class RegisterOreHandler {
 	    OreDictionary.registerOre("blockClam", new ItemStack(DCsAppleMilk.gunpowderContainer, 1, 3));
 	    OreDictionary.registerOre("gemClam", new ItemStack(DCsAppleMilk.princessClam, 1, 0));
 	    
-	    if (DCsAppleMilk.allowSlimeBallDic)
+	    if (DCsConfig.allowSlimeBallDic)
 	    {
 	    	OreDictionary.registerOre("dropSlime", new ItemStack(Item.slimeBall));
 		    OreDictionary.registerOre("dropSlime", new ItemStack(DCsAppleMilk.EXItems,1,1));

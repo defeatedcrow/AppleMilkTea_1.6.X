@@ -195,7 +195,7 @@ public class BlockEmptyTeaMaker extends BlockContainer{
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		
-		return DCsAppleMilk.noUseCupDirection ? null : new TileMakerHandle();
+		return DCsConfig.noUseCupDirection ? null : new TileMakerHandle();
 	}
 	
 	@Override
@@ -207,7 +207,7 @@ public class BlockEmptyTeaMaker extends BlockContainer{
 	
 	private void setDefaultDirection(World world, int x, int y, int z)
 	{
-		if (!DCsAppleMilk.noUseCupDirection)
+		if (!DCsConfig.noUseCupDirection)
 		{
 			TileMakerHandle tileHandle = (TileMakerHandle)world.getBlockTileEntity(x, y, z);
 			
@@ -248,7 +248,7 @@ public class BlockEmptyTeaMaker extends BlockContainer{
 	{
 		int playerFacing = MathHelper.floor_double((double)((par5EntityLivingBase.rotationYaw * 4F) / 360F) + 0.5D) & 3;
  
-		if (!DCsAppleMilk.noUseCupDirection)
+		if (!DCsConfig.noUseCupDirection)
 		{
 			byte facing = 0;
 			if (playerFacing == 0)

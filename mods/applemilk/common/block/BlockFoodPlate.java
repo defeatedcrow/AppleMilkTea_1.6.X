@@ -171,7 +171,7 @@ public class BlockFoodPlate extends BlockContainer{
 	//set direction as tileentity
 		@Override
 		public TileEntity createNewTileEntity(World world) {
-			return DCsAppleMilk.noUseCupDirection ? null : new TileSteak();
+			return DCsConfig.noUseCupDirection ? null : new TileSteak();
 		}
 	
 		@Override
@@ -183,7 +183,7 @@ public class BlockFoodPlate extends BlockContainer{
 		
 		private void setDefaultDirection(World world, int x, int y, int z)
 		{
-			if (!DCsAppleMilk.noUseCupDirection)
+			if (!DCsConfig.noUseCupDirection)
 			{
 				TileSteak tile = (TileSteak)world.getBlockTileEntity(x, y, z);
 				
@@ -224,7 +224,7 @@ public class BlockFoodPlate extends BlockContainer{
 		{
 			int playerFacing = MathHelper.floor_double((double)((par5EntityLivingBase.rotationYaw * 4F) / 360F) + 0.5D) & 3;
 	 
-			if (!DCsAppleMilk.noUseCupDirection)
+			if (!DCsConfig.noUseCupDirection)
 			{
 				byte facing = 0;
 				if (playerFacing == 0)
@@ -299,7 +299,7 @@ public class BlockFoodPlate extends BlockContainer{
         double d3 = 0.0099999988079071D;
         double d4 = 0.27000001072883606D;
 
-        if (!DCsAppleMilk.noRenderFoodsSteam) {
+        if (!DCsConfig.noRenderFoodsSteam) {
         	EntityDCCloudFX cloud = new EntityDCCloudFX(par1World, d0, d1, d2, 0.0D, d3, 0.0D);
         	cloud.setParticleIcon(ParticleTex.getInstance().getIcon("applemilk:particle_cloud"));
 			FMLClientHandler.instance().getClient().effectRenderer.addEffect(cloud);

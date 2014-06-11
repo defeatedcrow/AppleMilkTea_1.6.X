@@ -78,7 +78,7 @@ public class RenderTeaMaker implements ISimpleBlockRenderingHandler{
 			renderer.setRenderBoundsFromBlock(block);
 			renderer.renderStandardBlock(block, x, y, z);
 			
-			if (DCsAppleMilk.noUseCupDirection)
+			if (DCsConfig.noUseCupDirection)
 			{
 				renderer.setOverrideBlockTexture(this.boxIcon);
 				block.setBlockBounds(6.0F/16.0F, 13.0F/16.0F, 2.0F/16.0F, 10.0F/16.0F, 14.0F/16.0F, 4.0F/16.0F);

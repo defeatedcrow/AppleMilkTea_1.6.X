@@ -117,7 +117,7 @@ public class BlockChopsticksBox extends BlockContainer{
 	//tile
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return DCsAppleMilk.noUseCupDirection ? null : new TileChopsticksBox();
+		return DCsConfig.noUseCupDirection ? null : new TileChopsticksBox();
 	}
 	
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)

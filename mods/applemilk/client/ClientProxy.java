@@ -21,6 +21,7 @@ import mods.applemilk.client.particle.ParticleTex;
 import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.CommonProxy;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.DCsConfig;
 import mods.applemilk.common.entity.EntityMelonBomb;
 import mods.applemilk.common.tile.*;
 import mods.applemilk.handler.NetworkUtil;
@@ -65,6 +66,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.registerTileEntity(TileCocktail.class, "TileCocktail", new TileEntityCocktailRenderer());
 		ClientRegistry.registerTileEntity(TileLargeBottle.class, "TileLargeBottle", new TileEntityBottleRenderer());
 		ClientRegistry.registerTileEntity(TileCLamp.class, "TileChalcedonyLamp", new TileEntityCLampRenderer());
+		ClientRegistry.registerTileEntity(TileCordial.class, "TileCordial", new TileEntityCordialRenderer());
 	}
 
 	@Override
@@ -101,8 +103,10 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderDial());
 		RenderingRegistry.registerBlockHandler(new RenderCocktail());
 		RenderingRegistry.registerBlockHandler(new RenderLargeBottle());
+		RenderingRegistry.registerBlockHandler(new RenderCassisTree());
+		RenderingRegistry.registerBlockHandler(new RenderCordial());
 		RenderingRegistry.registerEntityRenderingHandler(EntityMelonBomb.class, new RenderMelonBomb());
-		VillagerRegistry.instance().registerVillagerSkin(DCsAppleMilk.villagerRecipeID, new ResourceLocation(Util.getEntityTexturePassNoAlt() + "villager_cafe.png"));
+		VillagerRegistry.instance().registerVillagerSkin(DCsConfig.villagerRecipeID, new ResourceLocation(Util.getEntityTexturePassNoAlt() + "villager_cafe.png"));
 	}
 	
 	@Override

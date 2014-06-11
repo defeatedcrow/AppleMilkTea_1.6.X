@@ -7,14 +7,14 @@ import net.minecraft.item.Item;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.*;
 
 public class Util {
 	
 	//コンフィグで規定範囲外の数値を入れた時に、安全に動かすためのメソッドその1
 	public static int getCupRender()
 	{
-		int l = DCsAppleMilk.setCupTexture;
+		int l = DCsConfig.setCupTexture;
 		if (l < 0) l = 1;
 		else if (l > 3) l = 3;
 		
@@ -24,7 +24,7 @@ public class Util {
 	//その2
 	public static int getTeppannReadyTime()
 	{
-		int l = DCsAppleMilk.teppannReadyTime;
+		int l = DCsConfig.teppannReadyTime;
 		if (l < 0) l = 1;
 		else if (l > 60) l = 60;
 		
@@ -34,7 +34,7 @@ public class Util {
 	//その3
 	public static int getCupStacksize()
 	{
-		int l = DCsAppleMilk.cupStackSize;
+		int l = DCsConfig.cupStackSize;
 		if (l <= 1) l = 1;
 		else
 		{
@@ -52,7 +52,7 @@ public class Util {
 	//altテクスチャが用意されていない物は下のメソッドを使う
 	public static String getTexturePass()
 	{
-		int l = DCsAppleMilk.setAltTexturePass - 1;
+		int l = DCsConfig.setAltTexturePass - 1;
 		if (l < 0) l = 0;
 		else if (l > 2) l = 2;
 			
@@ -61,7 +61,7 @@ public class Util {
 	
 	public static String getTexturePassNoAlt()
 	{
-		int l = DCsAppleMilk.setAltTexturePass - 1;
+		int l = DCsConfig.setAltTexturePass - 1;
 		if (l < 0) l = 0;
 		else if (l > 1) l = 1;
 			
@@ -71,7 +71,7 @@ public class Util {
 	//entityはテクスチャのパスの記述方法が違うので別途作成。
 	public static String getEntityTexturePass()
 	{
-		int l = DCsAppleMilk.setAltTexturePass - 1;
+		int l = DCsConfig.setAltTexturePass - 1;
 		if (l < 0) l = 0;
 		else if (l > 2) l = 2;
 			
@@ -80,7 +80,7 @@ public class Util {
 	
 	public static String getEntityTexturePassNoAlt()
 	{
-		int l = DCsAppleMilk.setAltTexturePass - 1;
+		int l = DCsConfig.setAltTexturePass - 1;
 		if (l < 0) l = 0;
 		else if (l > 1) l = 1;
 			

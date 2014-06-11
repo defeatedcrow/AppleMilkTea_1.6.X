@@ -30,7 +30,7 @@ public class ItemLeafTea extends Item {
 	@SideOnly(Side.CLIENT)
 	public Icon getIconFromDamage(int par1)
     {
-        int j = MathHelper.clamp_int(par1, 0, 1);
+        int j = MathHelper.clamp_int(par1, 0, 2);
         return this.iconItemType[j];
     }
 
@@ -49,14 +49,16 @@ public class ItemLeafTea extends Item {
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
 		par3List.add(new ItemStack(this, 1, 0));
 		par3List.add(new ItemStack(this, 1, 1));
+		par3List.add(new ItemStack(this, 1, 2));
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister){
-		this.iconItemType = new Icon[2];
+		this.iconItemType = new Icon[3];
 		this.iconItemType[0] = par1IconRegister.registerIcon("applemilk:leaf_raw");
 		this.iconItemType[1] = par1IconRegister.registerIcon("applemilk:leaf_mint");
+		this.iconItemType[2] = par1IconRegister.registerIcon("applemilk:cassis");
 	}
 
 }

@@ -188,7 +188,5 @@ public class BlockTeaTree extends Block implements IPlantable{
 		
 		return world.getBlockMetadata(x, y, z);
 	}
-	
-	
 
 }

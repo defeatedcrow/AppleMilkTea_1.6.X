@@ -2,7 +2,7 @@ package mods.applemilk.client.model;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileCupHandle;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -41,7 +41,7 @@ public class TileEntityCupHandleRenderer extends TileEntitySpecialRenderer
     {
         ModelCupHandle modelCupHandle = this.cupHandleModel;
 
-        if (DCsAppleMilk.useSummerRender && !DCsAppleMilk.useJapaneseCup)
+        if (DCsConfig.useSummerRender && !DCsConfig.useJapaneseCup)
         {
         	this.bindTexture(SummerTex);
         	
@@ -74,7 +74,7 @@ public class TileEntityCupHandleRenderer extends TileEntitySpecialRenderer
         }
         else
         {
-        	if (DCsAppleMilk.useJapaneseCup) {
+        	if (DCsConfig.useJapaneseCup) {
         		this.bindTexture(JPTex);
         	}
         	else {
