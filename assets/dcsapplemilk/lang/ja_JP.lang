@@ -124,6 +124,7 @@ tile.defeatedcrow.cocktail_mintjulep.name=ミントジュレップ
 tile.defeatedcrow.cocktail_kir.name=キール
 tile.defeatedcrow.cocktail_cassismilk.name=カシスミルク
 tile.defeatedcrow.cocktail_bloodymary.name=ブラッディ・メアリー
+tile.defeatedcrow.cocktail_cassistea.name=カシスティー
 tile.defeatedcrow.bowlBlock_rice.name=御飯
 tile.defeatedcrow.bowlBlock_mushroom.name=キノコシチュー
 tile.defeatedcrow.bowlBlock_stew.name=鮭のクリームシチュー
@@ -798,6 +799,7 @@ DCs.potion.protectionExplode=爆発無効
 DCs.potion.protectionProjectile=射撃無効
 DCs.potion.reflex=反射
 DCs.potion.absorptionEXP=EXP吸収
+DCs.potion.absorptionHeal=ダメージ吸収
 
 achievement.getTeaLeaves=八十八夜
 achievement.getTeaLeaves.desc=茶の木から茶葉を摘む

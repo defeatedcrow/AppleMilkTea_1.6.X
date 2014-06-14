@@ -124,6 +124,7 @@ tile.defeatedcrow.cocktail_mintjulep.name=Mint Julep
 tile.defeatedcrow.cocktail_kir.name=Kir
 tile.defeatedcrow.cocktail_cassismilk.name=Cassis Milk
 tile.defeatedcrow.cocktail_bloodymary.name=Bloody Mary
+tile.defeatedcrow.cocktail_cassistea.name=Cassis Tea Cocktail
 tile.defeatedcrow.bowlBlock_rice.name=Boiled Rice
 tile.defeatedcrow.bowlBlock_mushroom.name=Mushroom Stew
 tile.defeatedcrow.bowlBlock_stew.name=Salmon Stew
@@ -798,6 +799,7 @@ DCs.potion.protectionExplode=Explosion Resistance
 DCs.potion.protectionProjectile=Projectile Resistance
 DCs.potion.reflex=Reflex
 DCs.potion.absorptionEXP=EXP Absorption
+DCs.potion.absorptionHeal=Damage Absorption
 
 achievement.getTeaLeaves=Tea trees grow in 88 nights
 achievement.getTeaLeaves.desc=Get leaves from tea trees.
