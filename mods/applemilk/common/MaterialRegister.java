@@ -4,6 +4,7 @@ import mods.applemilk.common.block.*;
 import mods.applemilk.common.item.*;
 import mods.applemilk.potion.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -273,35 +274,6 @@ public class MaterialRegister {
 				setUnlocalizedName("defeatedcrow.rotaryDial").
 				setCreativeTab(DCsAppleMilk.applemilk);
 		
-		//ポーション効果の追加
-		//コンフィグでIDが33~127の範囲内の時のみ追加する。
-		if (DCsConfig.potionIDImmunity > 32 && DCsConfig.potionIDImmunity < 128){
-			DCsAppleMilk.Immunization = (new PotionImmunity(DCsConfig.potionIDImmunity, false, 7889559)).
-					setPotionName("DCs.potion.immunization").setIconIndex(6, 1);
-		}
-		if (DCsConfig.potionIDPrvExplode > 32 && DCsConfig.potionIDPrvExplode < 128){
-			DCsAppleMilk.prvExplode = (new PotionProtectionEX(DCsConfig.potionIDPrvExplode, false, 3237665,
-					false, true, false, DamageSource.anvil)).
-					setPotionName("DCs.potion.protectionExplode").setIconIndex(6, 1);
-		}
-		if (DCsConfig.potionIDPrvProjectile > 32 && DCsConfig.potionIDPrvProjectile < 128){
-			DCsAppleMilk.prvProjectile = (new PotionProtectionEX(DCsConfig.potionIDPrvProjectile, false, 1151526,
-					false, false, true, DamageSource.magic)).
-					setPotionName("DCs.potion.protectionProjectile").setIconIndex(6, 1);
-		}
-		if (DCsConfig.potionIDReflex > 32 && DCsConfig.potionIDReflex < 128){
-			DCsAppleMilk.reflex = (new PotionReflex(DCsConfig.potionIDReflex, false, 999999, false)).
-					setPotionName("DCs.potion.reflex").setIconIndex(6, 1);
-		}
-		if (DCsConfig.potionIDAbsEXP > 32 && DCsConfig.potionIDAbsEXP < 128){
-			DCsAppleMilk.absEXP = (new PotionReflex(DCsConfig.potionIDAbsEXP, false, 5599557, false)).
-					setPotionName("DCs.potion.absorptionEXP").setIconIndex(6, 1);
-		}
-		if (DCsConfig.potionIDAbsHeal > 32 && DCsConfig.potionIDAbsHeal < 128){
-			DCsAppleMilk.absHeal = (new PotionReflex(DCsConfig.potionIDAbsHeal, false, 9933221, false)).
-					setPotionName("DCs.potion.absorptionHeal").setIconIndex(6, 1);
-		}
-		
 		//old foods
 		if (DCsConfig.useOldItems)
 		{
@@ -382,6 +354,56 @@ public class MaterialRegister {
 		GameRegistry.registerBlock(DCsAppleMilk.cocktail, ItemCocktail.class, "defeatedcrow.cocktail");
 		GameRegistry.registerBlock(DCsAppleMilk.largeBottle, "defeatedcrow.largeBottle");
 		GameRegistry.registerBlock(DCsAppleMilk.cordial, ItemBlockCordial.class, "defeatedcrow.blockCordial");
+	}
+	
+	public void addPotion()
+	{
+		//ポーション効果の追加
+		//コンフィグでIDが33~127の範囲内の時のみ追加する。
+		if (Potion.potionTypes[DCsConfig.potionIDImmunity] == null && DCsConfig.potionIDImmunity < 128){
+			DCsAppleMilk.Immunization = (new PotionImmunity(DCsConfig.potionIDImmunity, false, 7889559)).
+					setPotionName("DCs.potion.immunization").setIconIndex(6, 1);
+		}
+		else {
+            throw new IllegalArgumentException("Failed to register new Potion : Immunization of DCsAppleMilk");
+        }
+		if (Potion.potionTypes[DCsConfig.potionIDPrvExplode] == null && DCsConfig.potionIDPrvExplode < 128){
+			DCsAppleMilk.prvExplode = (new PotionProtectionEX(DCsConfig.potionIDPrvExplode, false, 3237665,
+					false, true, false, DamageSource.anvil)).
+					setPotionName("DCs.potion.protectionExplode").setIconIndex(6, 1);
+		}
+		else {
+            throw new IllegalArgumentException("Failed to register new Potion : Explode Protection of DCsAppleMilk");
+        }
+		if (Potion.potionTypes[DCsConfig.potionIDPrvProjectile] == null && DCsConfig.potionIDPrvProjectile < 128){
+			DCsAppleMilk.prvProjectile = (new PotionProtectionEX(DCsConfig.potionIDPrvProjectile, false, 1151526,
+					false, false, true, DamageSource.magic)).
+					setPotionName("DCs.potion.protectionProjectile").setIconIndex(6, 1);
+		}
+		else {
+            throw new IllegalArgumentException("Failed to register new Potion : Projectile Protection of DCsAppleMIlk");
+        }
+		if (Potion.potionTypes[DCsConfig.potionIDReflex] == null && DCsConfig.potionIDReflex < 128){
+			DCsAppleMilk.reflex = (new PotionReflex(DCsConfig.potionIDReflex, false, 999999, false)).
+					setPotionName("DCs.potion.reflex").setIconIndex(6, 1);
+		}
+		else {
+            throw new IllegalArgumentException("Failed to register new Potion : Reflex of DCsAppleMilk");
+        }
+		if (Potion.potionTypes[DCsConfig.potionIDAbsEXP] == null && DCsConfig.potionIDAbsEXP < 128){
+			DCsAppleMilk.absEXP = (new PotionReflex(DCsConfig.potionIDAbsEXP, false, 5599557, false)).
+					setPotionName("DCs.potion.absorptionEXP").setIconIndex(6, 1);
+		}
+		else {
+            throw new IllegalArgumentException("Failed to register new Potion : EXP Absorption of DCsAppleMilk");
+        }
+		if (Potion.potionTypes[DCsConfig.potionIDAbsHeal] == null && DCsConfig.potionIDAbsHeal < 128){
+			DCsAppleMilk.absHeal = (new PotionReflex(DCsConfig.potionIDAbsHeal, false, 9933221, false)).
+					setPotionName("DCs.potion.absorptionHeal").setIconIndex(6, 1);
+		}
+		else {
+            throw new IllegalArgumentException("Failed to register new Potion : Damage Absorption of DCsAppleMilk");
+        }
 	}
 
 }

@@ -51,6 +51,11 @@ public class VillagerCafe implements IVillageTradeHandler {
 			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 2), new ItemStack(DCsAppleMilk.EXItems, 1, 8)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 2), new ItemStack(DCsAppleMilk.gratedApple, 1, 3)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 2), new ItemStack(DCsAppleMilk.leafTea, 1, 1)));
+			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 1), new ItemStack(DCsAppleMilk.leafTea, 1, 2)));
+			
+			//お酒
+			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 3), new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 51)));
+			recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 5), new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 53)));
 			
 			//買い取りは材料の葉や、余った空容器など
 			recipeList.add(new MerchantRecipe(new ItemStack(DCsAppleMilk.leafTea, 3, 0), new ItemStack(Item.emerald, 1)));
@@ -60,6 +65,7 @@ public class VillagerCafe implements IVillageTradeHandler {
 			recipeList.add(new MerchantRecipe(new ItemStack(DCsAppleMilk.EXItems, 3, 10), new ItemStack(Item.emerald, 1)));
 			recipeList.add(new MerchantRecipe(new ItemStack(Item.bowlEmpty, 3, 0), new ItemStack(Item.emerald, 1)));
 			recipeList.add(new MerchantRecipe(new ItemStack(DCsAppleMilk.emptyCup, 1, 0), new ItemStack(Item.emerald, 1)));
+			recipeList.add(new MerchantRecipe(new ItemStack(DCsAppleMilk.itemLargeBottle, 1, 0), new ItemStack(Item.emerald, 1)));
 			
 		}
 		

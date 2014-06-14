@@ -3,10 +3,16 @@ package mods.applemilk.common.tile;
 import java.io.DataOutputStream;
 import java.io.IOException;
  
+
+
+
 import mods.applemilk.api.IceRecipe;
+import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.PacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemHoe;
@@ -16,7 +22,9 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
  
 
@@ -32,11 +40,14 @@ import com.google.common.io.ByteArrayDataInput;
 
 
 
+
+
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileIceMaker extends TileEntity
+public class TileIceMaker extends TileEntity implements ISidedInventory
 {
  
 	//現在のチャージ量
@@ -49,12 +60,6 @@ public class TileIceMaker extends TileEntity
 	//温暖バイオームでのチャージ減少判定にも使用
 	private int coolTime = 8;
  
-	public InventoryIceMaker inventory;
- 
-	public TileIceMaker() {
-		this.inventory = new InventoryIceMaker(this);
-	}
- 
 	@Override
 	public void readFromNBT(NBTTagCompound par1NBTTagCompound)
 	{
@@ -62,16 +67,16 @@ public class TileIceMaker extends TileEntity
  
 		//アイテムの読み込み
 		NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Items");
-		this.inventory.iceItemStacks = new ItemStack[this.inventory.getSizeInventory()];
+		this.iceItemStacks = new ItemStack[this.getSizeInventory()];
  
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
 		{
 			NBTTagCompound nbttagcompound1 = (NBTTagCompound)nbttaglist.tagAt(i);
 			byte b0 = nbttagcompound1.getByte("Slot");
  
-			if (b0 >= 0 && b0 < this.inventory.iceItemStacks.length)
+			if (b0 >= 0 && b0 < this.iceItemStacks.length)
 			{
-				this.inventory.iceItemStacks[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+				this.iceItemStacks[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 			}
 		}
  
@@ -94,13 +99,13 @@ public class TileIceMaker extends TileEntity
 		//アイテムの書き込み
 		NBTTagList nbttaglist = new NBTTagList();
  
-		for (int i = 0; i < this.inventory.iceItemStacks.length; ++i)
+		for (int i = 0; i < this.iceItemStacks.length; ++i)
 		{
-			if (this.inventory.iceItemStacks[i] != null)
+			if (this.iceItemStacks[i] != null)
 			{
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 				nbttagcompound1.setByte("Slot", (byte)i);
-				this.inventory.iceItemStacks[i].writeToNBT(nbttagcompound1);
+				this.iceItemStacks[i].writeToNBT(nbttagcompound1);
 				nbttaglist.appendTag(nbttagcompound1);
 			}
 		}
@@ -108,45 +113,18 @@ public class TileIceMaker extends TileEntity
 		par1NBTTagCompound.setTag("Items", nbttaglist);
  
 	}
- 
-	public void readToPacket(ByteArrayDataInput data) {
-		//アイテムの読み込み
-		for (int i = 0; i < this.inventory.getSizeInventory(); i++) {
-			int id = data.readInt();
-			int stacksize = data.readByte();
-			int metadata = data.readInt();
- 
-			if (id != 0 && stacksize != 0) {
-				this.inventory.setInventorySlotContents(i, new ItemStack(id, stacksize, metadata));
-			} else {
-				this.inventory.setInventorySlotContents(i, null);
-			}
-		}
-	}
- 
-	public void writeToPacket(DataOutputStream dos) {
-		try {
-			//アイテムの書き込み
-			for (int i = 0; i < this.inventory.getSizeInventory(); i++) {
-				int id = this.inventory.iceItemStacks[i] != null ? this.inventory.iceItemStacks[i].itemID : 0;
-				int stacksize = this.inventory.iceItemStacks[i] != null ? this.inventory.iceItemStacks[i].stackSize : 0;
-				int metadata = this.inventory.iceItemStacks[i] != null ? this.inventory.iceItemStacks[i].getItemDamage() : 0;
- 
-				dos.writeInt(id);
-				dos.writeByte(stacksize);
-				dos.writeInt(metadata);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	
+	@Override
+	public Packet getDescriptionPacket() {
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        this.writeToNBT(nbtTagCompound);
+        return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, nbtTagCompound);
 	}
  
 	@Override
-	public Packet getDescriptionPacket()
-	{
-		//パケットの取得
-		return PacketHandler.getIcePacket(this);
-	}
+    public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
+        this.readFromNBT(pkt.data);
+    }
  
 	//調理中の矢印の描画
 	@SideOnly(Side.CLIENT)
@@ -206,10 +184,10 @@ public class TileIceMaker extends TileEntity
 			if (this.coolTime == 0)
 			{
 				//チャージが満タンではないか？
-				if (this.chargeAmount < 127 && this.isItemFuel(this.inventory.iceItemStacks[1]))
+				if (this.chargeAmount < 127 && this.isItemFuel(this.iceItemStacks[1]))
 				{
 					//チャージ残量＋アイテムのチャージ量
-					int i = this.chargeAmount += getItemBurnTime(this.inventory.iceItemStacks[1]);
+					int i = this.chargeAmount += getItemBurnTime(this.iceItemStacks[1]);
 	 
 					if (i < 128)//128未満ならOK
 					{
@@ -217,13 +195,13 @@ public class TileIceMaker extends TileEntity
 						flag1 = true;
 	 
 						//スロット1のアイテムを減らす
-						if (this.inventory.iceItemStacks[1] != null)
+						if (this.iceItemStacks[1] != null)
 						{
-							--this.inventory.iceItemStacks[1].stackSize;
+							--this.iceItemStacks[1].stackSize;
 	 
-							if (this.inventory.iceItemStacks[1].stackSize == 0)
+							if (this.iceItemStacks[1].stackSize == 0)
 							{
-								this.inventory.iceItemStacks[1] = this.inventory.iceItemStacks[1].getItem().getContainerItemStack(this.inventory.iceItemStacks[1]);
+								this.iceItemStacks[1] = this.iceItemStacks[1].getItem().getContainerItemStack(this.iceItemStacks[1]);
 							}
 						}
 					}
@@ -275,18 +253,60 @@ public class TileIceMaker extends TileEntity
 	 */
 	private boolean canSmelt()
 	{
-		if (this.inventory.iceItemStacks[0] == null)
+		if (this.iceItemStacks[0] == null)
 		{
 			return false;
 		}
 		else
 		{
-			ItemStack itemstack = IceRecipe.getOutput(IceRecipe.getID(this.inventory.iceItemStacks[0]));
-			if (itemstack == null) return false;
-			if (this.inventory.iceItemStacks[2] == null) return true;
-			if (!this.inventory.iceItemStacks[2].isItemEqual(itemstack)) return false;
-			int result = this.inventory.iceItemStacks[2].stackSize + itemstack.stackSize;
-			return (result <= this.inventory.getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
+			ItemStack itemstack = IceRecipe.getOutput(IceRecipe.getID(this.iceItemStacks[0]));
+			
+			if (IceRecipe.canLeave(IceRecipe.getID(this.iceItemStacks[0])))
+			{
+				ItemStack leavestack = IceRecipe.getLeaveStack(IceRecipe.getID(this.iceItemStacks[0]));
+				
+				if (itemstack == null || leavestack == null) return false;
+				boolean flag1 = false;
+				boolean flag2 = false;
+				
+				if (this.iceItemStacks[2] == null)
+				{
+					flag1 = true;
+				}
+				else
+				{
+					if (this.iceItemStacks[2].isItemEqual(itemstack))
+					{
+						int result = this.iceItemStacks[2].stackSize + itemstack.stackSize;
+						flag1 = (result <= this.getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
+					}
+				}
+				
+				if (this.iceItemStacks[3] == null)
+				{
+					flag2 = true;
+				}
+				else
+				{
+					if (this.iceItemStacks[3].isItemEqual(leavestack))
+					{
+						int leave = this.iceItemStacks[3].stackSize + leavestack.stackSize;
+						flag2 = (leave <= this.getInventoryStackLimit() && leave <= leavestack.getMaxStackSize());
+					}
+				}
+				
+				return (flag1 && flag2);
+			}
+			else
+			{
+				if (itemstack == null) return false;
+				
+				if (this.iceItemStacks[2] == null) return true;
+				if (!this.iceItemStacks[2].isItemEqual(itemstack)) return false;
+				
+				int result = this.iceItemStacks[2].stackSize + itemstack.stackSize;
+				return (result <= this.getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
+			}
 		}
 	}
  
@@ -297,31 +317,36 @@ public class TileIceMaker extends TileEntity
 	{
 		if (this.canSmelt())
 		{
-			int id = IceRecipe.getID(this.inventory.iceItemStacks[0]);
+			int id = IceRecipe.getID(this.iceItemStacks[0]);
 			ItemStack itemstack = IceRecipe.getOutput(id);
 			ItemStack leave = IceRecipe.getLeaveStack(id);
  
-			if (this.inventory.iceItemStacks[2] == null)
+			if (this.iceItemStacks[2] == null)
 			{
-				this.inventory.iceItemStacks[2] = itemstack.copy();
+				this.iceItemStacks[2] = itemstack.copy();
 			}
-			else if (this.inventory.iceItemStacks[2].isItemEqual(itemstack))
+			else if (this.iceItemStacks[2].isItemEqual(itemstack))
 			{
-				this.inventory.iceItemStacks[2].stackSize += itemstack.stackSize;
+				this.iceItemStacks[2].stackSize += itemstack.stackSize;
 			}
  
 			if (IceRecipe.canLeave(id) && leave != null)//材料スロットに残すアイテム
 			{
-				this.inventory.iceItemStacks[0] = leave.copy();
-			}
-			else
-			{
-				--this.inventory.iceItemStacks[0].stackSize;
-				 
-				if (this.inventory.iceItemStacks[0].stackSize <= 0)
+				if (this.iceItemStacks[3] == null)
 				{
-					this.inventory.iceItemStacks[0] = null;
+					this.iceItemStacks[3] = leave.copy();
 				}
+				else if (this.iceItemStacks[3].isItemEqual(leave))
+				{
+					this.iceItemStacks[3].stackSize += leave.stackSize;
+				}
+			}
+			
+			--this.iceItemStacks[0].stackSize;
+			 
+			if (this.iceItemStacks[0].stackSize <= 0)
+			{
+				this.iceItemStacks[0] = null;
 			}
 			
 			//チャージを消費
@@ -432,6 +457,143 @@ public class TileIceMaker extends TileEntity
 		}
 		
 		return l;
+	}
+	
+	/* ========== 以下、ISidedInventoryのメソッド ==========*/
+	
+	private static final int[] slots_top = new int[] {0};
+	private static final int[] slots_bottom = new int[] {2, 3, 1};
+	private static final int[] slots_sides = new int[] {1};
+ 
+	public ItemStack[] iceItemStacks = new ItemStack[4];
+ 
+ 
+	// スロット数
+	@Override
+	public int getSizeInventory() {
+		return this.iceItemStacks.length;
+	}
+ 
+	// インベントリ内の任意のスロットにあるアイテムを取得
+	@Override
+	public ItemStack getStackInSlot(int par1) {
+		return this.iceItemStacks[par1];
+	}
+ 
+	@Override
+	public ItemStack decrStackSize(int par1, int par2) {
+		if (this.iceItemStacks[par1] != null)
+		{
+			ItemStack itemstack;
+ 
+			if (this.iceItemStacks[par1].stackSize <= par2)
+			{
+				itemstack = this.iceItemStacks[par1];
+				this.iceItemStacks[par1] = null;
+				return itemstack;
+			}
+			else
+			{
+				itemstack = this.iceItemStacks[par1].splitStack(par2);
+ 
+				if (this.iceItemStacks[par1].stackSize == 0)
+				{
+					this.iceItemStacks[par1] = null;
+				}
+ 
+				return itemstack;
+			}
+		}
+		else
+		{
+			return null;
+		}
+	}
+ 
+	@Override
+	public ItemStack getStackInSlotOnClosing(int par1) {
+		if (this.iceItemStacks[par1] != null)
+		{
+			ItemStack itemstack = this.iceItemStacks[par1];
+			this.iceItemStacks[par1] = null;
+			return itemstack;
+		}
+		else
+		{
+			return null;
+		}
+	}
+ 
+	// インベントリ内のスロットにアイテムを入れる
+	@Override
+	public void setInventorySlotContents(int par1, ItemStack par2ItemStack) {
+		
+		if (par1 > 3) par1 = 0;//存在しないスロットに入れようとすると強制的に材料スロットに変更される。
+		
+		this.iceItemStacks[par1] = par2ItemStack;
+ 
+		if (par2ItemStack != null && par2ItemStack.stackSize > this.getInventoryStackLimit())
+		{
+			par2ItemStack.stackSize = this.getInventoryStackLimit();
+		}
+	}
+ 
+	// インベントリの名前
+	@Override
+	public String getInvName() {
+		return "Ice Maker";
+	}
+ 
+	// 多言語対応かどうか
+	@Override
+	public boolean isInvNameLocalized() {
+		return true;
+	}
+ 
+	// インベントリ内のスタック限界値
+	@Override
+	public int getInventoryStackLimit() {
+		return 64;
+	}
+ 
+	@Override
+	public void onInventoryChanged() {
+		super.onInventoryChanged();
+	}
+ 
+	// par1EntityPlayerがTileEntityを使えるかどうか
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer) {
+		return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D) <= 64.0D;
+	}
+ 
+	@Override
+	public void openChest() {}
+ 
+	@Override
+	public void closeChest() {}
+ 
+	@Override
+	public boolean isItemValidForSlot(int par1, ItemStack par2ItemStack) {
+		return par1 > 1 ? false : (par1 == 1 ? this.isItemFuel(par2ItemStack) : true);
+	}
+ 
+	//ホッパーにアイテムの受け渡しをする際の優先度
+	@Override
+	public int[] getAccessibleSlotsFromSide(int par1) {
+		return par1 == 0 ? slots_bottom : (par1 == 1 ? slots_top : slots_sides);
+	}
+ 
+	//ホッパーからアイテムを入れられるかどうか
+	@Override
+	public boolean canInsertItem(int par1, ItemStack par2ItemStack, int par3) {
+		return this.isItemValidForSlot(par1, par2ItemStack);
+	}
+ 
+	//隣接するホッパーにアイテムを送れるかどうか
+	@Override
+	public boolean canExtractItem(int par1, ItemStack par2ItemStack, int par3) {
+		return par3 != 0 || par1 != 1;
 	}
  
 }

@@ -91,11 +91,11 @@ public class ItemIceBlock extends EdibleItemBlock{
 		{
 			return new PotionEffect(Potion.nightVision.id, 900, 0);
 		}
-		else if ((meta == 5) && DCsConfig.potionIDImmunity != 0)//fruit
+		else if ((meta == 5) && DCsAppleMilk.succeedAddPotion)//fruit
 		{
 			return new PotionEffect(DCsAppleMilk.Immunization.id, 900, 0);
 		}
-		else if ((meta == 6) && DCsConfig.potionIDImmunity != 0)//lemon
+		else if ((meta == 6) && DCsAppleMilk.succeedAddPotion)//lemon
 		{
 			return new PotionEffect(DCsAppleMilk.Immunization.id, 900, 1);
 		}
@@ -115,9 +115,13 @@ public class ItemIceBlock extends EdibleItemBlock{
 		{
 			return new PotionEffect(Potion.moveSpeed.id, 900, 0);
 		}
-		else//mint
+		else if (meta == 11)//mint
 		{
 			return null;
+		}
+		else//例外用
+		{
+			return new PotionEffect(Potion.heal.id, 1, 0);
 		}
 	}
 	

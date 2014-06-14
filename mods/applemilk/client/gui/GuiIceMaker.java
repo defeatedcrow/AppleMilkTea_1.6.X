@@ -11,12 +11,12 @@ import org.lwjgl.opengl.GL11;
 public class GuiIceMaker extends GuiContainer {
  
 	private TileIceMaker tileentity;
-	private InventoryIceMaker inventory;
+	private TileIceMaker inventory;
  
 	public GuiIceMaker(EntityPlayer player, TileIceMaker par2TileEntity) {
 		super(new ContainerIceMaker(player, par2TileEntity));
 		this.tileentity = par2TileEntity;
-		this.inventory = par2TileEntity.inventory;
+		this.inventory = par2TileEntity;
 	}
  
 	@Override

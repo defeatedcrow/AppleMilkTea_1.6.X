@@ -88,8 +88,6 @@ public class BlockSaplingTea extends Block implements IPlantable
      */
     public void growTree(World par1World, int par2, int par3, int par4, Random par5Random)
     {
-        if (!TerrainGen.saplingGrowTree(par1World, par5Random, par2, par3, par4)) return;
-
         int meta = par1World.getBlockMetadata(par2, par3, par4);
         
         if (meta == 0)

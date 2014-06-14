@@ -22,6 +22,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.entity.player.BonemealEvent;
@@ -112,6 +113,7 @@ public class BlockGunpowderContainer extends Block{
 	public static boolean likeBonemeal(World par1World, int par2, int par3, int par4)
 	{
 		int l = par1World.getBlockId(par2, par3, par4);
+		int meta = par1World.getBlockMetadata(par2, par3, par4);
 		FakePlayer faker = new FakePlayer(par1World, "faker");
 
         BonemealEvent event = new BonemealEvent(faker, par1World, l, par2, par3, par4);
@@ -247,7 +249,7 @@ public class BlockGunpowderContainer extends Block{
                 return true;
             }
         }
-        else
+        else if (Block.blocksList[l] instanceof BlockMushroom)
         {
             if (!par1World.isRemote)
             {
@@ -258,6 +260,10 @@ public class BlockGunpowderContainer extends Block{
             }
 
             return true;
+        }
+        else
+        {
+        	return false;
         }
 	}
 	

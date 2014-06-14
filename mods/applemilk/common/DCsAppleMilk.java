@@ -47,8 +47,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.14a_dev",
-		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry"
+		version = "1.6.2_1.14a",
+		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry;after:ExtraTrees"
 		)
 @NetworkMod(
 		clientSideRequired = true,
@@ -172,6 +172,7 @@ public class DCsAppleMilk{
 	public static boolean SuccessLoadSugi = false;
 	public static boolean SuccessLoadDart = false;
 	public static boolean SuccessLoadTE3 = false;
+	public static boolean SuccessLoadWa = false;
 	
 	//内部処理用
 	public static boolean fanc_78842dcs = false;
@@ -181,7 +182,8 @@ public class DCsAppleMilk{
 	public static boolean inClient = false;
 	public static boolean inServer = false;
 	public static boolean thirdParty = false;
-	public static boolean debugMode = true;
+	public static boolean debugMode = false;
+	public static boolean succeedAddPotion = false;
 	
 	//新ツール属性の追加
 	public static EnumToolMaterial enumToolMaterialChalcedony;
@@ -249,6 +251,18 @@ public class DCsAppleMilk{
 		//ブロックやアイテムの読み込みと登録
 		(new MaterialRegister()).load();
 		
+		//ポーションIDが拡張出来ているかのチェックを行い、成功時のみポーションを追加する。
+		int potion = Potion.potionTypes.length;
+		try
+		{
+			(new MaterialRegister()).addPotion();
+			this.succeedAddPotion = true;
+			AMTLogger.debugInfo("Succeed to add new potion effect.");
+		}
+		catch  (Exception e)
+		{
+			AMTLogger.debugInfo("Failed to add new potion effect.");
+		}
 		
 		//クラフトで耐久が減るアイテムの登録
 		GameRegistry.registerCraftingHandler(DCgrater);
@@ -376,10 +390,10 @@ public class DCsAppleMilk{
 	        {
 	          this.SuccessLoadTE3 = true;
 	          (new LoadTE3Handler()).load();
-	          AMTLogger.loadedModInfo("TE3");
+	          AMTLogger.loadedModInfo("ThermalExpansion");
 	        }
 	        catch (Exception e) {
-	        	AMTLogger.failLoadingModInfo("TE3");
+	        	AMTLogger.failLoadingModInfo("ThermalExpansion");
 	          e.printStackTrace(System.err);
 	        }
 	    }
@@ -659,6 +673,21 @@ public class DCsAppleMilk{
 	        }
 	        catch (Exception e) {
 	        	AMTLogger.failLoadingModInfo("DartCraft");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
+	    if (Loader.isModLoaded("Wa"))
+	    {
+	    	AMTLogger.loadingModInfo("Wa");
+	    	try
+	        {
+	          this.SuccessLoadWa = true;
+	          (new LoadModHandler()).loadWa();
+	          AMTLogger.loadedModInfo("Wa");
+	        }
+	        catch (Exception e) {
+	        	AMTLogger.failLoadingModInfo("Wa");
 	          e.printStackTrace(System.err);
 	        }
 	    }

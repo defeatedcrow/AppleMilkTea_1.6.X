@@ -66,11 +66,11 @@ public class ItemBlockTeaCup extends EdibleItemBlock{
 		{
 			return new PotionEffect(Potion.nightVision.id, 600, 0);
 		}
-		else if ((meta == 8 || meta == 9) && DCsConfig.potionIDImmunity != 0)
+		else if ((meta == 8 || meta == 9) && DCsAppleMilk.succeedAddPotion)
 		{
 			return new PotionEffect(DCsAppleMilk.Immunization.id, 600, 0);
 		}
-		else if ((meta == 10 || meta == 11) && DCsConfig.potionIDImmunity != 0)
+		else if ((meta == 10 || meta == 11) && DCsAppleMilk.succeedAddPotion)
 		{
 			return new PotionEffect(DCsAppleMilk.Immunization.id, 600, 1);
 		}

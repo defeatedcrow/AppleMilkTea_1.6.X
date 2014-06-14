@@ -77,6 +77,25 @@ public class CraftingEvent implements ICraftingHandler {
 					rets.add(new ItemStack(DCsAppleMilk.itemLargeBottle.itemID, 1, next));
 				}
 			}
+			else if (m != null && m.itemID == DCsAppleMilk.itemCordial.itemID) {
+				int rem = m.getItemDamage() & 3;
+				if (rem > 0)
+				{
+					rem--;
+					if (rem == 0){
+						rets.add(new ItemStack(DCsAppleMilk.itemLargeBottle.itemID, 1, 0));
+					}
+					else
+					{
+						int next = m.getItemDamage() - 1;
+						rets.add(new ItemStack(DCsAppleMilk.itemCordial.itemID, 1, next));
+					}
+				}
+				else
+				{
+					rets.add(new ItemStack(DCsAppleMilk.itemLargeBottle.itemID, 1, 0));
+				}
+			}
 		}
 		if (!rets.isEmpty()) {
 			for (ItemStack ret : rets)

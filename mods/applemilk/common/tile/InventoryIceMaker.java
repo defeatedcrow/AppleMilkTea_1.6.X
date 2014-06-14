@@ -9,10 +9,10 @@ import net.minecraft.item.ItemStack;
 public class InventoryIceMaker implements ISidedInventory {
  
 	private static final int[] slots_top = new int[] {0};
-	private static final int[] slots_bottom = new int[] {2, 1};
+	private static final int[] slots_bottom = new int[] {2, 3, 1};
 	private static final int[] slots_sides = new int[] {1};
  
-	public ItemStack[] iceItemStacks = new ItemStack[3];
+	public ItemStack[] iceItemStacks = new ItemStack[4];
  
 	private TileIceMaker tileentity;
  

@@ -2,8 +2,11 @@ package mods.applemilk.handler;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -135,6 +138,19 @@ public class Util {
 		return biome;
 	}
 	
-	
+	//新規追加ポーションを発生させる場合、ここのメソッドを中継する。（追加失敗対策）
+	public static boolean addPotionEffectDC(EntityLivingBase living, PotionEffect effect)
+	{
+		boolean flag = DCsAppleMilk.succeedAddPotion;
+		if (flag)
+		{
+			living.addPotionEffect(effect);
+		}
+		else
+		{
+			living.addPotionEffect(new PotionEffect(Potion.regeneration.id, 300, 0));
+		}
+		return flag;
+	}
 
 }

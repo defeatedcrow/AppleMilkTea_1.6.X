@@ -123,7 +123,7 @@ public class ModelCocktail extends ModelBase
     setRotationAngles(f, f1, f2, f3, f4, f5, entity);
     
     if (b0 == 0 || b0 == 3 || b0 == 8) lime.render(f5);
-    else if (b0 == 5 || b0 == 7 || b0 == 9) lemon.render(f5);
+    else if (b0 == 5 || b0 == 7 || b0 == 9 || b0 == 12) lemon.render(f5);
     else if (b0 == 6) pine.render(f5);
   }
   
@@ -132,13 +132,13 @@ public class ModelCocktail extends ModelBase
     super.render(entity, f, f1, f2, f3, f4, f5);
     setRotationAngles(f, f1, f2, f3, f4, f5, entity);
     bottom.render(f5);
-    if (b0 == 5 || b0 > 6) {
+    if (b0 == 5 || (b0 > 6 && b0 != 10)) {
     	Bside1.render(f5);
     	Bside2.render(f5);
     	Bside3.render(f5);
     	Bside4.render(f5);
     }
-    else if (b0 == 6) {
+    else if (b0 == 6 || b0 == 10) {
     	Aleg.render(f5);
     	Aleg2.render(f5);
     	

@@ -153,7 +153,7 @@ public class BlockTeaTree extends Block implements IPlantable{
 	
 	public int quantityDropped(Random random)
 	{
-		return random.nextInt(3) == 0 ? 2 : 1;
+		return random.nextInt(2) == 0 ? 1 : 2;
 	}
 	
 	protected boolean canSilkHarvest()

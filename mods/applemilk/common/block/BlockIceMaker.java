@@ -100,9 +100,9 @@ public class BlockIceMaker extends BlockContainer {
 	 
 		if (tileentity != null)
 		{
-			for (int j1 = 0; j1 < tileentity.inventory.getSizeInventory(); ++j1)
+			for (int j1 = 0; j1 < tileentity.getSizeInventory(); ++j1)
 			{
-				ItemStack itemstack = tileentity.inventory.getStackInSlot(j1);
+				ItemStack itemstack = tileentity.getStackInSlot(j1);
 	 
 				if (itemstack != null)
 				{

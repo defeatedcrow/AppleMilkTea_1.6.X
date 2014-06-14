@@ -26,7 +26,7 @@ import mods.applemilk.common.tile.TileCocktail;
 
 public class BlockCocktail extends BlockContainer{
 	
-	private static final String[] contents = new String[] {"_milk", "_milk", "_milk", "_lime", "_cocoa", "_tomato", "_juice", "_lemon_gradient", "_lime", "_mintjulep", "_berry", "_berry_milk", "_tomato"};
+	private static final String[] contents = new String[] {"_milk", "_milk", "_milk", "_lime", "_cocoa", "_tomato", "_juice", "_lemon_gradient", "_lime", "_mintjulep", "_berry", "_berry_milk", "_tomato", "_tea"};
 	
 	@SideOnly(Side.CLIENT)
     private Icon boxTex;
@@ -126,7 +126,7 @@ public class BlockCocktail extends BlockContainer{
 	@SideOnly(Side.CLIENT)
     public Icon getIcon(int par1, int par2)
     { 
-		int i = Math.min(par2, 12);
+		int i = Math.min(par2, 13);
 		if (par1 == 1)
 		{
 			return this.contentsTex[par2];
@@ -141,7 +141,7 @@ public class BlockCocktail extends BlockContainer{
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
-		for(int i = 0; i < 13; ++i)
+		for(int i = 0; i < 14; ++i)
 		{
 			par3List.add(new ItemStack(this, 1, i));
 		}
@@ -158,8 +158,8 @@ public class BlockCocktail extends BlockContainer{
 	public void registerIcons(IconRegister par1IconRegister)
 	{
 		this.boxTex = par1IconRegister.registerIcon("applemilk:blueglass");
-		this.contentsTex = new Icon[13];
-        for (int i = 0; i < 13; ++i)
+		this.contentsTex = new Icon[14];
+        for (int i = 0; i < 14; ++i)
         {
         	this.contentsTex[i] = par1IconRegister.registerIcon("applemilk:contents" + contents[i]);
         }

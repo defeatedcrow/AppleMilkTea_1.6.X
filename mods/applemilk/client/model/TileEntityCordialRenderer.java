@@ -60,7 +60,19 @@ public class TileEntityCordialRenderer extends TileEntitySpecialRenderer
         }
         else
         {
-        	GL11.glColor4f(1.5F, 1.5F, 1.5F, 0.6F);
+        	switch (k)
+        	{
+        	case 0:
+        		GL11.glColor4f(2.0F, 2.0F, 2.0F, 0.2F);
+        		break;
+        	case 1:
+        		GL11.glColor4f(1.5F, 1.5F, 1.5F, 0.4F);
+        		break;
+        		default:
+        			GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
+        			break;
+        	}
+        	
         }
         
         GL11.glTranslatef((float)par1 + 0.5F, (float)par2 - 0.83F, (float)par3 + 0.5F);

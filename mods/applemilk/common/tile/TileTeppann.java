@@ -7,7 +7,9 @@ import mods.applemilk.handler.Util;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileTeppann extends TileEntity
@@ -55,9 +57,15 @@ public class TileTeppann extends TileEntity
     }
     
     @Override
-    public Packet getDescriptionPacket()
-    {
-        return PacketHandler.getPacket(this);
+	public Packet getDescriptionPacket() {
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        this.writeToNBT(nbtTagCompound);
+        return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, nbtTagCompound);
+	}
+ 
+	@Override
+    public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
+        this.readFromNBT(pkt.data);
     }
 
     public ItemStack setItemstack()

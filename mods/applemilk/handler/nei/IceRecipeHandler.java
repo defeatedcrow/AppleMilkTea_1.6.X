@@ -15,10 +15,10 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 
 public class IceRecipeHandler extends TemplateRecipeHandler {
 	
-	private HashMap<ItemStack, ItemStack> iceRecipe;
+	private HashMap<ItemStack,ItemStack[]> iceRecipe;
 	
-	private HashMap<ItemStack, ItemStack> recipeLoader() {
-		if (RegisteredRecipeGet.teaRecipeList != null && !RegisteredRecipeGet.iceRecipeList.isEmpty()) {
+	private HashMap<ItemStack, ItemStack[]> recipeLoader() {
+		if (RegisteredRecipeGet.iceRecipeList != null && !RegisteredRecipeGet.iceRecipeList.isEmpty()) {
 			this.iceRecipe = RegisteredRecipeGet.iceRecipeList;
 		}
 		return this.iceRecipe;
@@ -28,11 +28,17 @@ public class IceRecipeHandler extends TemplateRecipeHandler {
 		
 		private PositionedStack input;
 		private PositionedStack result;
+		private PositionedStack leave;
 
-		public recipeCacher(ItemStack in, ItemStack out) {
+		public recipeCacher(ItemStack in, ItemStack[] out) {
 			in.stackSize = 1;
 			this.input = new PositionedStack(in, 51, 6);
-			this.result= new PositionedStack(out, 111, 24);
+			this.result= new PositionedStack(out[0], 107, 24);
+			if (out[1] != null)
+			{
+				this.leave = new PositionedStack(out[1], 135, 24);
+			}
+			
 		}
 
 		@Override
@@ -44,6 +50,11 @@ public class IceRecipeHandler extends TemplateRecipeHandler {
 		public PositionedStack getIngredient()
         {
             return this.input;
+        }
+		
+		public PositionedStack getOtherStack()
+        {
+            return this.leave;
         }
 		
 	}
@@ -72,14 +83,14 @@ public class IceRecipeHandler extends TemplateRecipeHandler {
     {
         if(outputId.equals("DCsIceMaker"))
         {
-            HashMap<ItemStack, ItemStack> recipes = (HashMap<ItemStack, ItemStack>) this.recipeLoader();
+            HashMap<ItemStack, ItemStack[]> recipes = (HashMap<ItemStack, ItemStack[]>) this.recipeLoader();
 
             if(recipes == null || recipes.isEmpty())return;
-            for(Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
+            for(Entry<ItemStack, ItemStack[]> recipe : recipes.entrySet())
             {
-                ItemStack item = recipe.getValue();
+                ItemStack[] items = recipe.getValue();
                 ItemStack in = recipe.getKey();
-                arecipes.add(new recipeCacher(in, item));
+                arecipes.add(new recipeCacher(in,items));
             }
         }
         else
@@ -92,16 +103,16 @@ public class IceRecipeHandler extends TemplateRecipeHandler {
     public void loadCraftingRecipes(ItemStack result)
     {
 
-		HashMap<ItemStack, ItemStack> recipes = (HashMap<ItemStack, ItemStack>) this.recipeLoader();
+		HashMap<ItemStack, ItemStack[]> recipes = (HashMap<ItemStack, ItemStack[]>) this.recipeLoader();
 
         if(recipes == null || recipes.isEmpty())return;
-        for(Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
+        for(Entry<ItemStack, ItemStack[]> recipe : recipes.entrySet())
         {
-            ItemStack item = recipe.getValue();
+        	ItemStack[] items = recipe.getValue();
             ItemStack in = recipe.getKey();
-            if(NEIServerUtils.areStacksSameType(item, result))
+            if(NEIServerUtils.areStacksSameType(items[0], result))
             {
-                arecipes.add(new recipeCacher(in, item));
+                arecipes.add(new recipeCacher(in, items));
             }
         }
     }
@@ -110,16 +121,16 @@ public class IceRecipeHandler extends TemplateRecipeHandler {
     public void loadUsageRecipes(ItemStack ingredient)
     {
 
-		HashMap<ItemStack, ItemStack> recipes = (HashMap<ItemStack, ItemStack>) this.recipeLoader();
+		HashMap<ItemStack, ItemStack[]> recipes = (HashMap<ItemStack, ItemStack[]>) this.recipeLoader();
 
         if(recipes == null || recipes.isEmpty())return;
-        for(Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
+        for(Entry<ItemStack, ItemStack[]> recipe : recipes.entrySet())
         {
-            ItemStack item = recipe.getValue();
+        	ItemStack[] items = recipe.getValue();
             ItemStack in = recipe.getKey();
             if(ingredient.itemID == in.itemID && ingredient.getItemDamage() == in.getItemDamage())
             {
-                arecipes.add(new recipeCacher(ingredient, item));
+                arecipes.add(new recipeCacher(ingredient, items));
             }
         }
     }

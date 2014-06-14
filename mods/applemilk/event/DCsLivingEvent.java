@@ -1,9 +1,12 @@
 package mods.applemilk.event;
 
+import java.util.Iterator;
+
 import mods.applemilk.potion.PotionImmunity;
 import mods.applemilk.api.potion.PotionImmunityBase;
 import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.common.DCsConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
@@ -27,15 +30,17 @@ public class DCsLivingEvent {
 		{
 			EntityPlayer player = (EntityPlayer)event.entity;
 			
-			if(player != null)
+			if(player != null && !player.worldObj.isRemote)
 			{
-				if(player.isPotionActive(DCsAppleMilk.Immunization))
+				//PotionEffectのリスト
+				Iterator iterator = player.getActivePotionEffects().iterator();
+				
+				while (iterator.hasNext())
 				{
-					//プレイヤーに現在かかっているポーション効果
-					PotionEffect effect = player.getActivePotionEffect(DCsAppleMilk.Immunization);
-					//かかっているポーション効果のレベル
-					int amp = effect.getAmplifier();
+					PotionEffect effect = (PotionEffect)iterator.next();
 					Potion potion = Potion.potionTypes[effect.getPotionID()];
+					int amp = effect.getAmplifier();
+					int dur = effect.getDuration();
 					
 					if(potion != null && potion instanceof PotionImmunityBase)
 					{

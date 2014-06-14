@@ -243,16 +243,8 @@ public class IceRecipe {
 					recipeID.put(input, newID);
 					outputs.put(newID, output);
 					
-					if (input.getMaxStackSize() > 1)
-					{
-						leave.put(newID, false);
-						leaveStack.put(newID, leaveItem);
-					}
-					else
-					{
-						leave.put(newID, true);
-						leaveStack.put(newID, leaveItem);
-					}
+					leave.put(newID, true);
+					leaveStack.put(newID, leaveItem);
 					
 					AMTLogger.debugInfo("newID(ice): " + newID);
 					AMTLogger.debugInfo("input: " + input.getDisplayName());

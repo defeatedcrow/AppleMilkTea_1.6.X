@@ -10,14 +10,9 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 /**
 * Original code was created by A.K.
 */
-@IFMLLoadingPlugin.MCVersion("1.6.2")
+//@IFMLLoadingPlugin.MCVersion("1.6.2")
 public class AppleMilkCorePlugin implements IFMLLoadingPlugin {
     public static Logger logger = Logger.getLogger("AppleMilkCore");
-    public static int maxDamageModifier;
-    public static int maxAnvilLevelModifier;
-    public static int setAnvilLevelModifier;
-    public static int beaconBaseRange;
-    public static int beaconLevelRange;
     @Override
     public String[] getASMTransformerClass() {
         return new String[]{

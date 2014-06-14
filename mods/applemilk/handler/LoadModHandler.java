@@ -387,35 +387,78 @@ public class LoadModHandler {
 	
 	public void loadExtraTrees() { //ExtraTree様のアイテム。
 		
-		Item item = Util.getModItem("ExtraTrees", "itemFood");
-		//binniemods様の食材アイテムは同じIDでメタデータ違いなので、メタデータ毎に取得。
-		if (item != null) {
-			ItemStack cassis = new ItemStack(item, 1, 41);
-			if (this.registerModItems("binnieCassis", cassis)) {
-				OreDictionary.registerOre("cropCassis", cassis);
+		try
+		{
+			Object obj = Class.forName("binnie.extratrees.ExtraTrees").getField("itemFood").get(null);
+			//binniemods様の食材アイテムは同じIDでメタデータ違いなので、メタデータ毎に取得。
+			if (obj instanceof Item) {
+				Item item = (Item) obj;
+				
+				ItemStack cassis = new ItemStack(item, 1, 41);
+				if (this.registerModItems("binnieCassis", cassis)) {
+					OreDictionary.registerOre("cropCassis", cassis);
+				}
+				ItemStack black = new ItemStack(item, 1, 43);
+				if (this.registerModItems("binnieBlackberry", black)) {
+					OreDictionary.registerOre("cropBlackberry", black);
+				}
+				ItemStack rasp = new ItemStack(item, 1, 44);
+				if (this.registerModItems("binnieRasp", rasp)) {
+					OreDictionary.registerOre("cropRaspberry", rasp);
+				}
+				ItemStack blue = new ItemStack(item, 1, 45);
+				if (this.registerModItems("binnieBlue", blue)) {
+					OreDictionary.registerOre("cropBlueberry", blue);
+				}
+				ItemStack cran = new ItemStack(item, 1, 46);
+				if (this.registerModItems("binnieCran", cran)) {
+					OreDictionary.registerOre("cropCranberry", cran);
+				}
+				ItemStack coco = new ItemStack(item, 1, 50);
+				if (this.registerModItems("binnieCoco", coco)) {
+					OreDictionary.registerOre("cropCoconut", coco);
+				}
+				ItemStack chili = new ItemStack(item, 1, 55);
+				if (this.registerModItems("binnieChili", chili)) {
+					OreDictionary.registerOre("cropChilipepper", chili);
+				}
 			}
-			ItemStack black = new ItemStack(item, 1, 43);
-			if (this.registerModItems("binnieBlackberry", black)) {
-				OreDictionary.registerOre("cropBlackberry", black);
-			}
-			ItemStack rasp = new ItemStack(item, 1, 44);
-			if (this.registerModItems("binnieRasp", rasp)) {
-				OreDictionary.registerOre("cropRaspberry", rasp);
-			}
-			ItemStack blue = new ItemStack(item, 1, 45);
-			if (this.registerModItems("binnieBlue", blue)) {
-				OreDictionary.registerOre("cropBlueberry", blue);
-			}
-			ItemStack cran = new ItemStack(item, 1, 46);
-			if (this.registerModItems("binnieCran", cran)) {
-				OreDictionary.registerOre("cropCranberry", cran);
-			}
-			ItemStack coco = new ItemStack(item, 1, 50);
-			if (this.registerModItems("binnieCoco", coco)) {
-				OreDictionary.registerOre("cropCoconut", coco);
-			}
-			
 		}
+        catch (Exception e) {
+        	AMTLogger.debugInfo("Failed to register ModItems");
+          e.printStackTrace(System.err);
+        }
+		
+	}
+	
+	public void loadWa() { //和風MOD様のアイテム。
+		
+		try
+		{
+			//Gameregistry.registerItem()を通していない場合FMLの機能が使えないため、仕方なしにリフレクションで殴っている。(二回目)
+			Object obj = Class.forName("wa.Items").getField("梅の実").get(null);
+			if (obj instanceof Item) {
+				ItemStack registerItem = new ItemStack((Item)obj, 1, 0);
+				if (this.registerModItems("plum", registerItem)) {
+					AMTLogger.debugInfo("Succeeded to get wa_plum");
+				}
+				//まずは辞書登録
+				OreDictionary.registerOre("cropPlum", registerItem);
+			}
+			Object obj2 = Class.forName("wa.Items").getField("米").get(null);
+			if (obj2 instanceof Item) {
+				Item rice = (Item)obj2;
+				ItemStack registerItem2 = new ItemStack(rice, 1, 0);
+				if (this.registerModItems("rice", registerItem2)) {
+					AMTLogger.debugInfo("Succeeded to get wa_rice");
+				}
+				OreDictionary.registerOre("cropRice", registerItem2);
+			}
+		}
+        catch (Exception e) {
+        	AMTLogger.debugInfo("Failed to register ModItems");
+          e.printStackTrace(System.err);
+        }
 	}
 	
 	/**

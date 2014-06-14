@@ -34,9 +34,15 @@ public class TileHasRemaining extends TileEntity
     }
     
     @Override
-    public Packet getDescriptionPacket()
-    {
-        return PacketHandler.getRemainingPacket(this);
+	public Packet getDescriptionPacket() {
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        this.writeToNBT(nbtTagCompound);
+        return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, nbtTagCompound);
+	}
+ 
+	@Override
+    public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
+        this.readFromNBT(pkt.data);
     }
 
     public byte getRemainByte()

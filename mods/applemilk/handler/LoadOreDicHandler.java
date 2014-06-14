@@ -41,6 +41,7 @@ public class LoadOreDicHandler {
 		listBerry.addAll(OreDictionary.getOres("cropCranberry"));
 		listBerry.addAll(OreDictionary.getOres("cropBlueberry"));
 		listBerry.addAll(OreDictionary.getOres("cropBlackberry"));
+		listBerry.addAll(OreDictionary.getOres("cropCassis"));
 		listBanana.addAll(OreDictionary.getOres("cropBanana"));
 		listRice.addAll(OreDictionary.getOres("cropRice"));
 		listHoney.addAll(OreDictionary.getOres("dropHoney"));

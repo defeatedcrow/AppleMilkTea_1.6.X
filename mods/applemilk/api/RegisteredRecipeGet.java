@@ -9,12 +9,12 @@ import net.minecraft.item.ItemStack;
 public class RegisteredRecipeGet {
 	
 	public static HashMap<ItemStack, ItemStack> teaRecipeList = new HashMap<ItemStack, ItemStack>();
-	public static HashMap<ItemStack, ItemStack> iceRecipeList = new HashMap<ItemStack, ItemStack>();
+	public static HashMap<ItemStack, ItemStack[]> iceRecipeList = new HashMap<ItemStack, ItemStack[]>();
 	public static HashMap<ItemStack, ItemStack> panRecipeList = new HashMap<ItemStack, ItemStack>();
 	
 	public void setRecipeList() {
 		
-		for (int i = 0 ; i <= TeaRecipe.outputs.size() ; i++) {
+		for (int i = 1 ; i < TeaRecipe.outputs.size() ; i++) {
 			ItemStack input = TeaRecipe.getInput(i);
 			ItemStack output = TeaRecipe.getOutput(i);
 			
@@ -23,9 +23,18 @@ public class RegisteredRecipeGet {
 			}
 		}
 		
-		for (int i = 0 ; i <= IceRecipe.recipeID.size() ; i++) {
+		for (int i = 1 ; i < IceRecipe.recipeID.size() ; i++) {
 			ItemStack input = IceRecipe.getInput(i);
-			ItemStack output = IceRecipe.getOutput(i);
+			ItemStack[] output = new ItemStack[2];
+			if (IceRecipe.canLeave(i)) {
+				output[0] = IceRecipe.getOutput(i);
+				output[1] = IceRecipe.getLeaveStack(i);
+			}
+			else
+			{
+				output[0] = IceRecipe.getOutput(i);
+				output[1] = (ItemStack)null;
+			}
 			
 			if (input != null && output != null) {
 				iceRecipeList.put(input, output);

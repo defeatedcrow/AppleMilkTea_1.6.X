@@ -4,7 +4,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.common.PacketHandler;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
@@ -20,7 +22,7 @@ public class TileCordial extends TileEntity{
     //NBT
     public void readFromNBT(NBTTagCompound par1NBTTagCompound)
     {
-        super.readFromNBT(par1NBTTagCompound);      
+        super.readFromNBT(par1NBTTagCompound);
         this.aging = par1NBTTagCompound.getInteger("Remaining");
         this.isAged = par1NBTTagCompound.getBoolean("IsAged");
     }
@@ -36,9 +38,15 @@ public class TileCordial extends TileEntity{
     }
     
     @Override
-    public Packet getDescriptionPacket()
-    {
-        return PacketHandler.getCordialPacket(this);
+	public Packet getDescriptionPacket() {
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        this.writeToNBT(nbtTagCompound);
+        return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, nbtTagCompound);
+	}
+ 
+	@Override
+    public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
+        this.readFromNBT(pkt.data);
     }
 
     public int getAgingTime()
