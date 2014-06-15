@@ -116,8 +116,7 @@ public class TileCordial extends TileEntity{
 		boolean flag = false;
 		BiomeGenBase biome = this.worldObj.getBiomeGenForCoords(xCoord, zCoord);
 		
-		if (BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.FROZEN)
-				|| biome.getEnableSnow())
+		if (BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.FROZEN))
 		{
 			flag = true;
 		}
@@ -131,8 +130,7 @@ public class TileCordial extends TileEntity{
 		BiomeGenBase biome = this.worldObj.getBiomeGenForCoords(xCoord, zCoord);
 		
 		if (BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.DESERT)
-				|| BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.NETHER)
-				|| biome.getFloatRainfall() > 0.0F)
+				|| BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.NETHER))
 		{
 			flag = true;
 		}

@@ -1114,6 +1114,95 @@ public class DCsRecipeRegister {
 	    			  "bottleCassisLiquor",
 	    			  "foodCrushedIce"
 					 }));
+		 
+		 //以下、ストレートで飲むレシピ
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.alcoholCup, 1, 0),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  "bottleSake",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.alcoholCup, 1, 1),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  "bottleBeer",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.alcoholCup, 1, 2),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  "bottleWine",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.alcoholCup, 1, 3),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  "bottleRum",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.alcoholCup, 1, 4),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  "bottleGin",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.alcoholCup, 1, 5),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  "bottleVodka",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.alcoholCup, 1, 6),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  "bottleWhiskey",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.alcoholCup, 1, 7),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  "bottleAppleLiquor",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.alcoholCup, 1, 8),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  "bottleTeaLiquor",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.alcoholCup, 1, 9),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  "bottleCassisLiquor",
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.alcoholCup, 1, 10),
+	    		  new Object[]{
+	    			  new ItemStack(DCsAppleMilk.emptyCup, 1, 0),
+	    			  "bottlePlumLiquor",
+					 }));
 	}
 	
 	static void addFoodRecipe() {

@@ -180,6 +180,7 @@ public class DCsConfig {
 			Property blockBottle = cfg.getBlock("LargeBottle", blockIdLargeBottle);
 			Property blockCordial = cfg.getBlock("CordialBottle", blockIdCordial);
 			Property blockCassisTree = cfg.getBlock("CassisTree", blockIdTreeC);
+			Property blockAlcohol = cfg.getBlock("LiquorCup", blockIdAlcohol);
 			
 			Property itemBapple = cfg.getItem("BakedApple", itemIdBapple);
 			Property itemAppleT = cfg.getItem("AppleTart", itemIdAppleTart);
@@ -330,6 +331,7 @@ public class DCsConfig {
 			blockIdLargeBottle = blockBottle.getInt();
 			blockIdCordial = blockCordial.getInt();
 			blockIdTreeC = blockCassisTree.getInt();
+			blockIdAlcohol = blockAlcohol.getInt();
 			
 			itemIdBapple = itemBapple.getInt();
 			itemIdAppleTart = itemAppleT.getInt();

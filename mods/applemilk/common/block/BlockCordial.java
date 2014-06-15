@@ -58,7 +58,24 @@ public class BlockCordial extends BlockContainer{
         }
         else
         {
-        	return false;
+        	int age = tile.getAgingStage();
+        	boolean flag = tile.getAged();
+        	boolean flag2 = tile.isColdBiome() || tile.isDryBiome() || par1World.canBlockSeeTheSky(par2, par3, par4);
+        	
+        	String s = "Cordial bottle : ";
+        	if (flag)
+        	{
+        		s = s + "fermented";
+        	}
+        	else
+        	{
+        		s = s + "passed " + age + " days";
+        	}
+        	par5EntityPlayer.addChatMessage(s);
+        	if (flag2){
+        		par5EntityPlayer.addChatMessage("This place is not suitable for creating a cordial.");
+        	}
+        	return true;
         }
     }
 	

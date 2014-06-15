@@ -55,7 +55,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.14a",
+		version = "1.6.2_1.14b",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry;after:ExtraTrees"
 		)
 @NetworkMod(
@@ -120,6 +120,7 @@ public class DCsAppleMilk{
 	public static Block  largeBottle;
 	public static Block  cassisTree;
 	public static Block  cordial;
+	public static Block  alcoholCup;
 	
 	//アイテムのインスタンス
 	public static Item  bakedApple;
@@ -226,6 +227,7 @@ public class DCsAppleMilk{
 	public static int modelCanister;
 	public static int modelCordial;
 	public static int modelCassisTree;
+	public static int modelAlcoholCup;
 	
 	public static final String[] TEX_PASS = new String[] {
 		"applemilk:",
@@ -379,6 +381,7 @@ public class DCsAppleMilk{
 		this.modelLargeBottle = proxy.getRenderID();
 		this.modelCordial = proxy.getRenderID();
 		this.modelCassisTree = proxy.getRenderID();
+		this.modelAlcoholCup = proxy.getRenderID();
 		proxy.registerRenderers();
 	      
 	    

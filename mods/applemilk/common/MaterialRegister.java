@@ -206,6 +206,10 @@ public class MaterialRegister {
 				setUnlocalizedName("defeatedcrow.itemCordial").
 				setCreativeTab(DCsAppleMilk.applemilk);
 		
+		DCsAppleMilk.alcoholCup = (new BlockAlcoholCup(DCsConfig.blockIdAlcohol)).
+				setUnlocalizedName("defeatedcrow.alcoholCup").
+				setCreativeTab(DCsAppleMilk.applemilk);
+		
 		//tree
 		DCsAppleMilk.saplingTea = (new BlockSaplingTea(DCsConfig.blockIdSapT)).
 				setUnlocalizedName("defeatedcrow.saplingTea").
@@ -354,6 +358,7 @@ public class MaterialRegister {
 		GameRegistry.registerBlock(DCsAppleMilk.cocktail, ItemCocktail.class, "defeatedcrow.cocktail");
 		GameRegistry.registerBlock(DCsAppleMilk.largeBottle, "defeatedcrow.largeBottle");
 		GameRegistry.registerBlock(DCsAppleMilk.cordial, ItemBlockCordial.class, "defeatedcrow.blockCordial");
+		GameRegistry.registerBlock(DCsAppleMilk.alcoholCup, ItemAlcoholCup.class, "defeatedcrow.alcoholCup");
 	}
 	
 	public void addPotion()
