@@ -18,7 +18,7 @@ public class PotionArrayEXTransformer implements IClassTransformer, Opcodes{
     private static final String TARGET_CLASS_NAME = "net.minecraft.potion.Potion";
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
-        if (!FMLLaunchHandler.side().isClient() || !transformedName.equals(TARGET_CLASS_NAME)) {return basicClass;}
+        if (!transformedName.equals(TARGET_CLASS_NAME)) {return basicClass;}
         try {
             AppleMilkCorePlugin.logger.info("Start transforming Potion Class");
             basicClass = extendPotionArray(name, basicClass);

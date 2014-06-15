@@ -92,22 +92,22 @@ public class BlockSaplingTea extends Block implements IPlantable
         
         if (meta == 0)
         {
-        	par1World.setBlock(par2, par3, par4, DCsAppleMilk.teaTree.blockID, 0, 2);
+        	par1World.setBlock(par2, par3, par4, DCsAppleMilk.teaTree.blockID, 0, 3);
         }
         else if (meta == 1)
         {
-        	par1World.setBlock(par2, par3, par4, DCsAppleMilk.cassisTree.blockID, 0, 2);
+        	par1World.setBlock(par2, par3, par4, DCsAppleMilk.cassisTree.blockID, 0, 3);
         	if (par1World.isAirBlock(par2, par3 + 1, par4))
         	{
-        		par1World.setBlock(par2, par3 + 1, par4, DCsAppleMilk.cassisTree.blockID, 0, 2);
+        		par1World.setBlock(par2, par3 + 1, par4, DCsAppleMilk.cassisTree.blockID, 0, 3);
         	}
         }
         else
         {
-        	par1World.setBlock(par2, par3, par4, DCsAppleMilk.cassisTree.blockID, 4, 2);
+        	par1World.setBlock(par2, par3, par4, DCsAppleMilk.cassisTree.blockID, 4, 3);
         	if (par1World.isAirBlock(par2, par3 + 1, par4))
         	{
-        		par1World.setBlock(par2, par3 + 1, par4, DCsAppleMilk.cassisTree.blockID, 4, 2);
+        		par1World.setBlock(par2, par3 + 1, par4, DCsAppleMilk.cassisTree.blockID, 4, 3);
         	}
         }
     }
@@ -136,7 +136,7 @@ public class BlockSaplingTea extends Block implements IPlantable
         ItemStack itemstack = par5EntityPlayer.inventory.getCurrentItem();
         int meta = par1World.getBlockMetadata(par2, par3, par4);
         
-        if (itemstack == null)
+        if (itemstack == null || par1World.isRemote)
         {
         	return false;
         }

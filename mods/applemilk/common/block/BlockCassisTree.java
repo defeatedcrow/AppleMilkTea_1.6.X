@@ -72,6 +72,7 @@ public class BlockCassisTree extends Block implements IPlantable{
         		
         		//2段階戻る
         		par1World.setBlockMetadataWithNotify(par2, par3, par4, 1, 3);
+        		
         		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
         		return true;
         	}
@@ -80,15 +81,17 @@ public class BlockCassisTree extends Block implements IPlantable{
         		return false;
         	}
         }
-        else if (meta == 3 && itemstack.itemID == DCsAppleMilk.leafTea.itemID)
+        else if (!par1World.isRemote && meta == 3 && itemstack.itemID == DCsAppleMilk.leafTea.itemID)
         {
         	ItemStack get = new ItemStack(DCsAppleMilk.leafTea.itemID, 1, 2);
-        	
-        	if (!par5EntityPlayer.inventory.addItemStackToInventory(get))
-        	{
-        		par5EntityPlayer.entityDropItem(get, 1);
-        	}
-        	par1World.setBlockMetadataWithNotify(par2, par3, par4, 1, 3);
+    		
+    		if (!par5EntityPlayer.inventory.addItemStackToInventory(get))
+    		{
+    			par5EntityPlayer.entityDropItem(get, 1);
+    		}
+    		
+    		//2段階戻る
+    		par1World.setBlockMetadataWithNotify(par2, par3, par4, 1, 3);
     		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
     		return true;
         }
@@ -97,12 +100,13 @@ public class BlockCassisTree extends Block implements IPlantable{
         	if ((itemstack.itemID == Item.dyePowder.itemID) && (itemstack.getItemDamage() == 15))
         	{
         		int newMeta = meta > 3 ? 7 : 3;
-        		 
+        		
         		if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
                 {
                     par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
                 }
         		par1World.setBlockMetadataWithNotify(par2, par3, par4, newMeta, 3);
+        		
         		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
         		return true;
         	}

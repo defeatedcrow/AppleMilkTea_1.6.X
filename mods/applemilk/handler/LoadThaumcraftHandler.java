@@ -99,9 +99,11 @@ public class LoadThaumcraftHandler {
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.blockIcecream.blockID, -1, new AspectList().add(Aspect.HUNGER, 2).add(Aspect.ICE, 2));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.cocktail.blockID, -1, new AspectList().add(Aspect.WATER, 2).add(Aspect.MAGIC, 2).add(Aspect.SENSES, 2));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.largeBottle.blockID, -1, new AspectList().add(Aspect.WATER, 8).add(Aspect.VOID, 8).add(Aspect.CRYSTAL, 4));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.cordial.blockID, -1, new AspectList().add(Aspect.WATER, 3).add(Aspect.SEED, 3).add(Aspect.CRYSTAL, 4));
 		    
-		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.saplingTea.blockID, 0, new AspectList().add(Aspect.PLANT, 2).add(Aspect.SEED, 2));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.saplingTea.blockID, -1, new AspectList().add(Aspect.PLANT, 2).add(Aspect.SEED, 2));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.teaTree.blockID, -1, new AspectList().add(Aspect.PLANT, 2).add(Aspect.AIR, 2));
+		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.cassisTree.blockID, -1, new AspectList().add(Aspect.PLANT, 2).add(Aspect.SENSES, 2));
 		    
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.melonBomb.blockID, 0, new AspectList().add(Aspect.CROP, 8).add(Aspect.ENTROPY, 3).add(Aspect.WATER, 3));
 		    ThaumcraftApi.registerObjectTag(DCsAppleMilk.mushroomBox.blockID, -1, new AspectList().add(Aspect.PLANT, 8).add(Aspect.DARKNESS, 3).add(Aspect.MAGIC, 1));

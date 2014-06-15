@@ -213,8 +213,8 @@ public class BlockCordial extends BlockContainer{
 		this.contentsIcon = new Icon[4];
 		for (int i = 0; i < 4; ++i)
         {
-			this.drinkIcon[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "cordial_drink" + this.type[i]);
-            this.contentsIcon[i] = par1IconRegister.registerIcon(Util.getTexturePassNoAlt() + "cordial_inner" + this.type[i]);
+			this.drinkIcon[i] = par1IconRegister.registerIcon("applemilk:cordial_drink" + this.type[i]);
+            this.contentsIcon[i] = par1IconRegister.registerIcon("applemilk:cordial_inner" + this.type[i]);
         }	
 	}
 

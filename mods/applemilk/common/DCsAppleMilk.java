@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) defeatedcrow, 2013
+ * URL:http://forum.minecraftuser.jp/viewtopic.php?f=13&t=17657
+ *
+ * Apple&Milk&Tea! is distributed under the terms of the Minecraft Mod PublicLicense 1.0, or MMPL.
+ * Please check the Lisence(MMPL_1.0).txt included in the package file of this Mod.
+ */
+
 package mods.applemilk.common;
 
 import java.io.File;
