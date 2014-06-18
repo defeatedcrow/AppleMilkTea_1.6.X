@@ -55,7 +55,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.14b",
+		version = "1.6.2_1.14c",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry;after:ExtraTrees"
 		)
 @NetworkMod(
@@ -412,13 +412,6 @@ public class DCsAppleMilk{
 	
 	@EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-		
-		/*
-		 * 以下はデバッグ時のテスト用メソッドにつきコメントアウト
-		(new LoadModHandler()).loadAppleMilk();
-		String nam = LoadModHandler.getItem("DCsBakedApple").getDisplayName();
-		System.out.println("[AppleMilk]got name is " + nam);
-		*/
 		
 	    if (Loader.isModLoaded("IC2") && DCsConfig.useIC2Items)
 	    {

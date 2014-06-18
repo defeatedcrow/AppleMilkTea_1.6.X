@@ -11,6 +11,7 @@ public class ModelCocktail extends ModelBase
     ModelRenderer lemon = new ModelRenderer(this, 32, 0).setTextureSize(64, 32);
     ModelRenderer lime = new ModelRenderer(this, 32, 5).setTextureSize(64, 32);
     ModelRenderer pine = new ModelRenderer(this, 32, 10).setTextureSize(64, 32);
+    ModelRenderer apple = new ModelRenderer(this, 32, 15).setTextureSize(64, 32);
     
     ModelRenderer bottom = new ModelRenderer(this, 0, 0).setTextureSize(64, 32);
     ModelRenderer Aleg = new ModelRenderer(this, 0, 0).setTextureSize(64, 32);
@@ -45,6 +46,10 @@ public class ModelCocktail extends ModelBase
       pine.setRotationPoint(0F, 13F, 0F);
       pine.mirror = true;
       setRotation(pine, 0F, 0F, -0.2094395F);
+      apple.addBox(2F, 0F, 0F, 5, 4, 1);
+      apple.setRotationPoint(0F, 13F, 0F);
+      apple.mirror = true;
+      setRotation(apple, 0F, 0F, -0.2094395F);
       
       bottom.addBox(-3F, 0F, -3F, 6, 1, 6);
       bottom.setRotationPoint(0F, 23F, 0F);
@@ -125,6 +130,7 @@ public class ModelCocktail extends ModelBase
     if (b0 == 0 || b0 == 3 || b0 == 8) lime.render(f5);
     else if (b0 == 5 || b0 == 7 || b0 == 9 || b0 == 12) lemon.render(f5);
     else if (b0 == 6) pine.render(f5);
+    else if (b0 == 14) apple.render(f5);
   }
   
   public void renderGlass(Entity entity, float f, float f1, float f2, float f3, float f4, float f5, byte b0)
@@ -132,7 +138,7 @@ public class ModelCocktail extends ModelBase
     super.render(entity, f, f1, f2, f3, f4, f5);
     setRotationAngles(f, f1, f2, f3, f4, f5, entity);
     bottom.render(f5);
-    if (b0 == 5 || (b0 > 6 && b0 != 10)) {
+    if (b0 == 5 || (b0 > 6 && b0 != 10 && b0 != 14 && b0 != 15)) {
     	Bside1.render(f5);
     	Bside2.render(f5);
     	Bside3.render(f5);

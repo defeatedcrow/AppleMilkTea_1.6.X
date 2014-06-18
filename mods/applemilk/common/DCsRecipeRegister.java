@@ -1115,6 +1115,42 @@ public class DCsRecipeRegister {
 	    			  "foodCrushedIce"
 					 }));
 		 
+		 //ダブルアップル
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.cocktail, 1, 14),
+	    		  new Object[]{
+	    			  "bottleAppleLiquor",
+	    			  "cropApple",
+	    			  new ItemStack(DCsAppleMilk.teacupBlock, 1, 8),
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.cocktail, 1, 14),
+	    		  new Object[]{
+	    			  "bottleAppleLiquor",
+	    			  "cropApple",
+	    			  "foodApplejuice"
+					 }));
+		 
+		 //豆乳梅酒
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.cocktail, 1, 14),
+	    		  new Object[]{
+	    			  "bottlePlumLiquor",
+	    			  "bucketSoymilk"
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.cocktail, 1, 14),
+	    		  new Object[]{
+	    			  "bottlePlumLiquor",
+	    			  "foodSoymilk"
+					 }));
+		 
 		 //以下、ストレートで飲むレシピ
 		 GameRegistry.addRecipe(
 				 new ShapelessOreRecipe(

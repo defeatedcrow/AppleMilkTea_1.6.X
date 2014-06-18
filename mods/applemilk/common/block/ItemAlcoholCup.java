@@ -65,7 +65,7 @@ public class ItemAlcoholCup extends EdibleItemBlock{
 	
 	protected static ArrayList<PotionEffect> getPotionWithIce (EntityPlayer par1EntityPlayer, int meta)
 	{
-		PotionEffect potion = new PotionEffect(DCsAppleMilk.reflex.id, 2400, 0);
+		PotionEffect potion = new PotionEffect(Potion.heal.id, 1, 1);
 		int tick = 2400;
 		boolean flag = false;
 		
@@ -101,7 +101,7 @@ public class ItemAlcoholCup extends EdibleItemBlock{
 		}
 		else if (meta == 7)//apple
 		{
-			potion = new PotionEffect(Potion.resistance.id, 2400, 0);
+			potion = new PotionEffect(Potion.jump.id, 2400, 1);
 		}
 		else if (meta == 8)//tea
 		{
@@ -109,13 +109,13 @@ public class ItemAlcoholCup extends EdibleItemBlock{
 		}
 		else if (meta == 9)//cassis
 		{
-			potion = new PotionEffect(Potion.jump.id, 2400, 1);
+			potion = new PotionEffect(Potion.fireResistance.id, 2400, 0);
 		}
 		else if (meta == 10)//plum
 		{
-			potion = new PotionEffect(Potion.fireResistance.id, 2400, 0);
+			potion = new PotionEffect(Potion.resistance.id, 2400, 0);
 		}
-		else//cassis tea cocktail
+		else
 		{
 			potion = new PotionEffect(Potion.heal.id, 1, 1);
 		}

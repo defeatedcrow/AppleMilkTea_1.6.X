@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 public class ItemCocktail extends EdibleItemBlock{
 	
 	private static final String[] type = new String[] {"_frozen_daiquiri", "_frozen_sake", "_saketini", "_gimlet", "_blackrose", "_redeye", "_pinacolada", "_americanlemonade",
-		"_moscowmule", "_mintjulep", "_kir", "_cassismilk", "_bloodymary", "_cassistea"};
+		"_moscowmule", "_mintjulep", "_kir", "_cassismilk", "_bloodymary", "_cassistea", "_doubleapple", "_plumsoymilk"};
 	
 	public ItemCocktail(int itemId)
 	{
@@ -36,7 +36,7 @@ public class ItemCocktail extends EdibleItemBlock{
 	public String getUnlocalizedName(ItemStack par1ItemStack)
 	{
 		int m = (par1ItemStack.getItemDamage());
-		if (m < 14) return super.getUnlocalizedName() + type[m];
+		if (m < 17) return super.getUnlocalizedName() + type[m];
 		else return super.getUnlocalizedName() + m;
 	}
 	
@@ -209,9 +209,31 @@ public class ItemCocktail extends EdibleItemBlock{
 				potion = new PotionEffect(Potion.damageBoost.id, 600, 6);
 			}
 		}
-		else//cassis tea cocktail
+		else if (meta == 13)//cassis tea cocktail
 		{
-			potion = new PotionEffect(Potion.heal.id, 2, 2);
+			potion = new PotionEffect(Potion.heal.id, 3, 2);
+		}
+		else if (meta == 14)//double apple
+		{
+			if (par1EntityPlayer.isPotionActive(Potion.jump.id)) {
+				tick = par1EntityPlayer.getActivePotionEffect(Potion.jump).getDuration() + 2400;
+				potion = new PotionEffect(Potion.jump.id, tick, 4);
+				flag = true;
+			}
+			else {
+				potion = new PotionEffect(Potion.jump.id, 2400, 4);
+			}
+		}
+		else if (meta == 15 && DCsAppleMilk.succeedAddPotion)//plum soymilk
+		{
+			if (par1EntityPlayer.isPotionActive(DCsAppleMilk.Immunization.id)) {
+				tick = par1EntityPlayer.getActivePotionEffect(DCsAppleMilk.Immunization).getDuration() + 2400;
+				potion = new PotionEffect(DCsAppleMilk.Immunization.id, tick, 1);
+				flag = true;
+			}
+			else {
+				potion = new PotionEffect(DCsAppleMilk.Immunization.id, 2400, 1);
+			}
 		}
 		
 		ret.add(potion);

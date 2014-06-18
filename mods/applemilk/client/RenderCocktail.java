@@ -32,7 +32,7 @@ public class RenderCocktail implements ISimpleBlockRenderingHandler{
 		
 		if (modelID == this.getRenderId())
 		{
-			if (meta == 5 || meta == 7 || meta == 8 || meta == 9 || meta > 10) { //long type
+			if (meta == 5 || meta == 7 || meta == 8 || meta == 9 || meta == 11 || meta == 12 || meta == 13) { //long type
 				//bottom
 				renderInvCuboid(renderer, block,  5.0F/16.0F, 0.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 1.0F/16.0F, 11.0F/16.0F,  this.boxIcon);
 				renderInvCuboid(renderer, block,  4.0F/16.0F, 1.0F/16.0F, 4.0F/16.0F, 12.0F/16.0F, 9.0F/16.0F, 5.0F/16.0F,  this.boxIcon);
@@ -97,7 +97,7 @@ public class RenderCocktail implements ISimpleBlockRenderingHandler{
 				renderer.setRenderBoundsFromBlock(block);
 				renderer.renderStandardBlock(block, x, y, z);
 			}
-			else if (meta == 5 || meta == 8 || meta == 9 || meta > 10) {//long
+			else if (meta == 5 || meta == 8 || meta == 9 || meta == 11 || meta == 12 || meta == 13) {//long
 				renderer.setOverrideBlockTexture(this.contentsIcon);
 				block.setBlockBounds(5.0F/16.0F, 6.0F/16.0F, 5.0F/16.0F, 11.0F/16.0F, 8.0F/16.0F, 11.0F/16.0F);
 				renderer.setRenderBoundsFromBlock(block);
