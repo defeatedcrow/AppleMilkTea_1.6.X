@@ -53,6 +53,25 @@ public class BlockCassisTree extends Block implements IPlantable{
 		}
 	}
 	
+	public boolean fertilize(World par1World, int par2, int par3, int par4)
+    {
+		int meta = par1World.getBlockMetadata(par2, par3, par4);
+		if (meta < 3)
+		{
+			par1World.setBlockMetadataWithNotify(par2, par3, par4, 3, 2);
+			return true;
+		}
+		else if (meta > 3 && meta < 7)
+		{
+			par1World.setBlockMetadataWithNotify(par2, par3, par4, 7, 2);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+    }
+	
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
     {
         ItemStack itemstack = par5EntityPlayer.inventory.getCurrentItem();
@@ -97,23 +116,20 @@ public class BlockCassisTree extends Block implements IPlantable{
         }
         else //骨粉の成長イベント
         {
-        	if ((itemstack.itemID == Item.dyePowder.itemID) && (itemstack.getItemDamage() == 15))
-        	{
-        		int newMeta = meta > 3 ? 7 : 3;
-        		
-        		if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
-                {
-                    par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
-                }
-        		par1World.setBlockMetadataWithNotify(par2, par3, par4, newMeta, 3);
-        		
-        		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
-        		return true;
-        	}
-        	else
-        	{
-        		return false;
-        	}
+//        	if ((itemstack.itemID == Item.dyePowder.itemID) && (itemstack.getItemDamage() == 15))
+//        	{
+//        		int newMeta = meta > 3 ? 7 : 3;
+//        		
+//        		if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
+//                {
+//                    par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
+//                }
+//        		par1World.setBlockMetadataWithNotify(par2, par3, par4, newMeta, 3);
+//        		
+//        		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+//        		return true;
+//        	}
+        	return false;
         }
     }
 	

@@ -22,7 +22,7 @@ public class ItemAppleSandwich extends ItemFood {
 	@SideOnly(Side.CLIENT)
     private Icon iconSandwichType[];
 	
-	private static final String[] sandwichType = new String[] {"_apple", "_egg"};
+	private static final String[] sandwichType = new String[] {"_apple", "_egg", "_cassis"};
 	
 	public ItemAppleSandwich (int itemId, int reco, boolean flag){
 		super (itemId, reco, flag);
@@ -37,7 +37,7 @@ public class ItemAppleSandwich extends ItemFood {
 	@SideOnly(Side.CLIENT)
 	public Icon getIconFromDamage(int par1)
     {
-        int j = MathHelper.clamp_int(par1, 0, 1);
+        int j = MathHelper.clamp_int(par1, 0, 2);
         return this.iconSandwichType[j];
     }
 
@@ -56,14 +56,15 @@ public class ItemAppleSandwich extends ItemFood {
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
 		par3List.add(new ItemStack(this, 1, 0));
 		par3List.add(new ItemStack(this, 1, 1));
+		par3List.add(new ItemStack(this, 1, 2));
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister){
-		this.iconSandwichType = new Icon[2];
+		this.iconSandwichType = new Icon[3];
 
-        for (int i = 0; i < 2; ++i)
+        for (int i = 0; i < 3; ++i)
         {
             this.iconSandwichType[i] = par1IconRegister.registerIcon("applemilk:sandwich" + sandwichType[i]);
         }

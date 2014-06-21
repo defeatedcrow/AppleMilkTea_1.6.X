@@ -55,7 +55,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.14c",
+		version = "1.6.2_1.15a",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry;after:ExtraTrees"
 		)
 @NetworkMod(
@@ -121,6 +121,7 @@ public class DCsAppleMilk{
 	public static Block  cassisTree;
 	public static Block  cordial;
 	public static Block  alcoholCup;
+	public static Block  cropMint;
 	
 	//アイテムのインスタンス
 	public static Item  bakedApple;
@@ -149,6 +150,7 @@ public class DCsAppleMilk{
 	public static Item  milkBottle;
 	public static Item  princessClam;
 	public static Item  itemCordial;
+	public static Item  itemMintSeed;
 	
 	//ポーションのインスタンス
 	public static Potion Immunization;
@@ -157,6 +159,8 @@ public class DCsAppleMilk{
 	public static Potion reflex;
 	public static Potion absEXP;
 	public static Potion absHeal;
+	public static Potion suffocation;
+	public static PotionProtectionEX prvSuffocation;
 	
 	//gui
 	public int guiIdAutoMaker = 1;
@@ -349,6 +353,8 @@ public class DCsAppleMilk{
 		MinecraftForge.EVENT_BUS.register(new DCsHurtEvent());
 		//螺鈿チャームの効果
 		MinecraftForge.EVENT_BUS.register(new EntityMoreDropEvent());
+		//骨粉効果
+		MinecraftForge.EVENT_BUS.register(new DCsBonemealEvent());
 		
 		//Registering new Render
 		//新しいレンダーIDの登録もプロキシクラス内でやる

@@ -9,6 +9,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.applemilk.client.particle.EntityOrbFX;
 import mods.applemilk.client.particle.ParticleTex;
+import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.DCsConfig;
 import net.minecraft.block.Block;
@@ -122,7 +123,37 @@ public class BlockClamSand extends Block
         	super.updateTick(par1World, par2, par3, par4, par5Random);
         	
         	//周囲のハマグリ数のカウント
-        	int count = this.hamaguriCalculater(par1World, par2, par3, par4);
+        	int count = 0;
+        	boolean aroundPrincess = false;
+        	
+        	//各方角ごとに、隣接1~3マス先までのハマグリ砂を探す。最大12カウント。
+        	for (int i = 0; i < 3; i++)
+        	{
+        		if (par1World.getBlockId(par2 + 1 + i, par3, par4) == DCsConfig.blockIdClamSand) {
+        			count++;
+        			if (par1World.getBlockMetadata(par2 + 1 + i, par3, par4) == 2) aroundPrincess = true;
+        		}
+        		if (par1World.getBlockId(par2 - 1 - i, par3, par4) == DCsConfig.blockIdClamSand) {
+        			count++;
+        			if (par1World.getBlockMetadata(par2 - 1 - i, par3, par4) == 2) aroundPrincess = true;
+        		}
+        		if (par1World.getBlockId(par2, par3, par4 + 1 + i) == DCsConfig.blockIdClamSand) {
+        			count++;
+        			if (par1World.getBlockMetadata(par2, par3, par4 + 1 + i) == 2) aroundPrincess = true;
+        		}
+        		if (par1World.getBlockId(par2, par3, par4 - 1 - i) == DCsConfig.blockIdClamSand) {
+        			count++;
+        			if (par1World.getBlockMetadata(par2, par3, par4 - 1 - i) == 2) aroundPrincess = true;
+        		}
+        	}
+        	
+        	if (aroundPrincess)//姫ハマグリがいた
+        	{
+        		count = count / 4;//カウントを減
+        	}
+        	
+        	AMTLogger.debugInfo("count: " + count);
+        	
         	//メタデータ
         	int meta = par1World.getBlockMetadata(par2, par3, par4);
         	int chance = DCsConfig.clamChanceValue;
@@ -134,23 +165,32 @@ public class BlockClamSand extends Block
         	int Z1 = par4 + this.sideZ[i];
         	
         	//座標が増殖可能な状態か？
-        	boolean flag = par1World.getBlockId(X1, Y1, Z1) == Block.sand.blockID && par1World.getBlockMaterial(X1, Y1 + 1, Z1) == Material.water;
+        	boolean flag3 = par1World.getBlockMaterial(X1, Y1 + 1, Z1) == Material.water;
+        	boolean flag4 = par1World.getBlockId(X1, Y1, Z1) == Block.sand.blockID || par1World.getBlockId(X1, Y1, Z1) == DCsConfig.blockIdClamSand;
         	boolean flag2 = par1World.rand.nextInt(1 + chance) > par1World.rand.nextInt(1 + count);//どちらも乱数判断
+        	AMTLogger.debugInfo("flag: " + flag3 + "/" + flag4 + "/" + flag2);
         	
         	if (meta == 0)//ハマグリ
         	{
         		if (count < 6)//ふつうに増える。
         		{
-        			if (flag2 && flag)
+        			if (flag2 && flag3 && flag4)
                 	{
-        				par1World.setBlock(X1, Y1, Z1, DCsAppleMilk.clamSand.blockID);
+        				if (par1World.getBlockMetadata(X1, Y1, Z1) != 2)
+        				{
+        					par1World.setBlock(X1, Y1, Z1, DCsAppleMilk.clamSand.blockID);
+        				}
+        					
                 	}
         		}
         		else if (count < 9)
         		{
-        			if (flag2 && flag)
+        			if (flag2 && flag3 && flag4)
     				{
-    					par1World.setBlock(X1, Y1, Z1, DCsAppleMilk.clamSand.blockID);
+        				if (par1World.getBlockMetadata(X1, Y1, Z1) != 2)
+        				{
+        					par1World.setBlock(X1, Y1, Z1, DCsAppleMilk.clamSand.blockID);
+        				}
     				}
     				else
     				{
@@ -160,7 +200,7 @@ public class BlockClamSand extends Block
         		}
         		else
         		{
-        			if (flag2 && flag && par1World.rand.nextInt(50) == 0)//超低確率
+        			if (flag2 && flag3 && flag4 && par1World.rand.nextInt(15) == 0)//低確率
     				{
         				//プリンセス誕生
     					par1World.setBlockMetadataWithNotify(par2, par3, par4, 2, 3);
@@ -174,7 +214,7 @@ public class BlockClamSand extends Block
         	}
         	else if (meta == 1)
         	{
-        		if (count < 4 && flag)//減ってきた
+        		if (count < 4)//減ってきた
         		{
         			//復活する
 					par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
@@ -185,12 +225,14 @@ public class BlockClamSand extends Block
         			if (!flag2) par1World.setBlock(par2, par3, par4, Block.sand.blockID);
         		}
         	}
-        	else if (meta == 2 && flag)
+        	else if (meta == 2 && flag3 && flag4)
         	{
         		//姫は無条件でハマグリを増やせる
         		par1World.setBlock(X1, Y1, Z1, DCsAppleMilk.clamSand.blockID);
         	}
         	
+        	int meta2 = par1World.getBlockMetadata(par2, par3, par4);//結果のメタ
+        	AMTLogger.debugInfo("after metadata: " + meta2);
         }
     	
     }
@@ -218,6 +260,7 @@ public class BlockClamSand extends Block
         double d4 = 0.27000001072883606D;
         
         boolean flag = par1World.getBlockMaterial(par2, par3 + 1, par4) == Material.water;
+        
         int k = 0;
         
         if (l == 2)
@@ -284,6 +327,13 @@ public class BlockClamSand extends Block
 		
 	}
     
+    public boolean canPlaceHamaguriHere(World world, int X, int Z, int Y)
+    {
+    	boolean flag3 = world.getBlockMaterial(X, Y + 1, Z) == Material.water;
+    	boolean flag4 = world.getBlockId(X, Y, Z) == Block.sand.blockID || world.getBlockId(X, Y, Z) == DCsConfig.blockIdClamSand;
+    	return flag3 && flag4;
+    }
+    
     public int hamaguriCalculater(World world, int X, int Z, int Y)
     {
     	int difficulty = 0;
@@ -293,20 +343,20 @@ public class BlockClamSand extends Block
     	//各方角ごとに、隣接1~3マス先までのハマグリ砂を探す。最大12カウント。
     	for (int i = 0; i < 3; i++)
     	{
-    		if (world.getBlockId(X + 1 + i, Y, Z) == this.blockID) {
-    			count += 1;
+    		if (world.getBlockId(X + 1 + i, Y, Z) == DCsConfig.blockIdClamSand) {
+    			count++;
     			if (world.getBlockMetadata(X + 1 + i, Y, Z) == 2) aroundPrincess = true;
     		}
-    		if (world.getBlockId(X - 1 - i, Y, Z) == this.blockID) {
-    			count += 1;
+    		if (world.getBlockId(X - 1 - i, Y, Z) == DCsConfig.blockIdClamSand) {
+    			count++;
     			if (world.getBlockMetadata(X - 1 - i, Y, Z) == 2) aroundPrincess = true;
     		}
-    		if (world.getBlockId(X, Y, Z + 1 + i) == this.blockID) {
-    			count += 1;
+    		if (world.getBlockId(X, Y, Z + 1 + i) == DCsConfig.blockIdClamSand) {
+    			count++;
     			if (world.getBlockMetadata(X, Y, Z + 1 + i) == 2) aroundPrincess = true;
     		}
-    		if (world.getBlockId(X, Y, Z - 1 - i) == this.blockID) {
-    			count += 1;
+    		if (world.getBlockId(X, Y, Z - 1 - i) == DCsConfig.blockIdClamSand) {
+    			count++;
     			if (world.getBlockMetadata(X, Y, Z - 1 - i) == 2) aroundPrincess = true;
     		}
     	}
@@ -316,6 +366,6 @@ public class BlockClamSand extends Block
     		count /= 4;//カウントを減
     	}
     	
-    	return difficulty;
+    	return count;
     }
 }

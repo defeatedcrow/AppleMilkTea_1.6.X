@@ -3,7 +3,9 @@ package mods.applemilk.common;
 import mods.applemilk.common.block.*;
 import mods.applemilk.common.item.*;
 import mods.applemilk.potion.*;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.ItemSeeds;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -223,6 +225,15 @@ public class MaterialRegister {
 				setUnlocalizedName("defeatedcrow.cassisTree").
 				setCreativeTab(DCsAppleMilk.applemilk);
 		
+		DCsAppleMilk.itemMintSeed = (new ItemSeeds(DCsConfig.itemIdSeedMint - 256,
+				DCsConfig.blockIdCropMint, Block.tilledField.blockID)).
+				setUnlocalizedName("defeatedcrow.seedMint").
+				setCreativeTab(DCsAppleMilk.applemilk).
+				setTextureName("applemilk:seed_mint");
+		
+		DCsAppleMilk.cropMint = (new BlockMintCrop(DCsConfig.blockIdCropMint)).
+				setUnlocalizedName("defeatedcrow.cropMint");
+		
 		//clam
 		DCsAppleMilk.clam = (new ItemClam(DCsConfig.itemIdClam - 256)).
 				setUnlocalizedName("defeatedcrow.clam").
@@ -314,6 +325,7 @@ public class MaterialRegister {
 		GameRegistry.registerItem(DCsAppleMilk.wallMug,"defeatedcrow.wallMug");
 		GameRegistry.registerItem(DCsAppleMilk.princessClam,"defeatedcrow.princessClam");
 		GameRegistry.registerItem(DCsAppleMilk.itemCordial,"defeatedcrow.itemCordial");
+		GameRegistry.registerItem(DCsAppleMilk.itemMintSeed,"defeatedcrow.seedMint");
 		
 		GameRegistry.registerBlock(DCsAppleMilk.woodBox, ItemWoodBox.class, "defeatedcrow.WoodBox");
 		GameRegistry.registerBlock(DCsAppleMilk.appleBox, "defeatedcrow.AppleBox");
@@ -359,6 +371,7 @@ public class MaterialRegister {
 		GameRegistry.registerBlock(DCsAppleMilk.largeBottle, "defeatedcrow.largeBottle");
 		GameRegistry.registerBlock(DCsAppleMilk.cordial, ItemBlockCordial.class, "defeatedcrow.blockCordial");
 		GameRegistry.registerBlock(DCsAppleMilk.alcoholCup, ItemAlcoholCup.class, "defeatedcrow.alcoholCup");
+		GameRegistry.registerBlock(DCsAppleMilk.cropMint, "defeatedcrow.cropMint");
 	}
 	
 	public void addPotion()
@@ -405,6 +418,21 @@ public class MaterialRegister {
 		if (Potion.potionTypes[DCsConfig.potionIDAbsHeal] == null && DCsConfig.potionIDAbsHeal < 128){
 			DCsAppleMilk.absHeal = (new PotionReflex(DCsConfig.potionIDAbsHeal, false, 9933221, false)).
 					setPotionName("DCs.potion.absorptionHeal").setIconIndex(6, 1);
+		}
+		else {
+            throw new IllegalArgumentException("Failed to register new Potion : Damage Absorption of DCsAppleMilk");
+        }
+		if (Potion.potionTypes[DCsConfig.potionIDSuffocation] == null && DCsConfig.potionIDSuffocation < 128){
+			DCsAppleMilk.suffocation = (new PotionSuffocation(DCsConfig.potionIDSuffocation, true, 9933221)).
+					setPotionName("DCs.potion.suffocation").setIconIndex(0, 0);
+		}
+		else {
+            throw new IllegalArgumentException("Failed to register new Potion : Damage Absorption of DCsAppleMilk");
+        }
+		if (Potion.potionTypes[DCsConfig.potionIDPrvSuffocation] == null && DCsConfig.potionIDPrvSuffocation < 128){
+			DCsAppleMilk.prvSuffocation = (PotionProtectionEX) (new PotionProtectionEX(DCsConfig.potionIDPrvSuffocation, true, 9933221, 
+					false, false, false, DamageSource.inWall)).setProtectSuffocation()
+					.setPotionName("DCs.potion.protectionSuffocation").setIconIndex(6, 1);
 		}
 		else {
             throw new IllegalArgumentException("Failed to register new Potion : Damage Absorption of DCsAppleMilk");

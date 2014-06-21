@@ -234,7 +234,7 @@ public class ItemLargeBottle extends Item{
 		if (l < 0) l = 0;
 		if (l > 0) rem++;
 		par3List.add(new String("type: " + contents[type]));
-		par3List.add(new String("count: " + rem));
+		if (l != 0) par3List.add(new String("count: " + rem));
 	}
 	
 	private int checkType(int par1)

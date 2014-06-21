@@ -53,6 +53,7 @@ public class DCsConfig {
 	public static int blockIdCordial = 622;
 	public static int blockIdTreeC = 621;
 	public static int blockIdAlcohol = 623;
+	public static int blockIdCropMint = 624;
 	
 	public static int itemIdBapple = 6000;
 	public static int itemIdAppleTart = 6001;
@@ -80,6 +81,7 @@ public class DCsConfig {
 	public static int itemIdMilkBottle = 6014;
 	public static int itemIdPClam = 6015;
 	public static int itemIdCordial = 6011;
+	public static int itemIdSeedMint = 6016;
 	
 	//potionID
 	public static int potionIDImmunity = 60;
@@ -88,6 +90,8 @@ public class DCsConfig {
 	public static int potionIDReflex = 63;
 	public static int potionIDAbsEXP = 64;
 	public static int potionIDAbsHeal = 65;
+	public static int potionIDSuffocation = 66;
+	public static int potionIDPrvSuffocation = 67;
 	
 	//entity
 	public static int entityIdMelon = 0;
@@ -181,6 +185,7 @@ public class DCsConfig {
 			Property blockCordial = cfg.getBlock("CordialBottle", blockIdCordial);
 			Property blockCassisTree = cfg.getBlock("CassisTree", blockIdTreeC);
 			Property blockAlcohol = cfg.getBlock("LiquorCup", blockIdAlcohol);
+			Property blockCropMint = cfg.getBlock("MintCrop", blockIdCropMint);
 			
 			Property itemBapple = cfg.getItem("BakedApple", itemIdBapple);
 			Property itemAppleT = cfg.getItem("AppleTart", itemIdAppleTart);
@@ -208,6 +213,7 @@ public class DCsConfig {
 			Property itemMilkBottle = cfg.getItem("MilkCan", itemIdMilkBottle);
 			Property itemPrincess = cfg.getItem("PrincessClam", itemIdPClam);
 			Property itemCordial = cfg.getItem("Cordial", itemIdCordial);
+			Property itemSeedMint = cfg.getItem("MintSeed", itemIdSeedMint);
 			
 			Property DCpotionID = cfg.get("potionID", "Immunization", potionIDImmunity,
 					"Set new potion ID for this mod. These must be bigger than 32, and smaller than 127.");
@@ -220,6 +226,10 @@ public class DCsConfig {
 			Property DCpotionID5 = cfg.get("potionID", "EXPAbsorption", potionIDAbsEXP,
 					"Set new potion ID for this mod. These must be bigger than 32, and smaller than 127.");
 			Property DCpotionID6 = cfg.get("potionID", "DamageAbsorption", potionIDAbsHeal,
+					"Set new potion ID for this mod. These must be bigger than 32, and smaller than 127.");
+			Property DCpotionID7 = cfg.get("potionID", "Suffocation", potionIDSuffocation,
+					"Set new potion ID for this mod. These must be bigger than 32, and smaller than 127.");
+			Property DCpotionID8 = cfg.get("potionID", "Protection:Suffocation", potionIDPrvSuffocation,
 					"Set new potion ID for this mod. These must be bigger than 32, and smaller than 127.");
 			
 			Property TeaTreeValue = cfg.get("world setting", "Tea Tree Gen Probability", teaTreeGenValue,
@@ -332,6 +342,7 @@ public class DCsConfig {
 			blockIdCordial = blockCordial.getInt();
 			blockIdTreeC = blockCassisTree.getInt();
 			blockIdAlcohol = blockAlcohol.getInt();
+			blockIdCropMint = blockCropMint.getInt();
 			
 			itemIdBapple = itemBapple.getInt();
 			itemIdAppleTart = itemAppleT.getInt();
@@ -359,6 +370,7 @@ public class DCsConfig {
 			itemIdMilkBottle = itemMilkBottle.getInt();
 			itemIdPClam = itemPrincess.getInt();
 			itemIdCordial = itemCordial.getInt();
+			itemIdSeedMint = itemSeedMint.getInt();
 			
 			potionIDImmunity = DCpotionID.getInt();
 			potionIDPrvExplode = DCpotionID3.getInt();
@@ -366,6 +378,8 @@ public class DCsConfig {
 			potionIDReflex = DCpotionID4.getInt();
 			potionIDAbsEXP = DCpotionID5.getInt();
 			potionIDAbsHeal = DCpotionID6.getInt();
+			potionIDSuffocation = DCpotionID7.getInt();
+			potionIDPrvSuffocation = DCpotionID8.getInt();
 			
 			teaTreeGenValue = TeaTreeValue.getInt();
 			setCupTexture = cupTex.getInt();

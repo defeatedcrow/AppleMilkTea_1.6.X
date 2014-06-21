@@ -20,6 +20,9 @@ public class PotionProtectionEX extends Potion{
 	//爆発ダメージ無効化
 	private boolean explodeProtection = false;
 	
+	//窒息ダメージ無効化
+	private boolean suffocationProtection = false;
+	
 	//それ以外のダメージソースを指定する。上記と併用もできるが、一種しか指定できない。
 	private DamageSource preventSource;
 	
@@ -51,6 +54,12 @@ public class PotionProtectionEX extends Potion{
 		return this;
 	}
 	
+	public PotionProtectionEX setProtectSuffocation()
+	{
+		this.suffocationProtection = true;
+		return this;
+	}
+	
 	public PotionProtectionEX setPreventSource(DamageSource par1Source)
 	{
 		this.preventSource = par1Source;
@@ -70,6 +79,11 @@ public class PotionProtectionEX extends Potion{
 	public boolean getExplodeProtection()
 	{
 		return this.explodeProtection;
+	}
+	
+	public boolean getSuffocationProtection()
+	{
+		return this.suffocationProtection;
 	}
 	
 	public DamageSource getPreventSource()

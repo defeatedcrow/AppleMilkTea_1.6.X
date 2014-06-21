@@ -82,6 +82,12 @@ public class BlockSaplingTea extends Block implements IPlantable
             par1World.setBlock(par2, par3, par4, 0, 0, 2);
         }
     }
+    
+    public boolean fertilize(World par1World, int par2, int par3, int par4)
+    {
+    	this.growTree(par1World, par2, par3, par4, par1World.rand);
+    	return true;
+    }
 
     /**
      * Attempts to grow a sapling into a tree
@@ -142,19 +148,20 @@ public class BlockSaplingTea extends Block implements IPlantable
         }
         else
         {
-        	if ((itemstack.itemID == Item.dyePowder.itemID) && (itemstack.getItemDamage() == 15) && (par1World.getBlockLightValue(par2, par3, par4) > 11))
-        	{
-        		if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
-                {
-                    par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
-                }
-        		this.growTree(par1World, par2, par3, par4, par1World.rand);
-        		return true;
-        	}
-        	else
-        	{
-        		return false;
-        	}
+//        	if ((itemstack.itemID == Item.dyePowder.itemID) && (itemstack.getItemDamage() == 15) && (par1World.getBlockLightValue(par2, par3, par4) > 11))
+//        	{
+//        		if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
+//                {
+//                    par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
+//                }
+//        		this.growTree(par1World, par2, par3, par4, par1World.rand);
+//        		return true;
+//        	}
+//        	else
+//        	{
+//        		return false;
+//        	}
+        	return false;
         }
     }
 

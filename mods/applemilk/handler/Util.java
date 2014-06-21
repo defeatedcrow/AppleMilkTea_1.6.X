@@ -50,6 +50,15 @@ public class Util {
 		return l;
 	}
 	
+	public static int getHamaguriChanceValue()
+	{
+		int l = DCsConfig.clamChanceValue;
+		if (l < 0) l = 1;
+		else if (l > 100) l = 100;
+		
+		return l;
+	}
+	
 	//コンフィグで規定範囲外の数値を入れた時に、安全に動かすためのメソッドその4
 	//各Block、Itemクラス側からコンフィグ内容を確認するための中継地点
 	//altテクスチャが用意されていない物は下のメソッドを使う

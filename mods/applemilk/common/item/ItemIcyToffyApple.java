@@ -1,5 +1,6 @@
 package mods.applemilk.common.item;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -45,7 +46,7 @@ public class ItemIcyToffyApple extends ItemFood {
 	@SideOnly(Side.CLIENT)
 	public Icon getIconFromDamage(int par1)
     {
-        int j = MathHelper.clamp_int(par1, 0, 15);
+        int j = MathHelper.clamp_int(par1, 0, 5);
         return this.iconToffyType[j];
     }
 
@@ -55,36 +56,53 @@ public class ItemIcyToffyApple extends ItemFood {
 	}
 	
 	@Override
-	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-	{
-		if (!par3EntityPlayer.capabilities.isCreativeMode)
-        {
-            --par1ItemStack.stackSize;
-        }
-		
-		if(par1ItemStack.getItemDamage() == 1)
+	protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+    {
+		boolean alt = false;
+		switch(par1ItemStack.getItemDamage())
 		{
-			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.jump.id, 600, 1));
-		}
-		if(par1ItemStack.getItemDamage() == 2)
-		{
-			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.nightVision.id, 600, 0));
-		}
-		if(par1ItemStack.getItemDamage() == 3)
-		{
-			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 600, 0));
-		}
-		if((par1ItemStack.getItemDamage() == 0) || (par1ItemStack.getItemDamage() > 3))
-		{
+		case 0:
 			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 600, 0));
+			break;
+		case 1:
+			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.jump.id, 600, 1));
+			break;
+		case 2:
+			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.nightVision.id, 600, 0));
+			break;
+		case 3:
+			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 600, 0));
+			break;
+		case 4:
+			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 1, 0));
+			break;
+		case 5:
+			alt = true;
+			break;
+		default:
+			par3EntityPlayer.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 600, 0));
+			break;
+			
 		}
 		
-		if (par2World.isRemote)
+		if (alt)
+		{
+			Iterator current = par3EntityPlayer.getActivePotionEffects().iterator();
+			int increase = 600;
+			
+			while (current.hasNext())
+	        {
+	            PotionEffect potioneffect = (PotionEffect)current.next();
+	            boolean flag = potioneffect.getPotionID() != Potion.heal.id && potioneffect.getPotionID() !=  Potion.harm.id
+	            		&& potioneffect.getPotionID() != Potion.regeneration.id;
+	            if (flag) par3EntityPlayer.addPotionEffect(new PotionEffect(potioneffect.getPotionID(), potioneffect.getDuration() + increase, potioneffect.getAmplifier()));
+	        }
+		}
+		
+		if (par2World.isRemote && par1ItemStack.getItemDamage() < 4)
 		{
 			this.reduceMoisture(-1, 0.0F, par3EntityPlayer);
 		}
-		
-		return par1ItemStack.stackSize <= 0 ? new ItemStack(Item.stick) : par1ItemStack;
 	}
 	
 	@Override
@@ -99,6 +117,8 @@ public class ItemIcyToffyApple extends ItemFood {
 		par3List.add(new ItemStack(this, 1, 1));
 		par3List.add(new ItemStack(this, 1, 2));
 		par3List.add(new ItemStack(this, 1, 3));
+		par3List.add(new ItemStack(this, 1, 4));
+		par3List.add(new ItemStack(this, 1, 5));
 	}	
 	
 	
@@ -106,12 +126,14 @@ public class ItemIcyToffyApple extends ItemFood {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
     {
-        this.iconToffyType = new Icon[4];
+        this.iconToffyType = new Icon[6];
 
         for (int i = 0; i < 4; ++i)
         {
             this.iconToffyType[i] = par1IconRegister.registerIcon("applemilk:icytoffyapple" + i);
         }
+        this.iconToffyType[4] = par1IconRegister.registerIcon("applemilk:candy_cassis");
+        this.iconToffyType[5] = par1IconRegister.registerIcon("applemilk:candy_mint");
     }
 	
 	private void reduceMoisture(int par1, float par2, EntityPlayer par3EntityPlayer)

@@ -50,6 +50,11 @@ public class BlockTeaTree extends Block implements IPlantable{
 		}
 	}
 	
+	public boolean fertilize(World par1World, int par2, int par3, int par4)
+    {
+        return par1World.setBlockMetadataWithNotify(par2, par3, par4, 1, 2);
+    }
+	
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
     {
         ItemStack itemstack = par5EntityPlayer.inventory.getCurrentItem();
@@ -89,21 +94,18 @@ public class BlockTeaTree extends Block implements IPlantable{
         }
         else
         {
-        	if ((itemstack.itemID == Item.dyePowder.itemID) && (itemstack.getItemDamage() == 15) && (meta == 0))
-        	{
-        		if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
-                {
-                    par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
-                }
-        		par1World.setBlockMetadataWithNotify(par2, par3, par4, 1, 3);
-        		
-        		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
-        		return true;
-        	}
-        	else
-        	{
-        		return false;
-        	}
+//        	if ((itemstack.itemID == Item.dyePowder.itemID) && (itemstack.getItemDamage() == 15) && (meta == 0))
+//        	{
+//        		if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
+//                {
+//                    par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
+//                }
+//        		par1World.setBlockMetadataWithNotify(par2, par3, par4, 1, 3);
+//        		
+//        		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+//        		return true;
+//        	}
+        	return false;
         }
     }
 	

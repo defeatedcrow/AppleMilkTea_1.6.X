@@ -1137,7 +1137,7 @@ public class DCsRecipeRegister {
 		 //豆乳梅酒
 		 GameRegistry.addRecipe(
 				 new ShapelessOreRecipe(
-	    		  new ItemStack(DCsAppleMilk.cocktail, 1, 14),
+	    		  new ItemStack(DCsAppleMilk.cocktail, 1, 15),
 	    		  new Object[]{
 	    			  "bottlePlumLiquor",
 	    			  "bucketSoymilk"
@@ -1145,7 +1145,7 @@ public class DCsRecipeRegister {
 		 
 		 GameRegistry.addRecipe(
 				 new ShapelessOreRecipe(
-	    		  new ItemStack(DCsAppleMilk.cocktail, 1, 14),
+	    		  new ItemStack(DCsAppleMilk.cocktail, 1, 15),
 	    		  new Object[]{
 	    			  "bottlePlumLiquor",
 	    			  "foodSoymilk"
@@ -1315,6 +1315,22 @@ public class DCsRecipeRegister {
 		    		  "dustSugar"
 					 }));
 		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.condensedMIlk, 1, 1),
+	    		  new Object[]{
+	    			  "cropCassis",
+		    		  "dustSugar"
+					 }));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.condensedMIlk, 1, 2),
+	    		  new Object[]{
+	    			  "cropSpiceleaf",
+		    		  "dustSugar"
+					 }));
+		 
 		 GameRegistry.addShapelessRecipe(
 	    		  new ItemStack(DCsAppleMilk.EXItems,1,3),
 	    			  new ItemStack(DCsAppleMilk.EXItems,1,2));
@@ -1345,6 +1361,14 @@ public class DCsRecipeRegister {
 	    		  new ItemStack(DCsAppleMilk.appleSandwich,2,1),
 	    			  new ItemStack(Item.egg,1),
 	    			  new ItemStack(Item.bread,1));
+		 
+		 GameRegistry.addRecipe(
+				 new ShapelessOreRecipe(
+	    		  new ItemStack(DCsAppleMilk.appleSandwich, 2, 2),
+	    		  new Object[]{
+	    			  "foodCassisPreserve",
+		    		  new ItemStack(Item.bread, 1)
+					 }));
 	}
 	
 	static void addChalcedony() {
@@ -1832,6 +1856,11 @@ public class DCsRecipeRegister {
 	    			  new ItemStack(Block.plantRed, 1, 0),
 	    			  new ItemStack(DCsAppleMilk.saplingTea, 1, 0));
 		
+		GameRegistry.addShapelessRecipe(
+	    		  new ItemStack(DCsAppleMilk.itemMintSeed, 1, 0),
+	    			  new ItemStack(Item.seeds, 1, 0),
+	    			  new ItemStack(DCsAppleMilk.leafTea, 1, 1));
+		
 		GameRegistry.addRecipe(
 				 new ShapedOreRecipe(
 	    		  new ItemStack(DCsAppleMilk.icyCrystal, 1),
@@ -1879,13 +1908,7 @@ public class DCsRecipeRegister {
 		GameRegistry.addSmelting(
 	    		  Item.appleRed.itemID,
 	    		  new ItemStack(DCsAppleMilk.bakedApple, 1),
-	    		  0.3F);
-	      
-	      GameRegistry.addSmelting(
-	    		  DCsAppleMilk.condensedMIlk.itemID,
-	    		  new ItemStack(DCsAppleMilk.EXItems, 8, 0),
-	    		  0.1F);
-	      
+	    		  0.3F);   
 	      
 	      GameRegistry.addSmelting(
 	    		  DCsAppleMilk.woodBox.blockID,
@@ -1918,6 +1941,15 @@ public class DCsRecipeRegister {
 	      
 	      FurnaceRecipes.smelting().addSmelting(DCsAppleMilk.EXItems.itemID, 11,
 	    		  new ItemStack(Block.glass,1, 0), 0.2F);
+	      
+	      FurnaceRecipes.smelting().addSmelting(DCsAppleMilk.condensedMIlk.itemID, 0,
+	    		  new ItemStack(DCsAppleMilk.EXItems, 8, 0), 0.2F);
+	      
+	      FurnaceRecipes.smelting().addSmelting(DCsAppleMilk.condensedMIlk.itemID, 1,
+	    		  new ItemStack(DCsAppleMilk.icyToffyApple, 4, 4), 0.2F);
+	      
+	      FurnaceRecipes.smelting().addSmelting(DCsAppleMilk.condensedMIlk.itemID, 2,
+	    		  new ItemStack(DCsAppleMilk.icyToffyApple, 4, 5), 0.2F);
 	}
 	
 	/*この部分は、複数のModの水入り容器を取得した後に呼び出すため、postInitに呼ぶ

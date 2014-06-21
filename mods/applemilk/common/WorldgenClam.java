@@ -2,6 +2,7 @@ package mods.applemilk.common;
 
 import java.util.Random;
 
+import mods.applemilk.handler.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
@@ -22,7 +23,7 @@ public class WorldgenClam implements IWorldGenerator {
 		
 		int chunk2X = chunkX << 4;
         int chunk2Z = chunkZ << 4;         
-        int count = DCsConfig.clamChanceValue;
+        int count = Util.getHamaguriChanceValue();
         
     	if ((genDim1 == 0))
     	{
@@ -34,7 +35,7 @@ public class WorldgenClam implements IWorldGenerator {
 				
 				if (world.getBlockMaterial(PosX, PosY + 1, PosZ) == Material.water && (world.getBlockId(PosX, PosY, PosZ) == Block.sand.blockID || world.getBlockId(PosX, PosY, PosZ) == Block.dirt.blockID))
 				{
-					if (world.rand.nextInt(30) == 0)
+					if (world.rand.nextInt(20) == 0)
 					{
 						world.setBlock(PosX, PosY, PosZ, DCsAppleMilk.clamSand.blockID, 2, 2);
 					}
