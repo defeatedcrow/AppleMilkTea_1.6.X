@@ -27,6 +27,7 @@ public class DCsHurtEvent {
 		float damage = event.ammount;
 		
 		boolean canPrevent = false;
+		int reduceAmp = 0;
 		
 		//遠隔クライアントサイドでは何もしない
 		if (target != null && !target.worldObj.isRemote)
@@ -80,10 +81,7 @@ public class DCsHurtEvent {
 					PotionReflexBase reflex = (PotionReflexBase) potion;
 					if (reflex.effectFormer(target, source, reflex.getId(), damage))//反射処理に成功した時
 					{
-						target.removePotionEffect(reflex.getId());
-						if (amp > 0){
-							target.addPotionEffect(new PotionEffect(reflex.getId(), dur, (amp - 1)));
-						}
+						reduceAmp = reflex.getId();
 						canPrevent = true;
 					}
 				}
@@ -100,6 +98,15 @@ public class DCsHurtEvent {
 				AMTLogger.debugInfo("potioneffect cancel huet event.");
 				event.ammount = 0.0F;
 				event.setCanceled(true);
+			}
+			
+			if (reduceAmp > 0)//Amplifierを減らす処理を、while処理の中から外に出した
+			{
+				PotionEffect potion = target.getActivePotionEffect(Potion.potionTypes[reduceAmp]);
+				target.removePotionEffect(reduceAmp);
+				if (potion != null && potion.getAmplifier() > 0){
+					target.addPotionEffect(new PotionEffect(reduceAmp, potion.getDuration(), (potion.getAmplifier() - 1)));
+				}
 			}
 			
 		}
