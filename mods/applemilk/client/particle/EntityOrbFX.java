@@ -19,6 +19,7 @@ public class EntityOrbFX extends EntityFX {
 		this.motionX = 0.0D;
 		this.motionY = par10;
 		this.motionZ = 0.0D;
+		this.noClip = false;
 	}
 	
 	@Override

@@ -149,7 +149,8 @@ public class IceRecipe {
      */
 	public static boolean canLeave(int id)
 	{
-		boolean val = leave.get(id);
+		boolean val = false;
+		val = leave.get(id);
 		return val;
 	}
 	

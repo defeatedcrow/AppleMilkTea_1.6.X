@@ -261,7 +261,7 @@ public class TileIceMaker extends TileEntity implements ISidedInventory
 		{
 			ItemStack itemstack = IceRecipe.getOutput(IceRecipe.getID(this.iceItemStacks[0]));
 			
-			if (IceRecipe.canLeave(IceRecipe.getID(this.iceItemStacks[0])))
+			if (IceRecipe.getID(this.iceItemStacks[0]) > 0 && IceRecipe.canLeave(IceRecipe.getID(this.iceItemStacks[0])))
 			{
 				ItemStack leavestack = IceRecipe.getLeaveStack(IceRecipe.getID(this.iceItemStacks[0]));
 				

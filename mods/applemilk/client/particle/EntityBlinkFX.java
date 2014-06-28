@@ -15,6 +15,7 @@ public class EntityBlinkFX extends EntityFX {
 		this.motionX = par8;
 		this.motionY = par10;
 		this.motionZ = par12;
+		this.noClip = false;
 	}
  
 	@Override

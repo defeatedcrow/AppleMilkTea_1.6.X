@@ -1,8 +1,10 @@
 package mods.applemilk.asm;
 
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import net.minecraft.launchwrapper.IClassTransformer;
+
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
@@ -16,10 +18,13 @@ import org.objectweb.asm.tree.VarInsnNode;
 */
 public class PotionArrayEXTransformer implements IClassTransformer, Opcodes{
     private static final String TARGET_CLASS_NAME = "net.minecraft.potion.Potion";
+    private static int operand = 127;
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
-        if (!transformedName.equals(TARGET_CLASS_NAME)) {return basicClass;}
+        if (!AppleMilkCorePlugin.allowLoad || !transformedName.equals(TARGET_CLASS_NAME)) {return basicClass;}
         try {
+        	operand = AppleMilkCorePlugin.range;
+        	AppleMilkCorePlugin.logger.setParent(FMLLog.getLogger());
             AppleMilkCorePlugin.logger.info("Start transforming Potion Class");
             basicClass = extendPotionArray(name, basicClass);
             AppleMilkCorePlugin.logger.info("Finish transforming Potion Class");
@@ -43,7 +48,7 @@ public class PotionArrayEXTransformer implements IClassTransformer, Opcodes{
         }
         if (mnode != null) {
             AbstractInsnNode oldInsnNode = mnode.instructions.get(2);
-            AbstractInsnNode newInsnNode = new VarInsnNode(Opcodes.BIPUSH, Byte.MAX_VALUE);
+            AbstractInsnNode newInsnNode = new VarInsnNode(Opcodes.BIPUSH, operand);
             mnode.instructions.set(oldInsnNode, newInsnNode);
             ClassWriter cw = new ClassWriter((ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS));
             classNode.accept(cw);
