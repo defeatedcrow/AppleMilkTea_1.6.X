@@ -34,6 +34,11 @@ public class AMTLogger {
 		logger.log(Level.INFO, msg);
 	}
 	
+	public static void warn(String msg) {
+		logger.setParent(FMLLog.getLogger());
+		logger.log(Level.WARNING, msg);
+	}
+	
 	public static void debugInfo(String msg) {
 		if (DCsAppleMilk.debugMode) {
 			logger.setParent(FMLLog.getLogger());

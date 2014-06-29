@@ -820,6 +820,8 @@ DCs.potion.protectionProjectile=Projectile Resistance
 DCs.potion.reflex=Reflex
 DCs.potion.absorptionEXP=EXP Absorption
 DCs.potion.absorptionHeal=Damage Absorption
+DCs.potion.suffocation=Suffocation
+DCs.potion.protectionSuffocation=Suffocation Resistance
 
 achievement.getTeaLeaves=Tea trees grow in 88 nights
 achievement.getTeaLeaves.desc=Get leaves from tea trees.

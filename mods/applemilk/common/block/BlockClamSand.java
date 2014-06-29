@@ -200,7 +200,7 @@ public class BlockClamSand extends Block
         		}
         		else
         		{
-        			if (flag2 && flag3 && flag4 && par1World.rand.nextInt(15) == 0)//低確率
+        			if (flag2 && flag3 && flag4 && par1World.rand.nextInt(30) == 0)//低確率
     				{
         				//プリンセス誕生
     					par1World.setBlockMetadataWithNotify(par2, par3, par4, 2, 3);

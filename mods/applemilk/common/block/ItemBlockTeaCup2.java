@@ -139,6 +139,11 @@ public class ItemBlockTeaCup2 extends EdibleItemBlock{
 		if ((meta & 1) == 1) {
 			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.regeneration.id, 200, 0));
 		}
+		
+		if (DCsAppleMilk.suffocation != null && par1EntityPlayer.isPotionActive(DCsAppleMilk.suffocation))
+		{
+			par1EntityPlayer.removePotionEffect(DCsAppleMilk.suffocation.id);
+		}
 	}
 	
 	public int getMaxItemUseDuration(ItemStack par1ItemStack)

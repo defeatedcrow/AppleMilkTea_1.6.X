@@ -378,65 +378,75 @@ public class MaterialRegister {
 	{
 		//ポーション効果の追加
 		//コンフィグでIDが33~127の範囲内の時のみ追加する。
-		if (Potion.potionTypes[DCsConfig.potionIDImmunity] == null && DCsConfig.potionIDImmunity < 128){
+		if (canRegisterNewPotion(DCsConfig.potionIDImmunity)){
 			DCsAppleMilk.Immunization = (new PotionImmunity(DCsConfig.potionIDImmunity, false, 7889559)).
 					setPotionName("DCs.potion.immunization").setIconIndex(6, 1);
 		}
 		else {
             throw new IllegalArgumentException("Failed to register new Potion : Immunization of DCsAppleMilk");
         }
-		if (Potion.potionTypes[DCsConfig.potionIDPrvExplode] == null && DCsConfig.potionIDPrvExplode < 128){
+		if (canRegisterNewPotion(DCsConfig.potionIDPrvExplode)){
 			DCsAppleMilk.prvExplode = (new PotionProtectionEX(DCsConfig.potionIDPrvExplode, false, 3237665,
-					false, true, false, DamageSource.anvil)).
+					new boolean[]{false, true, false, false}, DamageSource.anvil)).
 					setPotionName("DCs.potion.protectionExplode").setIconIndex(6, 1);
 		}
 		else {
             throw new IllegalArgumentException("Failed to register new Potion : Explode Protection of DCsAppleMilk");
         }
-		if (Potion.potionTypes[DCsConfig.potionIDPrvProjectile] == null && DCsConfig.potionIDPrvProjectile < 128){
+		if (canRegisterNewPotion(DCsConfig.potionIDPrvProjectile)){
 			DCsAppleMilk.prvProjectile = (new PotionProtectionEX(DCsConfig.potionIDPrvProjectile, false, 1151526,
-					false, false, true, DamageSource.magic)).
+					new boolean[]{false, false, true, false}, DamageSource.magic)).
 					setPotionName("DCs.potion.protectionProjectile").setIconIndex(6, 1);
 		}
 		else {
             throw new IllegalArgumentException("Failed to register new Potion : Projectile Protection of DCsAppleMIlk");
         }
-		if (Potion.potionTypes[DCsConfig.potionIDReflex] == null && DCsConfig.potionIDReflex < 128){
+		if (canRegisterNewPotion(DCsConfig.potionIDReflex)){
 			DCsAppleMilk.reflex = (new PotionReflex(DCsConfig.potionIDReflex, false, 999999, false)).
 					setPotionName("DCs.potion.reflex").setIconIndex(6, 1);
 		}
 		else {
             throw new IllegalArgumentException("Failed to register new Potion : Reflex of DCsAppleMilk");
         }
-		if (Potion.potionTypes[DCsConfig.potionIDAbsEXP] == null && DCsConfig.potionIDAbsEXP < 128){
+		if (canRegisterNewPotion(DCsConfig.potionIDAbsEXP)){
 			DCsAppleMilk.absEXP = (new PotionReflex(DCsConfig.potionIDAbsEXP, false, 5599557, false)).
 					setPotionName("DCs.potion.absorptionEXP").setIconIndex(6, 1);
 		}
 		else {
+			AMTLogger.warn("Failed to register new Potion : EXP Absorption");
             throw new IllegalArgumentException("Failed to register new Potion : EXP Absorption of DCsAppleMilk");
         }
-		if (Potion.potionTypes[DCsConfig.potionIDAbsHeal] == null && DCsConfig.potionIDAbsHeal < 128){
+		if (canRegisterNewPotion(DCsConfig.potionIDAbsHeal)){
 			DCsAppleMilk.absHeal = (new PotionReflex(DCsConfig.potionIDAbsHeal, false, 9933221, false)).
 					setPotionName("DCs.potion.absorptionHeal").setIconIndex(6, 1);
 		}
 		else {
             throw new IllegalArgumentException("Failed to register new Potion : Damage Absorption of DCsAppleMilk");
         }
-		if (Potion.potionTypes[DCsConfig.potionIDSuffocation] == null && DCsConfig.potionIDSuffocation < 128){
-			DCsAppleMilk.suffocation = (new PotionSuffocation(DCsConfig.potionIDSuffocation, true, 9933221)).
-					setPotionName("DCs.potion.suffocation").setIconIndex(0, 0);
+		if (canRegisterNewPotion(DCsConfig.potionIDSuffocation)){
+			DCsAppleMilk.suffocation = (new PotionSuffocation(DCsConfig.potionIDSuffocation, true, 1933221)).
+					setPotionName("DCs.potion.suffocation").setIconIndex(1, 1);
 		}
 		else {
-            throw new IllegalArgumentException("Failed to register new Potion : Damage Absorption of DCsAppleMilk");
+            throw new IllegalArgumentException("Failed to register new Potion : Suffocation of DCsAppleMilk");
         }
-		if (Potion.potionTypes[DCsConfig.potionIDPrvSuffocation] == null && DCsConfig.potionIDPrvSuffocation < 128){
-			DCsAppleMilk.prvSuffocation = (PotionProtectionEX) (new PotionProtectionEX(DCsConfig.potionIDPrvSuffocation, true, 9933221, 
-					false, false, false, DamageSource.inWall)).setProtectSuffocation()
+		if (canRegisterNewPotion(DCsConfig.potionIDPrvSuffocation)){
+			DCsAppleMilk.prvSuffocation = (PotionProtectionEX) (new PotionProtectionEX(DCsConfig.potionIDPrvSuffocation, true, 1933221, 
+					new boolean[]{false, false, false, true}, DamageSource.inWall)).setProtectSuffocation()
 					.setPotionName("DCs.potion.protectionSuffocation").setIconIndex(6, 1);
 		}
 		else {
-            throw new IllegalArgumentException("Failed to register new Potion : Damage Absorption of DCsAppleMilk");
+            throw new IllegalArgumentException("Failed to register new Potion : Protection Suffocation of DCsAppleMilk");
         }
+	}
+	
+	boolean canRegisterNewPotion(int id)
+	{
+		boolean flag1 = Potion.potionTypes[id] == null;
+		boolean flag2 = id > 0 && id < Potion.potionTypes.length;
+		if (!flag1) AMTLogger.warn("Failed to register new Potion ID : " + id + ", this ID is already existed.");
+		if (!flag2) AMTLogger.warn("Failed to register new Potion ID : " + id + ", this ID must be bigger than 0, smaller than " + Potion.potionTypes.length + ".");
+		return flag1 && flag2;
 	}
 
 }

@@ -39,8 +39,20 @@ public class ItemFoodPlate extends EdibleItemBlock{
 		if (!par2World.isRemote)
 		{
 			this.addStamina(heal, 1.5F, par3EntityPlayer);
+			
+			if (meta < 3 && DCsAppleMilk.suffocation != null)
+			{
+				boolean flag = par3EntityPlayer.isPotionActive(DCsAppleMilk.suffocation);
+				if (flag){
+					int dur = par3EntityPlayer.getActivePotionEffect(DCsAppleMilk.suffocation).duration;
+					par3EntityPlayer.addPotionEffect(new PotionEffect(DCsAppleMilk.suffocation.id, dur + 100, 1));
+				}
+				else {
+					par3EntityPlayer.addPotionEffect(new PotionEffect(DCsAppleMilk.suffocation.id, 200, 0));
+				}
+			}
 		}
-
+		
         return super.onEaten(par1ItemStack, par2World, par3EntityPlayer);
     }
 	

@@ -27,12 +27,13 @@ public class PotionProtectionEX extends Potion{
 	private DamageSource preventSource;
 	
 	
-	public PotionProtectionEX(int par1, boolean par2, int par3, boolean all, boolean exp, boolean proj, DamageSource source)
+	public PotionProtectionEX(int par1, boolean par2, int par3, boolean[] flag, DamageSource source)
     {
         super(par1, par2, par3);
-        this.allProtection = all;
-        this.explodeProtection = exp;
-        this.projectileProtection = proj;
+        this.allProtection = flag[0];
+        this.explodeProtection = flag[1];
+        this.projectileProtection = flag[2];
+        this.suffocationProtection = flag[3];
         this.preventSource = source;
     }
 	

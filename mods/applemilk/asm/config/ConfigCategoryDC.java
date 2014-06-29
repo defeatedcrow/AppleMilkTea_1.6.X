@@ -1,3 +1,7 @@
+/**
+ * Original code was created by Minecraft Forge Team.
+ */
+
 package mods.applemilk.asm.config;
 
 import static mods.applemilk.asm.config.DCsConfig.NEW_LINE;

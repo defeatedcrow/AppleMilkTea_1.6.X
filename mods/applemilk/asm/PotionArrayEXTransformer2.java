@@ -36,7 +36,7 @@ public class PotionArrayEXTransformer2 implements IClassTransformer, Opcodes{
             ClassWriter classWriter = new ClassWriter(1);
             classReader.accept(new CustomVisitor(name,classWriter), 8);
             AppleMilkCorePlugin.logger.info("Finish transforming Potion Class");
-            return basicClass;
+            return classWriter.toByteArray();
         } catch (Exception e) {
             throw new RuntimeException("failed : PotionArrayTransformer loading", e);
         }

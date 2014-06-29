@@ -1,6 +1,5 @@
 /**
- * This software is provided under the terms of the Minecraft Forge Public
- * License v1.0.
+ * Original code was created by Minecraft Forge Team.
  */
 
 /*CoreModに使用できるConfigファイルが作成できないため、代替として作成。*/

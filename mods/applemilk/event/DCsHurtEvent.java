@@ -67,6 +67,10 @@ public class DCsHurtEvent {
 							}
 						}
 					}
+					else if (potionEX.getSuffocationProtection())//窒息無効
+					{
+						canPrevent = (source == DamageSource.drown || source == DamageSource.inWall || source == DamageSource.fallingBlock);
+					}
 					
 					//その他、DamageSource名指しで設定した無効化条件
 					if (potionEX.getPreventSource() == source)

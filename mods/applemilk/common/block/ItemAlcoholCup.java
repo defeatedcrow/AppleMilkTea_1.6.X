@@ -54,7 +54,7 @@ public class ItemAlcoholCup extends EdibleItemBlock{
 	@Override
 	public PotionEffect effectOnEaten(int meta) {
 		
-		return new PotionEffect(Potion.hunger.id, 300, 1);
+		return new PotionEffect(Potion.hunger.id, 100, 1);
 	}
 	
 	@Override
@@ -71,7 +71,7 @@ public class ItemAlcoholCup extends EdibleItemBlock{
 		
 		ArrayList<PotionEffect> ret = new ArrayList<PotionEffect>();
 		
-		if(meta == 0 && DCsAppleMilk.succeedAddPotion)//sake
+		if(meta == 0 && DCsAppleMilk.reflex != null)//sake
 		{
 			potion = new PotionEffect(DCsAppleMilk.reflex.id, 2400, 0);
 		}
@@ -79,7 +79,7 @@ public class ItemAlcoholCup extends EdibleItemBlock{
 		{
 			potion = new PotionEffect(Potion.digSpeed.id, 2400, 0);
 		}
-		else if (meta == 2 && DCsAppleMilk.succeedAddPotion)//wine
+		else if (meta == 2 && DCsAppleMilk.absHeal != null)//wine
 		{
 			potion = new PotionEffect(DCsAppleMilk.absHeal.id, 2400, 0);
 		}
@@ -111,9 +111,9 @@ public class ItemAlcoholCup extends EdibleItemBlock{
 		{
 			potion = new PotionEffect(Potion.fireResistance.id, 2400, 0);
 		}
-		else if (meta == 10)//plum
+		else if (meta == 10 && DCsAppleMilk.prvSuffocation != null)//plum
 		{
-			potion = new PotionEffect(Potion.resistance.id, 2400, 0);
+			potion = new PotionEffect(DCsAppleMilk.prvSuffocation.id, 2400, 0);
 		}
 		else
 		{
