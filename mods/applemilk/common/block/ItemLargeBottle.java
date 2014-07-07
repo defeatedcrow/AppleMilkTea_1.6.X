@@ -31,7 +31,7 @@ import net.minecraftforge.common.IShearable;
 public class ItemLargeBottle extends Item{
 	
 	private static final String[] contents = new String[] {"empty", "sake", "beer", "wine", "gin", "rum", "vodka", "whiskey",
-		"milk", "soy", "sugar", "maple", "honey", "nuts", "berryjam"};
+		"milk", "soy", "sugar", "maple", "honey", "nuts", "berryjam", "berryjam"};
 	
 	private boolean repair;
 	private static final int thisBlockID = DCsAppleMilk.largeBottle.blockID;
@@ -42,7 +42,7 @@ public class ItemLargeBottle extends Item{
 	public ItemLargeBottle(int itemId)
 	{
 		super(itemId);
-		this.setMaxStackSize(1);
+		this.setMaxStackSize(8);
 		this.setMaxDamage(0);
 		this.setHasSubtypes(true);
 		this.setNoRepair();
@@ -271,8 +271,12 @@ public class ItemLargeBottle extends Item{
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for (int i = 0 ; i < 15 ; i++) {
-			par3List.add(new ItemStack(this, 1, i));
+		par3List.add(new ItemStack(this, 1, 0));
+		for (int i = 1 ; i < 8 ; i++) {
+			par3List.add(new ItemStack(this, 1, 48 + i));
+		}
+		for (int i = 8 ; i < 15 ; i++) {
+			par3List.add(new ItemStack(this, 1, 112 + i));
 		}
 	}
 	

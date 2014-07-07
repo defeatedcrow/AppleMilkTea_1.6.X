@@ -60,11 +60,11 @@ public class ItemBlockTeaCup2 extends EdibleItemBlock{
 	@Override
 	public PotionEffect effectOnEaten(int meta) {
 		
-		if((meta == 0 || meta == 1) && DCsAppleMilk.succeedAddPotion)
+		if((meta == 0 || meta == 1) && DCsAppleMilk.Immunization != null)
 		{
 			return new PotionEffect(DCsAppleMilk.Immunization.id, 600, 1);
 		}
-		else if((meta == 2 || meta == 3) && DCsAppleMilk.succeedAddPotion)
+		else if((meta == 2 || meta == 3) && DCsAppleMilk.Immunization != null)
 		{
 			return new PotionEffect(DCsAppleMilk.Immunization.id, 600, 0);
 		}
@@ -121,7 +121,7 @@ public class ItemBlockTeaCup2 extends EdibleItemBlock{
 	
 	protected void setPotionWithTea (EntityPlayer par1EntityPlayer, int meta)
 	{
-		if ((meta < 4) && DCsAppleMilk.succeedAddPotion)
+		if ((meta < 4) && DCsAppleMilk.Immunization != null)
 		{
 			par1EntityPlayer.addPotionEffect(new PotionEffect(Potion.heal.id, 1, 0));
 		}

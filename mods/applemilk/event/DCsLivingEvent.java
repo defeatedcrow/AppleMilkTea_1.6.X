@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import mods.applemilk.potion.PotionImmunity;
 import mods.applemilk.api.potion.PotionImmunityBase;
+import mods.applemilk.asm.AppleMilkCorePlugin;
 import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.DCsConfig;
@@ -38,7 +39,15 @@ public class DCsLivingEvent {
 				while (iterator.hasNext())
 				{
 					PotionEffect effect = (PotionEffect)iterator.next();
-					Potion potion = Potion.potionTypes[effect.getPotionID()];
+					
+					int b = 256;
+					int newID = effect.getPotionID();
+					if (newID < 0)
+					{
+						newID = newID + b;
+					}
+					
+					Potion potion = Potion.potionTypes[newID];
 					int amp = effect.getAmplifier();
 					int dur = effect.getDuration();
 					

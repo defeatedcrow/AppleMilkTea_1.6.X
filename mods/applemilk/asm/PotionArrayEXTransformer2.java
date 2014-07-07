@@ -21,14 +21,12 @@ import org.objectweb.asm.tree.VarInsnNode;
 public class PotionArrayEXTransformer2 implements IClassTransformer, Opcodes{
 	
     private static final String TARGET_CLASS_NAME = "net.minecraft.potion.Potion";
-    private static int newOperand = 127;
     
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
         if (!AppleMilkCorePlugin.allowLoad) {return basicClass;}
         if (!transformedName.equals(TARGET_CLASS_NAME)) {return basicClass;}
         try {
-        	newOperand = AppleMilkCorePlugin.range;
         	AppleMilkCorePlugin.logger.setParent(FMLLog.getLogger());
         	AppleMilkCorePlugin.logger.info("Start transforming Potion Class");
         	//basicClass = extendPotionArray(name, basicClass);
@@ -57,7 +55,7 @@ public class PotionArrayEXTransformer2 implements IClassTransformer, Opcodes{
         if (mnode != null) {
         	AppleMilkCorePlugin.logger.info("Transforming static init method");
             AbstractInsnNode oldInsnNode = mnode.instructions.get(2);
-            AbstractInsnNode newInsnNode = new VarInsnNode(Opcodes.BIPUSH, newOperand);
+            AbstractInsnNode newInsnNode = new VarInsnNode(Opcodes.BIPUSH, AppleMilkCorePlugin.range);
             mnode.instructions.set(oldInsnNode, newInsnNode);
             ClassWriter cw = new ClassWriter((ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS));
             classNode.accept(cw);
@@ -95,13 +93,14 @@ public class PotionArrayEXTransformer2 implements IClassTransformer, Opcodes{
 
         static final int targetOpcode = Opcodes.BIPUSH;
         static final int targetOperand = 32;
+        static final int newOperand = Byte.MAX_VALUE;
 
         @Override
         public void visitIntInsn(int opcode, int operand) {
             if (targetOpcode == opcode && targetOperand == operand) {
                 //BIPUSH 32を、BIPUSH Byte.MAX_VALUEに入れ替える。
-            	AppleMilkCorePlugin.logger.info("Change BIPUSH 32 to " + newOperand);
-                super.visitIntInsn(opcode, newOperand);
+            	AppleMilkCorePlugin.logger.info("Change BIPUSH 32 to " + AppleMilkCorePlugin.range);
+            	super.visitFieldInsn(GETSTATIC, "mods/applemilk/asm/AppleMilkCorePlugin", "range", "I");
             } else super.visitIntInsn(opcode, operand);
         }
     }

@@ -132,11 +132,11 @@ public class BlockIceCream extends BlockContainer{
 		{
 			return new PotionEffect(Potion.nightVision.id, 900, 0);
 		}
-		else if ((meta == 5) && DCsConfig.potionIDImmunity != 0)//fruit
+		else if ((meta == 5) && DCsAppleMilk.Immunization != null)//fruit
 		{
 			return new PotionEffect(DCsAppleMilk.Immunization.id, 900, 0);
 		}
-		else if ((meta == 6) && DCsConfig.potionIDImmunity != 0)//lemon
+		else if ((meta == 6) && DCsAppleMilk.Immunization != null)//lemon
 		{
 			return new PotionEffect(DCsAppleMilk.Immunization.id, 900, 1);
 		}

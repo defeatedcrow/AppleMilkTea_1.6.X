@@ -23,7 +23,8 @@ public class AppleMilkCorePlugin implements IFMLLoadingPlugin {
     @Override
     public String[] getASMTransformerClass() {
         return new String[]{
-                "mods.applemilk.asm.PotionArrayEXTransformer2"
+                "mods.applemilk.asm.PotionArrayEXTransformer2",
+        		"mods.applemilk.asm.PotionEffectTransformer"
         };
     }
 
@@ -57,12 +58,12 @@ public class AppleMilkCorePlugin implements IFMLLoadingPlugin {
         		"Enable to load AppleMilkCore. If you want to disable AppleMilkCore, please set false."
     					+ BR +"(For example, for avoiding crash cause of conflict with MCPC+.)");
         PropertyDC b = config.get("general", "SetNewPotionIDRange", Byte.MAX_VALUE,
-        		"Set new potion ID maximum. It must be bigger than 32, and smaller than 256.");
+        		"Set new potion ID maximum. It must be bigger than 32, and smaller than 128.");
         
         allowLoad = a.getBoolean(true);
         range = b.getInt();
         if (range < 32) range = 32;
-        if (range > 255) range = 255;
+        if (range > 128) range = 128;
         
         config.save();
     }

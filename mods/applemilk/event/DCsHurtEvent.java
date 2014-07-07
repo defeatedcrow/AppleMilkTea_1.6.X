@@ -6,6 +6,7 @@ import java.util.List;
 
 import mods.applemilk.potion.*;
 import mods.applemilk.api.potion.PotionReflexBase;
+import mods.applemilk.asm.AppleMilkCorePlugin;
 import mods.applemilk.common.AMTLogger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -38,7 +39,15 @@ public class DCsHurtEvent {
 			while (iterator.hasNext())
 			{
 				PotionEffect effect = (PotionEffect)iterator.next();
-				Potion potion = Potion.potionTypes[effect.getPotionID()];
+				
+				int b = 256;
+				int newID = effect.getPotionID();
+				if (newID < 0)
+				{
+					newID = newID + b;
+				}
+				
+				Potion potion = Potion.potionTypes[newID];
 				int amp = effect.getAmplifier();
 				int dur = effect.getDuration();
 				

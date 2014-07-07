@@ -443,9 +443,9 @@ public class MaterialRegister {
 	boolean canRegisterNewPotion(int id)
 	{
 		boolean flag1 = Potion.potionTypes[id] == null;
-		boolean flag2 = id > 0 && id < Potion.potionTypes.length;
+		boolean flag2 = id > 0 && id < 128;
 		if (!flag1) AMTLogger.warn("Failed to register new Potion ID : " + id + ", this ID is already existed.");
-		if (!flag2) AMTLogger.warn("Failed to register new Potion ID : " + id + ", this ID must be bigger than 0, smaller than " + Potion.potionTypes.length + ".");
+		if (!flag2) AMTLogger.warn("Failed to register new Potion ID : " + id + ", this ID must be bigger than 0, smaller than 128.");
 		return flag1 && flag2;
 	}
 
