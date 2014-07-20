@@ -88,20 +88,20 @@ public class BlockEmptyTeaMaker extends BlockContainer{
             		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
             		return true;
         		}
-        		else if (DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Cell != 0 && itemstack.itemID == LoadIC2Handler.IC2Cell)
-        		{
-        			if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
-                    {
-                        par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
-                    }
-        			
-        			if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(LoadIC2Handler.IC2WaterCell, 1, 1)))
-            		{
-            			par5EntityPlayer.entityDropItem(new ItemStack(LoadIC2Handler.IC2WaterCell, 1, 1), 1);
-            		}
-            		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
-            		return true;
-        		}
+//        		else if (DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Cell != 0 && itemstack.itemID == LoadIC2Handler.IC2Cell)
+//        		{
+//        			if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
+//                    {
+//                        par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
+//                    }
+//        			
+//        			if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(LoadIC2Handler.IC2WaterCell, 1, 1)))
+//            		{
+//            			par5EntityPlayer.entityDropItem(new ItemStack(LoadIC2Handler.IC2WaterCell, 1, 1), 1);
+//            		}
+//            		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+//            		return true;
+//        		}
         		else if (ID == Item.bucketMilk.itemID)
         		{
         			if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.bucketEmpty,1)))
@@ -137,7 +137,7 @@ public class BlockEmptyTeaMaker extends BlockContainer{
 		else if (ID == Item.dyePowder.itemID && meta == 3) m = 8; //cocoa
 		else if (ID == DCsAppleMilk.EXItems.itemID && meta == 2) m = 6; //green tea
 		else if (ID == DCsAppleMilk.EXItems.itemID && meta == 3) m = 4; //tea
-		else if (DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Coffeepowder != 0 && ID == LoadIC2Handler.IC2Coffeepowder) m = 2; //IC2 coffee
+//		else if (DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Coffeepowder != 0 && ID == LoadIC2Handler.IC2Coffeepowder) m = 2; //IC2 coffee
 		else if (ID == DCsAppleMilk.gratedApple.itemID && meta < 2) m = 10;//apple
 		else if (ID == DCsAppleMilk.gratedApple.itemID && meta == 2) m = 12;//lemon
 		else if (ID == DCsAppleMilk.gratedApple.itemID && meta == 3) m = 2;//coffee

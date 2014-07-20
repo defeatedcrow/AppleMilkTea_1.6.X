@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import com.google.common.eventbus.EventBus;
 
-import codechicken.packager.Packager;
 import cpw.mods.fml.common.DummyModContainer;
 import cpw.mods.fml.common.LoadController;
 import cpw.mods.fml.common.ModMetadata;

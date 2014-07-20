@@ -3,7 +3,6 @@ package mods.applemilk.handler;
 import java.util.ArrayList;
 
 import sextiarysector.stats.EntityPlayerManager;
-import mods.applemilk.api.IceRecipe;
 import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.DCsConfig;

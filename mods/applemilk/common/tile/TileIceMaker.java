@@ -5,20 +5,15 @@ import java.io.IOException;
  
 
 
-
-import mods.applemilk.api.IceRecipe;
+import mods.applemilk.api.recipe.IIceRecipe;
+import mods.applemilk.api.recipe.RecipeRegisterManager;
 import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.PacketHandler;
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -33,15 +28,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
 import com.google.common.io.ByteArrayDataInput;
- 
-
-
-
-
-
-
-
-
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -259,54 +245,62 @@ public class TileIceMaker extends TileEntity implements ISidedInventory
 		}
 		else
 		{
-			ItemStack itemstack = IceRecipe.getOutput(IceRecipe.getID(this.iceItemStacks[0]));
+			IIceRecipe recipe = RecipeRegisterManager.iceRecipe.getRecipe(this.iceItemStacks[0]);
 			
-			if (IceRecipe.getID(this.iceItemStacks[0]) > 0 && IceRecipe.canLeave(IceRecipe.getID(this.iceItemStacks[0])))
+			if (recipe != null)
 			{
-				ItemStack leavestack = IceRecipe.getLeaveStack(IceRecipe.getID(this.iceItemStacks[0]));
-				
-				if (itemstack == null || leavestack == null) return false;
-				boolean flag1 = false;
-				boolean flag2 = false;
-				
-				if (this.iceItemStacks[2] == null)
+				if (recipe.getContainer() != null)
 				{
-					flag1 = true;
+					ItemStack container = recipe.getContainer();
+					ItemStack output = recipe.getOutput();
+					
+					if (output == null || container == null) return false;
+					boolean flag1 = false;
+					boolean flag2 = false;
+					
+					if (this.iceItemStacks[2] == null)
+					{
+						flag1 = true;
+					}
+					else
+					{
+						if (this.iceItemStacks[2].isItemEqual(output))
+						{
+							int result = this.iceItemStacks[2].stackSize + output.stackSize;
+							flag1 = (result <= this.getInventoryStackLimit() && result <= output.getMaxStackSize());
+						}
+					}
+					
+					if (this.iceItemStacks[3] == null)
+					{
+						flag2 = true;
+					}
+					else
+					{
+						if (this.iceItemStacks[3].isItemEqual(container))
+						{
+							int leave = this.iceItemStacks[3].stackSize + container.stackSize;
+							flag2 = (leave <= this.getInventoryStackLimit() && leave <= container.getMaxStackSize());
+						}
+					}
+					
+					return (flag1 && flag2);
 				}
 				else
 				{
-					if (this.iceItemStacks[2].isItemEqual(itemstack))
-					{
-						int result = this.iceItemStacks[2].stackSize + itemstack.stackSize;
-						flag1 = (result <= this.getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
-					}
+					ItemStack output = recipe.getOutput();
+					
+					if (output == null) return false;
+					
+					if (this.iceItemStacks[2] == null) return true;
+					if (!this.iceItemStacks[2].isItemEqual(output)) return false;
+					
+					int result = this.iceItemStacks[2].stackSize + output.stackSize;
+					return (result <= this.getInventoryStackLimit() && result <= output.getMaxStackSize());
 				}
-				
-				if (this.iceItemStacks[3] == null)
-				{
-					flag2 = true;
-				}
-				else
-				{
-					if (this.iceItemStacks[3].isItemEqual(leavestack))
-					{
-						int leave = this.iceItemStacks[3].stackSize + leavestack.stackSize;
-						flag2 = (leave <= this.getInventoryStackLimit() && leave <= leavestack.getMaxStackSize());
-					}
-				}
-				
-				return (flag1 && flag2);
 			}
-			else
-			{
-				if (itemstack == null) return false;
-				
-				if (this.iceItemStacks[2] == null) return true;
-				if (!this.iceItemStacks[2].isItemEqual(itemstack)) return false;
-				
-				int result = this.iceItemStacks[2].stackSize + itemstack.stackSize;
-				return (result <= this.getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
-			}
+			
+			return false;
 		}
 	}
  
@@ -317,9 +311,9 @@ public class TileIceMaker extends TileEntity implements ISidedInventory
 	{
 		if (this.canSmelt())
 		{
-			int id = IceRecipe.getID(this.iceItemStacks[0]);
-			ItemStack itemstack = IceRecipe.getOutput(id);
-			ItemStack leave = IceRecipe.getLeaveStack(id);
+			IIceRecipe recipe = RecipeRegisterManager.iceRecipe.getRecipe(this.iceItemStacks[0]);
+			ItemStack itemstack = recipe.getOutput();
+			ItemStack container = recipe.getContainer();
  
 			if (this.iceItemStacks[2] == null)
 			{
@@ -330,15 +324,15 @@ public class TileIceMaker extends TileEntity implements ISidedInventory
 				this.iceItemStacks[2].stackSize += itemstack.stackSize;
 			}
  
-			if (IceRecipe.canLeave(id) && leave != null)//材料スロットに残すアイテム
+			if (container != null)//材料スロットに残すアイテム
 			{
 				if (this.iceItemStacks[3] == null)
 				{
-					this.iceItemStacks[3] = leave.copy();
+					this.iceItemStacks[3] = container.copy();
 				}
-				else if (this.iceItemStacks[3].isItemEqual(leave))
+				else if (this.iceItemStacks[3].isItemEqual(container))
 				{
-					this.iceItemStacks[3].stackSize += leave.stackSize;
+					this.iceItemStacks[3].stackSize += container.stackSize;
 				}
 			}
 			
@@ -413,9 +407,9 @@ public class TileIceMaker extends TileEntity implements ISidedInventory
 			}
 			if (i == Item.snowball.itemID) return 1;
 			
-			if (IceRecipe.getChargeAmount(par0ItemStack) > 0)
+			if (RecipeRegisterManager.iceRecipe.getChargeAmount(par0ItemStack) > 0)
 			{
-				return IceRecipe.getChargeAmount(par0ItemStack);
+				return RecipeRegisterManager.iceRecipe.getChargeAmount(par0ItemStack);
 			}
 			return 0;
 		}

@@ -80,12 +80,12 @@ public class ItemCocktail extends EdibleItemBlock{
 		else if(meta == 1 && DCsAppleMilk.reflex != null)//frozen sake
 		{
 			if (par1EntityPlayer.isPotionActive(DCsConfig.potionIDReflex)) {
-				tick = par1EntityPlayer.getActivePotionEffect(DCsAppleMilk.reflex).getDuration() + 2400;
+				tick = par1EntityPlayer.getActivePotionEffect(DCsAppleMilk.reflex).getDuration() + 600;
 				potion = new PotionEffect(DCsConfig.potionIDReflex, tick, 2);
 				flag = false;
 			}
 			else {
-				potion = new PotionEffect(DCsConfig.potionIDReflex, 2400, 2);
+				potion = new PotionEffect(DCsConfig.potionIDReflex, 600, 2);
 			}
 		}
 		else if (meta == 2)//sake-tini
@@ -146,12 +146,12 @@ public class ItemCocktail extends EdibleItemBlock{
 		else if (meta == 7 && DCsAppleMilk.absHeal != null)//american lemonade
 		{
 			if (par1EntityPlayer.isPotionActive(DCsConfig.potionIDAbsHeal)) {
-				tick = par1EntityPlayer.getActivePotionEffect(DCsAppleMilk.absHeal).getDuration() + 2400;
+				tick = par1EntityPlayer.getActivePotionEffect(DCsAppleMilk.absHeal).getDuration() + 1200;
 				potion = new PotionEffect(DCsConfig.potionIDAbsHeal, tick, 2);
 				flag = true;
 			}
 			else {
-				potion = new PotionEffect(DCsConfig.potionIDAbsHeal, 2400, 2);
+				potion = new PotionEffect(DCsConfig.potionIDAbsHeal, 1200, 1);
 			}
 		}
 		else if (meta == 8)//moscow mule
@@ -179,12 +179,12 @@ public class ItemCocktail extends EdibleItemBlock{
 		else if (meta == 10 && DCsAppleMilk.absEXP != null)//kir
 		{
 			if (par1EntityPlayer.isPotionActive(DCsConfig.potionIDAbsEXP)) {
-				tick = par1EntityPlayer.getActivePotionEffect(DCsAppleMilk.absEXP).getDuration() + 2400;
+				tick = par1EntityPlayer.getActivePotionEffect(DCsAppleMilk.absEXP).getDuration() + 1200;
 				potion = new PotionEffect(DCsConfig.potionIDAbsEXP, tick, 2);
 				flag = false;
 			}
 			else {
-				potion = new PotionEffect(DCsConfig.potionIDAbsEXP, 2400, 2);
+				potion = new PotionEffect(DCsConfig.potionIDAbsEXP, 1200, 1);
 			}
 		}
 		else if (meta == 11)//cassis milk

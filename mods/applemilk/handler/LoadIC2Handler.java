@@ -11,38 +11,40 @@ import ic2.api.recipe.*;
 
 public class LoadIC2Handler {
 	
-	public static int IC2Cell = 0;
-	public static int IC2WaterCell = 0;
-	public static int IC2Coffeepowder = 0;
-	public static int IC2Mug = 0;
-	public static int IC2MugCoffee = 0;
-	public static int IC2dropRubber = 0;
-	public static int IC2Rum = 0;
+	public static ItemStack IC2Cell;
+	public static ItemStack IC2WaterCell;
+	public static ItemStack IC2Coffeepowder;
+	public static ItemStack IC2Mug;
+	public static ItemStack IC2MugCoffee;
+	public static ItemStack IC2MugCoffeeMilk;
+	public static ItemStack IC2dropRubber;
+	public static Item IC2Rum;
 	
 	public static ItemStack IC2Furnace;
 
 	public void load() {
 		
 		//IC2apiの機能によりアイテムを取得している
-		this.IC2Cell = Items.getItem("cell").itemID;
-		this.IC2WaterCell = Items.getItem("waterCell").itemID;
-        this.IC2Coffeepowder = Items.getItem("coffeePowder").itemID;
-        this.IC2Mug = Items.getItem("mugEmpty").itemID;
-        this.IC2MugCoffee = Items.getItem("mugCoffee").itemID;
-        this.IC2dropRubber = Items.getItem("rubber").itemID;
-        this.IC2Furnace = new ItemStack(Items.getItem("ironFurnace").itemID, 1, Items.getItem("ironFurnace").getItemDamage());
+		this.IC2Cell = new ItemStack(Items.getItem("cell").getItem(), 1, Items.getItem("cell").getItemDamage());
+		this.IC2WaterCell = new ItemStack(Items.getItem("waterCell").getItem(), 1, Items.getItem("waterCell").getItemDamage());
+        this.IC2Coffeepowder = new ItemStack(Items.getItem("coffeePowder").getItem(), 1, Items.getItem("coffeePowder").getItemDamage());
+        this.IC2Mug = new ItemStack(Items.getItem("mugEmpty").getItem(), 1, 0);
+        this.IC2MugCoffee = new ItemStack(Items.getItem("mugCoffee").getItem(), 1, 1);
+        this.IC2MugCoffeeMilk = new ItemStack(Items.getItem("mugCoffee").getItem(), 1, 2);
+        this.IC2dropRubber = new ItemStack(Items.getItem("rubber").getItem(), 1, Items.getItem("rubber").getItemDamage());
+        this.IC2Furnace = new ItemStack(Items.getItem("ironFurnace").getItem(), 1, Items.getItem("ironFurnace").getItemDamage());
         
         //インスタントティー用の水入り容器登録
-        if (this.IC2WaterCell != 0)
+        if (this.IC2WaterCell != null)
         {
-        	if (LoadModHandler.registerModItems("containerWater", new ItemStack(IC2WaterCell, 1, 1))) {
+        	if (LoadModHandler.registerModItems("containerWater", IC2WaterCell)) {
 				AMTLogger.debugInfo("Succeeded to get IC2 water cell");
 			}
         }
         
         if (this.IC2Furnace != null)
         {
-        	if (LoadModHandler.registerModItems("furnaceBlock", this.IC2Furnace)) {
+        	if (LoadModHandler.registerModItems("furnaceBlock", IC2Furnace)) {
 				AMTLogger.debugInfo("Succeeded to get IC2 Iron Furnace");
 			}
         }
@@ -56,7 +58,7 @@ public class LoadIC2Handler {
         		RecipeInputItemStack input = new RecipeInputItemStack(new ItemStack(DCsAppleMilk.woodBox, 1, 4), 1);
                 NBTTagCompound metadata = new NBTTagCompound();
                 metadata.setInteger("extractor", 2000);
-                ItemStack outputs = new ItemStack(this.IC2dropRubber, 9, 0);
+                ItemStack outputs = new ItemStack(this.IC2dropRubber.getItem(), 9, 0);
                 
                 Recipes.extractor.addRecipe(input, metadata, outputs);
                 

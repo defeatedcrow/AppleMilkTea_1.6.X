@@ -73,7 +73,7 @@ public class ItemAlcoholCup extends EdibleItemBlock{
 		
 		if(meta == 0 && DCsAppleMilk.reflex != null)//sake
 		{
-			potion = new PotionEffect(DCsAppleMilk.reflex.id, 2400, 0);
+			potion = new PotionEffect(DCsAppleMilk.reflex.id, 600, 0);
 		}
 		else if(meta == 1)//beer
 		{
@@ -81,7 +81,7 @@ public class ItemAlcoholCup extends EdibleItemBlock{
 		}
 		else if (meta == 2 && DCsAppleMilk.absHeal != null)//wine
 		{
-			potion = new PotionEffect(DCsAppleMilk.absHeal.id, 2400, 0);
+			potion = new PotionEffect(DCsAppleMilk.absHeal.id, 600, 0);
 		}
 		else if (meta == 3)//rum
 		{

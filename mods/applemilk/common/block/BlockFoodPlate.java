@@ -84,6 +84,20 @@ public class BlockFoodPlate extends BlockContainer{
     		{
     			if (currentMeta == 3) par5EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 3, 2));
     			else par5EntityPlayer.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, 3, 3));
+    			
+    			if (currentMeta < 3 && DCsAppleMilk.suffocation != null)
+    			{
+    				boolean flag = par5EntityPlayer.isPotionActive(DCsAppleMilk.suffocation)
+    						&& (par5EntityPlayer.getActivePotionEffect(DCsAppleMilk.suffocation).getDuration() < 100);
+    				
+    				if (flag){
+    					int dur = par5EntityPlayer.getActivePotionEffect(DCsAppleMilk.suffocation).getDuration();
+    					par5EntityPlayer.addPotionEffect(new PotionEffect(DCsAppleMilk.suffocation.id, dur + 100, 1));
+    				}
+    				else {
+    					par5EntityPlayer.addPotionEffect(new PotionEffect(DCsAppleMilk.suffocation.id, 200, 0));
+    				}
+    			}
     		}
         	
         	par1World.setBlockToAir(par2, par3, par4);

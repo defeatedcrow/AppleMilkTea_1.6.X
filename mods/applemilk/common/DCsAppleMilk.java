@@ -3,7 +3,7 @@
  * URL:http://forum.minecraftuser.jp/viewtopic.php?f=13&t=17657
  *
  * Apple&Milk&Tea! is distributed under the terms of the Minecraft Mod PublicLicense 1.0, or MMPL.
- * Please check the Lisence(MMPL_1.0).txt included in the package file of this Mod.
+ * Please check the License(MMPL_1.0).txt included in the package file of this Mod.
  */
 
 package mods.applemilk.common;
@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-import mods.applemilk.api.RegisteredRecipeGet;
 import mods.applemilk.potion.*;
+import mods.applemilk.recipe.*;
 import mods.applemilk.client.*;
 import mods.applemilk.common.block.*;
 import mods.applemilk.common.entity.EntityMelonBomb;
@@ -24,7 +24,6 @@ import mods.applemilk.common.tile.*;
 import mods.applemilk.event.*;
 import mods.applemilk.handler.*;
 import mods.applemilk.handler.economy.*;
-import mods.applemilk.handler.recipe.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -48,6 +47,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -55,7 +55,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.15e",
+		version = "1.6.2_1.16a",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry;after:ExtraTrees"
 		)
 @NetworkMod(
@@ -248,6 +248,9 @@ public class DCsAppleMilk{
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		//APIのインスタンス生成
+		RegisterManager.load();
+		
 		//Configuration setting
 		//コンフィグを生成する
 		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
@@ -414,6 +417,12 @@ public class DCsAppleMilk{
 	          e.printStackTrace(System.err);
 	        }
 	    }
+	}
+	
+	@EventHandler
+	public void receiveIMC(IMCEvent event)
+	{
+		ReceivingIMCEvent.receiveIMC(event);
 	}
 	
 	@EventHandler

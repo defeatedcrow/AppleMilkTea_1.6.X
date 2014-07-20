@@ -1,12 +1,14 @@
-package mods.applemilk.api;
+package mods.applemilk.recipe;
 
 import java.util.HashMap;
 
-import mods.applemilk.common.AMTLogger;
-import mods.applemilk.common.DCsAppleMilk;
+import mods.applemilk.api.recipe.*;
+import mods.applemilk.common.*;
+import mods.applemilk.recipe.IceRecipeRegister.IceRecipe;
+import mods.applemilk.recipe.TeaRecipeRegister.TeaRecipe;
 import net.minecraft.item.ItemStack;
 
-public class RegisteredRecipeGet {
+public class RegisteredRecipeGet{
 	
 	public static HashMap<ItemStack, ItemStack> teaRecipeList = new HashMap<ItemStack, ItemStack>();
 	public static HashMap<ItemStack, ItemStack[]> iceRecipeList = new HashMap<ItemStack, ItemStack[]>();
@@ -14,27 +16,20 @@ public class RegisteredRecipeGet {
 	
 	public void setRecipeList() {
 		
-		for (int i = 1 ; i < TeaRecipe.outputs.size() ; i++) {
-			ItemStack input = TeaRecipe.getInput(i);
-			ItemStack output = TeaRecipe.getOutput(i);
+		for (ITeaRecipe recipe : RecipeRegisterManager.teaRecipe.getRecipeList()) {
+			ItemStack input = recipe.getInput();
+			ItemStack output = recipe.getOutput();
 			
 			if (input != null && output != null) {
 				teaRecipeList.put(input, output);
 			}
 		}
 		
-		for (int i = 1 ; i < IceRecipe.recipeID.size() ; i++) {
-			ItemStack input = IceRecipe.getInput(i);
+		for (IIceRecipe recipe : RecipeRegisterManager.iceRecipe.getRecipeList()) {
+			ItemStack input = recipe.getInput();
 			ItemStack[] output = new ItemStack[2];
-			if (IceRecipe.canLeave(i)) {
-				output[0] = IceRecipe.getOutput(i);
-				output[1] = IceRecipe.getLeaveStack(i);
-			}
-			else
-			{
-				output[0] = IceRecipe.getOutput(i);
-				output[1] = (ItemStack)null;
-			}
+			output[0] = recipe.getOutput();
+			output[1] = recipe.getContainer();
 			
 			if (input != null && output != null) {
 				iceRecipeList.put(input, output);

@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileMakerNext;
 import mods.applemilk.handler.LoadIC2Handler;
-import mods.applemilk.api.TeaRecipe;
+import mods.applemilk.api.recipe.*;
 
 public class BlockTeaMakerNext extends BlockContainer{
 	
@@ -45,25 +45,34 @@ public class BlockTeaMakerNext extends BlockContainer{
     {
         ItemStack itemstack = par5EntityPlayer.inventory.getCurrentItem();
         TileMakerNext tile = (TileMakerNext)par1World.getBlockTileEntity(par2, par3, par4);
-        int currentID = tile.getID();
-        int remain = tile.getRemainByte();
-        int recipeID = -1;
-        if (itemstack != null) recipeID = TeaRecipe.getID(itemstack);
+        if (tile == null)return false;
         
-        if (itemstack == null || tile == null)
+        ItemStack tileItem = tile.getItemStack();//tileが保持しているアイテム
+        int remain = tile.getRemainByte();//残量
+        
+        ITeaRecipe recipe = null;//itemのほうのレシピ
+        if (itemstack != null) recipe = RecipeRegisterManager.teaRecipe.getRecipe(itemstack);
+        
+        if (itemstack == null)
         {
-        	return false;
+        	AMTLogger.debugInfo("Checking tile... ");
+        	if (tileItem != null )AMTLogger.debugInfo("tile hold item: " + tileItem.getDisplayName());
+        	if (tile.getOutput() != null )AMTLogger.debugInfo("tile hold recipe: " + tile.getOutput().getDisplayName());
+        	AMTLogger.debugInfo("tile remaining: " + tile.getRemainByte());
+        	AMTLogger.debugInfo("tile texture: " + tile.getCurrentTexture());
+        	
+        	return DCsAppleMilk.debugMode;
         }
-        else if (currentID > 0 && remain > 0) //空ではない
+        else if (tileItem != null && remain > 0) //空ではない
         {
-        	int item = itemstack.itemID;
+        	Item item = itemstack.getItem();
         	int meta = itemstack.getItemDamage();
         	
-        	if (item == DCsAppleMilk.emptyCup.blockID) //空マグで右クリックする処理を最優先に
+        	if (item.itemID == DCsAppleMilk.emptyCup.blockID) //空マグで右クリックする処理を最優先に
         	{
-        		if (currentID > 0 && remain > 0)
+        		if (tile.getOutput() != null)
         		{
-        			ItemStack output = TeaRecipe.getOutput(currentID);
+        			ItemStack output = tile.getOutput();//アウトプットの取得。レシピ無しの場合nullを返すのでそのチェックも兼ねている
         			if (output != null)
         			{
         				if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
@@ -71,23 +80,22 @@ public class BlockTeaMakerNext extends BlockContainer{
                             par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
                         }
             			
-            			if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(output.itemID, 1, output.getItemDamage())))
+            			if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(output.getItem(), 1, output.getItemDamage())))
                 		{
-                			par5EntityPlayer.entityDropItem((new ItemStack(output.itemID, 1, output.getItemDamage())), 1.0F);
+                			par5EntityPlayer.entityDropItem((new ItemStack(output.getItem(), 1, output.getItemDamage())), 1.0F);
                 		}
             			
             			//実績用処理
-            			if (output.itemID == DCsAppleMilk.teacupBlock.blockID && output.getItemDamage() == 4) {
+            			if (output.getItem().itemID == DCsAppleMilk.teacupBlock.blockID && output.getItemDamage() == 4) {
             				par5EntityPlayer.triggerAchievement(AchievementRegister.getTea);
             			}
-            			else if (output.itemID == DCsAppleMilk.teaCup2.blockID && output.getItemDamage() == 3) {
+            			else if (output.getItem().itemID == DCsAppleMilk.teaCup2.blockID && output.getItemDamage() == 3) {
             				par5EntityPlayer.triggerAchievement(AchievementRegister.getAppleMilkTea);
             			}
             			
             			tile.setRemainByte((byte)(remain - 1));
             			if ((remain - 1) == 0){
-            				tile.setID((byte)0);
-            				tile.setMilk(false);
+            				tile.clearTile();
             			}
             			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
             			return true;
@@ -95,25 +103,25 @@ public class BlockTeaMakerNext extends BlockContainer{
         		}
         		return false;
         	}
-        	else if (item == DCsAppleMilk.EXItems.itemID && meta == 10) //ウォールマグは4種しか汲めない
+        	else if (item == DCsAppleMilk.EXItems && meta == 10) //ウォールマグは4種しか汲めない
         	{
-        		if (currentID > 0 && remain > 0)
+        		if (tile.getOutput() != null)
         		{
-        			ItemStack output = new ItemStack(Item.stick);
-        			if (currentID == TeaRecipe.getID(new ItemStack(DCsAppleMilk.EXItems, 1, 2))) {
-        				output = new ItemStack(DCsAppleMilk.wallMug.itemID, 1, 1);
+        			ItemStack output = tile.getOutput();
+        			if (tileItem.getItem() == DCsAppleMilk.EXItems && tileItem.getItemDamage() == 2) {
+        				output = new ItemStack(DCsAppleMilk.wallMug, 1, 1);
         			}
-        			else if (currentID == TeaRecipe.getID(new ItemStack(DCsAppleMilk.EXItems, 1, 3))) {
-        				output = new ItemStack(DCsAppleMilk.wallMug.itemID, 1, 0);
+        			else if (tileItem.getItem() == DCsAppleMilk.EXItems && tileItem.getItemDamage() == 3) {
+        				output = new ItemStack(DCsAppleMilk.wallMug, 1, 0);
         			}
-        			else if (currentID == TeaRecipe.getID(new ItemStack(DCsAppleMilk.gratedApple, 1, 3))) {
-        				output = new ItemStack(DCsAppleMilk.wallMug.itemID, 1, 3);
+        			else if (tileItem.getItem() == DCsAppleMilk.gratedApple && tileItem.getItemDamage() == 2) {
+        				output = new ItemStack(DCsAppleMilk.wallMug, 1, 3);
         			}
-        			else if (currentID == TeaRecipe.getID(new ItemStack(Item.dyePowder, 1, 3))) {
-        				output = new ItemStack(DCsAppleMilk.wallMug.itemID, 1, 2);
+        			else if (tileItem.getItem() == Item.dyePowder && tileItem.getItemDamage() == 2) {
+        				output = new ItemStack(DCsAppleMilk.wallMug, 1, 2);
         			}
         			
-        			if (output.itemID == DCsAppleMilk.wallMug.itemID)
+        			if (output.getItem() == DCsAppleMilk.wallMug)
         			{
         				if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
                         {
@@ -127,8 +135,7 @@ public class BlockTeaMakerNext extends BlockContainer{
             			
             			tile.setRemainByte((byte)(remain - 1));
             			if ((remain - 1) == 0){
-            				tile.setID((byte)0);
-            				tile.setMilk(false);
+            				tile.clearTile();
             			}
             			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
             			return true;
@@ -136,13 +143,56 @@ public class BlockTeaMakerNext extends BlockContainer{
         		}
         		return false;
         	}
-        	else if (recipeID > 0) //手持ちアイテムが登録済みの茶の材料のとき
+        	else if (tileItem.getItem() == DCsAppleMilk.gratedApple && tileItem.getItemDamage() == 3 && DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Mug != null
+					&& LoadIC2Handler.IC2MugCoffee != null && itemstack.getItem() == LoadIC2Handler.IC2Mug.getItem()) //IC2コーヒー
+			{
+				if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
+	            {
+	                par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
+	            }
+				
+				if (tile.getMilked())
+				{
+					if (!par5EntityPlayer.inventory.addItemStackToInventory(LoadIC2Handler.IC2MugCoffeeMilk.copy()))
+    	    		{
+    	    			par5EntityPlayer.entityDropItem(LoadIC2Handler.IC2MugCoffeeMilk.copy(), 1);
+    	    		}
+				}
+				else
+				{
+					if (!par5EntityPlayer.inventory.addItemStackToInventory(LoadIC2Handler.IC2MugCoffee.copy()))
+    	    		{
+    	    			par5EntityPlayer.entityDropItem(LoadIC2Handler.IC2MugCoffee.copy(), 1);
+    	    		}
+				}
+				
+				tile.setRemainByte((byte)(remain - 1));
+				if ((remain - 1) == 0){
+    				tile.clearTile();
+    			}
+    			
+    			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
+				return true;
+			}
+        	else if (recipe != null) //手持ちアイテムが登録済みの茶の材料のとき
         	{
-        		if (currentID == 1 && this.isCanMilk(recipeID)) //ティーメーカーが牛乳のみのとき
+        		AMTLogger.debugInfo("Checking currentItem... ");
+            	boolean flag = false;
+            	String s = "null";
+            	if (recipe != null)
+            	{
+            		flag = true;
+            		s = recipe.getOutput().getDisplayName();
+            	}		
+            	AMTLogger.debugInfo("This Item has recipe: " + flag + ", output: " + s);
+        		
+        		if (tile.getItemStack().getItem() == Item.bucketMilk) //ティーメーカーが牛乳のみのとき
         		{
+        			AMTLogger.debugInfo("milk -> milk_drink");
         			tile.setMilk(true);
-					tile.setID((byte)(recipeID + 1));
+					tile.setItemStack(new ItemStack(itemstack.getItem(), 1, itemstack.getItemDamage()));
 					tile.setRemainByte((byte)(3 + par1World.rand.nextInt(3)));
+					tile.onInventoryChanged();;
 					
 					if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
                     {
@@ -154,13 +204,15 @@ public class BlockTeaMakerNext extends BlockContainer{
         		}
         		else //牛乳以外
         		{
-        			if (itemstack.itemID == Item.bucketMilk.itemID) //牛乳バケツを持っている
+        			if (!tile.getMilked() && itemstack.getItem() == Item.bucketMilk) //牛乳バケツを持っている
         			{
-        				if (this.isCanMilk(currentID)) //ミルク追加可能として事前に登録済み
+        				AMTLogger.debugInfo("drink -> milk_drink");
+        				
+        				if (recipe.getOutputMilk() != null) //ミルク追加可能として事前に登録済み
         				{
-        					tile.setMilk(true);
-        					tile.setID((byte)(currentID + 1));
+        					tile.setMilk(true);//ミルクフラグだけONに
         					tile.setRemainByte((byte)(3 + par1World.rand.nextInt(3)));
+        					tile.onInventoryChanged();;
         					
         					if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.bucketEmpty, 1, 0)))
                     		{
@@ -178,42 +230,6 @@ public class BlockTeaMakerNext extends BlockContainer{
         					return false;
         				}
         			}
-        			else if (currentID == TeaRecipe.getID(new ItemStack(DCsAppleMilk.gratedApple, 1, 3)) && DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Mug != 0
-        					&& LoadIC2Handler.IC2MugCoffee != 0 && itemstack.itemID == LoadIC2Handler.IC2Mug) //IC2コーヒー
-        			{
-        				if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
-        	            {
-        	                par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
-        	            }
-        				
-        				if (tile.getMilked())
-        				{
-        					if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(LoadIC2Handler.IC2MugCoffee, 1, 1)))
-            	    		{
-            	    			par5EntityPlayer.entityDropItem(new ItemStack(LoadIC2Handler.IC2MugCoffee, 1, 1), 1);
-            	    		}
-        				}
-        				else
-        				{
-        					if (!par5EntityPlayer.inventory.addItemStackToInventory(new ItemStack(LoadIC2Handler.IC2MugCoffee, 1, 0)))
-            	    		{
-            	    			par5EntityPlayer.entityDropItem(new ItemStack(LoadIC2Handler.IC2MugCoffee, 1, 0), 1);
-            	    		}
-        				}
-        				
-        				tile.setRemainByte((byte)(remain - 1));
-        				if ((remain - 1) == 0){
-            				tile.setID((byte)0);
-            				tile.setMilk(false);
-            			}
-            			
-            			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
-        				return true;
-        			}
-        			else
-        			{
-        				return false;
-        			}
         		}
         	}
         	else
@@ -229,10 +245,22 @@ public class BlockTeaMakerNext extends BlockContainer{
         		par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
         		return true;
         	}
-        	else if (recipeID > 0) //投入できる材料を持っている
+        	else if (recipe != null) //投入できる材料を持っている
     		{
-    			tile.setID((byte)recipeID);
+        		AMTLogger.debugInfo("Checking currentItem... ");
+            	boolean flag = false;
+            	String s = "null";
+            	if (recipe != null)
+            	{
+            		flag = true;
+            		s = recipe.getOutput().getDisplayName();
+            	}		
+            	AMTLogger.debugInfo("This Item has recipe: " + flag + ", output: " + s);
+        		
+    			tile.setItemStack(new ItemStack(itemstack.getItem(), 1, itemstack.getItemDamage()));
     			tile.setRemainByte((byte)(3 + par1World.rand.nextInt(3))); //3～5杯
+    			tile.onInventoryChanged();;
+    			
     			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
     			if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
                 {
@@ -240,9 +268,9 @@ public class BlockTeaMakerNext extends BlockContainer{
                 }
     			return true;
     		}
-        	else if(DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Coffeepowder != 0 && itemstack.itemID == LoadIC2Handler.IC2Coffeepowder)
+        	else if(DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Coffeepowder != null && itemstack.getItem() == LoadIC2Handler.IC2Coffeepowder.getItem())
         	{
-        		tile.setID((byte)(TeaRecipe.getID(new ItemStack(DCsAppleMilk.gratedApple, 1, 3))));
+        		tile.setItemStack(new ItemStack(DCsAppleMilk.gratedApple, 1, 3));//かわりに当MODのコーヒー粉が突っ込まれる
     			tile.setRemainByte((byte)(3 + par1World.rand.nextInt(3))); //3～5杯
     			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
     			if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
@@ -258,7 +286,7 @@ public class BlockTeaMakerNext extends BlockContainer{
         	
         }
         
-        
+        return false;
     }
 	
 	
@@ -291,16 +319,16 @@ public class BlockTeaMakerNext extends BlockContainer{
     			par2EntityPlayer.entityDropItem(new ItemStack(Item.potion, 1, 0), 1);
     		}
 		}
-		else if (DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Cell != 0 && itemstack.itemID == LoadIC2Handler.IC2Cell)
+		else if (DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Cell != null && itemstack.getItem() == LoadIC2Handler.IC2Cell.getItem())
 		{
 			if (!par2EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
             {
                 par2EntityPlayer.inventory.setInventorySlotContents(par2EntityPlayer.inventory.currentItem, (ItemStack)null);
             }
 			
-			if (!par2EntityPlayer.inventory.addItemStackToInventory(new ItemStack(LoadIC2Handler.IC2WaterCell, 1, 1)))
+			if (!par2EntityPlayer.inventory.addItemStackToInventory(LoadIC2Handler.IC2WaterCell.copy()))
     		{
-    			par2EntityPlayer.entityDropItem(new ItemStack(LoadIC2Handler.IC2WaterCell, 1, 1), 1);
+    			par2EntityPlayer.entityDropItem(LoadIC2Handler.IC2WaterCell.copy(), 1);
     		}
 		}
 	}
@@ -310,15 +338,9 @@ public class BlockTeaMakerNext extends BlockContainer{
 		boolean flag;
 		if (itemstack.itemID == Item.bucketEmpty.itemID) flag = true;
 		else if (itemstack.itemID == Item.glassBottle.itemID) flag = true;
-		else if (DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Cell != 0 && itemstack.itemID == LoadIC2Handler.IC2Cell) flag = true;
+		else if (DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Cell != null && itemstack.itemID == LoadIC2Handler.IC2Cell.itemID) flag = true;
 		else flag = false;
 		
-		return flag;
-	}
-	
-	private boolean isCanMilk(int id)
-	{
-		boolean flag = TeaRecipe.getCanMilk(id);
 		return flag;
 	}
 	

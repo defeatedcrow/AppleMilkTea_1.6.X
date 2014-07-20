@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import mods.applemilk.potion.PotionImmunity;
 import mods.applemilk.api.potion.PotionImmunityBase;
-import mods.applemilk.asm.AppleMilkCorePlugin;
 import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.DCsConfig;

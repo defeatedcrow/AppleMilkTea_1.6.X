@@ -1,5 +1,6 @@
 package mods.applemilk.common.tile;
 
+import mods.applemilk.api.recipe.RecipeRegisterManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -124,7 +125,7 @@ public class ContainerIceMaker extends Container {
 			//スロット番号が0、1でない時
 			else if (par2 != 1 && par2 != 0)
 			{
-				if (FurnaceRecipes.smelting().getSmeltingResult(itemstack1) != null)
+				if (RecipeRegisterManager.iceRecipe.getRecipe(itemstack1) != null)
 				{
 					//アイテムの移動(スロット0～1へ)
 					if (!this.mergeItemStack(itemstack1, 0, 1, false))
@@ -132,7 +133,7 @@ public class ContainerIceMaker extends Container {
 						return null;
 					}
 				}
-				else if (TileEntityFurnace.isItemFuel(itemstack1))
+				else if (TileIceMaker.getItemBurnTime(itemstack1) > 0)
 				{
 					//アイテムの移動(スロット1～2へ)
 					if (!this.mergeItemStack(itemstack1, 1, 2, false))

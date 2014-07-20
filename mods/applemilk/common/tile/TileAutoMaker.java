@@ -1,10 +1,11 @@
 package mods.applemilk.common.tile;
 
+import mods.applemilk.api.recipe.ITeaRecipe;
+import mods.applemilk.api.recipe.RecipeRegisterManager;
 import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.PacketHandler;
 import mods.applemilk.common.block.BlockAutoMaker;
 import mods.applemilk.handler.Util;
-import mods.applemilk.api.TeaRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -140,9 +141,9 @@ public class TileAutoMaker extends TileEntity implements IInventory
     			if (this.isAutoMode())
     			{
     				boolean flag = false;
-    				int id = this.isTeaMaterial(this.getItemstack());
+    				ITeaRecipe recipe = this.isTeaMaterial(this.getItemstack());
         			
-        			if (id > 1 && this.updateBlock() && this.reduceItemStack())
+        			if (recipe != null && this.updateBlock())
         			{
         				flag = true;
             			this.onInventoryChanged();
@@ -237,10 +238,10 @@ public class TileAutoMaker extends TileEntity implements IInventory
     	return false;
     }
     
-    private int isTeaMaterial(ItemStack input)
+    private ITeaRecipe isTeaMaterial(ItemStack input)
     {
-    	int ID = TeaRecipe.getID(input);
-    	return ID;
+    	ITeaRecipe recipe = RecipeRegisterManager.teaRecipe.getRecipe(input);
+    	return recipe;
     }
 
 	private int getMetadata()
@@ -344,7 +345,7 @@ public class TileAutoMaker extends TileEntity implements IInventory
 	public boolean isItemValidForSlot(int par1, ItemStack par2ItemStack) {
 		
 		boolean flag = false;
-		if (par2ItemStack != null && this.isTeaMaterial(par2ItemStack) > 0)
+		if (par2ItemStack != null && this.isTeaMaterial(par2ItemStack) != null)
 		{
 			flag = true;
 		}

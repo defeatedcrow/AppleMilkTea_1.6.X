@@ -215,7 +215,7 @@ public class ItemPrincessClam extends Item {
 						break;
 					}
 					
-					if (world.isBlockSolidOnSide(X, Y + i, Z, ForgeDirection.UP) && (world.isAirBlock(X, Y + i + 1, Z) || world.getBlockMaterial(X, Y + i + 1, Z) == Material.plants)
+					if (world.isBlockSolidOnSide(X, Y + i, Z, ForgeDirection.UP) && (world.isAirBlock(X, Y + i + 1, Z) || world.getBlockMaterial(X, Y + i + 1, Z) == Material.plants || world.getBlockMaterial(X, Y + i + 1, Z) == Material.snow)
 							&& world.isAirBlock(X, Y + i + 2, Z)
 							&& this.moonCanWarp(world, X, Y + i, Z))
 					{
@@ -247,7 +247,22 @@ public class ItemPrincessClam extends Item {
 	//月チャームのワープ可能判定
 	private boolean moonCanWarp(World world, int X, int Y, int Z)
 	{
-		return (world.canBlockSeeTheSky(X, Y + 1, Z) && !world.provider.hasNoSky) ? true : ((Y < 128 && world.getBlockId(X, Y, Z) == Block.grass.blockID) ? true : false);
+		boolean flag = false;
+		if (Y > 250 || world.provider.hasNoSky) return false;
+		if (world.canBlockSeeTheSky(X, Y + 1, Z))
+		{
+			int block = world.getBlockId(X, Y, Z);
+			if (world.getBlockMaterial(X, Y, Z) == Material.grass) flag = true;
+			if (world.getBlockMaterial(X, Y, Z) == Material.snow) flag = true;
+			if (block == Block.ice.blockID) flag = true;
+			if (block == Block.snow.blockID) flag = true;
+		}
+		else
+		{
+			int block = world.getBlockId(X, Y, Z);
+			if (block == Block.grass.blockID) flag = true;
+		}
+		return flag;
 	}
 	
 	//プレイヤーに使った（マルチのみ）

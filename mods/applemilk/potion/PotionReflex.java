@@ -4,8 +4,10 @@ import mods.applemilk.api.potion.PotionReflexBase;
 import mods.applemilk.common.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 
@@ -21,7 +23,7 @@ public class PotionReflex extends PotionReflexBase{
     }
 	
 	@Override
-	public boolean effectFormer(EntityLivingBase target, DamageSource source, int id, float amount)
+	public boolean effectFormer(EntityLivingBase target, DamageSource source, PotionEffect effect, float amount)
 	{
 		boolean succeed = false;
 		
@@ -29,7 +31,9 @@ public class PotionReflex extends PotionReflexBase{
 			amount = 5.0F;
 		}
 		
-		if (id == DCsConfig.potionIDReflex)//反射
+		int amp = effect.getAmplifier();
+		
+		if (effect.getPotionID() == DCsConfig.potionIDReflex)//反射
 		{
 			/* 攻撃元のエンティティがいない場合は何もしない*/
 			if (source instanceof EntityDamageSource)
@@ -46,16 +50,40 @@ public class PotionReflex extends PotionReflexBase{
 						float range = livingAttacker.rotationYaw;
 						livingAttacker.addVelocity(livingAttacker.motionX * (-1.0D) / (double)range, 0.1D, livingAttacker.motionZ * (-1.0D) / (double)range);
 						//magic属性のダメージ
-						livingAttacker.attackEntityFrom(DamageSource.magic, amount*2);
+						livingAttacker.attackEntityFrom(DamageSource.magic, amount*amp);
 						//プレイヤーには鈴の音が聞こえる（暫定）
-						target.worldObj.playSoundAtEntity(target, "applemilk:suzu", 1.0F, 1.2F);
+						target.worldObj.playSoundAtEntity(target, "defeatedcrow:suzu", 1.0F, 1.2F);
 						succeed = true;
+					}
+					else if (amp > 0)
+					{
+						//生き物でない場合は何もしないが、無効化効果は働く
+						target.worldObj.playSoundAtEntity(target, "defeatedcrow:suzu", 1.0F, 1.2F);
+						succeed = true;
+					}
+				}
+				else if (amp > 1)//レベルがII以上のときは、攻撃対象が居ない場合でも別のターゲットを取る
+				{
+					EntityLivingBase around;
+					if (target instanceof EntityPlayer)
+					{
+						around = ((EntityPlayer)target).func_94060_bK();
 					}
 					else
 					{
-						//生き物でない場合はとりあえずsetDead
-						attacker.setDead();
-						target.worldObj.playSoundAtEntity(target, "applemilk:suzu", 1.0F, 1.2F);
+						around = target.func_94060_bK();
+					}
+					
+					//プレイヤーや飼いならしモブ以外のてきとうなモブに八つ当りする
+					if (around != null && !(around instanceof EntityPlayer) && !(around instanceof EntityTameable))
+					{
+						//ノックバック
+						float range = around.rotationYaw;
+						around.addVelocity(around.motionX * (-1.0D) / (double)range, 0.1D, around.motionZ * (-1.0D) / (double)range);
+						//magic属性のダメージ
+						around.attackEntityFrom(DamageSource.magic, amount*amp);
+						//プレイヤーには鈴の音が聞こえる（暫定）
+						target.worldObj.playSoundAtEntity(target, "defeatedcrow:suzu", 1.0F, 1.2F);
 						succeed = true;
 					}
 				}
@@ -63,24 +91,58 @@ public class PotionReflex extends PotionReflexBase{
 			}
 		}
 		
-		if (id == DCsConfig.potionIDAbsEXP)
+		if (effect.getPotionID() == DCsConfig.potionIDAbsEXP)
 		{
 			if (target instanceof EntityPlayer)
 			{
 				EntityPlayer player = (EntityPlayer) target;
 				int get = Math.round(Math.abs(amount));
-				player.addExperience(get);
-				succeed = true;
+				boolean flag = false;
+				
+				if (amp > 2)
+				{
+					flag = true;
+				}
+				else if (amp > 1 && (source.isExplosion() || source.isFireDamage()))
+				{
+					flag = true;
+				}
+				else
+				{
+					flag = (source instanceof EntityDamageSource);
+				}
+				
+				if (flag) {
+					player.addExperience(get);
+					succeed = true;
+				}
 			}
 		}
 		
-		if (id == DCsConfig.potionIDAbsHeal)
+		if (effect.getPotionID() == DCsConfig.potionIDAbsHeal)
 		{
 			if (target instanceof EntityPlayer)
 			{
 				EntityPlayer player = (EntityPlayer) target;
-				player.heal(amount*2);
-				succeed = true;
+				boolean flag = false;
+				
+				if (amp > 2)
+				{
+					flag = true;
+				}
+				else if (amp > 1 && (source.isExplosion() || source.isFireDamage()))
+				{
+					flag = true;
+				}
+				else
+				{
+					flag = (source instanceof EntityDamageSource);
+				}
+				
+				if (flag) {
+					player.heal(amount*2);
+					succeed = true;
+				}
 			}
 		}
 		

@@ -6,7 +6,6 @@ import java.util.List;
 
 import mods.applemilk.potion.*;
 import mods.applemilk.api.potion.PotionReflexBase;
-import mods.applemilk.asm.AppleMilkCorePlugin;
 import mods.applemilk.common.AMTLogger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -92,7 +91,7 @@ public class DCsHurtEvent {
 				if (potion instanceof PotionReflexBase)
 				{
 					PotionReflexBase reflex = (PotionReflexBase) potion;
-					if (reflex.effectFormer(target, source, reflex.getId(), damage))//反射処理に成功した時
+					if (reflex.effectFormer(target, source, effect, damage))//反射処理に成功した時
 					{
 						reduceAmp = reflex.getId();
 						canPrevent = true;
@@ -100,7 +99,7 @@ public class DCsHurtEvent {
 				}
 				
 				//せっかくなので、ジャンプ力増加ポーション効果で落下ダメージを受けるのをなくすことにした
-				if (potion.id == potion.jump.id && source == DamageSource.fall)
+				if (potion != null && potion.id == potion.jump.id && source == DamageSource.fall)
 				{
 					canPrevent = true;
 				}

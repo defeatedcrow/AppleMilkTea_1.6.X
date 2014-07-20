@@ -42,7 +42,8 @@ public class ItemFoodPlate extends EdibleItemBlock{
 			
 			if (meta < 3 && DCsAppleMilk.suffocation != null)
 			{
-				boolean flag = par3EntityPlayer.isPotionActive(DCsAppleMilk.suffocation);
+				boolean flag = par3EntityPlayer.isPotionActive(DCsAppleMilk.suffocation)
+						&& (par3EntityPlayer.getActivePotionEffect(DCsAppleMilk.suffocation).getDuration() < 50);
 				if (flag){
 					int dur = par3EntityPlayer.getActivePotionEffect(DCsAppleMilk.suffocation).duration;
 					par3EntityPlayer.addPotionEffect(new PotionEffect(DCsAppleMilk.suffocation.id, dur + 100, 1));

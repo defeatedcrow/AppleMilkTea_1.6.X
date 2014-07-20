@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileAutoMaker;
 import mods.applemilk.common.tile.TileMakerNext;
-import mods.applemilk.api.TeaRecipe;
+import mods.applemilk.api.recipe.*;
 
 public class BlockAutoMaker extends BlockContainer{
 	
@@ -103,23 +103,27 @@ public class BlockAutoMaker extends BlockContainer{
 			{
 				ItemStack items = tile.getItemstack();
 				int mode = tile.getMode();
-				int makerID = target.getID();
+				ItemStack hasStack = target.getItemStack();
 				int underMeta = par1World.getBlockMetadata(par2, par3 - 1, par4);
 				int nextMeta = underMeta + 1;
 				if (underMeta > 3) nextMeta = 0;
 				
-				if (items != null && makerID == 0)
+				if (items != null && hasStack == null)
 				{
-					int itemID = TeaRecipe.getID(items);
-					if (itemID > 0)
+					ITeaRecipe recipe = RecipeRegisterManager.teaRecipe.getRecipe(items);
+					if (recipe != null)
 					{
 						if (mode == 1)
 						{
-							target.setID((byte)(itemID));
-							target.setRemainByte((byte)(3 + par1World.rand.nextInt(3)));
-							par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
-							par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, nextMeta, 3);
-							par1World.playSoundEffect(par2, par3, par4, "random.pop", 0.4F, 1.8F);
+							if (tile.reduceItemStack())
+							{
+								target.setItemStack(new ItemStack(items.getItem(), 1, items.getItemDamage()));
+								target.setRemainByte((byte)(3 + par1World.rand.nextInt(3)));
+								target.onInventoryChanged();;
+								par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
+								par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, nextMeta, 3);
+								par1World.playSoundEffect(par2, par3, par4, "random.pop", 0.4F, 1.8F);
+							}
 						}
 						else
 						{
@@ -205,14 +209,15 @@ public class BlockAutoMaker extends BlockContainer{
             				
             				if (items != null && makerID == 0)
             				{
-            					int itemID = TeaRecipe.getID(items);
+            					ITeaRecipe recipe = RecipeRegisterManager.teaRecipe.getRecipe(items);
             					tile.reduceItemStack();
             					tile.onInventoryChanged();
             					
-            					if (itemID > 0)
+            					if (recipe != null)
             					{
-            						target.setID((byte)(itemID));
+            						target.setItemStack(new ItemStack(items.getItem(), 1, items.getItemDamage()));
         							target.setRemainByte((byte)(3 + par1World.rand.nextInt(3)));
+        							target.onInventoryChanged();
         							par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, nextMeta, 3);
         							par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
         							
