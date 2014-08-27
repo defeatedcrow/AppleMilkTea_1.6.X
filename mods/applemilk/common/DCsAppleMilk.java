@@ -55,7 +55,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @Mod(
 		modid = "DCsAppleMilk",
 		name = "Apple&Milk&Tea!",
-		version = "1.6.2_1.16a",
+		version = "1.6.2_1.17a",
 		dependencies = "required-after:Forge@[9.10,);required-after:FML@[6.2,);after:IC2;after:Thaumcraft;after:BambooMod;after:pamharvestcraft;after:Forestry;after:ExtraTrees"
 		)
 @NetworkMod(
@@ -76,6 +76,7 @@ public class DCsAppleMilk{
 	
 	//クリエイティブタブの追加
 	public static final CreativeTabs applemilk = new CreativeTabDCAM("applemilk");
+	public static final CreativeTabs applemilkfood = new CreativeTabDCFoods("applemilkfood");
 	
 	//ブロックのインスタンス
 	public static Block  woodBox;
@@ -186,6 +187,7 @@ public class DCsAppleMilk{
 	public static boolean SuccessLoadDart = false;
 	public static boolean SuccessLoadTE3 = false;
 	public static boolean SuccessLoadWa = false;
+	public static boolean SuccessLoadFFM = false;
 	
 	//内部処理用
 	public static boolean fanc_78842dcs = false;
@@ -195,7 +197,7 @@ public class DCsAppleMilk{
 	public static boolean inClient = false;
 	public static boolean inServer = false;
 	public static boolean thirdParty = false;
-	public static boolean debugMode = false;
+	public static boolean debugMode = true;
 	public static boolean succeedAddPotion = false;
 	
 	//新ツール属性の追加
@@ -307,7 +309,7 @@ public class DCsAppleMilk{
 		//Registering Entity
 		//Entityの登録
 		if (DCsConfig.entityIdMelon == 0) DCsConfig.entityIdMelon = EntityRegistry.findGlobalUniqueEntityId();
-		EntityRegistry.registerGlobalEntityID(EntityMelonBomb.class, "compressedMelon", DCsConfig.entityIdMelon);
+//		EntityRegistry.registerGlobalEntityID(EntityMelonBomb.class, "compressedMelon", DCsConfig.entityIdMelon);
 		EntityRegistry.registerModEntity(EntityMelonBomb.class, "compressedMelon", DCsConfig.entityIdMelon, this, 250, 5, true);
 		
 		LanguageRegistry.instance().addStringLocalization("entity.compressedMelon.name", "Compressed Melon");
@@ -439,6 +441,21 @@ public class DCsAppleMilk{
 	        }
 	        catch (Exception e) {
 	        	AMTLogger.failLoadingModInfo("IC2");
+	          e.printStackTrace(System.err);
+	        }
+	    }
+	    
+	    if (Loader.isModLoaded("Forestry"))
+	    {
+	    	AMTLogger.loadingModInfo("Forestry");
+	    	try
+	        {
+	          this.SuccessLoadFFM = true;
+	          (new LoadFFMHandler()).load();
+	          AMTLogger.loadedModInfo("Forestry");
+	        }
+	        catch (Exception e) {
+	        	AMTLogger.failLoadingModInfo("Forestry");
 	          e.printStackTrace(System.err);
 	        }
 	    }

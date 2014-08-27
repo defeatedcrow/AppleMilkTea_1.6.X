@@ -83,71 +83,6 @@ public class BlockAutoMaker extends BlockContainer{
         }
     }
 	
-	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
-	{
-		super.onNeighborBlockChange(par1World, par2, par3, par4, par5);
-		this.updateMetadata(par1World, par2, par3, par4);
-	}
-	
-	private void updateMetadata(World par1World, int par2, int par3, int par4)
-    {
-        int l = par1World.getBlockMetadata(par2, par3, par4);
-		this.RSactive = par1World.isBlockIndirectlyGettingPowered(par2, par3, par4);
-		
-		if (l > 0)
-		{
-			TileAutoMaker tile = this.getAutoMaker(par1World, par2, par3, par4);
-			TileMakerNext target = (TileMakerNext) par1World.getBlockTileEntity(par2, par3 - 1, par4);
-			
-			if (tile != null && target != null)
-			{
-				ItemStack items = tile.getItemstack();
-				int mode = tile.getMode();
-				ItemStack hasStack = target.getItemStack();
-				int underMeta = par1World.getBlockMetadata(par2, par3 - 1, par4);
-				int nextMeta = underMeta + 1;
-				if (underMeta > 3) nextMeta = 0;
-				
-				if (items != null && hasStack == null)
-				{
-					ITeaRecipe recipe = RecipeRegisterManager.teaRecipe.getRecipe(items);
-					if (recipe != null)
-					{
-						if (mode == 1)
-						{
-							if (tile.reduceItemStack())
-							{
-								target.setItemStack(new ItemStack(items.getItem(), 1, items.getItemDamage()));
-								target.setRemainByte((byte)(3 + par1World.rand.nextInt(3)));
-								target.onInventoryChanged();;
-								par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
-								par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, nextMeta, 3);
-								par1World.playSoundEffect(par2, par3, par4, "random.pop", 0.4F, 1.8F);
-							}
-						}
-						else
-						{
-							
-						}
-						
-						par1World.notifyBlocksOfNeighborChange(par2, par3, par4, this.blockID);
-						par1World.notifyBlocksOfNeighborChange(par2, par3 -1, par4, target.getBlockType().blockID);
-					}
-					
-				}
-				else
-				{
-					par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
-				}
-			}
-		}
-		else
-		{
-			par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
-		}
-		
-    }
-	
 	public TileEntity createNewTileEntity(World par1World)
     {
         return new TileAutoMaker();
@@ -203,9 +138,7 @@ public class BlockAutoMaker extends BlockContainer{
             			{
             				ItemStack items = tile.getItemstack();
             				int makerID = target.getID();
-            				int underMeta = par1World.getBlockMetadata(par2, par3 - 1, par4);
-            				int nextMeta = underMeta + 1;
-            				if (underMeta > 3) nextMeta = 0;
+            				int under = par1World.getBlockId(par2, par3 - 1, par4);
             				
             				if (items != null && makerID == 0)
             				{
@@ -218,8 +151,8 @@ public class BlockAutoMaker extends BlockContainer{
             						target.setItemStack(new ItemStack(items.getItem(), 1, items.getItemDamage()));
         							target.setRemainByte((byte)(3 + par1World.rand.nextInt(3)));
         							target.onInventoryChanged();
-        							par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, nextMeta, 3);
-        							par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 3);
+        							par1World.markBlockForUpdate(par2, par3 -1, par4);
+        							par1World.notifyBlockChange(par2, par3 -1, par4, under);
         							
         							par1World.playSoundEffect(par2, par3, par4, "random.pop", 0.4F, 1.8F);
             					}

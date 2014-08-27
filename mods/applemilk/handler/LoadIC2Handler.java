@@ -1,5 +1,6 @@
 package mods.applemilk.handler;
 
+import mods.applemilk.api.recipe.RecipeRegisterManager;
 import mods.applemilk.common.AMTLogger;
 import mods.applemilk.common.DCsAppleMilk;
 import mods.applemilk.common.DCsConfig;
@@ -33,6 +34,15 @@ public class LoadIC2Handler {
         this.IC2MugCoffeeMilk = new ItemStack(Items.getItem("mugCoffee").getItem(), 1, 2);
         this.IC2dropRubber = new ItemStack(Items.getItem("rubber").getItem(), 1, Items.getItem("rubber").getItemDamage());
         this.IC2Furnace = new ItemStack(Items.getItem("ironFurnace").getItem(), 1, Items.getItem("ironFurnace").getItemDamage());
+        
+        //コーヒー粉をTeaMakerに登録
+        if (IC2Coffeepowder != null)
+        {
+        	RecipeRegisterManager.teaRecipe.registerCanMilk(IC2Coffeepowder, new ItemStack(DCsAppleMilk.teacupBlock, 1, 12),
+    	    		new ItemStack(DCsAppleMilk.teacupBlock, 1, 13),
+    	    		new String("defeatedcrow:textures/blocks/contents_cocoa.png"),
+    	    		new String("defeatedcrow:textures/blocks/contents_cocoa_milk.png"));
+        }
         
         //インスタントティー用の水入り容器登録
         if (this.IC2WaterCell != null)

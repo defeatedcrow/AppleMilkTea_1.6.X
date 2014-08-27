@@ -112,15 +112,6 @@ public class DCsHurtEvent {
 				event.setCanceled(true);
 			}
 			
-			if (reduceAmp > 0)//Amplifierを減らす処理を、while処理の中から外に出した
-			{
-				PotionEffect potion = target.getActivePotionEffect(Potion.potionTypes[reduceAmp]);
-				target.removePotionEffect(reduceAmp);
-				if (potion != null && potion.getAmplifier() > 0){
-					target.addPotionEffect(new PotionEffect(reduceAmp, potion.getDuration(), (potion.getAmplifier() - 1)));
-				}
-			}
-			
 		}
 	}
 

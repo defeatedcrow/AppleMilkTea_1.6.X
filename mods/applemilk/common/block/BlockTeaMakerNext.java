@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import mods.applemilk.common.*;
 import mods.applemilk.common.tile.TileMakerNext;
 import mods.applemilk.handler.LoadIC2Handler;
+import mods.applemilk.handler.LoadModHandler;
 import mods.applemilk.api.recipe.*;
 
 public class BlockTeaMakerNext extends BlockContainer{
@@ -268,17 +269,6 @@ public class BlockTeaMakerNext extends BlockContainer{
                 }
     			return true;
     		}
-        	else if(DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Coffeepowder != null && itemstack.getItem() == LoadIC2Handler.IC2Coffeepowder.getItem())
-        	{
-        		tile.setItemStack(new ItemStack(DCsAppleMilk.gratedApple, 1, 3));//かわりに当MODのコーヒー粉が突っ込まれる
-    			tile.setRemainByte((byte)(3 + par1World.rand.nextInt(3))); //3～5杯
-    			par1World.playSoundAtEntity(par5EntityPlayer, "random.pop", 0.4F, 1.8F);
-    			if (!par5EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
-                {
-                    par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
-                }
-    			return true;
-        	}
         	else
         	{
         		return false;
@@ -292,10 +282,10 @@ public class BlockTeaMakerNext extends BlockContainer{
 	
 	private void getWater(ItemStack itemstack, EntityPlayer par2EntityPlayer)
 	{
-		int ID = itemstack.itemID;
+		Item ID = itemstack.getItem();
     	int IDm = itemstack.getItemDamage();
     	
-	    if (ID == Item.bucketEmpty.itemID)
+	    if (ID == Item.bucketEmpty)
 		{
 			if (!par2EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.bucketWater,1)))
     		{
@@ -307,7 +297,7 @@ public class BlockTeaMakerNext extends BlockContainer{
                 par2EntityPlayer.inventory.setInventorySlotContents(par2EntityPlayer.inventory.currentItem, (ItemStack)null);
             }
 		}
-		else if (ID == Item.glassBottle.itemID)
+		else if (ID == Item.glassBottle)
 		{
 			if (!par2EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
             {
@@ -319,7 +309,7 @@ public class BlockTeaMakerNext extends BlockContainer{
     			par2EntityPlayer.entityDropItem(new ItemStack(Item.potion, 1, 0), 1);
     		}
 		}
-		else if (DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Cell != null && itemstack.getItem() == LoadIC2Handler.IC2Cell.getItem())
+		else if (DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Cell != null && ID == LoadIC2Handler.IC2Cell.getItem())
 		{
 			if (!par2EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
             {
@@ -331,14 +321,51 @@ public class BlockTeaMakerNext extends BlockContainer{
     			par2EntityPlayer.entityDropItem(LoadIC2Handler.IC2WaterCell.copy(), 1);
     		}
 		}
+		else if (DCsAppleMilk.SuccessLoadFFM)
+		{
+			ItemStack ret = null;
+			if (LoadModHandler.matchItem("emptyCapsule", itemstack) && LoadModHandler.getItem("waterCapsule") != null)
+			{
+				ret = LoadModHandler.getItem("waterCapsule").copy();
+			}
+			
+			if (LoadModHandler.matchItem("emptyCan", itemstack) && LoadModHandler.getItem("waterCan") != null)
+			{
+				ret = LoadModHandler.getItem("waterCan").copy();
+			}
+			
+			if (LoadModHandler.matchItem("emptyRefractory", itemstack) && LoadModHandler.getItem("waterRefractory") != null)
+			{
+				ret = LoadModHandler.getItem("waterRefractory").copy();
+			}
+			
+			if (ret != null)
+			{
+				if (!par2EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
+	            {
+	                par2EntityPlayer.inventory.setInventorySlotContents(par2EntityPlayer.inventory.currentItem, (ItemStack)null);
+	            }
+				
+				if (!par2EntityPlayer.inventory.addItemStackToInventory(ret));
+	    		{
+	    			par2EntityPlayer.entityDropItem(ret, 1);
+	    		}
+			}
+		}
 	}
 	
 	private boolean isEmptyCell(ItemStack itemstack)
 	{
 		boolean flag;
-		if (itemstack.itemID == Item.bucketEmpty.itemID) flag = true;
-		else if (itemstack.itemID == Item.glassBottle.itemID) flag = true;
-		else if (DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Cell != null && itemstack.itemID == LoadIC2Handler.IC2Cell.itemID) flag = true;
+		if (itemstack.getItem() == Item.bucketEmpty) flag = true;
+		else if (itemstack.getItem() == Item.glassBottle) flag = true;
+		else if (DCsAppleMilk.SuccessLoadIC2 && LoadIC2Handler.IC2Cell != null && itemstack.getItem() == LoadIC2Handler.IC2Cell.getItem()) flag = true;
+		else if (DCsAppleMilk.SuccessLoadFFM)
+		{
+			flag = LoadModHandler.matchItem("emptyCapsule", itemstack)
+					|| LoadModHandler.matchItem("emptyCan", itemstack)
+					|| LoadModHandler.matchItem("emptyRefractory", itemstack);
+		}
 		else flag = false;
 		
 		return flag;

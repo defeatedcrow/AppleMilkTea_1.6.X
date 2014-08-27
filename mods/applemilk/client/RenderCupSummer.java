@@ -20,6 +20,7 @@ public class RenderCupSummer implements ISimpleBlockRenderingHandler{
 	private Icon boxIcon;
 	private Icon contentsIcon;
 	private Icon waterIcon;
+	private Icon contents2;
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID,
@@ -30,6 +31,7 @@ public class RenderCupSummer implements ISimpleBlockRenderingHandler{
 		this.boxIcon = DCsAppleMilk.emptyCup.getBlockTextureFromSide(1);
 		this.contentsIcon = DCsAppleMilk.teacupBlock.getIcon(0, meta);
 		this.waterIcon = Block.waterStill.getBlockTextureFromSide(1);
+		this.contents2 = DCsAppleMilk.teaCup2.getIcon(0, meta);
 		
 		if (modelID == this.getRenderId())
 		{
@@ -42,13 +44,15 @@ public class RenderCupSummer implements ISimpleBlockRenderingHandler{
 			renderInvCuboid(renderer, block,  10.0F/16.0F, 2.0F/16.0F, 6.0F/16.0F, 11.0F/16.0F, 9.0F/16.0F, 10.0F/16.0F,  this.boxIcon);
 			
 			//contents
-			if (meta == 0 || block.blockID == DCsAppleMilk.emptyCup.blockID)
+			if (block == DCsAppleMilk.emptyCup)
 			{
 				renderInvCuboid(renderer, block,  6.0F/16.0F, 2.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 7.0F/16.0F, 10.0F/16.0F,  this.waterIcon);
 			}
-			else
-			{
+			else if(block == DCsAppleMilk.teacupBlock) {
 				renderInvCuboid(renderer, block,  6.0F/16.0F, 2.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 7.0F/16.0F, 10.0F/16.0F,  this.contentsIcon);
+			}
+			else {
+				renderInvCuboid(renderer, block,  6.0F/16.0F, 2.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 7.0F/16.0F, 10.0F/16.0F,  this.contents2);
 			}
 			
 		}
@@ -63,6 +67,7 @@ public class RenderCupSummer implements ISimpleBlockRenderingHandler{
 		this.boxIcon = DCsAppleMilk.emptyCup.getBlockTextureFromSide(1);
 		this.contentsIcon = DCsAppleMilk.teacupBlock.getIcon(0, meta);
 		this.waterIcon = Block.waterStill.getBlockTextureFromSide(1);
+		this.contents2 = DCsAppleMilk.teaCup2.getIcon(0, meta);
 		
 		if (modelId == this.getRenderId())
 		{
@@ -94,16 +99,23 @@ public class RenderCupSummer implements ISimpleBlockRenderingHandler{
 			}
 			
 			
-			if (meta == 0 || block.blockID == DCsAppleMilk.emptyCup.blockID)
+			if (meta == 0 || block == DCsAppleMilk.emptyCup)
 			{
 				renderer.setOverrideBlockTexture(this.waterIcon);
 				block.setBlockBounds(6.0F/16.0F, 1.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F);
 				renderer.setRenderBoundsFromBlock(block);
 				renderer.renderStandardBlock(block, x, y, z);
 			}
-			else
+			else if (block == DCsAppleMilk.teacupBlock)
 			{
 				renderer.setOverrideBlockTexture(this.contentsIcon);
+				block.setBlockBounds(6.0F/16.0F, 1.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F);
+				renderer.setRenderBoundsFromBlock(block);
+				renderer.renderStandardBlock(block, x, y, z);
+			}
+			else
+			{
+				renderer.setOverrideBlockTexture(this.contents2);
 				block.setBlockBounds(6.0F/16.0F, 1.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F, 6.0F/16.0F, 10.0F/16.0F);
 				renderer.setRenderBoundsFromBlock(block);
 				renderer.renderStandardBlock(block, x, y, z);

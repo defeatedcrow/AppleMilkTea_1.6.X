@@ -141,13 +141,12 @@ public class TileAutoMaker extends TileEntity implements IInventory
     			if (this.isAutoMode())
     			{
     				boolean flag = false;
-    				ITeaRecipe recipe = this.isTeaMaterial(this.getItemstack());
+    				boolean i = this.isTeaMaterial(this.getItemstack());
+    				TileMakerNext tile = (TileMakerNext)this.worldObj.getBlockTileEntity(xCoord, (yCoord - 1), zCoord);
         			
-        			if (recipe != null && this.updateBlock())
+        			if (tile != null && i && this.updateBlock())
         			{
         				flag = true;
-            			this.onInventoryChanged();
-        				this.tileNext.onInventoryChanged();
         				this.setCoolTime(8);
         			}
     				
@@ -172,15 +171,35 @@ public class TileAutoMaker extends TileEntity implements IInventory
     
     private boolean updateBlock() {
     	
-		boolean flag = false;
-		int under = this.worldObj.getBlockId(xCoord, yCoord -1, zCoord);
-    	if (this.worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3))
-    	{
-    		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID);
-        	this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, under);
-        	flag = true;
-    	}
-    	
+    	boolean flag = false;
+		TileMakerNext target = (TileMakerNext) this.worldObj.getBlockTileEntity(xCoord, yCoord - 1, zCoord);
+		
+		if (target != null)
+		{
+			ItemStack items = this.getItemstack();
+			ItemStack markerItem = target.getItemStack();
+			int under = this.worldObj.getBlockId(xCoord, yCoord - 1, zCoord);
+			
+			if (items != null && markerItem == null)
+			{
+				ITeaRecipe recipe = RecipeRegisterManager.teaRecipe.getRecipe(items);
+				
+				if (recipe != null)
+				{
+					this.reduceItemStack();
+					this.onInventoryChanged();
+					
+					target.setItemStack(new ItemStack(items.getItem(), 1, items.getItemDamage()));
+					target.setRemainByte((byte)(3));
+					target.onInventoryChanged();
+					this.worldObj.markBlockForUpdate(xCoord, yCoord -1, zCoord);
+					this.worldObj.notifyBlockChange(xCoord, yCoord -1, zCoord, under);
+					
+					this.worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.pop", 0.4F, 1.8F);
+				}
+				
+			}
+		}
     	return flag;
     	
 	}
@@ -238,10 +257,10 @@ public class TileAutoMaker extends TileEntity implements IInventory
     	return false;
     }
     
-    private ITeaRecipe isTeaMaterial(ItemStack input)
+    private boolean isTeaMaterial(ItemStack input)
     {
     	ITeaRecipe recipe = RecipeRegisterManager.teaRecipe.getRecipe(input);
-    	return recipe;
+    	return recipe != null;
     }
 
 	private int getMetadata()
@@ -345,7 +364,7 @@ public class TileAutoMaker extends TileEntity implements IInventory
 	public boolean isItemValidForSlot(int par1, ItemStack par2ItemStack) {
 		
 		boolean flag = false;
-		if (par2ItemStack != null && this.isTeaMaterial(par2ItemStack) != null)
+		if (par2ItemStack != null && this.isTeaMaterial(par2ItemStack))
 		{
 			flag = true;
 		}

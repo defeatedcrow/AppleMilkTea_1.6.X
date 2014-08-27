@@ -27,14 +27,18 @@ public class PotionReflex extends PotionReflexBase{
 	{
 		boolean succeed = false;
 		
-		if (amount < 5.0F){
-			amount = 5.0F;
+		if (amount < 1.0F){
+			amount = 1.0F;
 		}
 		
 		int amp = effect.getAmplifier();
 		
 		if (effect.getPotionID() == DCsConfig.potionIDReflex)//反射
 		{
+			if (amount < 5.0F){
+				amount = 5.0F;
+			}
+			
 			/* 攻撃元のエンティティがいない場合は何もしない*/
 			if (source instanceof EntityDamageSource)
 			{
@@ -46,14 +50,18 @@ public class PotionReflex extends PotionReflexBase{
 					if (attacker instanceof EntityLivingBase)//生き物の時はダメージやノックバック処理を行う
 					{
 						EntityLivingBase livingAttacker = (EntityLivingBase) attacker;
-						//ノックバック
-						float range = livingAttacker.rotationYaw;
-						livingAttacker.addVelocity(livingAttacker.motionX * (-1.0D) / (double)range, 0.1D, livingAttacker.motionZ * (-1.0D) / (double)range);
-						//magic属性のダメージ
-						livingAttacker.attackEntityFrom(DamageSource.magic, amount*amp);
-						//プレイヤーには鈴の音が聞こえる（暫定）
-						target.worldObj.playSoundAtEntity(target, "defeatedcrow:suzu", 1.0F, 1.2F);
-						succeed = true;
+						
+						if (attacker != target)
+						{
+							//ノックバック
+							float range = livingAttacker.rotationYaw;
+							livingAttacker.addVelocity(livingAttacker.motionX * (-1.0D) / (double)range, 0.1D, livingAttacker.motionZ * (-1.0D) / (double)range);
+							//magic属性のダメージ
+							livingAttacker.attackEntityFrom(DamageSource.magic, amount*amp);
+							//プレイヤーには鈴の音が聞こえる（暫定）
+							target.worldObj.playSoundAtEntity(target, "defeatedcrow:suzu", 1.0F, 1.2F);
+							succeed = true;
+						}
 					}
 					else if (amp > 0)
 					{
@@ -62,32 +70,6 @@ public class PotionReflex extends PotionReflexBase{
 						succeed = true;
 					}
 				}
-				else if (amp > 1)//レベルがII以上のときは、攻撃対象が居ない場合でも別のターゲットを取る
-				{
-					EntityLivingBase around;
-					if (target instanceof EntityPlayer)
-					{
-						around = ((EntityPlayer)target).func_94060_bK();
-					}
-					else
-					{
-						around = target.func_94060_bK();
-					}
-					
-					//プレイヤーや飼いならしモブ以外のてきとうなモブに八つ当りする
-					if (around != null && !(around instanceof EntityPlayer) && !(around instanceof EntityTameable))
-					{
-						//ノックバック
-						float range = around.rotationYaw;
-						around.addVelocity(around.motionX * (-1.0D) / (double)range, 0.1D, around.motionZ * (-1.0D) / (double)range);
-						//magic属性のダメージ
-						around.attackEntityFrom(DamageSource.magic, amount*amp);
-						//プレイヤーには鈴の音が聞こえる（暫定）
-						target.worldObj.playSoundAtEntity(target, "defeatedcrow:suzu", 1.0F, 1.2F);
-						succeed = true;
-					}
-				}
-				
 			}
 		}
 		
@@ -99,11 +81,11 @@ public class PotionReflex extends PotionReflexBase{
 				int get = Math.round(Math.abs(amount));
 				boolean flag = false;
 				
-				if (amp > 2)
+				if (amp > 1)
 				{
 					flag = true;
 				}
-				else if (amp > 1 && (source.isExplosion() || source.isFireDamage()))
+				else if (amp > 0 && (source.isExplosion() || source.isFireDamage()))
 				{
 					flag = true;
 				}
@@ -126,11 +108,11 @@ public class PotionReflex extends PotionReflexBase{
 				EntityPlayer player = (EntityPlayer) target;
 				boolean flag = false;
 				
-				if (amp > 2)
+				if (amp > 1)
 				{
 					flag = true;
 				}
-				else if (amp > 1 && (source.isExplosion() || source.isFireDamage()))
+				else if (amp > 0 && (source.isExplosion() || source.isFireDamage()))
 				{
 					flag = true;
 				}
@@ -140,7 +122,7 @@ public class PotionReflex extends PotionReflexBase{
 				}
 				
 				if (flag) {
-					player.heal(amount*2);
+					player.heal(amount*amp);
 					succeed = true;
 				}
 			}
